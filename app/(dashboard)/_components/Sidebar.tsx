@@ -1,7 +1,9 @@
 import React from 'react'
 import Logo from './Logo'
-import { UserButton } from '@clerk/nextjs'
+
 import SidebarRoutes from './SidebarRoutes'
+import UserAvatar from './UserAvatar'
+
 
 const Sidebar = () => {
   return (
@@ -13,7 +15,7 @@ const Sidebar = () => {
       </div>
 
       <div>
-        <UserButton />
+        <UserAvatar />
       </div>
       
     </div>
