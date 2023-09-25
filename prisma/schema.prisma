@@ -1,0 +1,68 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Photo {
+  id           String @id @default(uuid())
+  title        String 
+  description  String? @db.Text
+  imageUrl     String @db.Text
+  isFavorited  Boolean @default(false)
+
+  timestamp    DateTime?
+  latitude     Decimal?
+  longitude    Decimal?
+  iso          String?
+  shutterSpeed String?
+  focalLength  String?
+  cameraBrand  String?
+  cameraModel  String?
+  cameraLens   String?
+
+  userId       String
+  user         User @relation(fields: [userId], references: [id])
+
+  categoryId   String?
+  category     Category? @relation(fields: [categoryId], references: [id])
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([categoryId])
+  @@index([userId])
+}
+
+model Category {
+  id     String @id @default(uuid())
+  name   String @unique
+
+  photos Photo[]
+}
+
+enum UserRole {
+  ADMIN
+  GUEST
+}
+
+model User {
+  id        String @id @default(uuid())
+  role      UserRole @default(GUEST)
+
+  userId    String @unique
+  email     String @unique
+  name      String?
+  imageUrl  String @db.Text
+
+  photos    Photo[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

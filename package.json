@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^4.24.1",
+    "@prisma/client": "^5.3.1",
     "@radix-ui/react-avatar": "^1.0.3",
     "@radix-ui/react-slot": "^1.0.2",
     "@types/node": "20.6.5",
@@ -29,5 +30,8 @@
     "tailwindcss": "3.3.3",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "5.2.2"
+  },
+  "devDependencies": {
+    "prisma": "^5.3.1"
   }
 }
