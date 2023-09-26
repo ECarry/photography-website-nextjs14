@@ -19,8 +19,10 @@ import {
   FormLabel,
   FormMessage
 } from '@/components/ui/form'
-import { Button } from '../ui/button'
-import { Input } from '../ui/input'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import ImageUpload from '@/components/ImageUpload'
+import getImageExifInfo from '@/lib/getImageExifInfo'
 
 const formSchema = z.object({
   title: z.string().min(1, {
@@ -46,6 +48,11 @@ const CreatePhotoModal = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     console.log(values);
+
+    const exifData = await getImageExifInfo(values.imageUrl)
+
+    console.log(exifData);
+    
     
   }
 
@@ -69,9 +76,11 @@ const CreatePhotoModal = () => {
               name="imageUrl"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Image</FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <ImageUpload
+                      value={field.value}
+                      onChange={field.onChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
