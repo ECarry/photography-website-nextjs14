@@ -1,5 +1,6 @@
 import { initialUser } from "@/lib/initial-user"
 import PageHeader from "../_components/PageHeader";
+import { useModal } from "@/hooks/use-modal-store";
 
 const page = async () => {
   const user = await initialUser()
@@ -11,7 +12,8 @@ const page = async () => {
       <div className="">
         <PageHeader
           title="Rent an House in Dubai"
-          onClick={() => {}}
+          label='Add Photo'
+          icon='Plus'
         />
       </div>
       

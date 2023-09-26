@@ -1,23 +1,33 @@
+'use client'
+
 import { Button } from "@/components/ui/button"
+import { useModal } from "@/hooks/use-modal-store";
 import { Plus } from "lucide-react";
 
 interface PageHeaderProps {
   title: string;
-  onClick: () => void;
+  label: string;
+  icon?: string;
 }
 
 const PageHeader = ({
   title,
-  onClick
+  label,
+  icon
 }: PageHeaderProps) => {
+  const { onOpen } = useModal()
+
   return (
     <div className="flex items-center justify-between">
       <h1 className="text-4xl font-semibold">
         {title}
       </h1>
-      <Button>
+      <Button
+        onClick={() => onOpen('createPhoto')}
+        variant='primary'
+      >
         <Plus size={16} className="mr-2" />
-        Add Photo
+        {label}
       </Button>
     </div>
   )
