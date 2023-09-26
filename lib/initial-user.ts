@@ -8,7 +8,7 @@ export const initialUser = async () => {
     return redirectToSignIn()
   }
 
-  const findUser = await db.user.findFirst({
+  const findUser = await db.user.findUnique({
     where: {
       userId: user.id
     }
