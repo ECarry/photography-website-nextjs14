@@ -30,7 +30,9 @@ const getImageExifInfo = async (imageUrl: string) => {
                 values: exifData.GPSLatitude,
               };
 
-              return parseGPSCoordinate(lat)
+              const data = parseGPSCoordinate(lat)
+
+              return String(data)
             }
 
             const longitude = () => {
@@ -41,16 +43,24 @@ const getImageExifInfo = async (imageUrl: string) => {
                 values: exifData.GPSLongitude,
               };
 
-              return parseGPSCoordinate(lon)
+              const data = parseGPSCoordinate(lon)
+
+              return String(data)
             }
 
             const gpsAltitude = () => {
               if (!exifData.GPSAltitude) return null;
 
-              return exifData.GPSAltitude.numerator / exifData.GPSAltitude.denominator
+              const data = exifData.GPSAltitude.numerator / exifData.GPSAltitude.denominator
+
+              return String(data)
             }
 
-            const iso = exifData.ISOSpeedRatings || null;
+            const iso = () => {
+              if (!exifData.ISOSpeedRatings) return null;
+
+              return String(exifData.ISOSpeedRatings)
+            }
             
             const shutterSpeed = () => {
               if (!exifData.ExposureTime) return null;
@@ -60,14 +70,19 @@ const getImageExifInfo = async (imageUrl: string) => {
                       : exifData.ExposureTime.numerator+ '/' + exifData.ExposureTime.denominator
             }
           
-            const focalLength = exifData.FocalLengthIn35mmFilm || null;
+            const focalLength = () => {
+              if (!exifData.FocalLengthIn35mmFilm) return null;
 
+              return String(exifData.FocalLengthIn35mmFilm)
+            }
             const fNumber = () => {
               if (!exifData.FNumber) return null;
 
-              return exifData.FNumber.denominator === 1 
+              const data = exifData.FNumber.denominator === 1 
                       ? exifData.FNumber.numerator 
                       : exifData.FNumber.numerator/exifData.FNumber.denominator
+
+              return String(data)
             }
 
             const exif = {
@@ -80,8 +95,8 @@ const getImageExifInfo = async (imageUrl: string) => {
               'gpsAltitude': gpsAltitude(),
               'shutterSpeed': shutterSpeed(),
               'fNumber': fNumber(),
-              'iso': iso,
-              'focalLength': focalLength,
+              'iso': iso(),
+              'focalLength': focalLength(),
             }
             
             resolve(exif); // 解析的 EXIF 数据通过 resolve 返回

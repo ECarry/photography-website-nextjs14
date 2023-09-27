@@ -48,6 +48,8 @@ const CreatePhotoModal = () => {
     }
   })
 
+  const isLoading = form.formState.isSubmitting
+
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const exif = await getImageExifInfo(values.imageUrl).catch((error) => {
@@ -121,7 +123,7 @@ const CreatePhotoModal = () => {
             />
 
             <DialogFooter>
-              <Button type="submit" variant='primary'>Create</Button>
+              <Button disabled={isLoading} type="submit" variant='primary'>Create</Button>
             </DialogFooter>
           </form>
     </Form>
