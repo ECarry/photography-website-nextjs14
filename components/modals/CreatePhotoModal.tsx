@@ -2,6 +2,7 @@ import { useModal } from '@/hooks/use-modal-store'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
+import { useRouter } from 'next/navigation'
 
 import { 
   Dialog, 
@@ -23,7 +24,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import ImageUpload from '@/components/ImageUpload'
 import getImageExifInfo from '@/lib/getImageExifInfo'
-import { useRouter } from 'next/navigation'
+
 
 const formSchema = z.object({
   title: z.string().min(1, {
@@ -73,7 +74,6 @@ const CreatePhotoModal = () => {
       onClose()
     } catch (error) {
       console.log(error);
-      
     }
   }
 
