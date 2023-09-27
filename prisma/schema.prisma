@@ -17,15 +17,18 @@ model Photo {
   imageUrl     String @db.Text
   isFavorited  Boolean @default(false)
 
-  timestamp    DateTime?
-  latitude     Decimal?
-  longitude    Decimal?
-  iso          String?
-  shutterSpeed String?
-  focalLength  String?
-  cameraBrand  String?
+  cameraMake   String?
   cameraModel  String?
   cameraLens   String?
+  timestamp    String?
+  latitude     String?
+  longitude    String?
+  gpsAltitude  String?
+  shutterSpeed String?
+  iso          String?
+  fNumber      String?
+  focalLength  String?
+  
 
   userId       String
   user         User @relation(fields: [userId], references: [id])

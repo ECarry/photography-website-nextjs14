@@ -23,6 +23,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import ImageUpload from '@/components/ImageUpload'
 import getImageExifInfo from '@/lib/getImageExifInfo'
+import { useRouter } from 'next/navigation'
 
 const formSchema = z.object({
   title: z.string().min(1, {
@@ -35,6 +36,7 @@ const formSchema = z.object({
 
 const CreatePhotoModal = () => {
   const { onClose, isOpen, type } = useModal()
+  const router = useRouter()
 
   const isModalOpen = isOpen && type === 'createPhoto'
 
@@ -47,13 +49,30 @@ const CreatePhotoModal = () => {
   })
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    try {
+      const exif = await getImageExifInfo(values.imageUrl).catch((error) => {
+        console.log(error);
+        return {};
+      }) as Object
 
-    const exifData = await getImageExifInfo(values.imageUrl)
+      const data = {
+        ...values,
+        ...exif,
+      }
+      
+      await fetch('/api/photos', {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      })
 
-    console.log(exifData);
-    
-    
+      form.reset()
+      router.refresh()
+      onClose()
+    } catch (error) {
+      console.log(error);
+      
+    }
   }
 
   return (

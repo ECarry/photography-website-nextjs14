@@ -5,8 +5,6 @@ import { useModal } from "@/hooks/use-modal-store";
 const page = async () => {
   const user = await initialUser()
 
-  console.log(user);
-  
   return (
     <div>
       <div className="">
