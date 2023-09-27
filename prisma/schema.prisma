@@ -28,7 +28,6 @@ model Photo {
   iso          String?
   fNumber      String?
   focalLength  String?
-  
 
   userId       String
   user         User @relation(fields: [userId], references: [id])

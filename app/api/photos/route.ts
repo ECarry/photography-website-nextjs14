@@ -25,3 +25,22 @@ export async function POST(req: Request) {
     return new NextResponse('Internal Error', { status: 500 })
   }
 }
+
+export async function GET(req: Request) {
+  try {
+    const photos = await db.photo.findMany({
+      orderBy: {
+        createdAt: 'desc'
+      }
+    })
+
+    if (!photos) {
+      return new NextResponse('Photos not found', { status: 400 })
+    }
+
+    return NextResponse.json(photos)
+  } catch (error) {
+    console.log('[PHOTOS_GET]', error);
+    return new NextResponse('Internal Error', { status: 500 })
+  }
+}
