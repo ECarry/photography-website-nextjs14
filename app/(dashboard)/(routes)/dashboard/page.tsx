@@ -1,5 +1,5 @@
 import { initialUser } from "@/lib/initial-user"
-import PageHeader from "../_components/PageHeader";
+import PageHeader from "../../_components/PageHeader";
 import PhotoGallery from "@/components/PhotoGallery";
 
 const page = async () => {

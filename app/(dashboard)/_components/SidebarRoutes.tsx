@@ -3,7 +3,7 @@ import SidebarItem from "./SidebarItem"
 const guestRoutes = [
   {
     label: 'Dashboard',
-    href: '/'
+    href: '/dashboard'
   },
   {
     label: 'Gallery',
