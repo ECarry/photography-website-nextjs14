@@ -1,12 +1,16 @@
 import { ClerkProvider } from '@clerk/nextjs'
 import './globals.css'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { IBM_Plex_Mono } from 'next/font/google'
 
 import { MoadlProvider } from '@/components/providers/ModalProvider'
 import { Toaster } from "@/components/ui/toaster"
 
-const inter = Inter({ subsets: ['latin'] })
+const ibmPlexMono = IBM_Plex_Mono({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  variable: '--font-ibm-plex-mono',
+});
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -22,7 +26,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         
-        <body className={inter.className}>
+        <body className={ibmPlexMono.className}>
             <MoadlProvider />
             <Toaster />
             {children}

@@ -28,6 +28,8 @@ model Photo {
   iso          String?
   fNumber      String?
   focalLength  String?
+  focalLengthIn35mmFilm String?
+  aspectRatio  Float
 
   userId       String
   user         User @relation(fields: [userId], references: [id])
