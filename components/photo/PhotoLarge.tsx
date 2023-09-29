@@ -5,6 +5,7 @@ import { Photo } from '@prisma/client'
 
 import SiteGrid from '@/components/SiteGrid'
 import ImageLarge from '@/components/ImageLarge'
+import convertCoordinates from '@/lib/convertCoordinateToPoint'
 
 const PhotoLarge =
 ({
@@ -43,7 +44,7 @@ const PhotoLarge =
         />}
       contentSide={
         <div className={cn(
-          'sticky top-4 self-start',
+          'sticky top-4 self-start text-sm',
           'grid grid-cols-2 md:grid-cols-1',
           'gap-y-4',
           '-translate-y-1',
@@ -82,7 +83,7 @@ const PhotoLarge =
               <li>{photo.fNumber}</li>
               <li>{photo.iso}</li>
               <li>{photo.shutterSpeed}</li>
-              <li>{photo.latitude ?? '—'}</li>
+              <li>{photo.latitude && photo.longitude ? convertCoordinates(photo.latitude, photo.longitude) : '-'}</li>
             </ul>
             <div className={cn(
               'flex gap-y-4',

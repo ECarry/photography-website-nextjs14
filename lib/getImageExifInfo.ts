@@ -78,9 +78,9 @@ const readExifData = (blob: Blob): Promise<any> => {
 
         const data = exifData.FNumber.denominator === 1 
                 ? exifData.FNumber.numerator 
-                : exifData.FNumber.numerator/exifData.FNumber.denominator
+                : exifData.FNumber.numerator / exifData.FNumber.denominator
 
-        return `f/${data}`
+        return `ƒ/${data}`
       }
 
       const exif = {

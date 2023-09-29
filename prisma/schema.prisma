@@ -21,8 +21,8 @@ model Photo {
   cameraModel  String?
   cameraLens   String?
   timestamp    String?
-  latitude     String?
-  longitude    String?
+  latitude     Float?
+  longitude    Float?
   gpsAltitude  String?
   shutterSpeed String?
   iso          String?
