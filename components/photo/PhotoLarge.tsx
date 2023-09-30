@@ -2,6 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import { Photo } from '@prisma/client'
+import formatCustomDate from '@/lib/formatCustomDate'
 
 import SiteGrid from '@/components/SiteGrid'
 import ImageLarge from '@/components/ImageLarge'
@@ -94,7 +95,7 @@ const PhotoLarge =
                 'text-gray-500',
                 'dark:text-gray-400',
               )}>
-                {photo.timestamp}
+                {photo.timestamp ? formatCustomDate(photo.timestamp) : '-'}
               </div>
               <div className="-translate-x-0.5">
                 

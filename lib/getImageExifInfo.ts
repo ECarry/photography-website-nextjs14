@@ -11,7 +11,7 @@ const readExifData = (blob: Blob): Promise<any> => {
       const cameraMake = exifData.Make || null;
       const cameraModel = exifData.Model || null;
       const cameraLens = exifData.undefined || null;
-      const timestamp = exifData.DateTime || null;
+      const timestamp = exifData.DateTimeOriginal || null;
 
       const latitude = () => {
         if (!exifData.GPSLatitude) return null;
