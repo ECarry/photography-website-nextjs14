@@ -11,22 +11,16 @@ import convertCoordinates from '@/lib/convertCoordinateToPoint'
 const PhotoLarge =
 ({
   photo,
-  tag,
-  priority,
-  prefetchShare,
-  shouldScrollOnShare,
+  priority
 }: {
   photo: Photo
-  tag?: string
   priority?: boolean
-  prefetchShare?: boolean
-  shouldScrollOnShare?: boolean
 }) => {
 
   const renderMiniGrid = (children: JSX.Element) =>
     <div className={cn(
       'flex gap-y-4',
-      'flex-col sm:flex-row md:flex-col',
+      'sm:flex-row md:flex-col',
       '[&>*]:sm:flex-grow',
       'pr-2',
     )}>
@@ -100,9 +94,6 @@ const PhotoLarge =
                 'dark:text-gray-400',
               )}>
                 {photo.timestamp ? formatCustomDate(photo.timestamp) : '-'}
-              </div>
-              <div className="-translate-x-0.5">
-                
               </div>
             </div>
           </>)}
