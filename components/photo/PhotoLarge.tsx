@@ -85,6 +85,10 @@ const PhotoLarge =
               <li>{photo.iso}</li>
               <li>{photo.shutterSpeed}</li>
               <li>{photo.latitude && photo.longitude ? convertCoordinates(photo.latitude, photo.longitude) : '-'}</li>
+              { photo.gpsAltitude ? 
+              <li>{photo.gpsAltitude}</li>
+              : null
+              }
             </ul>
             <div className={cn(
               'flex gap-y-4',
