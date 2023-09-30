@@ -5,6 +5,7 @@ import { IBM_Plex_Mono } from 'next/font/google'
 
 import { MoadlProvider } from '@/components/providers/ModalProvider'
 import { Toaster } from "@/components/ui/toaster"
+import { ThemeProvider } from "@/components/providers/theme-provider"
 
 const ibmPlexMono = IBM_Plex_Mono({
   subsets: ['latin'],
@@ -25,13 +26,16 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        
         <body className={ibmPlexMono.className}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+          >
             <MoadlProvider />
             <Toaster />
             {children}
+            </ThemeProvider>
         </body>
-        
       </html>
     </ClerkProvider>
   )

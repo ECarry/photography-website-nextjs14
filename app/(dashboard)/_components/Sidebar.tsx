@@ -3,6 +3,7 @@ import Logo from './Logo'
 
 import SidebarRoutes from './SidebarRoutes'
 import UserAvatar from './UserAvatar'
+import { ModeToggle } from '@/components/mode-toggle'
 
 
 const Sidebar = () => {
@@ -14,7 +15,8 @@ const Sidebar = () => {
         <SidebarRoutes />
       </div>
 
-      <div>
+      <div className='flex items-center'>
+        <ModeToggle />
         <UserAvatar />
       </div>
       
