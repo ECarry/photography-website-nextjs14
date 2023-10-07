@@ -15,7 +15,7 @@ const page = async () => {
         />
       </div>
       
-      <div className="mt-6">
+      <div className="mt-6 pb-6">
         <PhotoGallery />
       </div>
     </div>
