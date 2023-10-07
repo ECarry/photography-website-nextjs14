@@ -5,9 +5,11 @@ import Image from "next/image"
 import { cn } from "@/lib/utils"
 import { Edit, Heart } from "lucide-react";
 import { Button } from "./ui/button";
+import DeleteAction from "@/app/(dashboard)/_components/DeleteAction";
 
 interface PhotoCardProps {
   title: string;
+  id: string;
   description: string | null;
   imageUrl: string;
   isFavorited: boolean;
@@ -15,6 +17,7 @@ interface PhotoCardProps {
 
 const PhotoCard = ({
   title,
+  id,
   description,
   imageUrl,
   isFavorited
@@ -51,7 +54,11 @@ const PhotoCard = ({
           <h1 className="text-xl md:text-2xl font-semibold">
             {title}
           </h1>
-          <Heart className="text-rose-500 cursor-pointer" />
+
+          <div className="flex gap-2 items-center">
+            <DeleteAction id={id} title={title} />
+            <Heart className="text-rose-500 cursor-pointer" />
+          </div>
         </div>
 
         <div>

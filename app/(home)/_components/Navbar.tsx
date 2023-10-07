@@ -3,7 +3,7 @@ import React from 'react'
 
 const Navbar = () => {
   return (
-    <div>
+    <div className='flex'>
       <Icon 
         name='github'
         animated='HOVER'

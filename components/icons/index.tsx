@@ -6,9 +6,11 @@ import Lottie from "lottie-react";
 import github from '@/components/icons/Github/github.json'
 import twitter from '@/components/icons/Twitter/twitter.json'
 import instagram from '@/components/icons/Instagram/instagram.json'
+import trash from '@/components/icons/Trash/trashV2.json'
+import edit from '@/components/icons/Edit/edit.json'
 
 interface IconProps {
-  name: 'github' | 'twitter' | 'instagram';
+  name: 'github' | 'twitter' | 'instagram' | 'trash' | 'edit';
   animated:  'CLICK' | 'HOVER';
   loop: boolean;
   size: number;
@@ -30,6 +32,16 @@ const iconMap = [
     url: 'https://instagram.com',
     animation: instagram,
   },
+  {
+    name: 'trash',
+    url: '#',
+    animation: trash,
+  },
+  {
+    name: 'edit',
+    url: '#',
+    animation: edit,
+  },
 ]
 
 const Icon = ({
@@ -42,11 +54,11 @@ const Icon = ({
 
   const style = {
     width: `${size}px`,
-    height: `${size}px`
+    height: `${size}px`,
   }
 
   useEffect(() => {
-    lottieRef.current?.stop()
+    if (animated === 'HOVER') lottieRef.current?.stop()
   }, [lottieRef])
 
   const handleMouseEnter = () => {
@@ -70,6 +82,17 @@ const Icon = ({
   const icon = iconMap.find(icon => icon.name === name)
 
   return (
+    icon?.url === '#' 
+    ?
+    <Lottie
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        animationData={icon?.animation}
+        lottieRef={lottieRef}
+        loop={loop}
+        style={style}
+      />
+    :
     <a 
       href={icon?.url}
       target="_blank"

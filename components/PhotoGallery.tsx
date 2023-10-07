@@ -34,6 +34,7 @@ const PhotoGallery = async () => {
         <PhotoCard 
           key={photo.id} 
           title={photo.title}
+          id={photo.id}
           description={photo.description}
           imageUrl={photo.imageUrl}
           isFavorited={photo.isFavorited}

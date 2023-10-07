@@ -1,10 +1,12 @@
 import { Photo } from "@prisma/client"
 import { create } from 'zustand'
 
-export type ModalType = 'createPhoto'
+export type ModalType = 'createPhoto' | 'deletePhoto'
 
 interface ModalData {
-  photo?: Photo
+  photo?: Photo;
+  id?: string;
+  title?: string;
 }
 
 interface ModalStore {
