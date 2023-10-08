@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils"
 import { Edit, Heart } from "lucide-react";
 import { Button } from "./ui/button";
 import DeleteAction from "@/app/(dashboard)/_components/DeleteAction";
-import ConfettiCannon from "./ConfettiCannon";
+import FavoriteAction from "@/app/(dashboard)/_components/FavoriteAction";
 
 interface PhotoCardProps {
   title: string;
@@ -56,9 +56,12 @@ const PhotoCard = ({
             {title}
           </h1>
 
-          <div className="flex gap-2 items-center">
+          <div className="flex gap-2">
             <DeleteAction id={id} title={title} />
-            <ConfettiCannon />
+            <FavoriteAction
+              id={id}
+              isFavorited={isFavorited}
+              />
           </div>
         </div>
 

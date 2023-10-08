@@ -8,9 +8,10 @@ import twitter from '@/components/icons/Twitter/twitter.json'
 import instagram from '@/components/icons/Instagram/instagram.json'
 import trash from '@/components/icons/Trash/trashV2.json'
 import edit from '@/components/icons/Edit/edit.json'
+import heart from '@/components/icons/Heart/heart.json'
 
 interface IconProps {
-  name: 'github' | 'twitter' | 'instagram' | 'trash' | 'edit';
+  name: 'github' | 'twitter' | 'instagram' | 'trash' | 'edit' | 'heart';
   animated:  'CLICK' | 'HOVER';
   loop: boolean;
   size: number;
@@ -41,6 +42,11 @@ const iconMap = [
     name: 'edit',
     url: '#',
     animation: edit,
+  },
+  {
+    name: 'heart',
+    url: '#',
+    animation: heart,
   },
 ]
 

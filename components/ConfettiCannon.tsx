@@ -1,10 +1,13 @@
 'use client'
 
-import { Heart } from "lucide-react";
-import { useCallback, useRef } from "react";
-import ReactCanvasConfetti from "react-canvas-confetti";
+import { CSSProperties, useCallback, useEffect, useRef } from "react";
+import ReactCanvasConfetti  from "react-canvas-confetti";
 
-const canvasStyles = {
+interface ConfettiCannonProps {
+  onFire: () => void;
+}
+
+const canvasStyles: CSSProperties = {
   position: "fixed",
   pointerEvents: "none",
   width: "100%",
@@ -13,21 +16,25 @@ const canvasStyles = {
   left: 0,
 };
 
-export default function ConfettiCannon() {
+export default function ConfettiCannon({
+  onFire
+}: ConfettiCannonProps) {
   const refAnimationInstance = useRef<((opts: any) => void) | null>(null);
 
-const getInstance = useCallback((instance: any) => {
-  refAnimationInstance.current = instance;
-}, []);
+  const getInstance = useCallback((instance: ((opts: any) => void) | null) => {
+    refAnimationInstance.current = instance;
+  }, []);
 
-const makeShot = useCallback((particleRatio: any, opts: any) => {
-  refAnimationInstance.current &&
-    refAnimationInstance.current({
-      ...opts,
-      origin: { y: 0.7 },
-      particleCount: Math.floor(200 * particleRatio)
-    });
-}, []);
+  const makeShot = useCallback((particleRatio: number, opts: any) => {
+    refAnimationInstance.current &&
+      refAnimationInstance.current({
+        ...opts,
+        origin: { y: 0.7 },
+        particleCount: Math.floor(200 * particleRatio)
+      });
+  }, []);
+
+  useEffect(() => fire(), []);
 
   const fire = useCallback(() => {
     makeShot(0.25, {
@@ -60,7 +67,6 @@ const makeShot = useCallback((particleRatio: any, opts: any) => {
 
   return (
     <>
-      <Heart onClick={fire} className="text-rose-500 cursor-pointer" />
       <ReactCanvasConfetti 
         refConfetti={getInstance}
         style={canvasStyles}
