@@ -5,6 +5,9 @@ import DeleteAction from "@/app/(dashboard)/_components/DeleteAction";
 import FavoriteAction from "@/app/(dashboard)/_components/FavoriteAction";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import convertCoordinates from "@/lib/convertCoordinateToPoint";
+import { Separator } from "@/components/ui/separator";
+import formatCustomDate from "@/lib/formatCustomDate";
+import { Heart } from "lucide-react";
 
 interface PhotoIdPageProps {
   params: {
@@ -59,18 +62,44 @@ const PhotoIdPage = async ({
             <h1 className="text-4xl">
               {photo.title}
             </h1>
-            <div>
-              <div className="p-2 rounded-full hover:bg-[#f5f5f5] flex justify-center items-center">
+            <div className="flex items-center">
+              <div className="p-2 rounded-full cursor-pointer hover:bg-[#f5f5f5] flex justify-center items-center">
                 <DeleteAction id={photo.id} title={photo.title} />
+              </div>
+
+              <div className="p-2 rounded-full cursor-pointer hover:bg-[#f5f5f5] flex justify-center items-center">
+                <Heart className="text-rose-500" />
               </div>
             </div>
           </div>
 
-          <div>
-            <p className="text-gray-500">{photo.latitude && photo.longitude ? convertCoordinates(photo.latitude, photo.longitude) : '-'}</p>
+          <div className="flex">
+            <p>{photo.timestamp ? formatCustomDate(photo.timestamp) : '-'}</p>
           </div>
         </div>
         
+        <div className="border rounded-lg flex flex-col overflow-hidden">
+          <div className="bg-[#f5f5f5] py-2 px-4">
+            <h1 className="text-lg">{photo.cameraMake} {photo.cameraModel}</h1>
+          </div>
+
+          <div className="py-2 px-4">
+            <p className="text-sm">{photo.cameraLens}</p>
+            <p className="text-gray-500 text-sm">{photo.latitude && photo.longitude ? convertCoordinates(photo.latitude, photo.longitude) : '-'} {photo.gpsAltitude}</p>
+          </div>
+
+          <Separator />
+
+          <div className="flex w-full justify-between items-center text-sm p-4">
+            <div>{photo.iso}</div>
+            <Separator orientation="vertical" />
+            <div>{photo.focalLength} <span className="text-gray-400/80">{photo.focalLengthIn35mmFilm}</span></div>
+            <Separator orientation="vertical" />
+            <div>{photo.fNumber}</div>
+            <Separator orientation="vertical" />
+            <div>{photo.shutterSpeed}s</div>
+          </div>
+        </div>
       </div>
 
       <div className="col-span-1 md:col-span-4 bg-green-200 md:sticky md:top-0 md:self-start">
