@@ -3,10 +3,6 @@
 import { CSSProperties, useCallback, useEffect, useRef } from "react";
 import ReactCanvasConfetti  from "react-canvas-confetti";
 
-interface ConfettiCannonProps {
-  onFire: () => void;
-}
-
 const canvasStyles: CSSProperties = {
   position: "fixed",
   pointerEvents: "none",
@@ -16,9 +12,7 @@ const canvasStyles: CSSProperties = {
   left: 0,
 };
 
-export default function ConfettiCannon({
-  onFire
-}: ConfettiCannonProps) {
+export default function ConfettiCannon() {
   const refAnimationInstance = useRef<((opts: any) => void) | null>(null);
 
   const getInstance = useCallback((instance: ((opts: any) => void) | null) => {
@@ -34,7 +28,7 @@ export default function ConfettiCannon({
       });
   }, []);
 
-  useEffect(() => fire(), []);
+  //useEffect(() => fire(), []);
 
   const fire = useCallback(() => {
     makeShot(0.25, {

@@ -7,7 +7,7 @@ const guestRoutes = [
   },
   {
     label: 'Gallery',
-    href: '/alumbs'
+    href: '/gallery'
   },
   {
     label: 'Alumbs',

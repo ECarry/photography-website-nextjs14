@@ -7,6 +7,7 @@ import { Edit, Heart } from "lucide-react";
 import { Button } from "./ui/button";
 import DeleteAction from "@/app/(dashboard)/_components/DeleteAction";
 import FavoriteAction from "@/app/(dashboard)/_components/FavoriteAction";
+import { useRouter } from "next/navigation";
 
 interface PhotoCardProps {
   title: string;
@@ -24,9 +25,11 @@ const PhotoCard = ({
   isFavorited
 }: PhotoCardProps) => {
   const [isLoading, setLoading] = useState(true)
+  const router = useRouter()
 
   return (
     <div className="border-gray-200 border rounded-2xl overflow-hidden">
+      {/* IMAGE  */}
       <div 
         className="
           aspect-w-16
@@ -50,29 +53,31 @@ const PhotoCard = ({
           />
       </div>
 
-      <div className="p-4 flex flex-col gap-4">
-        <div className="flex justify-between items-center">
-          <h1 className="text-xl md:text-2xl font-semibold">
+      {/* FOOTER  */}
+      <div className="p-4 flex gap-4">
+
+        <div className="flex flex-col gap-6">
+          <h1 className="text-2xl md:text-3xl">
             {title}
           </h1>
 
+          <p className="text-gray-400 line-clamp-2 text-sm">
+            This is photo descript. This is photo descript...
+          </p>
+        </div>
+
+        <div className="flex flex-col items-end justify-between gap-10">
           <div className="flex gap-2">
             <DeleteAction id={id} title={title} />
             <FavoriteAction
               id={id}
               isFavorited={isFavorited}
-              />
+            />
           </div>
-        </div>
 
-        <div>
-          <p className="text-gray-400 line-clamp-2">
-            This is photo descript. This is photo descript. This is photo descript.
-          </p>
-        </div>
-
-        <div className="flex justify-end">
-          <Button variant='primary'><Edit className="mr-2 w-4 h-4" /> Edit</Button>
+          <div className="flex justify-end">
+            <Button variant='primary' onClick={() => router.push(`/photos/${id}/`)}><Edit className="mr-2 w-4 h-4" /> Edit</Button>
+          </div>
         </div>
         
       </div>
