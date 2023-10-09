@@ -25,7 +25,6 @@ const FavoriteAction = ({
         />
       </button>
       <ConfettiCannon
-        onFire={handleClick}
       />
     </>
   )
