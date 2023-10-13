@@ -8,6 +8,8 @@ import convertCoordinates from "@/lib/convertCoordinateToPoint";
 import { Separator } from "@/components/ui/separator";
 import formatCustomDate from "@/lib/formatCustomDate";
 import { Heart } from "lucide-react";
+import EditPhotoForm from "@/app/(dashboard)/_components/EditPhotoForm";
+import Mapbox from "@/app/(dashboard)/_components/Mapbox";
 
 interface PhotoIdPageProps {
   params: {
@@ -41,12 +43,14 @@ const PhotoIdPage = async ({
       className="
         grid
         grid-cols-1
-        md:grid-cols-12
+        lg:grid-cols-12
+        gap-4
+        pb-4
     ">
 
-      <div className="col-span-1 md:col-span-8 flex flex-col gap-6">
-
-        <div className="p-5 bg-[#f5f5f5] rounded-[30px]">
+      <div className="col-span-1 lg:col-span-8 flex flex-col gap-8">
+        {/* IMAGE  */}
+        <div className="p-4 bg-[#f5f5f5] rounded-[26px]">
           <AspectRatio ratio={16 / 9} className="bg-muted">
             <Image
               src={photo.imageUrl}
@@ -56,7 +60,7 @@ const PhotoIdPage = async ({
             />
           </AspectRatio>
         </div>
-
+        {/* TITLE  */}
         <div>
           <div className="flex justify-between">
             <h1 className="text-4xl">
@@ -77,8 +81,8 @@ const PhotoIdPage = async ({
             <p>{photo.timestamp ? formatCustomDate(photo.timestamp) : '-'}</p>
           </div>
         </div>
-        
-        <div className="border rounded-lg flex flex-col overflow-hidden">
+        {/* CAMERA  */}
+        <div className="border rounded-[10px] flex flex-col overflow-hidden">
           <div className="bg-[#f5f5f5] py-2 px-4">
             <h1 className="text-lg">{photo.cameraMake} {photo.cameraModel}</h1>
           </div>
@@ -100,10 +104,27 @@ const PhotoIdPage = async ({
             <div>{photo.shutterSpeed}</div>
           </div>
         </div>
+
+        {/* DESCRIPTION  */}
+        <div>
+          <h1 className="text-3xl mb-2">Description</h1>
+          <p>{photo.description}</p>
+        </div>
+
+        {/* MAP  */}
+        <div>
+          <h1 className="text-3xl mb-2">Map</h1>
+          <AspectRatio ratio={16 / 9} className="bg-muted rounded-[10px] overflow-hidden">
+            <Mapbox
+              longitude={photo.longitude}
+              latitude={photo.latitude}
+            />
+          </AspectRatio>
+        </div>
       </div>
 
-      <div className="col-span-1 md:col-span-4 bg-green-200 md:sticky md:top-0 md:self-start">
-        desc
+      <div className="col-span-1 lg:col-span-4 lg:sticky lg:top-4 lg:self-start bg-[#f5f5f5] rounded-[26px] p-4">
+        <EditPhotoForm />
       </div>
     </div>
   )

@@ -1,9 +1,9 @@
 import React from 'react'
-import Logo from './Logo'
 
 import SidebarRoutes from './SidebarRoutes'
 import UserAvatar from './UserAvatar'
 import { ThemeToggle } from '@/components/mode-toggle'
+import Logo from '@/components/Logo'
 
 
 const Sidebar = () => {
