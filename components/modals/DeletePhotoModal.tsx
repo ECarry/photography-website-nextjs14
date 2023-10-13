@@ -11,16 +11,16 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
-import { useRouter } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { toast } from "../ui/use-toast"
-
 
 export default function DeletePhotoModal() {
   const { onClose, isOpen, type, data } = useModal()
   const router = useRouter()
+  const pathname = usePathname()
 
   const { id, title } = data
-
+  
   const isModalOpen = isOpen && type === 'deletePhoto'
 
   const handleDleteClick = async () => {
@@ -34,7 +34,7 @@ export default function DeletePhotoModal() {
       console.log(res);
       
       onClose()
-      router.refresh()
+      pathname === '/dashboard' ? router.refresh() : router.push('/dashboard')
       toast({
         title: "Deleted successed!",
         description: `${title} has been deleted.`
