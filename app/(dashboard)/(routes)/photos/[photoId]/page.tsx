@@ -97,7 +97,7 @@ const PhotoIdPage = async ({
             <Separator orientation="vertical" />
             <div>{photo.fNumber}</div>
             <Separator orientation="vertical" />
-            <div>{photo.shutterSpeed}s</div>
+            <div>{photo.shutterSpeed}</div>
           </div>
         </div>
       </div>
