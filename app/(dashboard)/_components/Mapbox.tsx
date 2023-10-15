@@ -1,9 +1,10 @@
 'use client'
 
-import * as React from 'react';
-import Map, { Marker, NavigationControl } from 'react-map-gl';
+import { useState } from 'react';
+import ReactMapGl, { Marker, NavigationControl, ViewState, MapLayerMouseEvent, FullscreenControl } from 'react-map-gl';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
+import Pin from './Pin';
 
 interface MapboxProps {
   longitude?: number | null;
@@ -11,7 +12,6 @@ interface MapboxProps {
 }
 
 const token = process.env.NEXT_PUBLIC_MAPBOX_TOKEN
-const mapStyle = 'mapbox://styles/ecarry/cldmhu6tr000001n33ujbxf7j'
 
 const style = {
   width: '100%',
@@ -19,26 +19,49 @@ const style = {
 }
 
 const Mapbox = ({
-  longitude,
-  latitude
+
 }: MapboxProps) => {
-  console.log('=======>', longitude, latitude);
-  
-  const initialViewState = {
+  const [newPlace, setNewPlace] = useState({
+    latitude: 37.8,
+    longitude: -122.4 
+  })
+  const [viewport, setViewport] = useState<ViewState>({
     longitude: -122.4,
     latitude: 37.8,
-    zoom: 14
+    zoom: 14,
+    bearing: 0,
+    pitch: 0,
+    padding: {
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0
+    }
+  })
+
+  const handleMapClick = (e: MapLayerMouseEvent) => {
+    console.log(e.lngLat);
+    
+    setNewPlace({
+      latitude: e.lngLat.lat,
+      longitude: e.lngLat.lng,
+    })
   }
 
   return (
-    <Map
+    <ReactMapGl
+      {...viewport}
       mapboxAccessToken={token}
-      initialViewState={initialViewState}
       style={style}
-      mapStyle={mapStyle}
+      mapStyle='mapbox://styles/ecarry/cldmhu6tr000001n33ujbxf7j'
+      onClick={handleMapClick}
     >
+      <Marker latitude={newPlace.latitude} longitude={newPlace.longitude}>
+        <Pin />
+      </Marker>
       <NavigationControl />
-    </Map>
+      <FullscreenControl />
+    </ReactMapGl>
   );
 }
 
