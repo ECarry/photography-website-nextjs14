@@ -68,7 +68,7 @@ const PhotoIdPage = async ({
       <div className="col-span-1 lg:col-span-8 flex flex-col gap-8">
         {/* IMAGE  */}
         <div className="p-4 bg-[#f5f5f5] rounded-[26px]">
-          <AspectRatio ratio={16 / 9} className="bg-muted">
+          <AspectRatio ratio={photo.aspectRatio > 1 ? 16 / 9 : 9 / 16} className="bg-muted">
             <Image
               src={photo.imageUrl}
               alt={photo.title}
@@ -131,10 +131,12 @@ const PhotoIdPage = async ({
         {/* MAP  */}
         <div>
           <h1 className="text-3xl mb-2">Map</h1>
+          <p className="mb-2 text-sm text-gray-300">Click map to update coordinate</p>
           <AspectRatio ratio={16 / 9} className="bg-muted rounded-[10px] overflow-hidden">
             <Mapbox
               longitude={photo.longitude}
               latitude={photo.latitude}
+              photoId={photoId}
             />
           </AspectRatio>
         </div>

@@ -53,12 +53,13 @@ const EditPhotoForm = ({
       console.log('======>', await res.json());
       
       toast({
-        title: "Updated successed!",
+        title: "Update Successful",
       })
       router.refresh()
     } catch (error) {
       console.log(error);
       toast({
+        variant: 'destructive',
         title: "Uh oh! Something went wrong.",
         description: `There was a problem with your request. ${error}`,
       })

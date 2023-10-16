@@ -5,17 +5,20 @@ import Map, { Marker, NavigationControl, ViewState, MapLayerMouseEvent, Fullscre
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import Pin from './Pin';
+import { toast } from '@/components/ui/use-toast';
 
 interface MapboxProps {
   longitude: number| null;
   latitude: number | null;
+  photoId: string;
 }
 
 const token = process.env.NEXT_PUBLIC_MAPBOX_TOKEN
 
 const Mapbox = ({
   latitude,
-  longitude
+  longitude,
+  photoId
 }: MapboxProps) => {
   const [newPlace, setNewPlace] = useState([latitude, longitude])
   const [viewport, setViewport] = useState({
@@ -24,13 +27,33 @@ const Mapbox = ({
     zoom: 8
   })
 
-  const handleMapClick = (e: MapLayerMouseEvent) => {
+  const handleMapClick = async (e: MapLayerMouseEvent) => {
     console.log(e.lngLat);
     
     setNewPlace([
       e.lngLat.lat,
       e.lngLat.lng
     ])
+
+    try {
+      await fetch(`/api/photos/${photoId}`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+          id: photoId,
+          data: {
+            latitude: e.lngLat.lat,
+            longitude: e.lngLat.lng
+          }
+        })
+      })
+
+      toast({
+        title: 'Coordinate Update Successful'
+      })
+    } catch (error) {
+      console.log(error);
+      
+    }
   }
 
   return (
