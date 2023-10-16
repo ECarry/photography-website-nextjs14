@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { db } from "@/lib/db";
+import type { Metadata, ResolvingMetadata } from 'next'
 
 import DeleteAction from "@/app/(dashboard)/_components/DeleteAction";
 import FavoriteAction from "@/app/(dashboard)/_components/FavoriteAction";
@@ -14,6 +15,22 @@ import Mapbox from "@/app/(dashboard)/_components/Mapbox";
 interface PhotoIdPageProps {
   params: {
     photoId: string;
+  }
+}
+
+export async function generateMetadata(
+  { params }: PhotoIdPageProps
+): Promise<Metadata> {
+  const { photoId } = params
+
+  const photo = await db.photo.findFirst({
+    where: {
+      id: photoId
+    }
+  })
+
+  return {
+    title: `Edit ${photo?.title}`
   }
 }
 
@@ -108,7 +125,7 @@ const PhotoIdPage = async ({
         {/* DESCRIPTION  */}
         <div>
           <h1 className="text-3xl mb-2">Description</h1>
-          <p>{photo.description}</p>
+          <p className="text-sm text-gray-400">{photo.description}</p>
         </div>
 
         {/* MAP  */}
@@ -123,8 +140,8 @@ const PhotoIdPage = async ({
         </div>
       </div>
 
-      <div className="col-span-1 lg:col-span-4 lg:sticky lg:top-4 lg:self-start bg-[#f5f5f5] rounded-[26px] p-4">
-        <EditPhotoForm />
+      <div className="col-span-1 lg:col-span-4 lg:sticky lg:top-4 lg:self-start bg-[#f5f5f5] rounded-[10px] p-4">
+        <EditPhotoForm photo={photo} />
       </div>
     </div>
   )

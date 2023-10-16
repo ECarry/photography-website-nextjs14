@@ -39,3 +39,42 @@ export async function DELETE(req:Request) {
     return new NextResponse('Internal Error', { status: 500 })
   }
 }
+
+export async function PATCH(req: Request) {
+  try {
+    const user = await currentUser()
+    const reqData = await req.json()
+
+    const { id, data } = reqData
+
+    if (!id) {
+      return new NextResponse('ID is missing', { status: 400 })
+    }
+
+    const photo = await db.photo.findUnique({
+      where: {
+        id
+      }
+    })
+
+    if (!photo) {
+      return new NextResponse('Photo not found', { status: 404 })
+    }
+
+    if (photo.userId !== user?.userId && user?.role !== 'ADMIN') {
+      return new NextResponse('Unauthorized', { status: 401 })
+    }
+
+    const updatePhoto = await db.photo.update({
+      where: {
+        id
+      },
+      data
+    })
+
+    return NextResponse.json(updatePhoto)
+  } catch (error) {
+    console.log('[PHOTO_POST]', error);
+    return new NextResponse('Internal Error', { status: 500 })
+  }
+}

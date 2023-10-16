@@ -54,7 +54,7 @@ const PhotoCard = ({
       </div>
 
       {/* FOOTER  */}
-      <div className="p-4 flex gap-4">
+      <div className="p-4 flex justify-between gap-4">
 
         <div className="flex flex-col gap-6">
           <h1 className="text-2xl md:text-3xl">
@@ -62,7 +62,7 @@ const PhotoCard = ({
           </h1>
 
           <p className="text-gray-400 line-clamp-2 text-sm">
-            This is photo descript. This is photo descript...
+            {description}
           </p>
         </div>
 
