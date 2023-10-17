@@ -5,13 +5,12 @@ import UserAvatar from './UserAvatar'
 import { ThemeToggle } from '@/components/mode-toggle'
 import Logo from '@/components/Logo'
 
-
 const Sidebar = () => {
   return (
     <div className='h-full w-full bg-[#f5f5f5] dark:bg-black rounded-2xl flex items-center px-6 justify-between'>
       <Logo />
 
-      <div className='md:block hidden'>
+      <div className='hidden md:block'>
         <SidebarRoutes />
       </div>
 

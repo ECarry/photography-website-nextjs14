@@ -1,4 +1,4 @@
-import Navbar from "./_components/Navbar"
+import Sidebar from "./_components/Sidebar"
 
 const HomeLayout = ({
   children
@@ -7,7 +7,7 @@ const HomeLayout = ({
 }) => {
   return (
     <div className='flex h-[100vh] items-stretch'>
-      <Navbar />
+      <Sidebar />
       {children}
     </div>
   )

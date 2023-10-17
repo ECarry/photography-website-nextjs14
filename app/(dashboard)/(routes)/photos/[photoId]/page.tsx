@@ -1,9 +1,8 @@
 import Image from "next/image";
 import { db } from "@/lib/db";
-import type { Metadata, ResolvingMetadata } from 'next'
+import type { Metadata } from 'next'
 
 import DeleteAction from "@/app/(dashboard)/_components/DeleteAction";
-import FavoriteAction from "@/app/(dashboard)/_components/FavoriteAction";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import convertCoordinates from "@/lib/convertCoordinateToPoint";
 import { Separator } from "@/components/ui/separator";
@@ -67,13 +66,13 @@ const PhotoIdPage = async ({
 
       <div className="col-span-1 lg:col-span-8 flex flex-col gap-8">
         {/* IMAGE  */}
-        <div className="p-4 bg-[#f5f5f5] rounded-[26px]">
+        <div className="p-2 md:p-4 bg-[#f5f5f5] rounded-[13px] md:rounded-[26px]">
           <AspectRatio ratio={photo.aspectRatio > 1 ? 16 / 9 : 9 / 16} className="bg-muted">
             <Image
               src={photo.imageUrl}
               alt={photo.title}
               fill
-              className="rounded-[10px] object-cover overflow-hidden"
+              className="rounded-[5px] md:rounded-[10px] object-cover overflow-hidden"
             />
           </AspectRatio>
         </div>

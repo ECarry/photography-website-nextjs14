@@ -57,7 +57,7 @@ const PhotoCard = ({
       <div className="p-4 flex justify-between gap-4">
 
         <div className="flex flex-col gap-6">
-          <h1 className="text-xl md:text-3xl">
+          <h1 className="text-xl 2xl:text-3xl">
             {title}
           </h1>
 

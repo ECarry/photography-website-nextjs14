@@ -23,7 +23,7 @@ const SidebarRoutes = () => {
   const routes = guestRoutes
 
   return (
-    <div className='bg-[#1d1d1d] py-3 px-6 rounded-full flex gap-6'>
+    <div className='bg-[#1d1d1d] py-3 px-6 rounded-full gap-6 flex'>
       {routes.map((route) => (
         <SidebarItem 
         key={route.label}
