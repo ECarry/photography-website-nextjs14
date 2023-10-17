@@ -1,22 +1,32 @@
-import Logo from '@/components/Logo'
-import Icon from '@/components/icons'
-import Link from 'next/link'
-import React from 'react'
+import Icon from "@/components/icons"
+import { Menu } from "lucide-react"
+import Link from "next/link"
 
 const Navbar = () => {
+
   return (
-    <div className='z-50 w-full'>
-      <div className='flex items-center'>
-        {/* LOGO  */}
-        <Link href='/'>
-          <Logo />
-        </Link>
+    <nav 
+      className="w-[60px] h-screen grid grid-rows-3 py-5 justify-items-center fixed backdrop-blur-sm"
+    >
+      <Menu />
+      
+      <Link href='/'>
+        <h1 
+          style={{ writingMode: 'vertical-rl' }}
+          className="
+            self-center 
+            text-xl 
+            font-bold 
+            tracking-wide 
+            uppercase 
+            rotate-180
+          ">
+            ECarry
+        </h1>
+      </Link>
 
-        {/* NAV  */}
-
-        {/* ICON  */}
-        <div className='flex items-center gap-2'>
-          <Icon 
+      <div className="self-end flex flex-col gap-4">
+        <Icon 
           name='github'
           animated='HOVER'
           loop
@@ -36,11 +46,8 @@ const Navbar = () => {
             loop={false}
             size={28}
           />
-        </div>
       </div>
-
-      
-    </div>
+    </nav>
   )
 }
 

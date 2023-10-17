@@ -6,7 +6,7 @@ const HomeLayout = ({
   children: React.ReactNode
 }) => {
   return (
-    <div>
+    <div className='flex h-[100vh] items-stretch'>
       <Navbar />
       {children}
     </div>
