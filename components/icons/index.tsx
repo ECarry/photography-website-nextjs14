@@ -65,7 +65,7 @@ const Icon = ({
 
   useEffect(() => {
     if (animated === 'HOVER') lottieRef.current?.stop()
-  }, [lottieRef])
+  }, [lottieRef, animated])
 
   const handleMouseEnter = () => {
     if (loop) {

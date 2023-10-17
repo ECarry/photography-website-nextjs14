@@ -9,7 +9,7 @@ export const MoadlProvider = () => {
 
   useEffect(() =>{
     setIsMounted(true)
-  })
+  }, [])
 
   if (!isMounted) {
     return null
