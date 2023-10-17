@@ -1,4 +1,4 @@
-import SidebarItem from "./SidebarItem"
+import SidebarItem from "./NavbarItem"
 
 const guestRoutes = [
   {

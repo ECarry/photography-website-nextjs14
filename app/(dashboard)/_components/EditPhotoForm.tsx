@@ -67,7 +67,7 @@ const EditPhotoForm = ({
   }
   return (
     <div>
-      <h1 className="text-3xl font-semibold mb-4">Edit Photo</h1>
+      <h1 className="text-xl md:text-3xl font-semibold mb-4">Edit Photo</h1>
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4' >

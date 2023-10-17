@@ -80,7 +80,7 @@ const PhotoIdPage = async ({
         {/* TITLE  */}
         <div>
           <div className="flex justify-between">
-            <h1 className="text-4xl">
+            <h1 className="text-2xl md:text-4xl">
               {photo.title}
             </h1>
             <div className="flex items-center">
@@ -94,24 +94,24 @@ const PhotoIdPage = async ({
             </div>
           </div>
 
-          <div className="flex">
+          <div className="flex text-sm md:text-lg">
             <p>{photo.timestamp ? formatCustomDate(photo.timestamp) : '-'}</p>
           </div>
         </div>
         {/* CAMERA  */}
         <div className="border rounded-[10px] flex flex-col overflow-hidden">
           <div className="bg-[#f5f5f5] py-2 px-4">
-            <h1 className="text-lg">{photo.cameraMake} {photo.cameraModel}</h1>
+            <h1 className="md:text-lg">{photo.cameraMake} {photo.cameraModel}</h1>
           </div>
 
           <div className="py-2 px-4">
-            <p className="text-sm">{photo.cameraLens}</p>
-            <p className="text-gray-500 text-sm">{photo.latitude && photo.longitude ? convertCoordinates(photo.latitude, photo.longitude) : '-'} {photo.gpsAltitude}</p>
+            <p className="text-xs md:text-sm">{photo.cameraLens}</p>
+            <p className="text-gray-500 text-xs md:text-sm">{photo.latitude && photo.longitude ? convertCoordinates(photo.latitude, photo.longitude) : '-'} {photo.gpsAltitude}</p>
           </div>
 
           <Separator />
 
-          <div className="flex w-full justify-between items-center text-sm p-4">
+          <div className="flex w-full justify-between items-center text-xs md:text-sm p-4">
             <div>{photo.iso}</div>
             <Separator orientation="vertical" />
             <div>{photo.focalLength} <span className="text-gray-400/80">{photo.focalLengthIn35mmFilm}</span></div>
@@ -124,14 +124,14 @@ const PhotoIdPage = async ({
 
         {/* DESCRIPTION  */}
         <div>
-          <h1 className="text-3xl mb-2">Description</h1>
-          <p className="text-sm text-gray-400">{photo.description}</p>
+          <h1 className="text-xl md:text-3xl mb-2">Description</h1>
+          <p className="text-xs md:text-sm text-gray-400">{photo.description}</p>
         </div>
 
         {/* MAP  */}
         <div>
-          <h1 className="text-3xl mb-2">Map</h1>
-          <p className="mb-2 text-sm text-gray-300">Click map to update coordinate</p>
+          <h1 className="text-xl md:text-3xl mb-2">Map</h1>
+          <p className="mb-2 text-xs md:text-sm text-gray-300">Click map to update coordinate</p>
           <AspectRatio ratio={16 / 9} className="bg-muted rounded-[10px] overflow-hidden">
             <Mapbox
               longitude={photo.longitude}

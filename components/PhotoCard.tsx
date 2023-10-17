@@ -57,11 +57,11 @@ const PhotoCard = ({
       <div className="p-4 flex justify-between gap-4">
 
         <div className="flex flex-col gap-6">
-          <h1 className="text-2xl md:text-3xl">
+          <h1 className="text-xl md:text-3xl">
             {title}
           </h1>
 
-          <p className="text-gray-400 line-clamp-2 text-sm">
+          <p className="text-gray-400 line-clamp-2 text-sm md:text-md">
             {description}
           </p>
         </div>
