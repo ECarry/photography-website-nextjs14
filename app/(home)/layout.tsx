@@ -6,9 +6,16 @@ const HomeLayout = ({
   children: React.ReactNode
 }) => {
   return (
-    <div className='flex h-[100vh] items-stretch'>
-      <Sidebar />
-      {children}
+    <div>
+      <div className="hidden md:block">
+        <Sidebar />
+      </div>
+
+      <div className="container">
+        {children}
+      </div>
+
+
     </div>
   )
 }
