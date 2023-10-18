@@ -1,13 +1,14 @@
 'use client'
 
+import { useRouter } from "next/navigation";
 import { useState } from "react"
 import Image from "next/image"
 import { cn } from "@/lib/utils"
-import { Edit, Heart } from "lucide-react";
-import { Button } from "./ui/button";
+
+import { Edit } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import DeleteAction from "@/app/(dashboard)/_components/DeleteAction";
 import FavoriteAction from "@/app/(dashboard)/_components/FavoriteAction";
-import { useRouter } from "next/navigation";
 
 interface PhotoCardProps {
   title: string;
@@ -57,7 +58,7 @@ const PhotoCard = ({
       <div className="p-4 flex justify-between gap-4">
 
         <div className="flex flex-col gap-6">
-          <h1 className="text-xl 2xl:text-3xl">
+          <h1 className="text-xl md:text-lg 2xl:text-2xl">
             {title}
           </h1>
 
@@ -76,7 +77,7 @@ const PhotoCard = ({
           </div>
 
           <div className="flex justify-end">
-            <Button variant='primary' onClick={() => router.push(`/photos/${id}/`)}><Edit className="mr-2 w-4 h-4" /> Edit</Button>
+            <Button variant='primary' onClick={() => router.push(`/gallery/photos/${id}/`)}><Edit className="mr-2 w-4 h-4" /> Edit</Button>
           </div>
         </div>
         

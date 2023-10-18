@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Map, { Marker, NavigationControl, ViewState, MapLayerMouseEvent, FullscreenControl } from 'react-map-gl';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
-import Pin from './Pin';
+import Pin from '@/components/Pin';
 import { toast } from '@/components/ui/use-toast';
 
 interface MapboxProps {
@@ -24,7 +24,8 @@ const Mapbox = ({
   const [viewport, setViewport] = useState({
     longitude: longitude || 118.11884581031154,
     latitude: latitude || 24.48566148816093,
-    zoom: 8
+    zoom: 8,
+    localIdeographFontFamily: "'Noto Sans', 'Noto Sans CJK SC', sans-serif"
   })
 
   const handleMapClick = async (e: MapLayerMouseEvent) => {

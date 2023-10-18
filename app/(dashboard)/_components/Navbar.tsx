@@ -4,6 +4,7 @@ import SidebarRoutes from './NavbarRoutes'
 import UserAvatar from './UserAvatar'
 import { ThemeToggle } from '@/components/mode-toggle'
 import Logo from '@/components/Logo'
+import { Menu } from 'lucide-react'
 
 const Sidebar = () => {
   return (
@@ -16,7 +17,14 @@ const Sidebar = () => {
 
       <div className='flex items-center gap-2'>
         <ThemeToggle />
-        <UserAvatar />
+        <div className='hidden md:block'>
+          <UserAvatar />
+        </div>
+
+        <div className='md:hidden'>
+          <Menu className='cursor-pointer' />
+        </div>
+        
       </div>
       
     </div>

@@ -29,7 +29,7 @@ export async function generateMetadata(
   })
 
   return {
-    title: `Edit ${photo?.title}`
+    title: `Edit ${photo?.title} - Dashboard - ECarry Photography`
   }
 }
 
@@ -62,6 +62,7 @@ const PhotoIdPage = async ({
         lg:grid-cols-12
         gap-4
         pb-4
+        lg:pb-8
     ">
 
       <div className="col-span-1 lg:col-span-8 flex flex-col gap-8">
