@@ -23,7 +23,7 @@ const readExifData = (blob: Blob): Promise<any> => {
 
         const data = parseGPSCoordinate(lat)
 
-        return String(data)
+        return data
       }
 
       const longitude = () => {
@@ -36,7 +36,7 @@ const readExifData = (blob: Blob): Promise<any> => {
 
         const data = parseGPSCoordinate(lon)
 
-        return String(data)
+        return data
       }
 
       const gpsAltitude = () => {
