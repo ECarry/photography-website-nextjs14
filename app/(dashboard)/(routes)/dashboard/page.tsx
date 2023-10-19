@@ -4,7 +4,7 @@ import { db } from '@/lib/db'
 import { coordinateToCitys } from '@/lib/coordinateToCitys'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import CustomCard from '../../_components/CustomCard'
+import AnimationCard from '../../_components/AnimationCard'
 import MapboxWithMarks from '@/components/MapboxWithMarks'
 import { AspectRatio } from '@/components/ui/aspect-ratio'
 
@@ -25,9 +25,9 @@ const page = async () => {
   return (
     <div className='flex flex-col gap-4'>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <CustomCard title='Total Photo' value={photos.length} icon='Image' />
+        <AnimationCard title='Total Photo' value={photos.length} icon='Image' />
 
-        <CustomCard title='Places' value={200} icon='Map' />
+        <AnimationCard title='Places' value={200} icon='Map' />
         
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">

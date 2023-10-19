@@ -6,7 +6,7 @@ import { motion, useSpring, useTransform } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Image, Map } from 'lucide-react'
 
-interface CustomCardProps {
+interface AnimationCardProps {
   title: string;
   value: number;
   icon: 'Image' | 'Map';
@@ -17,12 +17,12 @@ const iconMap = {
   'Map': <Map size={22} className='text-gray-500' />
 }
 
-const CustomCard = ({
+const AnimationCard = ({
   title,
   value,
   icon
-}: CustomCardProps) => {
-  let spring = useSpring(0, { mass: 0.8, stiffness: 75, damping: 15 });
+}: AnimationCardProps) => {
+  let spring = useSpring(0, { mass: 1, stiffness: 75, damping: 15 });
   let display = useTransform(spring, (current) =>
     Math.round(current).toLocaleString()
   );
@@ -51,4 +51,4 @@ const CustomCard = ({
   )
 }
 
-export default CustomCard
+export default AnimationCard
