@@ -54,6 +54,17 @@ const PhotoIdPage = async ({
     )
   }
 
+  const aspectRatioMap = (value: number) => {
+    switch (true) {
+      case value >= 0.9 && value <= 1.1:
+        return 1;
+      case value < 0.9:
+        return 9/16;
+      default:
+        return 16/9;
+    }
+  }
+
   return (
     <div 
       className="
@@ -68,7 +79,7 @@ const PhotoIdPage = async ({
       <div className="col-span-1 lg:col-span-8 flex flex-col gap-8">
         {/* IMAGE  */}
         <div className="p-2 md:p-4 bg-[#f5f5f5] rounded-[13px] md:rounded-[26px]">
-          <AspectRatio ratio={photo.aspectRatio > 1 ? 16 / 9 : 9 / 16} className="bg-muted">
+          <AspectRatio ratio={aspectRatioMap(photo.aspectRatio)} className="bg-muted">
             <Image
               src={photo.imageUrl}
               alt={photo.title}
