@@ -8,6 +8,7 @@ import MapboxWithMarks from '@/components/MapboxWithMarks'
 import { Photo } from '@prisma/client'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import CityOverview from '../../_components/CityOverview'
+import PageHeader from '../../_components/PageHeader'
 
 export const metadata: Metadata = {
   title: 'Dashboard - ECarry Photography',
@@ -66,10 +67,11 @@ const page = async () => {
 
   return (
     <div className='flex flex-col gap-4'>
+      <PageHeader title='Dashboard' label='Add Photo' />
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <AnimatedCard title='Total Photo' value={photos.length} icon='Image' />
+        <AnimatedCard title='Total' value={photos.length} icon='Image' description='Taken Photos' />
 
-        <AnimatedCard title='Total Cities' value={cityData.length} icon='Map' />
+        <AnimatedCard title='Total' value={cityData.length} icon='Map' description='Visited Cities' />
 
         <AnimatedCard title='The Most City' value={maxTotalCity.total} description={maxTotalCity.name} icon='City' />
 
