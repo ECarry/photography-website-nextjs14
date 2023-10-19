@@ -3,14 +3,20 @@ import { initialUser } from "@/lib/initial-user"
 import { db } from '@/lib/db'
 import { coordinateToCitys } from '@/lib/coordinateToCitys'
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import AnimatedCard from '../../_components/AnimatedCard'
 import MapboxWithMarks from '@/components/MapboxWithMarks'
-import { AspectRatio } from '@/components/ui/aspect-ratio'
+import { Photo } from '@prisma/client'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import CityOverview from '../../_components/CityOverview'
 
 export const metadata: Metadata = {
   title: 'Dashboard - ECarry Photography',
   description: 'Dashboard',
+}
+
+interface CityData {
+  name: string;
+  total: number;
 }
 
 const page = async () => {
@@ -18,71 +24,71 @@ const page = async () => {
 
   const photos = await db.photo.findMany({})
 
-  const data = await coordinateToCitys([24.435848436046797, 118.36163127453034])
+  const cityPromises = photos.map(async (photo: Photo) => {
+    if (photo.latitude !== null && photo.longitude !== null){
+      try {
+        const city = await coordinateToCitys([photo.latitude, photo.longitude])
 
-  console.log('=======>', data);
+        return city[0].text
+      } catch (error) {
+        console.error(`Error getting city for photo: ${photo.id}`);
+      return null; 
+      }
+    }
+  })
+
+  const cities = await Promise.all(cityPromises)
+
+  // 统计每个城市出现的次数
+  const cityCounts: Record<string, number> = cities.reduce((counts, city) => {
+    counts[city] = (counts[city] || 0) + 1;
+    return counts;
+  }, {});
+
+  // 转换为所需格式
+  // [
+  //   { name: 'Hong Kong', total: 7 },
+  //   { name: 'Xiamen Shi', total: 2 },
+  //   { name: 'Fuzhou Shi', total: 3 },
+  //   { name: 'Zhangzhou Shi', total: 3 },
+  //   { name: 'Macau', total: 1 }
+  // ]
+  const cityData: CityData[] = Object.entries(cityCounts).map(([name, total]) => ({
+    name,
+    total
+  }));
+
+  // 找出 total 最多的对象
+  const maxTotalCity: CityData = cityData.reduce(
+    (max, city) => (city.total > max.total ? city : max),
+    cityData[0]
+  );
 
   return (
     <div className='flex flex-col gap-4'>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <AnimatedCard title='Total Photo' value={photos.length} icon='Image' />
 
-        <AnimatedCard title='Places' value={200} icon='Map' />
-        
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Sales</CardTitle>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              className="h-4 w-4 text-muted-foreground"
-            >
-              <rect width="20" height="14" x="2" y="5" rx="2" />
-              <path d="M2 10h20" />
-            </svg>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">+12,234</div>
-            <p className="text-xs text-muted-foreground">
-              +19% from last month
-            </p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Active Now
-            </CardTitle>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              className="h-4 w-4 text-muted-foreground"
-            >
-              <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
-            </svg>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">+573</div>
-            <p className="text-xs text-muted-foreground">
-              +201 since last hour
-            </p>
-          </CardContent>
-        </Card>
+        <AnimatedCard title='Total Cities' value={cityData.length} icon='Map' />
+
+        <AnimatedCard title='The Most City' value={maxTotalCity.total} description={maxTotalCity.name} icon='City' />
+
+        <AnimatedCard title='Places' value={20023} icon='Map' />
       </div>
-      <div className='rounded-lg overflow-hidden'>
-        <AspectRatio ratio={16 / 9}>
+
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
+        <Card className="col-span-4">
+          <CardHeader>
+            <CardTitle>Overview</CardTitle>
+          </CardHeader>
+          <CardContent className="pl-2">
+            <CityOverview data={cityData} />
+          </CardContent>
+        </Card>
+          
+        <div className="col-span-3 rounded-lg overflow-hidden">
           <MapboxWithMarks photos={photos} />
-        </AspectRatio>
+        </div>
       </div>
     </div>
   )
