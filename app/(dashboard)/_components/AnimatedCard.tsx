@@ -4,23 +4,26 @@ import { useEffect } from "react";
 import { motion, useSpring, useTransform } from "framer-motion";
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Image, Map } from 'lucide-react'
+import { Image, Landmark, Map } from 'lucide-react'
 
 interface AnimationCardProps {
   title: string;
   value: number;
-  icon: 'Image' | 'Map';
+  icon: 'Image' | 'Map' | 'City';
+  description?: string;
 }
 
 const iconMap = {
   'Image': <Image size={22} className='text-gray-500' />,
-  'Map': <Map size={22} className='text-gray-500' />
+  'Map': <Map size={22} className='text-gray-500' />,
+  'City': <Landmark size={22} className='text-gray-500' />
 }
 
 const AnimationCard = ({
   title,
   value,
-  icon
+  icon,
+  description
 }: AnimationCardProps) => {
   let spring = useSpring(0, { mass: 1, stiffness: 75, damping: 15 });
   let display = useTransform(spring, (current) =>
@@ -43,7 +46,7 @@ const AnimationCard = ({
         <CardContent>
           <motion.div className="text-2xl font-bold">{display}</motion.div>
           <p className="text-xs text-muted-foreground">
-            +20.1% from last month
+            {description}
           </p>
         </CardContent>
       </Card>
