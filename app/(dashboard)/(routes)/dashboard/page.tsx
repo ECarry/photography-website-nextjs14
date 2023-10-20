@@ -30,7 +30,7 @@ const page = async () => {
       try {
         const city = await coordinateToCitys([photo.latitude, photo.longitude])
 
-        return city[0].text
+        return city[0].text.replace(/\s*Shi\s*/i, '')
       } catch (error) {
         console.error(`Error getting city for photo: ${photo.id}`);
       return null; 

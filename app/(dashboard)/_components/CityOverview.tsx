@@ -20,14 +20,14 @@ const CityOverview = ({
         <XAxis
           dataKey="name"
           stroke="#888888"
-          fontSize={12}
-          tickLine={false}
+          fontSize={10}
+          tickLine={true}
           axisLine={false}
         />
         <YAxis
           stroke="#888888"
           fontSize={12}
-          tickLine={false}
+          tickLine={true}
           axisLine={false}
           tickFormatter={(value) => `${value}`}
         />
