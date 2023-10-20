@@ -5,6 +5,14 @@ import UserAvatar from './UserAvatar'
 import { ThemeToggle } from '@/components/mode-toggle'
 import Logo from '@/components/Logo'
 import { Menu } from 'lucide-react'
+import MoblieNavToggle from '@/components/MoblieNavToggle'
+
+const links = [
+  {
+    label: 'Dashboard',
+    link: '/dashboard'
+  }
+]
 
 const Sidebar = () => {
   return (
@@ -22,7 +30,7 @@ const Sidebar = () => {
         </div>
 
         <div className='md:hidden'>
-          <Menu className='cursor-pointer' />
+          <MoblieNavToggle links={links} side='right' />
         </div>
         
       </div>

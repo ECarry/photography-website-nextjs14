@@ -7,7 +7,7 @@ const HomeLayout = ({
 }) => {
   return (
     <div>
-      <div className="hidden md:block">
+      <div className="">
         <Sidebar />
       </div>
 

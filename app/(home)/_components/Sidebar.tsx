@@ -1,6 +1,14 @@
-import Icon from "@/components/icons"
-import { Menu } from "lucide-react"
 import Link from "next/link"
+
+import MoblieNavToggle from "@/components/MoblieNavToggle"
+import Icon from "@/components/icons"
+
+const links = [
+  {
+    label: 'Home',
+    link: '/'
+  }
+]
 
 const Navbar = () => {
 
@@ -8,7 +16,7 @@ const Navbar = () => {
     <nav 
       className="w-[60px] h-screen grid grid-rows-3 py-5 justify-items-center fixed backdrop-blur-sm"
     >
-      <Menu />
+      <MoblieNavToggle links={links} side="left" />
       
       <Link href='/'>
         <h1 
