@@ -66,7 +66,7 @@ const page = async () => {
   );
 
   return (
-    <div className='flex flex-col gap-4'>
+    <div className='flex flex-col gap-4 pb-4'>
       <PageHeader title='Dashboard' label='Add Photo' />
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <AnimatedCard title='Total' value={photos.length} icon='Image' description='Taken Photos' />
@@ -78,8 +78,9 @@ const page = async () => {
         <AnimatedCard title='Places' value={20023} icon='Map' />
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-        <Card className="col-span-4">
+      <div className="grid gap-4 grid-cols-1 md:grid-cols-4">
+
+        <Card className="col-span-1 md:col-span-2">
           <CardHeader>
             <CardTitle>Overview</CardTitle>
           </CardHeader>
@@ -88,9 +89,10 @@ const page = async () => {
           </CardContent>
         </Card>
           
-        <div className="col-span-3 rounded-lg overflow-hidden">
+        <div className="col-span-1 h-[500px] md:h-full md:col-span-2 rounded-lg overflow-hidden">
           <MapboxWithMarks photos={photos} />
         </div>
+
       </div>
     </div>
   )
