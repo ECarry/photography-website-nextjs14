@@ -6,10 +6,6 @@ import {
 import { Button } from "./ui/button";
 import { Menu } from "lucide-react";
 
-const SHEET_SIDES = ["top", "right", "bottom", "left"] as const
- 
-type SheetSide = (typeof SHEET_SIDES)[number]
-
 interface Link {
   label: string;
   link: string;
@@ -17,7 +13,7 @@ interface Link {
 
 interface MoblieNavToggleProps {
   links: Link [];
-  side: SheetSide;
+  side: "top"| "right"| "bottom"| "left";
 }
 
 const MoblieNavToggle = ({
