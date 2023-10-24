@@ -37,6 +37,9 @@ model Photo {
   categoryId   String?
   category     Category? @relation(fields: [categoryId], references: [id])
 
+  albumId      String?
+  album        Album? @relation(fields: [albumId], references: [id])
+
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
@@ -47,6 +50,14 @@ model Photo {
 model Category {
   id     String @id @default(uuid())
   name   String @unique
+
+  photos Photo[]
+}
+
+model Album {
+  id String @id @default(uuid())
+  name String @unique
+  imageUrl String @db.Text
 
   photos Photo[]
 }
