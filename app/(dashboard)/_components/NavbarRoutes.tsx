@@ -10,8 +10,8 @@ const guestRoutes = [
     href: '/gallery'
   },
   {
-    label: 'Alumbs',
-    href: '/alumbs'
+    label: 'Albums',
+    href: '/albums'
   },
   {
     label: 'Settings',

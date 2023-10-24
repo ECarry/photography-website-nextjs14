@@ -8,12 +8,13 @@ interface PageHeaderProps {
   title: string;
   label: string;
   icon?: string;
+  type: 'createPhoto' | 'createAlbum'
 }
 
 const PageHeader = ({
   title,
   label,
-  icon
+  type
 }: PageHeaderProps) => {
   const { onOpen } = useModal()
 
@@ -23,7 +24,7 @@ const PageHeader = ({
         {title}
       </h1>
       <Button
-        onClick={() => onOpen('createPhoto')}
+        onClick={() => onOpen(type)}
         variant='primary'
       >
         <Plus size={16} className="mr-2" />

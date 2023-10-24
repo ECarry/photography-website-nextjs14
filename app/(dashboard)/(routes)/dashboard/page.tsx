@@ -67,7 +67,7 @@ const page = async () => {
 
   return (
     <div className='flex flex-col gap-4 pb-4'>
-      <PageHeader title='Dashboard' label='Add Photo' />
+      <PageHeader title='Dashboard' label='Add Photo' type='createPhoto' />
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <AnimatedCard title='Total' value={photos.length} icon='Image' description='Taken Photos' />
 

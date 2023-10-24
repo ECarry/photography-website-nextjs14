@@ -1,8 +1,9 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import CreatePhotoModal from '../modals/CreatePhotoModal'
-import DeletePhotoModal from '../modals/DeletePhotoModal'
+import CreatePhotoModal from '@/components/modals/CreatePhotoModal'
+import DeletePhotoModal from '@/components/modals/DeletePhotoModal'
+import CreateAlbumModal from '@/components/modals/CreateAlbumModal'
 
 export const MoadlProvider = () => {
   const [isMounted, setIsMounted] = useState(false)
@@ -19,6 +20,7 @@ export const MoadlProvider = () => {
     <>
       <CreatePhotoModal />
       <DeletePhotoModal />
+      <CreateAlbumModal />
     </>
   )
 }

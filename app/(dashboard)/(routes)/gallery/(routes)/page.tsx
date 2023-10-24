@@ -16,7 +16,7 @@ const GalleryPage = () => {
         <PageHeader
           title="All Photos"
           label='Add Photo'
-          icon='Plus'
+          type='createPhoto'
         />
       </div>
       
