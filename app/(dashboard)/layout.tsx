@@ -6,11 +6,11 @@ const DashboardLayout = ({
   children:React.ReactNode
 }) => {
   return (
-    <div className="container h-full p-6">
-      <div className="w-full h-[78px] z-50 mb-6">
-        <Navbar />
+    <div>
+      <Navbar />
+      <div className="container py-4">
+        {children}
       </div>
-      {children}
     </div>
   )
 }

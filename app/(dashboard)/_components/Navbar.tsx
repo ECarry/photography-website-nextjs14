@@ -1,10 +1,6 @@
-import React from 'react'
-
 import SidebarRoutes from './NavbarRoutes'
 import UserAvatar from './UserAvatar'
 import { ThemeToggle } from '@/components/mode-toggle'
-import Logo from '@/components/Logo'
-import { Menu } from 'lucide-react'
 import MoblieNavToggle from '@/components/MoblieNavToggle'
 
 const links = [
@@ -16,8 +12,8 @@ const links = [
 
 const Sidebar = () => {
   return (
-    <div className='h-full w-full bg-[#f5f5f5] dark:bg-black rounded-2xl flex items-center px-6 justify-between'>
-      <Logo />
+    <div className='w-full h-14 sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b'>
+      <div className='flex items-center justify-end md:justify-between py-2 px-4'>
 
       <div className='hidden md:block'>
         <SidebarRoutes />
@@ -32,9 +28,9 @@ const Sidebar = () => {
         <div className='md:hidden'>
           <MoblieNavToggle links={links} side='right' />
         </div>
-        
       </div>
-      
+
+      </div>
     </div>
   )
 }

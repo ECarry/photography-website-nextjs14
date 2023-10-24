@@ -153,7 +153,7 @@ const PhotoIdPage = async ({
         </div>
       </div>
 
-      <div className="col-span-1 lg:col-span-4 lg:sticky lg:top-4 lg:self-start bg-[#f5f5f5] rounded-[10px] p-4">
+      <div className="col-span-1 lg:col-span-4 lg:sticky lg:top-14 lg:self-start bg-[#f5f5f5] rounded-[10px] p-4">
         <EditPhotoForm photo={photo} />
       </div>
     </div>
