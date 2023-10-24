@@ -1,8 +1,17 @@
+import { Metadata } from 'next'
+
 import PageHeader from '@/app/(dashboard)/_components/PageHeader'
-import React from 'react'
+import PhotoGallery from '@/components/PhotoGallery'
+
+export const metadata: Metadata = {
+  title: 'Albums - ECarry Photography',
+  description: 'Albums',
+}
+
 
 const AlbumsPage = () => {
   return (
+    <>
     <div className="">
       <PageHeader
         title="All Albums"
@@ -10,6 +19,12 @@ const AlbumsPage = () => {
         type='createAlbum'
       />
     </div>
+    
+    <div className="mt-6 pb-6">
+        <PhotoGallery type='albums' />
+      </div>
+    </>
+
   )
 }
 

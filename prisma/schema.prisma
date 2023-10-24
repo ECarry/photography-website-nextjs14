@@ -44,22 +44,27 @@ model Photo {
   updatedAt    DateTime @updatedAt
 
   @@index([categoryId])
+  @@index([albumId])
   @@index([userId])
 }
 
 model Category {
   id     String @id @default(uuid())
-  name   String @unique
+  title   String @unique
 
   photos Photo[]
 }
 
 model Album {
   id String @id @default(uuid())
-  name String @unique
+  title String @unique
   imageUrl String @db.Text
+  description  String @db.Text
 
   photos Photo[]
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
 enum UserRole {

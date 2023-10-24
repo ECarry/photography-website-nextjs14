@@ -8,22 +8,19 @@ import { cn } from "@/lib/utils"
 import { Edit } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import DeleteAction from "@/app/(dashboard)/_components/DeleteAction";
-import FavoriteAction from "@/app/(dashboard)/_components/FavoriteAction";
 
 interface PhotoCardProps {
   title: string;
   id: string;
   description: string | null;
   imageUrl: string;
-  isFavorited: boolean;
 }
 
 const PhotoCard = ({
   title,
   id,
   description,
-  imageUrl,
-  isFavorited
+  imageUrl
 }: PhotoCardProps) => {
   const [isLoading, setLoading] = useState(true)
   const router = useRouter()
@@ -45,7 +42,7 @@ const PhotoCard = ({
             alt="blur"
             fill
             sizes="(min-width: 1280px) 288px, (min-width: 1040px) calc(33.18vw - 25px), (min-width: 640px) calc(50vw - 28px), calc(100vw - 32px)"
-            className={cn("rounded-2xl group-hover:opacity-75 object-cover duration-700 ease-in-out",
+            className={cn("rounded-2xl group-hover:opacity-75 object-cover duration-700 ease-in-out hover:scale-105 hover:brightness-110",
             isLoading
               ? 'grayscale blur-2xl scale-110'
               : 'grayscale-0 blur-0 scale-100'
@@ -70,10 +67,6 @@ const PhotoCard = ({
         <div className="flex flex-col items-end justify-between gap-10">
           <div className="flex gap-2">
             <DeleteAction id={id} title={title} />
-            <FavoriteAction
-              id={id}
-              isFavorited={isFavorited}
-            />
           </div>
 
           <div className="flex justify-end">

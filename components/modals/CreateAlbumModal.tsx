@@ -23,13 +23,17 @@ import {
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import ImageUpload from '@/components/ImageUpload'
+import { Textarea } from '@/components/ui/textarea'
 
 const formSchema = z.object({
-  name: z.string().min(1, {
-    message: 'Photo title is required.'
+  title: z.string().min(1, {
+    message: 'Album title is required.'
   }),
   imageUrl: z.string().min(1, {
     message: 'Photo is required.'
+  }),
+  description: z.string().min(1, {
+    message: 'description is required.'
   })
 })
 
@@ -42,8 +46,9 @@ const CreateAlbumModal = () => {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: '',
-      imageUrl: ''
+      title: '',
+      imageUrl: '',
+      description: '',
     }
   })
 
@@ -99,12 +104,26 @@ const CreateAlbumModal = () => {
 
             <FormField
               control={form.control}
-              name="name"
+              name="title"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Title</FormLabel>
                   <FormControl>
                     <Input {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Description</FormLabel>
+                  <FormControl>
+                    <Textarea {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

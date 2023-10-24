@@ -14,8 +14,7 @@ export async function POST(req:Request) {
 
     const album = await db.album.create({
       data: {
-        name: data.name,
-        imageUrl: data.imageUrl
+        ...data
       }
     })
 

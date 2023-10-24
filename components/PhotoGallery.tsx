@@ -1,22 +1,30 @@
-import { Photo } from "@prisma/client"
+import { Album, Photo } from "@prisma/client"
 
 import PhotoCard from "./PhotoCard"
 import { db } from "@/lib/db"
 
-const PhotoGallery = async () => {
+interface PhotoGalleryProps {
+  type: 'photos' | 'albums'
+}
 
-  const photos = await db.photo.findMany({
-    orderBy: {
-      createdAt: 'desc'
-    }
-  })
+const PhotoGallery = async ({
+  type
+}: PhotoGalleryProps) => {
 
-  if (!photos) {
-    return (
-      <div>
-        There have no photos!
-      </div>
-    )
+  let items: (Photo | Album)[] = [];
+
+  if (type === 'photos') {
+    items = await db.photo.findMany({
+      orderBy: {
+        createdAt: 'desc'
+      }
+    });
+  } else if (type === 'albums') {
+    items = await db.album.findMany({
+      orderBy: {
+        createdAt: 'desc'
+      }
+    });
   }
 
   return (
@@ -30,14 +38,13 @@ const PhotoGallery = async () => {
         lg:grid-cols-3
         xl:gap-x-4
       ">
-      {photos.map((photo: Photo) => (
+      {items.map(item => (
         <PhotoCard 
-          key={photo.id} 
-          title={photo.title}
-          id={photo.id}
-          description={photo.description}
-          imageUrl={photo.imageUrl}
-          isFavorited={photo.isFavorited}
+          key={item.id} 
+          title={item.title}
+          id={item.id}
+          description={item.description}
+          imageUrl={item.imageUrl}
         />
       ))}
     </div>

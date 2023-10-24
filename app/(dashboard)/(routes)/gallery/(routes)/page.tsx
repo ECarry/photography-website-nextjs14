@@ -5,7 +5,7 @@ import PhotoGallery from '@/components/PhotoGallery'
 
 export const metadata: Metadata = {
   title: 'Gallery - ECarry Photography',
-  description: 'Dashboard',
+  description: 'Gallery',
 }
 
 
@@ -21,7 +21,7 @@ const GalleryPage = () => {
       </div>
       
       <div className="mt-6 pb-6">
-        <PhotoGallery />
+        <PhotoGallery type='photos' />
       </div>
     </div>
   )
