@@ -7,7 +7,7 @@ const MapPage = async () => {
   const photos = await db.photo.findMany({})
 
   return (
-    <div className="h-screen ml-[68px]">
+    <div className="h-screen w-full">
       <MapboxWithMarks photos={photos} />
     </div>
   )

@@ -7,8 +7,12 @@ const HomeLayout = ({
 }) => {
   return (
     <div>
-      <Sidebar />
-      {children}
+      <div className="hidden md:block">
+        <Sidebar />
+      </div>
+      <div className="ml-0 md:ml-[68px]">
+        {children}
+      </div>
     </div>
   )
 }

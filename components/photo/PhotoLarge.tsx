@@ -20,7 +20,7 @@ const PhotoLarge =
   const renderMiniGrid = (children: JSX.Element) =>
     <div className={cn(
       'flex gap-y-4',
-      'sm:flex-row md:flex-col',
+      'flex-col sm:flex-row md:flex-col',
       '[&>*]:sm:flex-grow',
       'pr-2',
     )}>
@@ -47,14 +47,12 @@ const PhotoLarge =
         )}>
           {renderMiniGrid(<>
             {/* TITLT  */}
-            <div>
-              <Link
-                href=''
-                className="font-bold uppercase"
-              >
-                {photo.title}
-              </Link>
-            </div>
+            <Link
+              href=''
+              className="font-bold uppercase"
+            >
+              {photo.title}
+            </Link>
             {/* CARMRA  */}
             <div className="uppercase">
               {photo.cameraMake} {photo.cameraModel}
