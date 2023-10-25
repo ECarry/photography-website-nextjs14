@@ -14,16 +14,20 @@ interface PhotoCardProps {
   id: string;
   description: string | null;
   imageUrl: string;
+  type: 'photos' | 'albums';
 }
 
 const PhotoCard = ({
   title,
   id,
   description,
-  imageUrl
+  imageUrl,
+  type
 }: PhotoCardProps) => {
   const [isLoading, setLoading] = useState(true)
   const router = useRouter()
+
+  const url = type === 'photos' ? `/gallery/photos/${id}/` : `/albums/${id}/`
 
   return (
     <div className="border-gray-200 border rounded-2xl overflow-hidden">
@@ -66,11 +70,11 @@ const PhotoCard = ({
 
         <div className="flex flex-col items-end justify-between gap-10">
           <div className="flex gap-2">
-            <DeleteAction id={id} title={title} />
+            <DeleteAction id={id} title={title} type={type} />
           </div>
 
           <div className="flex justify-end">
-            <Button variant='primary' onClick={() => router.push(`/gallery/photos/${id}/`)}><Edit className="mr-2 w-4 h-4" /> Edit</Button>
+            <Button variant='primary' onClick={() => router.push(url)}><Edit className="mr-2 w-4 h-4" /> Edit</Button>
           </div>
         </div>
         

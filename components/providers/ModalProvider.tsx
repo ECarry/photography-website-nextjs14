@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import CreatePhotoModal from '@/components/modals/CreatePhotoModal'
 import DeletePhotoModal from '@/components/modals/DeletePhotoModal'
 import CreateAlbumModal from '@/components/modals/CreateAlbumModal'
+import DeleteAlbumModal from '@/components/modals/DeleteAlbumModal'
 
 export const MoadlProvider = () => {
   const [isMounted, setIsMounted] = useState(false)
@@ -21,6 +22,7 @@ export const MoadlProvider = () => {
       <CreatePhotoModal />
       <DeletePhotoModal />
       <CreateAlbumModal />
+      <DeleteAlbumModal />
     </>
   )
 }

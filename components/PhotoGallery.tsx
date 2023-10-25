@@ -45,6 +45,7 @@ const PhotoGallery = async ({
           id={item.id}
           description={item.description}
           imageUrl={item.imageUrl}
+          type={type}
         />
       ))}
     </div>
