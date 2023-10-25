@@ -6,8 +6,20 @@ import Icon from "@/components/icons"
 const links = [
   {
     label: 'Home',
-    link: '/'
-  }
+    href: '/'
+  },
+  {
+    label: 'Gallery',
+    href: '/gallery'
+  },
+  {
+    label: 'Fan',
+    href: '/fan'
+  },
+  {
+    label: 'Map',
+    href: '/map'
+  },
 ]
 
 const Navbar = () => {
