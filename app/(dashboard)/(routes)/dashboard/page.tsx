@@ -75,7 +75,7 @@ const page = async () => {
 
         <AnimatedCard title='The Most City' value={maxTotalCity.total} description={maxTotalCity.name} icon='City' />
 
-        <AnimatedCard title='Places' value={20023} icon='Map' />
+        <AnimatedCard title='Total' value={0} icon='Heart' description='Favorite' />
       </div>
 
       <div className="grid gap-4 grid-cols-1 md:grid-cols-4">

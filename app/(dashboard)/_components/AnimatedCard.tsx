@@ -4,19 +4,20 @@ import { useEffect } from "react";
 import { motion, useSpring, useTransform } from "framer-motion";
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Image, Landmark, Map } from 'lucide-react'
+import { Heart, Image, Landmark, Map } from 'lucide-react'
 
 interface AnimationCardProps {
   title: string;
   value: number;
-  icon: 'Image' | 'Map' | 'City';
+  icon: 'Image' | 'Map' | 'City' | 'Heart';
   description?: string;
 }
 
 const iconMap = {
   'Image': <Image size={22} className='text-gray-500' />,
   'Map': <Map size={22} className='text-gray-500' />,
-  'City': <Landmark size={22} className='text-gray-500' />
+  'City': <Landmark size={22} className='text-gray-500' />,
+  'Heart': <Heart size={22} className='text-gray-500' />,
 }
 
 const AnimationCard = ({
