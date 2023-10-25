@@ -6,8 +6,20 @@ import MoblieNavToggle from '@/components/MoblieNavToggle'
 const links = [
   {
     label: 'Dashboard',
-    link: '/dashboard'
-  }
+    href: '/dashboard'
+  },
+  {
+    label: 'Gallery',
+    href: '/gallery'
+  },
+  {
+    label: 'Albums',
+    href: '/albums'
+  },
+  {
+    label: 'Settings',
+    href: '/settings'
+  },
 ]
 
 const Sidebar = () => {
@@ -19,7 +31,7 @@ const Sidebar = () => {
         <SidebarRoutes />
       </div>
 
-      <div className='flex items-center gap-2'>
+      <div className='flex items-center md:gap-2'>
         <ThemeToggle />
         <div className='hidden md:block'>
           <UserAvatar />

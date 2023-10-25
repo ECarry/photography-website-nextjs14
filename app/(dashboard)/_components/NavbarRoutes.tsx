@@ -1,4 +1,4 @@
-import SidebarItem from "./NavbarItem"
+import NavbarItem from "./NavbarItem"
 
 const guestRoutes = [
   {
@@ -25,7 +25,7 @@ const SidebarRoutes = () => {
   return (
     <div className="flex gap-4">
       {routes.map((route) => (
-        <SidebarItem 
+        <NavbarItem 
         key={route.label}
           label={route.label}
           href={route.href}
