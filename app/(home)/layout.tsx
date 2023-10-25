@@ -7,15 +7,8 @@ const HomeLayout = ({
 }) => {
   return (
     <div>
-      <div className="">
-        <Sidebar />
-      </div>
-
-      <div className="container">
-        {children}
-      </div>
-
-
+      <Sidebar />
+      {children}
     </div>
   )
 }
