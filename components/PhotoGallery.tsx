@@ -15,6 +15,11 @@ const PhotoGallery = async ({
 
   if (type === 'photos') {
     items = await db.photo.findMany({
+      where: {
+        category: {
+          title: 'ecarry'
+        }
+      },
       orderBy: {
         createdAt: 'desc'
       }

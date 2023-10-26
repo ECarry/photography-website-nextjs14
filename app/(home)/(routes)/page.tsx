@@ -1,11 +1,15 @@
 import { db } from "@/lib/db"
 
-import Container from "@/components/Container"
 import AnimateItems from "@/components/AnimateItems"
 import PhotoLarge from "@/components/photo/PhotoLarge"
 
 const HomePage = async () => {
   const photos = await db.photo.findMany({
+    where: {
+      category: {
+        title: 'ecarry'
+      }
+    },
     orderBy: {
       createdAt: 'desc'
     }

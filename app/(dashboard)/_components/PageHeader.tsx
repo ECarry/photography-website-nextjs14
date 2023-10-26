@@ -7,16 +7,21 @@ import { Plus } from "lucide-react";
 interface PageHeaderProps {
   title: string;
   label: string;
-  icon?: string;
-  type: 'createPhoto' | 'createAlbum'
+  id?: string;
+  type: 'createPhoto' | 'createAlbum';
 }
 
 const PageHeader = ({
   title,
   label,
-  type
+  type,
+  id
 }: PageHeaderProps) => {
   const { onOpen } = useModal()
+
+  const data = {
+    id
+  }
 
   return (
     <div className="flex items-center justify-between">
@@ -24,7 +29,7 @@ const PageHeader = ({
         {title}
       </h1>
       <Button
-        onClick={() => onOpen(type)}
+        onClick={() => onOpen(type, data)}
         variant='primary'
       >
         <Plus size={16} className="mr-2" />

@@ -1,9 +1,10 @@
 import { db } from "@/lib/db";
 import { Metadata } from "next";
-import Image from "next/image";
 
 import PageHeader from "@/app/(dashboard)/_components/PageHeader";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { Separator } from "@/components/ui/separator";
+import AlbumIdPageHeader from "@/app/(dashboard)/_components/AlbumIdPageHeader";
+import AlbumIdPageGallery from "@/app/(dashboard)/_components/AlbumIdPageGallery";
 
 interface AlbumIdPageProps {
   params: {
@@ -26,7 +27,7 @@ export async function generateMetadata(
     title: `Edit ${album?.title} - Dashboard - ECarry Photography`
   }
 }
-
+ 
 const AlbumIdPage = async ({
   params
 }: AlbumIdPageProps) => {
@@ -42,19 +43,20 @@ const AlbumIdPage = async ({
 
   return (
     <div className="flex flex-col gap-4">
-      <AspectRatio ratio={16 / 10}>
-        <Image 
-          src={album?.imageUrl}
-          alt="album"
-          fill
-          className="object-cover"
-        />
-      </AspectRatio>
-      <PageHeader title="糖水日记"  label="Add Photo" type="createPhoto" />
-      
-      <h1>{album?.title}</h1>
-      <h2>{params.albumId}</h2>
-      <p>{album?.description}</p>
+      <PageHeader title="糖水日记"  label="Add Photo" type="createPhoto" id={params.albumId} />
+
+      <Separator />
+
+      <AlbumIdPageHeader
+        imageUrl={album.imageUrl}
+        title={album.title}
+        description={album.description}
+      />
+
+      <Separator />
+
+      <AlbumIdPageGallery albumId={album.id}/>
+
     </div>
   )
 }

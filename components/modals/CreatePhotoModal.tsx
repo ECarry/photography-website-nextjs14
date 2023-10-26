@@ -36,7 +36,7 @@ const formSchema = z.object({
 })
 
 const CreatePhotoModal = () => {
-  const { onClose, isOpen, type } = useModal()
+  const { onClose, isOpen, type, data } = useModal()
   const router = useRouter()
 
   const isModalOpen = isOpen && type === 'createPhoto'
@@ -45,13 +45,15 @@ const CreatePhotoModal = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: '',
-      imageUrl: ''
+      imageUrl: '',
     }
   })
 
   const isLoading = form.formState.isSubmitting
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    const albumId = data.id ? data.id : null
+    
     try {
       const exif = await getImageExifInfo(values.imageUrl).catch((error) => {
         console.log(error);
@@ -61,6 +63,7 @@ const CreatePhotoModal = () => {
       const data = {
         ...values,
         ...exif,
+        albumId
       }
       
       await fetch('/api/photos', {
@@ -115,7 +118,7 @@ const CreatePhotoModal = () => {
                 <FormItem>
                   <FormLabel>Title</FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input {...field} disabled={isLoading} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
