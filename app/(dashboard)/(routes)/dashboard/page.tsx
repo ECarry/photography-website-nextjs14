@@ -23,7 +23,13 @@ interface CityData {
 const page = async () => {
   const user = await initialUser()
 
-  const photos = await db.photo.findMany({})
+  const photos = await db.photo.findMany({
+    where: {
+      category: {
+        title: 'ecarry'
+      }
+    }
+  })
 
   const cityPromises = photos.map(async (photo: Photo) => {
     if (photo.latitude !== null && photo.longitude !== null){
