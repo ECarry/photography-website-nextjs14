@@ -76,7 +76,7 @@ const EditPhotoForm = ({
             name='title'
             render={({ field }) => (
               <FormItem>
-                <FormLabel className='uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70'>
+                <FormLabel className='uppercase text-xs font-bold text-primary dark:text-secondary/70'>
                   Title
                 </FormLabel>
 
@@ -85,7 +85,7 @@ const EditPhotoForm = ({
                     disabled={isLoading} 
                     placeholder='Enter Title'
                     {...field}
-                    className='border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0' 
+                    className='border-0 focus-visible:ring-0 text-primary focus-visible:ring-offset-0' 
                   />
                 </FormControl>
                 <FormMessage />
@@ -98,7 +98,7 @@ const EditPhotoForm = ({
             name='description'
             render={({ field }) => (
               <FormItem>
-                <FormLabel className='uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70'>
+                <FormLabel className='uppercase text-xs font-bold text-primary dark:text-secondary/70'>
                   Description
                 </FormLabel>
 
@@ -107,7 +107,7 @@ const EditPhotoForm = ({
                     disabled={isLoading} 
                     placeholder='Enter Description'
                     {...field}
-                    className='border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0' 
+                    className='border-0 focus-visible:ring-0 text-primary focus-visible:ring-offset-0' 
                   />
                 </FormControl>
                 <FormMessage />
@@ -116,7 +116,7 @@ const EditPhotoForm = ({
           />
 
           <Button disabled={isLoading} variant='primary' className="w-full">
-                Update
+            Update
           </Button>
         </form>
       </Form>

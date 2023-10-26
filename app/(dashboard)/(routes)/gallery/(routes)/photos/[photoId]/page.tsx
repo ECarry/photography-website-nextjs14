@@ -107,9 +107,10 @@ const PhotoIdPage = async ({
             <p className="text-muted-foreground text-sm md:text-lg">{photo.timestamp ? formatCustomDate(photo.timestamp) : '-'}</p>
           </div>
         </div>
+
         {/* CAMERA  */}
         <div className="border rounded-[10px] flex flex-col overflow-hidden">
-          <div className="bg-[#f5f5f5] py-2 px-4">
+          <div className="bg-[#f5f5f5] dark:bg-black py-2 px-4">
             <h1 className="md:text-lg">{photo.cameraMake} {photo.cameraModel}</h1>
           </div>
 
@@ -151,7 +152,7 @@ const PhotoIdPage = async ({
         </div>
       </div>
 
-      <div className="col-span-1 lg:col-span-4 lg:sticky lg:top-14 lg:self-start bg-[#f5f5f5] rounded-[10px] p-4">
+      <div className="col-span-1 lg:col-span-4 lg:sticky lg:top-14 lg:self-start bg-[#f5f5f5] dark:bg-black rounded-[10px] p-4">
         <EditPhotoForm photo={photo} />
       </div>
     </div>

@@ -34,8 +34,8 @@ const Sidebar = () => {
         <SidebarRoutes />
       </div>
 
-      <div className='flex items-center md:gap-2'>
-      <Button variant='ghost' size='icon'>
+      <div className='flex items-center md:gap-2 px-2 md:px-0'>
+        <Button variant='ghost' size='icon'>
           <Link href='/'>
             <Send size={20} />
           </Link>
