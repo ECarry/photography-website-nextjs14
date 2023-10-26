@@ -1,10 +1,9 @@
 'use client'
 
 import { useState } from 'react';
-import Map, { Marker, NavigationControl, ViewState, MapLayerMouseEvent, FullscreenControl } from 'react-map-gl';
+import Map, { Marker, NavigationControl, FullscreenControl } from 'react-map-gl';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { toast } from '@/components/ui/use-toast';
 import Pin from './Pin';
 import { Photo } from '@prisma/client';
 

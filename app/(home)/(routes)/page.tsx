@@ -14,10 +14,9 @@ const HomePage = async () => {
   return (
     photos.length > 0
     ?
-    <Container>
-      <div className="space-y-4 p-6">
+      <div className="container space-y-4 p-6">
         <AnimateItems 
-          className="space-y-1"
+          className="space-y-1 ml-0 md:ml-[68px]"
           duration={0.7}
           staggerDelay={0.15}
           distanceOffset={0}
@@ -30,7 +29,6 @@ const HomePage = async () => {
             />)}
         />
       </div>
-    </Container>
     :
     <>No data</>
   )

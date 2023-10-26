@@ -26,7 +26,7 @@ const Navbar = () => {
 
   return (
     <nav 
-      className="w-[60px] h-screen grid grid-rows-3 py-5 justify-items-center fixed backdrop-blur-sm"
+      className="w-[60px] h-screen grid grid-rows-3 py-5 justify-items-center fixed backdrop-blur-sm z-50"
     >
       <MoblieNavToggle links={links} side="left" />
       

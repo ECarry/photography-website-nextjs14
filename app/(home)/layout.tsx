@@ -10,9 +10,8 @@ const HomeLayout = ({
       <div className="hidden md:block">
         <Sidebar />
       </div>
-      <div className="ml-0 md:ml-[68px]">
-        {children}
-      </div>
+
+      {children}
     </div>
   )
 }
