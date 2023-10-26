@@ -1,12 +1,10 @@
 'use client'
 
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useState } from "react"
 import Image from "next/image"
 import { cn } from "@/lib/utils"
 
-import { Edit } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import DeleteAction from "@/app/(dashboard)/_components/DeleteAction";
 
 interface PhotoCardProps {
@@ -25,7 +23,6 @@ const PhotoCard = ({
   type
 }: PhotoCardProps) => {
   const [isLoading, setLoading] = useState(true)
-  const router = useRouter()
 
   const url = type === 'photos' ? `/gallery/photos/${id}/` : `/albums/${id}/`
 
@@ -59,11 +56,13 @@ const PhotoCard = ({
       <div className="p-4 flex justify-between gap-4">
 
         <div className="flex flex-col gap-6">
-          <h1 className="md:text-lg line-clamp-2">
-            {title}
-          </h1>
+          <Link href={url}>
+            <h1 className="md:text-lg line-clamp-2 text-primary hover:underline underline-offset-4">
+              {title}
+            </h1>
+          </Link>
 
-          <p className="text-gray-400 line-clamp-2 text-sm md:text-md">
+          <p className="text-muted-foreground line-clamp-2 text-sm md:text-md">
             {description}
           </p>
         </div>
@@ -71,10 +70,6 @@ const PhotoCard = ({
         <div className="flex flex-col items-end justify-between gap-10">
           <div className="flex gap-2">
             <DeleteAction id={id} title={title} type={type} />
-          </div>
-
-          <div className="flex justify-end">
-            <Button variant='primary' onClick={() => router.push(url)}><Edit className="mr-2 w-4 h-4" /> Edit</Button>
           </div>
         </div>
         

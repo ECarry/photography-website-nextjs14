@@ -103,8 +103,8 @@ const PhotoIdPage = async ({
             </div>
           </div>
 
-          <div className="flex text-sm md:text-lg">
-            <p>{photo.timestamp ? formatCustomDate(photo.timestamp) : '-'}</p>
+          <div className="flex">
+            <p className="text-muted-foreground text-sm md:text-lg">{photo.timestamp ? formatCustomDate(photo.timestamp) : '-'}</p>
           </div>
         </div>
         {/* CAMERA  */}
@@ -115,7 +115,7 @@ const PhotoIdPage = async ({
 
           <div className="py-2 px-4">
             <p className="text-xs md:text-sm">{photo.cameraLens}</p>
-            <p className="text-gray-500 text-xs md:text-sm">{photo.latitude && photo.longitude ? convertCoordinates(photo.latitude, photo.longitude) : '-'} {photo.gpsAltitude}</p>
+            <p className="text-muted-foreground text-xs md:text-sm">{photo.latitude && photo.longitude ? convertCoordinates(photo.latitude, photo.longitude) : '-'} {photo.gpsAltitude}</p>
           </div>
 
           <Separator />
@@ -123,7 +123,7 @@ const PhotoIdPage = async ({
           <div className="flex w-full justify-between items-center text-xs md:text-sm p-4">
             <div>{photo.iso}</div>
             <Separator orientation="vertical" />
-            <div>{photo.focalLength} <span className="text-gray-400/80">{photo.focalLengthIn35mmFilm}</span></div>
+            <div>{photo.focalLength} <span className="text-muted-foreground">{photo.focalLengthIn35mmFilm}</span></div>
             <Separator orientation="vertical" />
             <div>{photo.fNumber}</div>
             <Separator orientation="vertical" />
@@ -134,13 +134,13 @@ const PhotoIdPage = async ({
         {/* DESCRIPTION  */}
         <div>
           <h1 className="text-xl md:text-3xl mb-2">Description</h1>
-          <p className="text-xs md:text-sm text-gray-400">{photo.description}</p>
+          <p className="text-xs md:text-sm text-muted-foreground">{photo.description}</p>
         </div>
 
         {/* MAP  */}
         <div>
           <h1 className="text-xl md:text-3xl mb-2">Map</h1>
-          <p className="mb-2 text-xs md:text-sm text-gray-300">Click map to update coordinate</p>
+          <p className="mb-2 text-xs md:text-sm text-muted-foreground">Click map to update coordinate</p>
           <AspectRatio ratio={16 / 9} className="bg-muted rounded-[10px] overflow-hidden">
             <Mapbox
               longitude={photo.longitude}

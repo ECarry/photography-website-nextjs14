@@ -14,10 +14,10 @@ interface AnimationCardProps {
 }
 
 const iconMap = {
-  'Image': <Image size={22} className='text-gray-500' />,
-  'Map': <Map size={22} className='text-gray-500' />,
-  'City': <Landmark size={22} className='text-gray-500' />,
-  'Heart': <Heart size={22} className='text-gray-500' />,
+  'Image': <Image size={22} className='text-muted-foreground' />,
+  'Map': <Map size={22} className='text-muted-foreground' />,
+  'City': <Landmark size={22} className='text-muted-foreground' />,
+  'Heart': <Heart size={22} className='text-muted-foreground' />,
 }
 
 const AnimationCard = ({
