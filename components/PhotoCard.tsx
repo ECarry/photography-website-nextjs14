@@ -53,9 +53,9 @@ const PhotoCard = ({
       </div>
 
       {/* FOOTER  */}
-      <div className="p-4 flex justify-between gap-4">
+      <div className="p-4 flex justify-between gap-8">
 
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-4">
           <Link href={url}>
             <h1 className="md:text-lg line-clamp-2 text-primary hover:underline underline-offset-4">
               {title}
@@ -75,7 +75,6 @@ const PhotoCard = ({
         
       </div>
     </div>
-    
   )
 }
 
