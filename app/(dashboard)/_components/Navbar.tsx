@@ -2,6 +2,9 @@ import SidebarRoutes from './NavbarRoutes'
 import UserAvatar from './UserAvatar'
 import { ThemeToggle } from '@/components/mode-toggle'
 import MoblieNavToggle from '@/components/MoblieNavToggle'
+import Link from 'next/link'
+import { Send } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 
 const links = [
   {
@@ -32,6 +35,12 @@ const Sidebar = () => {
       </div>
 
       <div className='flex items-center md:gap-2'>
+      <Button variant='ghost' size='icon'>
+          <Link href='/'>
+            <Send size={20} />
+          </Link>
+        </Button>
+        
         <ThemeToggle />
         <div className='hidden md:block'>
           <UserAvatar />
