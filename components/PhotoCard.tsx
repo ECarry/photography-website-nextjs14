@@ -27,7 +27,7 @@ const PhotoCard = ({
   const url = type === 'photos' ? `/gallery/photos/${id}/` : `/albums/${id}/`
 
   return (
-    <div className="border-gray-200 border rounded-2xl overflow-hidden">
+    <div className="border-muted-foreground border rounded-xl overflow-hidden">
       {/* IMAGE  */}
       <div 
         className="
@@ -35,17 +35,17 @@ const PhotoCard = ({
           aspect-h-10
           w-full
           overflow-hidden
-          rounded-2xl
-          bg-gray-200
+          rounded-xl
+          bg-primary
         ">
           <Image 
             src={imageUrl}
             alt="blur"
             fill
             sizes="(min-width: 1280px) 288px, (min-width: 1040px) calc(33.18vw - 25px), (min-width: 640px) calc(50vw - 28px), calc(100vw - 32px)"
-            className={cn("rounded-2xl group-hover:opacity-75 object-cover duration-700 ease-in-out hover:scale-105 hover:brightness-110",
+            className={cn("rounded-xl group-hover:opacity-75 object-cover duration-700 ease-in-out hover:scale-105 hover:brightness-110",
             isLoading
-              ? 'grayscale blur-2xl scale-110'
+              ? 'grayscale blur-xl scale-110'
               : 'grayscale-0 blur-0 scale-100'
             )}
             onLoadingComplete={() => setLoading(false)}
