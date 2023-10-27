@@ -28,28 +28,28 @@ const links = [
 const Sidebar = () => {
   return (
     <div className='w-full h-14 sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b'>
-      <div className='flex items-center justify-end md:justify-between py-2 px-4'>
+      <div className='flex items-center justify-end md:justify-between p-2 md:px-4'>
 
-      <div className='hidden md:block'>
-        <SidebarRoutes />
-      </div>
-
-      <div className='flex items-center md:gap-2 px-2 md:px-0'>
-        <Button variant='ghost' size='icon'>
-          <Link href='/'>
-            <Send size={20} />
-          </Link>
-        </Button>
-        
-        <ThemeToggle />
         <div className='hidden md:block'>
-          <UserAvatar />
+          <SidebarRoutes />
         </div>
 
-        <div className='md:hidden'>
-          <MoblieNavToggle links={links} side='right' />
+        <div className='flex items-center md:gap-2'>
+          <Button variant='ghost' size='icon'>
+            <Link href='/'>
+              <Send size={20} />
+            </Link>
+          </Button>
+          
+          <ThemeToggle />
+          <div className='hidden md:block'>
+            <UserAvatar />
+          </div>
+
+          <div className='md:hidden'>
+            <MoblieNavToggle links={links} side='right' />
+          </div>
         </div>
-      </div>
 
       </div>
     </div>

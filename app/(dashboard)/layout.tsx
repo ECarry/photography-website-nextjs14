@@ -8,7 +8,7 @@ const DashboardLayout = ({
   return (
     <div>
       <Navbar />
-      <div className="container py-4">
+      <div className="container p-4">
         {children}
       </div>
     </div>
