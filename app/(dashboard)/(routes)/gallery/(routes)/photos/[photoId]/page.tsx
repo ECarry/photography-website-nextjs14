@@ -78,12 +78,12 @@ const PhotoIdPage = async ({
 
       <div className="col-span-1 lg:col-span-8 flex flex-col gap-8">
         {/* IMAGE  */}
-        <AspectRatio ratio={aspectRatioMap(photo.aspectRatio)} className="bg-muted">
+        <AspectRatio ratio={aspectRatioMap(photo.aspectRatio)} className="bg-muted rounded-[5px] md:rounded-[10px] overflow-hidden">
           <Image
             src={photo.imageUrl}
             alt={photo.title}
             fill
-            className="rounded-[5px] md:rounded-[10px] object-cover overflow-hidden"
+            className="object-cover"
           />
         </AspectRatio>
         {/* TITLE  */}
