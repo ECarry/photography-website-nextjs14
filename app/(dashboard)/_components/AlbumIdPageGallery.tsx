@@ -1,5 +1,8 @@
 import { db } from "@/lib/db";
 
+import { AspectRatio } from "@/components/ui/aspect-ratio";
+import Image from "next/image";
+
 interface AlbumIdPageGalleryProps {
   albumId: string;
 }
@@ -20,7 +23,15 @@ const AlbumIdPageGallery = async ({
     }
   })
 
-  const photos = album?.photos
+  if (!album) {
+    return null
+  }
+
+  const photos = album.photos
+
+  if (!photos) {
+    return null
+  }
 
   return (
     <div 
@@ -30,11 +41,19 @@ const AlbumIdPageGallery = async ({
         sm:grid-cols-2
         md:grid-cols-3
         lg:grid-cols-4
+        gap-4
       "
     >
-      {photos?.map(photo => (
+      {photos.map(photo => (
         <div key={photo.id}>
-          <img src={photo.imageUrl} />
+          <AspectRatio ratio={1} className="bg-muted rounded-xl overflow-hidden">
+            <Image 
+              src={photo.imageUrl} 
+              alt=""
+              fill
+              className="object-cover cursor-pointer hover:scale-105 transition"
+            />
+          </AspectRatio>
         </div>
       ))}
     </div>
