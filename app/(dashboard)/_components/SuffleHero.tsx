@@ -6,13 +6,14 @@ import { motion } from "framer-motion";
 
 import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 interface SquareData {
   id: number;
   src: string;
 }
 
-const ShuffleHero = async () => {
+const ShuffleHero = () => {
   const { onOpen } = useModal()
 
   return (
@@ -61,67 +62,67 @@ const shuffle = (array: SquareData[]) => {
 const squareData: SquareData[] = [
   {
     id: 1,
-    src: "https://images.unsplash.com/photo-1547347298-4074fc3086f0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
+    src: "https://utfs.io/f/c323808a-2d70-4e8c-b6fb-1500c81dc4e5-uifnx8.jpg",
   },
   {
     id: 2,
-    src: "https://images.unsplash.com/photo-1510925758641-869d353cecc7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+    src: "https://utfs.io/f/210915e9-084d-4c3f-8d2f-22a6ff0af0e0-eaozr0.jpg",
   },
   {
     id: 3,
-    src: "https://images.unsplash.com/photo-1629901925121-8a141c2a42f4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+    src: "https://utfs.io/f/efe4d674-d772-4e23-bbfd-2ac70b76dddd-1x98ey.jpeg",
   },
   {
     id: 4,
-    src: "https://images.unsplash.com/photo-1580238053495-b9720401fd45?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+    src: "https://utfs.io/f/87cadcfe-3054-474a-ba6d-bcefa62cd893-1x98f2.jpeg",
   },
   {
     id: 5,
-    src: "https://images.unsplash.com/photo-1569074187119-c87815b476da?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1325&q=80",
+    src: "https://utfs.io/f/dd8408ae-22b7-4f4d-ab2a-86793ca90661-12wf4o.jpg",
   },
   {
     id: 6,
-    src: "https://images.unsplash.com/photo-1556817411-31ae72fa3ea0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
+    src: "https://utfs.io/f/c3a86832-558c-42ff-8992-ffa3c4a9f1eb-1x98e4.jpeg",
   },
   {
     id: 7,
-    src: "https://images.unsplash.com/photo-1599586120429-48281b6f0ece?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
+    src: "https://utfs.io/f/870b91e9-adbd-48db-95af-e566579bd8d9-eaoipt.jpg",
   },
   {
     id: 8,
-    src: "https://plus.unsplash.com/premium_photo-1671436824833-91c0741e89c9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
+    src: "https://utfs.io/f/34e0f2c6-1db0-4dc1-a4c0-78afba1fb6ed-rtdh9h.jpg",
   },
   {
     id: 9,
-    src: "https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
+    src: "https://utfs.io/f/12d0f4cc-72f4-498a-b9e2-3f1c9b95fbca-1x98f3.jpeg",
   },
   {
     id: 10,
-    src: "https://images.unsplash.com/photo-1610768764270-790fbec18178?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+    src: "https://utfs.io/f/c11e33b7-e74c-498d-9f92-d3736b07d85b-u5xl4x.jpg",
   },
   {
     id: 11,
-    src: "https://images.unsplash.com/photo-1507034589631-9433cc6bc453?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=684&q=80",
+    src: "https://utfs.io/f/a06f68e4-6ac5-4277-9f90-6ea21b1f4845-eaojie.jpg",
   },
   {
     id: 12,
-    src: "https://images.unsplash.com/photo-1533107862482-0e6974b06ec4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=882&q=80",
+    src: "https://utfs.io/f/a5fa35fb-90a5-430b-b030-2e4e232924bb-1x98f0.jpeg",
   },
   {
     id: 13,
-    src: "https://images.unsplash.com/photo-1560089000-7433a4ebbd64?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+    src: "https://utfs.io/f/8ad5d1dd-9c7c-43ff-8b5e-0108a07e1f7e-1x98f1.jpeg",
   },
   {
     id: 14,
-    src: "https://images.unsplash.com/photo-1517466787929-bc90951d0974?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=686&q=80",
+    src: "https://utfs.io/f/dc3843c6-bc83-4594-9d06-3f560d51daeb-1x98ex.jpeg",
   },
   {
     id: 15,
-    src: "https://images.unsplash.com/photo-1606244864456-8bee63fce472?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=681&q=80",
+    src: "https://utfs.io/f/f705a9d1-ca67-436f-bbcf-5a555ec3bf17-eaojfu.jpg",
   },
   {
     id: 16,
-    src: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1820&q=80",
+    src: "https://utfs.io/f/78a855d6-e858-4f4b-a3a5-abecda07e8dd-1x98ez.jpeg",
   },
 ];
 
@@ -131,12 +132,16 @@ const generateSquares = () => {
       key={sq.id}
       layout
       transition={{ duration: 1.5, type: "spring" }}
-      className="w-full h-full"
-      style={{
-        backgroundImage: `url(${sq.src})`,
-        backgroundSize: "cover",
-      }}
-    ></motion.div>
+      className="w-full h-full overflow-hidden"
+    >
+      <Image 
+        src={sq.src}
+        alt="sq"
+        width={256}
+        height={75}
+        className="object-cover w-full h-full"
+      />
+    </motion.div>
   ));
 };
 
