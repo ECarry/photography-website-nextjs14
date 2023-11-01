@@ -9,6 +9,7 @@ import { Photo } from '@prisma/client'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import CityOverview from '../../_components/CityOverview'
 import PageHeader from '../../_components/PageHeader'
+import ShuffleHero from '../../_components/SuffleHero'
 
 export const metadata: Metadata = {
   title: 'Dashboard - ECarry Photography',
@@ -73,7 +74,10 @@ const page = async () => {
 
   return (
     <div className='flex flex-col gap-4 pb-4'>
-      <PageHeader title='Dashboard' label='Add Photo' type='createPhoto' />
+      <PageHeader title='Dashboard' label='Add Photo' type='createPhoto' showButton={false} />
+
+      <ShuffleHero />
+
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <AnimatedCard title='Total' value={photos.length} icon='Image' description='Taken Photos' />
 
