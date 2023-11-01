@@ -23,10 +23,10 @@ const ShuffleHero = () => {
           Better every day
         </span>
         <h3 className="text-4xl md:text-6xl font-semibold">
-          Capturing the beauty of the world through my lens
+          Framing life’s beautiful moments
         </h3>
         <p className="text-base md:text-lg text-slate-700 my-4 md:my-6">
-          For discovering the mesmerizing moments that make our world extraordinary.
+          Capturing every corner of the world, one frame at a time.
         </p>
         <Button
           onClick={() => onOpen('createPhoto')}
