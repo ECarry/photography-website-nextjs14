@@ -1,7 +1,7 @@
-import { Plus } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import ShuffleGrid from "./ShuffleGrid";
 import { db } from "@/lib/db";
+
+import ShuffleGrid from "@/app/(dashboard)/_components/ShuffleGrid";
+import ShimmerButton from "@/app/(dashboard)/_components/ShimmerButton";
 
 const ShuffleHero = async () => {
   const squareData = await db.photo.findMany({
@@ -12,6 +12,10 @@ const ShuffleHero = async () => {
       }
     }
   })
+
+  if (squareData.length < 1) {
+    return null
+  }
 
   return (
     <section className="w-full grid grid-cols-1 md:grid-cols-2 items-center gap-4">
@@ -25,13 +29,7 @@ const ShuffleHero = async () => {
         <p className="text-base md:text-lg text-slate-700 my-4 md:my-6">
           Capturing every corner of the world, one frame at a time.
         </p>
-        <Button
-          //onClick={() => onOpen('createPhoto')}
-          variant='primary'
-        >
-          <Plus size={16} className="mr-2" />
-          New Photo
-        </Button>
+        <ShimmerButton />
       </div>
       <ShuffleGrid squareData={squareData} />
     </section>
