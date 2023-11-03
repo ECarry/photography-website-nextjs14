@@ -74,7 +74,7 @@ const page = async () => {
 
   return (
     <div className='flex flex-col gap-8 pb-4'>
-      <PageHeader title='Dashboard' label='Add Photo' type='createPhoto' showButton={false} />
+      <h1 className='text-3xl font-bold tracking-tight'>Dashboard</h1>
 
       <ShuffleHero />
 
