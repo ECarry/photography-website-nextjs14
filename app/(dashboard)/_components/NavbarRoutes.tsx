@@ -15,7 +15,7 @@ const guestRoutes = [
   },
   {
     label: 'Settings',
-    href: '/settings'
+    href: '/settings/profile'
   }
 ]
 
