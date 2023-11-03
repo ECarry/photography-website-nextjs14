@@ -15,6 +15,7 @@ const GalleryPage = () => {
       <div className="">
         <PageHeader
           title="All Photos"
+          desc='Upload and manage photos.'
           label='Add Photo'
           type='createPhoto'
         />
