@@ -1,8 +1,15 @@
 import { Separator } from "@/components/ui/separator";
 import { ProfileForm } from "../../_components/profile-form";
+import { currentUser } from "@/lib/currentUser";
+import { redirect } from "next/navigation";
 
+export default async function SettingsProfilePage() {
+  const user = await currentUser()
 
-export default function SettingsProfilePage() {
+  if(!user) {
+    return redirect('/sign-in')
+  }
+  
   return (
     <div className="space-y-6">
       <div>
@@ -12,7 +19,7 @@ export default function SettingsProfilePage() {
         </p>
       </div>
       <Separator />
-      <ProfileForm />
+      <ProfileForm user={user} />
     </div>
   )
 }
