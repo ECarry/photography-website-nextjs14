@@ -1,6 +1,4 @@
-
-import { currentUser } from '@clerk/nextjs';
-import type { User as TUser } from "@clerk/nextjs/api";
+import { currentUser } from "@/lib/currentUser";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
@@ -14,9 +12,15 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Button } from '@/components/ui/button';
+import { redirect } from "next/navigation";
+
 
 const UserAvatar = async () => {
-  const user: TUser | null = await currentUser();
+  const user = await currentUser()
+
+  if (!user) {
+    return redirect('/sign-in')
+  }
   
   return (
     <DropdownMenu>
@@ -31,9 +35,9 @@ const UserAvatar = async () => {
     <DropdownMenuContent className="w-56" align="end" forceMount>
       <DropdownMenuLabel className="font-normal">
         <div className="flex flex-col space-y-1">
-          <p className="text-sm font-medium leading-none">{user?.firstName || 'U'}</p>
+          <p className="text-sm font-medium leading-none">{user.name}</p>
           <p className="text-xs leading-none text-muted-foreground">
-            {user?.emailAddresses[0].emailAddress}
+            {user.email}
           </p>
         </div>
       </DropdownMenuLabel>
