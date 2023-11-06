@@ -45,8 +45,6 @@ const AlbumIdPage = async ({
     <div className="flex flex-col gap-4">
       <PageHeader title="糖水日记"  label="Add Photo" type="createPhoto" id={params.albumId} />
 
-      <Separator />
-
       <AlbumIdPageHeader
         imageUrl={album.imageUrl}
         title={album.title}
