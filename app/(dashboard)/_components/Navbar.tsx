@@ -23,7 +23,7 @@ const links = [
   },
   {
     label: 'Settings',
-    href: '/settings/profile'
+    href: '/settings'
   },
 ]
 

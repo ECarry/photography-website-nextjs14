@@ -1,5 +1,5 @@
 import { Separator } from "@/components/ui/separator";
-import { ProfileForm } from "../../_components/profile-form";
+import { ProfileForm } from "../_components/profile-form";
 import { currentUser } from "@/lib/currentUser";
 import { redirect } from "next/navigation";
 
