@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import { Send } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 
 import UserAvatar from './UserAvatar'
 import { ThemeToggle } from '@/components/mode-toggle'
@@ -47,7 +47,7 @@ const Sidebar = () => {
         <div className='flex items-center'>
           <Button variant='ghost' size='icon'>
             <Link href='/'>
-              <Send size={20} />
+              <ArrowUpRight size={20} />
             </Link>
           </Button>
           
