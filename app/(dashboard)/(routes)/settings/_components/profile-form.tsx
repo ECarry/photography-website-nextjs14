@@ -1,18 +1,17 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useFieldArray, useForm } from "react-hook-form"
+import { useForm } from "react-hook-form"
+import { User } from "@prisma/client"
 import * as z from "zod"
 
-import { cn } from "@/lib/utils"
 import { toast } from "@/components/ui/use-toast"
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
-import { User } from "@prisma/client"
-import Image from "next/image"
 import { X } from "lucide-react"
+import AvatarUpload from "./AvatarUpload"
+import { useRouter } from "next/navigation"
 
 interface ProfileFormProps {
   user: User;
@@ -35,6 +34,7 @@ type ProfileFormValues = z.infer<typeof profileFormSchema>
 export function ProfileForm({
   user
 }: ProfileFormProps) {
+  const router = useRouter()
 
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
@@ -44,7 +44,7 @@ export function ProfileForm({
     }
   })
 
-  function onSubmit(data: ProfileFormValues) {
+  const onSubmit = async (data: ProfileFormValues) => {
     toast({
       title: "You submitted the following values:",
       description: (
@@ -53,6 +53,19 @@ export function ProfileForm({
         </pre>
       ),
     })
+
+    try {
+      const res = await fetch('/api/profile', {
+        method: 'PATCH',
+        body: JSON.stringify(data)
+      })
+
+      const profile = await res.json()
+      console.log(profile)
+      router.refresh()
+    } catch (error) {
+      
+    }
   }
 
   return (
@@ -64,30 +77,10 @@ export function ProfileForm({
           render={({ field }) => (
             <FormItem>
               <FormLabel>Avatar</FormLabel>
-              <div className="relative h-20 w-20">
-                <Image 
-                  src={user.imageUrl}
-                  fill
-                  alt="upload"
-                  className="rounded-full"
+                <AvatarUpload
+                  value={field.value}
+                  onChange={field.onChange}
                 />
-                <button
-                  //onClick={() => onChange('')}
-                  type="button"
-                  className="
-                    absolute 
-                    top-0 
-                    right-0 
-                    bg-red-500 
-                    text-white 
-                    rounded-full 
-                    p-1 
-                    shadow-sm
-                    "
-                >
-                  <X className='h-4 w-4' />
-                </button>
-              </div>
             </FormItem>
           )}
         />
