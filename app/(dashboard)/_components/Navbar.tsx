@@ -44,7 +44,7 @@ const Sidebar = () => {
           </div>
         </div>
 
-        <div className='flex items-center md:gap-2'>
+        <div className='flex items-center'>
           <Button variant='ghost' size='icon'>
             <Link href='/'>
               <Send size={20} />
@@ -52,9 +52,11 @@ const Sidebar = () => {
           </Button>
           
           <ThemeToggle />
-          <div className='hidden md:block'>
+
+          <Button variant='ghost' size='icon'>
             <UserAvatar />
-          </div>
+          </Button>
+          
 
           <div className='md:hidden'>
             <MoblieNavToggle links={links} side='right' />
