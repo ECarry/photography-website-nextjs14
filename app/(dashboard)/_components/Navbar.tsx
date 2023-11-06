@@ -1,10 +1,12 @@
-import SidebarRoutes from './NavbarRoutes'
+import Link from 'next/link'
+
+import { Send } from 'lucide-react'
+
 import UserAvatar from './UserAvatar'
 import { ThemeToggle } from '@/components/mode-toggle'
 import MoblieNavToggle from '@/components/MoblieNavToggle'
-import Link from 'next/link'
-import { Send } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import NavbarItem from "./NavbarItem"
 
 const links = [
   {
@@ -21,7 +23,7 @@ const links = [
   },
   {
     label: 'Settings',
-    href: '/settings'
+    href: '/settings/profile'
   },
 ]
 
@@ -31,7 +33,15 @@ const Sidebar = () => {
       <div className='flex items-center justify-end md:justify-between p-2 md:px-4'>
 
         <div className='hidden md:block'>
-          <SidebarRoutes />
+          <div className="flex gap-4">
+            {links.map((link) => (
+              <NavbarItem 
+              key={link.label}
+                label={link.label}
+                href={link.href}
+              />
+            ))}
+          </div>
         </div>
 
         <div className='flex items-center md:gap-2'>
