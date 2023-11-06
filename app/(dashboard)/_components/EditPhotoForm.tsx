@@ -107,7 +107,7 @@ const EditPhotoForm = ({
                     disabled={isLoading} 
                     placeholder='Enter Description'
                     {...field}
-                    className='border-0 focus-visible:ring-0 text-primary focus-visible:ring-offset-0' 
+                    className='border-0 min-h-[250px] focus-visible:ring-0 text-primary focus-visible:ring-offset-0' 
                   />
                 </FormControl>
                 <FormMessage />
