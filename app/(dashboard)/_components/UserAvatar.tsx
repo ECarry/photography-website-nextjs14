@@ -1,4 +1,6 @@
 import { currentUser } from "@/lib/currentUser";
+import { redirect } from "next/navigation";
+import Link from "next/link";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
@@ -8,12 +10,10 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Button } from '@/components/ui/button';
-import { redirect } from "next/navigation";
-
+import { SignOutButton, SignedOut } from "@clerk/nextjs";
 
 const UserAvatar = async () => {
   const user = await currentUser()
@@ -43,20 +43,18 @@ const UserAvatar = async () => {
       </DropdownMenuLabel>
       <DropdownMenuSeparator />
       <DropdownMenuGroup>
-        <DropdownMenuItem>
-          Profile
-          <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          Settings
-          <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-        </DropdownMenuItem>
+        <Link href='/settings'>
+          <DropdownMenuItem>
+            Settings
+          </DropdownMenuItem>
+        </Link>
       </DropdownMenuGroup>
       <DropdownMenuSeparator />
-      <DropdownMenuItem>
-        Log out
-        <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-      </DropdownMenuItem>
+        <SignOutButton>
+          <DropdownMenuItem>
+            Log out
+          </DropdownMenuItem>
+        </SignOutButton>
     </DropdownMenuContent>
   </DropdownMenu>
   )
