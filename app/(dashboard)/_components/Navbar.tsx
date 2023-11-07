@@ -57,7 +57,7 @@ const Sidebar = () => {
           </div>
 
           <div className='md:hidden'>
-            <MoblieNavToggle links={links} side='right' />
+            <MoblieNavToggle links={links} side='top' />
           </div>
         </div>
 

@@ -30,7 +30,7 @@ const SidebarItem = ({
       type='button'
     >
       <div className={cn(
-        'text-2xl md:text-sm font-medium text-muted-foreground transition-colors hover:text-primary',
+        'text-sm font-medium text-muted-foreground transition-colors hover:text-primary',
         isActive && 'text-primary'
       )}>
         {label}
