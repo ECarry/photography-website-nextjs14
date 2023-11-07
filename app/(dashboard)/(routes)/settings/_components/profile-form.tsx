@@ -1,5 +1,6 @@
 "use client"
 
+import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { User } from "@prisma/client"
@@ -9,9 +10,7 @@ import { toast } from "@/components/ui/use-toast"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { X } from "lucide-react"
 import AvatarUpload from "./AvatarUpload"
-import { useRouter } from "next/navigation"
 
 interface ProfileFormProps {
   user: User;
@@ -44,11 +43,11 @@ export function ProfileForm({
     }
   })
 
-  const onSubmit = async (data: ProfileFormValues) => {
+  const onSubmit = async (values: ProfileFormValues) => {
     try {
       await fetch('/api/profile', {
         method: 'PATCH',
-        body: JSON.stringify(data)
+        body: JSON.stringify(values)
       })
 
       toast({
