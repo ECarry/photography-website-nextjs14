@@ -1,4 +1,5 @@
 import { Separator } from '@/components/ui/separator'
+import CategaryForm from '../../_components/categary-form'
 
 const SettingsCategaryPage = () => {
   return (
@@ -10,7 +11,7 @@ const SettingsCategaryPage = () => {
       </p>
     </div>
     <Separator />
-
+    <CategaryForm />
   </div>
   )
 }
