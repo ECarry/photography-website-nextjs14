@@ -14,8 +14,8 @@ const sidebarNavItems = [
     href: "/settings",
   },
   {
-    title: "Categary",
-    href: "/settings/categary",
+    title: "Category",
+    href: "/settings/category",
   },
 ]
 
@@ -26,7 +26,7 @@ interface SettingsLayoutProps {
 export default function SettingsLayout({ children }: SettingsLayoutProps) {
   return (
     <>
-      <div className="space-y-6 pb-16">
+      <div className="space-y-6">
         <PageHeader
           title="Settings"
           desc="Manage your account settings and set e-mail preferences."
