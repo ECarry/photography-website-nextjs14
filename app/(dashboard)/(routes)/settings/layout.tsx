@@ -3,11 +3,6 @@ import { Metadata } from "next"
 import { SidebarNav } from "./_components/sidebar-nav"
 import PageHeader from "../../_components/PageHeader"
 
-export const metadata: Metadata = {
-  title: "Settings - ECarry Photography",
-  description: "Settings",
-}
-
 const sidebarNavItems = [
   {
     title: "Profile",

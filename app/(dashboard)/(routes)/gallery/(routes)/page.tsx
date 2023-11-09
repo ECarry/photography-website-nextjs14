@@ -4,10 +4,8 @@ import PageHeader from '@/app/(dashboard)/_components/PageHeader'
 import PhotoGallery from '@/components/PhotoGallery'
 
 export const metadata: Metadata = {
-  title: 'Gallery - ECarry Photography',
-  description: 'Gallery',
-}
-
+  title: 'Gallery',
+};
 
 const GalleryPage = () => {
   return (

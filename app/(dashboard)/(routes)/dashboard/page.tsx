@@ -1,4 +1,3 @@
-import type { Metadata } from 'next'
 import { initialUser } from "@/lib/initial-user"
 import { db } from '@/lib/db'
 import { coordinateToCitys } from '@/lib/coordinateToCitys'
@@ -8,13 +7,7 @@ import MapboxWithMarks from '@/components/MapboxWithMarks'
 import { Photo } from '@prisma/client'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import CityOverview from '../../_components/CityOverview'
-import PageHeader from '../../_components/PageHeader'
 import ShuffleHero from '../../_components/SuffleHero'
-
-export const metadata: Metadata = {
-  title: 'Dashboard - ECarry Photography',
-  description: 'Dashboard',
-}
 
 interface CityData {
   name: string;

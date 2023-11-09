@@ -24,7 +24,7 @@ export async function generateMetadata(
   })
 
   return {
-    title: `Edit ${album?.title} - Dashboard - ECarry Photography`
+    title: `${album?.title} - Dashboard - ECarry Photography`
   }
 }
  

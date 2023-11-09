@@ -1,7 +1,14 @@
-import { Separator } from "@/components/ui/separator";
-import { ProfileForm } from "../_components/profile-form";
+import { Metadata } from "next";
 import { currentUser } from "@/lib/currentUser";
 import { redirect } from "next/navigation";
+
+import { Separator } from "@/components/ui/separator";
+import { ProfileForm } from "../_components/profile-form";
+
+export const metadata: Metadata = {
+  title: "Profile",
+  description: "Profile",
+}
 
 export default async function SettingsProfilePage() {
   const user = await currentUser()

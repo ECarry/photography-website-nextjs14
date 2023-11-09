@@ -1,4 +1,12 @@
 import Navbar from "./_components/Navbar"
+import { Metadata } from 'next';
+ 
+export const metadata: Metadata = {
+  title: {
+    template: '%s - Dashboard - ECarry Photography',
+    default: 'Dashboard - ECarry Photography',
+  },
+};
 
 const DashboardLayout = ({
   children
