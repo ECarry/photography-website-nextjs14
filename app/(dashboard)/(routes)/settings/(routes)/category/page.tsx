@@ -1,6 +1,13 @@
+import { Metadata } from 'next'
+import { db } from '@/lib/db'
+
 import { Separator } from '@/components/ui/separator'
 import CategoryForm from '../../_components/category-form'
-import { db } from '@/lib/db'
+
+export const metadata: Metadata = {
+  title: "Category",
+  description: "Category",
+}
 
 const SettingsCategaryPage = async () => {
   const categories = await db.category.findMany({})
