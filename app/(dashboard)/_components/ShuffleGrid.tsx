@@ -53,6 +53,12 @@ const ShuffleGrid = ({
   const [squares, setSquares] = useState(generateSquares(squareData));
 
   useEffect(() => {
+    const shuffleSquares = () => {
+      setSquares(generateSquares(squareData));
+  
+      timeoutRef.current = setTimeout(shuffleSquares, 3000);
+    };
+    
     shuffleSquares();
 
     return () => {
@@ -60,13 +66,9 @@ const ShuffleGrid = ({
         clearTimeout(timeoutRef.current);
       }
     };
-  }, []);
+  }, [squareData]);
 
-  const shuffleSquares = () => {
-    setSquares(generateSquares(squareData));
 
-    timeoutRef.current = setTimeout(shuffleSquares, 3000);
-  };
 
   return (
     <div className="grid grid-cols-4 grid-rows-4 h-[450px] gap-1">

@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { motion, useSpring, useTransform } from "framer-motion";
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Heart, Image, Landmark, Map } from 'lucide-react'
+import { Heart, Image as ImageIcon, Landmark, Map } from 'lucide-react'
 
 interface AnimationCardProps {
   title: string;
@@ -14,7 +14,7 @@ interface AnimationCardProps {
 }
 
 const iconMap = {
-  'Image': <Image size={22} className='text-muted-foreground' />,
+  'Image': <ImageIcon size={22} className='text-muted-foreground' />,
   'Map': <Map size={22} className='text-muted-foreground' />,
   'City': <Landmark size={22} className='text-muted-foreground' />,
   'Heart': <Heart size={22} className='text-muted-foreground' />,
