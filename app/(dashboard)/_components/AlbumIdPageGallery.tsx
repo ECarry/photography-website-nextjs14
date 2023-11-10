@@ -2,6 +2,7 @@ import { db } from "@/lib/db";
 
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import Image from "next/image";
+import { fetchAlbumPhotos } from "@/lib/data";
 
 interface AlbumIdPageGalleryProps {
   albumId: string;
@@ -14,18 +15,7 @@ const AlbumIdPageGallery = async ({
     return null
   }
 
-  const album = await db.album.findFirst({
-    where: {
-      id: albumId
-    },
-    include: {
-      photos: {
-        orderBy: {
-          createdAt: 'asc'
-        }
-      }
-    }
-  })
+  const album = await fetchAlbumPhotos(albumId)
 
   if (!album) {
     return null
