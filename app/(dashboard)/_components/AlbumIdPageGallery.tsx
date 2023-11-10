@@ -19,7 +19,11 @@ const AlbumIdPageGallery = async ({
       id: albumId
     },
     include: {
-      photos: true
+      photos: {
+        orderBy: {
+          createdAt: 'asc'
+        }
+      }
     }
   })
 
