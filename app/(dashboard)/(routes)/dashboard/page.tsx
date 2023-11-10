@@ -1,5 +1,4 @@
 import { initialUser } from "@/lib/initial-user"
-import { db } from '@/lib/db'
 import { coordinateToCitys } from '@/lib/coordinateToCitys'
 
 import AnimatedCard from '../../_components/AnimatedCard'
@@ -8,6 +7,7 @@ import { Photo } from '@prisma/client'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import CityOverview from '../../_components/CityOverview'
 import ShuffleHero from '../../_components/SuffleHero'
+import { fetchECarryPhotos } from "@/lib/data"
 
 interface CityData {
   name: string;
@@ -17,13 +17,11 @@ interface CityData {
 const page = async () => {
   const user = await initialUser()
 
-  const photos = await db.photo.findMany({
-    where: {
-      category: {
-        title: 'ecarry'
-      }
-    }
-  })
+  const photos = await fetchECarryPhotos()
+
+  if (photos.length < 1) {
+    return null
+  }
 
   const cityPromises = photos.map(async (photo: Photo) => {
     if (photo.latitude !== null && photo.longitude !== null){

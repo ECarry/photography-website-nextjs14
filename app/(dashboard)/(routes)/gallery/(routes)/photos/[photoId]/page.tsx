@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { db } from "@/lib/db";
 import type { Metadata } from 'next'
 
 import DeleteAction from "@/app/(dashboard)/_components/DeleteAction";
@@ -10,6 +9,7 @@ import formatCustomDate from "@/lib/formatCustomDate";
 import { Heart } from "lucide-react";
 import EditPhotoForm from "@/app/(dashboard)/_components/EditPhotoForm";
 import Mapbox from "@/app/(dashboard)/_components/Mapbox";
+import { fetchPhotoInfo } from "@/lib/data";
 
 interface PhotoIdPageProps {
   params: {
@@ -22,12 +22,8 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const { photoId } = params
 
-  const photo = await db.photo.findFirst({
-    where: {
-      id: photoId
-    }
-  })
-
+  const photo = await fetchPhotoInfo(photoId)
+  
   return {
     title: `Edit ${photo?.title}`
   }
@@ -42,11 +38,7 @@ const PhotoIdPage = async ({
     return null
   }
 
-  const photo = await db.photo.findFirst({
-    where: {
-      id: photoId
-    }
-  })
+  const photo = await fetchPhotoInfo(photoId)
 
   if (!photo) {
     return (

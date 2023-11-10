@@ -1,7 +1,7 @@
 import { Album, Photo } from "@prisma/client"
+import { fetchAlbum, fetchECarryPhotos } from "@/lib/data"
 
 import PhotoCard from "./PhotoCard"
-import { db } from "@/lib/db"
 
 interface PhotoGalleryProps {
   type: 'photos' | 'albums'
@@ -14,22 +14,9 @@ const PhotoGallery = async ({
   let items: (Photo | Album)[] = [];
 
   if (type === 'photos') {
-    items = await db.photo.findMany({
-      where: {
-        category: {
-          title: 'ecarry'
-        }
-      },
-      orderBy: {
-        createdAt: 'desc'
-      }
-    });
+    items = await fetchECarryPhotos()
   } else if (type === 'albums') {
-    items = await db.album.findMany({
-      orderBy: {
-        createdAt: 'desc'
-      }
-    });
+    items = await fetchAlbum()
   }
 
   return (
