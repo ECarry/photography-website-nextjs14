@@ -1,4 +1,5 @@
 import Sidebar from "./_components/Sidebar"
+import NavMobile from "./_components/nav-mobile"
 
 const HomeLayout = ({
   children
@@ -7,10 +8,8 @@ const HomeLayout = ({
 }) => {
   return (
     <div>
-      <div className="hidden md:block">
-        <Sidebar />
-      </div>
-
+      <Sidebar />
+      <NavMobile />
       {children}
     </div>
   )
