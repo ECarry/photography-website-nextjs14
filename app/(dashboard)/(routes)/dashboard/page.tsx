@@ -1,4 +1,3 @@
-import { initialUser } from "@/lib/initial-user"
 import { coordinateToCitys } from '@/lib/coordinateToCitys'
 
 import AnimatedCard from '../../_components/AnimatedCard'
@@ -15,8 +14,6 @@ interface CityData {
 }
 
 const page = async () => {
-  const user = await initialUser()
-
   const photos = await fetchECarryPhotos()
 
   if (photos.length < 1) {

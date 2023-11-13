@@ -23,7 +23,7 @@ export async function DELETE(req:Request) {
       return new NextResponse('Photo not found', { status: 404 })
     }
 
-    if (photo.userId !== user?.userId && user?.role !== 'ADMIN') {
+    if (!user) {
       return new NextResponse('Unauthorized', { status: 401 })
     }
 
@@ -61,7 +61,7 @@ export async function PATCH(req: Request) {
       return new NextResponse('Photo not found', { status: 404 })
     }
 
-    if (photo.userId !== user?.userId && user?.role !== 'ADMIN') {
+    if (!user) {
       return new NextResponse('Unauthorized', { status: 401 })
     }
 

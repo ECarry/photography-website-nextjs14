@@ -1,19 +1,33 @@
-import { auth  } from "@clerk/nextjs";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { getServerSession } from "next-auth";
+import { db } from "./db";
 
-import { db } from '@/lib/db'
+export async function getSession() {
+  return await getServerSession(authOptions)
+}
 
-export const currentUser = async () => {
-  const { userId } = auth()
+export async function currentUser() {
+  try {
+    const session = await getSession();
 
-  if (!userId) {
-    return null
-  }
-
-  const user = await db.user.findUnique({
-    where: {
-      userId
+    if (!session?.user?.email) {
+      return null;
     }
-  })
 
-  return user
+    const currentUser = await db.user.findUnique({
+      where: {
+        email: session.user.email as string,
+      }
+    });
+
+    if (!currentUser) {
+      return null;
+    }
+
+    return {
+      ...currentUser,
+    };
+  } catch (error: any) {
+    return null;
+  }
 }

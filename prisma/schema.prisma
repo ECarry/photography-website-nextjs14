@@ -67,18 +67,12 @@ model Album {
   updatedAt    DateTime @updatedAt
 }
 
-enum UserRole {
-  ADMIN
-  GUEST
-}
-
 model User {
   id        String @id @default(uuid())
-  role      UserRole @default(GUEST)
 
-  userId    String @unique
   email     String @unique
-  name      String?
+  username  String?
+  password  String
   imageUrl  String @db.Text
 
   photos    Photo[]

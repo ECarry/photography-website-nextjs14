@@ -13,7 +13,7 @@ export async function PATCH(req:Request) {
 
     const profile = await db.user.update({
       where: {
-        userId: user.userId
+        id: user.id
       },
       data
     })
