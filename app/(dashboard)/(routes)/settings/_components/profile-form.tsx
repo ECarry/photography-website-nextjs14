@@ -38,7 +38,7 @@ export function ProfileForm({
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     defaultValues: {
-      name: user.name || '',
+      name: user.username || '',
       imageUrl: user.imageUrl || ''
     }
   })
