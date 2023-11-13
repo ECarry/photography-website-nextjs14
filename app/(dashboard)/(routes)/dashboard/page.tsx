@@ -90,7 +90,7 @@ const page = async () => {
           </CardContent>
         </Card>
           
-        <div className="col-span-1 h-[250px] md:h-full md:col-span-2 rounded-lg overflow-hidden">
+        <div className="col-span-1 h-auto min-h-[250px] md:col-span-2 rounded-lg overflow-hidden">
           <MapboxWithMarks photos={photos} />
         </div>
 
