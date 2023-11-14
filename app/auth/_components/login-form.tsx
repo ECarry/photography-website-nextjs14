@@ -12,8 +12,12 @@ import { toast } from '@/components/ui/use-toast'
 import { useRouter } from 'next/navigation'
 
 const formSchema = z.object({
-  email: z.string(),
-  password: z.string()
+  email: z.string().min(1, {
+    message: 'Email must be required.'
+  }),
+  password: z.string().min(1, {
+    message: 'Password must be required.'
+  }),
 })
 
 const LoginForm = () => {
