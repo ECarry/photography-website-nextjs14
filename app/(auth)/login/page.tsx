@@ -26,6 +26,7 @@ const LoginPage = async () => {
         <Image 
           src={imageUrl}
           alt='login image'
+          priority
           width={1920}
           height={1080}
           className='object-cover w-full h-full'
