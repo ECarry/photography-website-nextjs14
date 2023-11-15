@@ -2,6 +2,8 @@ import { db } from '@/lib/db'
 import Image from 'next/image'
 import LoginForm from '../_components/login-form'
 
+export const dynamic = 'force-dynamic'
+
 const LoginPage = async () => {
   const photos = await db.photo.findMany({
     where: {
