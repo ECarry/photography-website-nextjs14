@@ -11,15 +11,14 @@ export const metadata: Metadata = {
 const AlbumsPage = () => {
   return (
     <>
-    <div className="">
       <PageHeader
         title="All Albums"
+        desc='Photography logs.'
         label='Add Album'
         type='createAlbum'
       />
-    </div>
-    
-    <div className="mt-6 pb-6">
+      
+      <div className="mt-6 pb-6">
         <PhotoGallery type='albums' />
       </div>
     </>

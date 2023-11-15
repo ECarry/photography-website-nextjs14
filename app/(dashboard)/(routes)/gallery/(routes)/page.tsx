@@ -9,20 +9,19 @@ export const metadata: Metadata = {
 
 const GalleryPage = () => {
   return (
-    <div>
-      <div className="">
-        <PageHeader
-          title="All Photos"
-          desc='Upload and manage photos.'
-          label='Add Photo'
-          type='createPhoto'
-        />
-      </div>
+    <>
+      <PageHeader
+        title="All Photos"
+        desc='Upload and manage photos.'
+        label='Add Photo'
+        type='createPhoto'
+      />
+
       
       <div className="mt-6 pb-6">
         <PhotoGallery type='photos' />
       </div>
-    </div>
+    </>
   )
 }
 
