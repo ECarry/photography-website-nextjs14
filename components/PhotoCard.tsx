@@ -36,7 +36,7 @@ const PhotoCard = ({
           w-full
           overflow-hidden
           rounded-xl
-          bg-primary
+          bg-muted
         ">
           <Image 
             src={imageUrl}
