@@ -1,10 +1,12 @@
 import { db } from '@/lib/db'
 import Image from 'next/image'
+import { unstable_noStore as noStore } from 'next/cache';
+
 import LoginForm from '../_components/login-form'
 
-export const dynamic = 'force-dynamic'
-
 const LoginPage = async () => {
+  noStore();
+
   const photos = await db.photo.findMany({
     where: {
       category: {
