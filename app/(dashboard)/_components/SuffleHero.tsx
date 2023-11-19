@@ -23,11 +23,14 @@ const ShuffleHero = async () => {
         <span className="block mb-4 text-xs md:text-sm text-indigo-500 font-medium">
           Better every day
         </span>
-        <h3 className="text-4xl md:text-6xl font-semibold">
-          Framing life’s beautiful moments
+        <h3 className="text-2xl md:text-4xl font-semibold">
+          他说这世界是不是我们的
+        </h3>
+        <h3 className="text-2xl md:text-4xl font-semibold">
+          我应该穿什么吃什么
         </h3>
         <p className="text-base md:text-lg text-slate-700 my-4 md:my-6">
-          Capturing every corner of the world, one frame at a time.
+          如果没有人看着，我那该多快乐！
         </p>
         <ShimmerButton />
       </div>

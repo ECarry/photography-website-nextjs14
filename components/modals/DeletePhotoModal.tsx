@@ -34,7 +34,7 @@ export default function DeletePhotoModal() {
       console.log(res);
       
       onClose()
-      pathname === '/dashboard' ? router.refresh() : router.push('/dashboard')
+      pathname === '/gallery' ? router.refresh() : router.push('/dashboard')
       toast({
         title: "Deleted successed!",
         description: `${title} has been deleted.`
