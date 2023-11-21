@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Map, { Marker, NavigationControl, FullscreenControl } from 'react-map-gl';
+import { useTheme } from 'next-themes'
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import Pin from './Pin';
@@ -22,12 +23,13 @@ const MapboxWithMarks = ({
     zoom: 5,
     localIdeographFontFamily: "'Noto Sans', 'Noto Sans CJK SC', sans-serif"
   })
+  const { theme } = useTheme()
 
   return (
     <Map
       initialViewState={{...viewport}}
       mapboxAccessToken={token}
-      mapStyle='mapbox://styles/ecarry/cldmhu6tr000001n33ujbxf7j'
+      mapStyle={theme === 'dark' ? 'mapbox://styles/ecarry/clp8hcmd300km01qx78rt0xaw' : 'mapbox://styles/ecarry/cldmhu6tr000001n33ujbxf7j' }
     >
       {photos.length > 0 ? (
         <>
