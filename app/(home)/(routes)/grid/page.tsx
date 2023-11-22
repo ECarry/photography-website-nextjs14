@@ -26,8 +26,9 @@ const GridPage = async () => {
   return (
     <div className='py-[48px] md:py-6 md:ml-[50px] p-6'>
       <PhotoAlbum 
-        layout="rows"
+        layout="columns"
         photos={photos}
+        columns={3}
         renderPhoto={NextJsImage}
         defaultContainerWidth={1200}
         sizes={{
