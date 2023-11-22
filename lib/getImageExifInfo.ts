@@ -108,14 +108,16 @@ const readExifData = (blob: Blob): Promise<any> => {
   });
 };
 
-const getImageAspectRatioFromBlob = (blob: Blob): Promise<{ aspectRatio: number }> => {
+const getImageAspectRatioFromBlob = (blob: Blob): Promise<{ aspectRatio: number, width: number, height: number }> => {
   return new Promise((resolve, reject) => {
     const img = new Image();
     img.src = URL.createObjectURL(blob);
 
     img.onload = () => {
-      const aspectRatio = img.width / img.height
-      resolve({aspectRatio});
+      const width = img.width
+      const height = img.height
+      const aspectRatio = width / height
+      resolve({aspectRatio, width, height});
     };
 
     img.onerror = (error) => {
@@ -134,11 +136,11 @@ const getImageExifInfo = async (imageUrl: string) => {
 
     const blob = await response.blob();
 
-    const aspectRatio = await getImageAspectRatioFromBlob(blob);
+    const imgSize = await getImageAspectRatioFromBlob(blob);
     const exifData = await readExifData(blob);
     
     const data = {
-      ...aspectRatio,
+      ...imgSize,
       ...exifData
     }
     return data

@@ -13,7 +13,6 @@ export async function POST(req: Request) {
 
     const photo = await db.photo.create({
       data: {
-        userId: user.id,
         ...data
       }
     })

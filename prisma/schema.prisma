@@ -30,6 +30,9 @@ model Photo {
   fNumber      String?
   focalLength  String?
   focalLengthIn35mmFilm String?
+
+  width        Float
+  height       Float
   aspectRatio  Float
 
   categoryId   String?

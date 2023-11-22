@@ -4,8 +4,8 @@ export const links = [
     href: '/'
   },
   {
-    label: 'Gallery',
-    href: '/gallery'
+    label: 'Grid',
+    href: '/grid'
   },
   {
     label: 'Fan',
