@@ -8,16 +8,18 @@ export default function ImageLarge({
   aspectRatio,
   alt,
   priority,
+  id,
 }: {
   className?: string
   src: string
   aspectRatio: number
   alt: string
-  priority?: boolean
+  priority?: boolean,
+  id: string
 }) {
   return (
     <Link
-      href={''}
+      href={`/p/${id}`}
       className="active:brightness-75"
     >
       <Image {...{

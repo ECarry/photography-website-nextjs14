@@ -36,6 +36,7 @@ const PhotoLarge =
           src={photo.imageUrl}
           aspectRatio={photo.aspectRatio}
           priority={priority}
+          id={photo.id}
         />}
       contentSide={
         <div className={cn(
@@ -48,7 +49,7 @@ const PhotoLarge =
           {renderMiniGrid(<>
             {/* TITLT  */}
             <Link
-              href=''
+              href={`/p/${photo.id}`}
               className="font-bold uppercase"
             >
               {photo.title}
