@@ -31,9 +31,6 @@ model Photo {
   focalLengthIn35mmFilm String?
   aspectRatio  Float
 
-  userId       String
-  user         User @relation(fields: [userId], references: [id])
-
   categoryId   String?
   category     Category? @relation(fields: [categoryId], references: [id])
 
@@ -45,7 +42,6 @@ model Photo {
 
   @@index([categoryId])
   @@index([albumId])
-  @@index([userId])
 }
 
 model Category {
@@ -74,8 +70,6 @@ model User {
   username  String?
   password  String
   imageUrl  String @db.Text
-
-  photos    Photo[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
