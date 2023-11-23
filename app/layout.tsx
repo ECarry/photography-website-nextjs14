@@ -6,6 +6,7 @@ import { MoadlProvider } from '@/components/providers/ModalProvider'
 import { Toaster } from "@/components/ui/toaster"
 import { ThemeProvider } from "@/components/providers/theme-provider"
 import AuthProvider from '@/components/providers/auth-provider'
+import { Analytics } from '@vercel/analytics/react';
 
 const ibmPlexMono = IBM_Plex_Mono({
   subsets: ['latin'],
@@ -34,6 +35,7 @@ export default function RootLayout({
             <MoadlProvider />
             <Toaster />
             {children}
+            <Analytics />
           </ThemeProvider>
         </AuthProvider>
       </body>
