@@ -1,4 +1,4 @@
-import photos from "@/lib/photos"
+import { fetchPhotoInfo } from "@/lib/data"
 
 interface PhotoIdPageProps {
   params: {
@@ -6,17 +6,21 @@ interface PhotoIdPageProps {
   }
 }
 
-const PhotoIdPage = ({
+const PhotoIdPage = async ({
   params
 }: PhotoIdPageProps) => {
   const { id } = params
 
-  console.log(photos);
+  const data = await fetchPhotoInfo(id)
   
+  if (!data) {
+    return null
+  }
 
   return (
     <div className='flex items-center justify-center h-screen text-3xl'>
       photo id: {id}
+      <h1>{data.title}</h1>
     </div>
   )
 }

@@ -1,3 +1,5 @@
+'use client'
+
 import { Menu } from "lucide-react";
 import {
   Sheet,
@@ -25,9 +27,7 @@ const MoblieNavToggle = ({
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant='ghost' size='icon' aria-label="menu button">
-          <Menu />
-        </Button>
+        <Menu className="cursor-pointer" />
       </SheetTrigger>
       <SheetContent side={side} className='p-0 flex gap-0'>
         <div className="w-full flex flex-col items-center justify-center gap-4 py-4">
