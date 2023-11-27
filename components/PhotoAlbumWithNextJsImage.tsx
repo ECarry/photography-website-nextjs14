@@ -26,25 +26,28 @@ interface PhotoAlbumWithNextJsImageProps {
 const PhotoAlbumWithNextJsImage = ({
   photos
 }: PhotoAlbumWithNextJsImageProps ) => {
-  const [isMobile, setIsMobile] = useState(window.matchMedia('(max-width: 767px)').matches);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const handleResize = (event: any) => {
       setIsMobile(event.matches);
     };
 
-    const mediaQueryList = window.matchMedia('(max-width: 767px)');
+    // 检查 window 是否存在
+    if (typeof window !== 'undefined') {
+      const mediaQueryList = window.matchMedia('(max-width: 767px)');
 
-    // 初始化
-    handleResize(mediaQueryList);
+      // 初始化
+      handleResize(mediaQueryList);
 
-    // 监听媒体查询变化
-    mediaQueryList.addEventListener('change', handleResize);
+      // 监听媒体查询变化
+      mediaQueryList.addEventListener('change', handleResize);
 
-    // 清理监听器
-    return () => {
-      mediaQueryList.removeEventListener('change', handleResize);
-    };
+      // 清理监听器
+      return () => {
+        mediaQueryList.removeEventListener('change', handleResize);
+      };
+    }
   }, []);
 
   
