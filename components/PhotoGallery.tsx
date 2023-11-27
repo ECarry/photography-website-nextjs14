@@ -14,7 +14,7 @@ const PhotoGallery = async ({
   let items: (Photo | Album)[] = [];
 
   if (type === 'photos') {
-    items = await fetchECarryPhotos()
+    items = await fetchECarryPhotos(1, 100)
   } else if (type === 'albums') {
     items = await fetchAlbum()
   }

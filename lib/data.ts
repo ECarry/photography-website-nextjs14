@@ -1,6 +1,8 @@
 import { db } from "@/lib/db";
 
-export async function fetchECarryPhotos() {
+export async function fetchECarryPhotos(page: number, limit: number) {
+  const skip = (page - 1) * limit
+  const take = limit
   try {
     const data = await db.photo.findMany({
       where: {
@@ -10,7 +12,9 @@ export async function fetchECarryPhotos() {
       },
       orderBy: {
         createdAt: 'desc'
-      }
+      },
+      skip,
+      take,
     })
 
     return data

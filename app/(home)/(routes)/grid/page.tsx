@@ -5,7 +5,7 @@ import PhotoAlbumWithNextJsImage from '@/components/PhotoAlbumWithNextJsImage';
 const breakpoints = [1080, 640, 384, 256, 128, 96, 64, 48];
 
 const GridPage = async () => {
-  const data = await fetchECarryPhotos()
+  const data = await fetchECarryPhotos(1, 100)
 
   const photos = data.map((photo) => ({
     id: photo.id,
