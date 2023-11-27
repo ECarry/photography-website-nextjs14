@@ -39,11 +39,11 @@ const PhotoAlbumWithNextJsImage = ({
     handleResize(mediaQueryList);
 
     // 监听媒体查询变化
-    mediaQueryList.addListener(handleResize);
+    mediaQueryList.addEventListener('change', handleResize);
 
     // 清理监听器
     return () => {
-      mediaQueryList.removeListener(handleResize);
+      mediaQueryList.removeEventListener('change', handleResize);
     };
   }, []);
 
