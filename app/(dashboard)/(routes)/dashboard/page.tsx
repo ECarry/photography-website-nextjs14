@@ -14,7 +14,7 @@ interface CityData {
 }
 
 const page = async () => {
-  const photos = await fetchECarryPhotos()
+  const photos = await fetchECarryPhotos(1, 16)
 
   if (photos.length < 1) {
     return null
