@@ -1,3 +1,5 @@
+import 'server-only'
+
 import { db } from "@/lib/db";
 
 export async function fetchECarryPhotos(page: number, limit: number) {

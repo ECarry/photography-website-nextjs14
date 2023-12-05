@@ -49,6 +49,7 @@
     "react-map-gl": "^7.1.6",
     "react-photo-album": "^2.3.0",
     "recharts": "^2.9.0",
+    "server-only": "^0.0.1",
     "tailwind-merge": "^1.14.0",
     "tailwindcss": "3.3.3",
     "tailwindcss-animate": "^1.0.7",
