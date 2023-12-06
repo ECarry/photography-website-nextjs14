@@ -133,7 +133,7 @@ const PhotoIdPage = async ({
         {/* MAP  */}
         <div>
           <h1 className="text-xl md:text-3xl mb-2">Map</h1>
-          <p className="mb-2 text-xs md:text-sm text-muted-foreground">Click map to update coordinate</p>
+          <p className="mb-2 text-xs md:text-sm text-muted-foreground">Double-click map to update coordinate</p>
           <AspectRatio ratio={16 / 9} className="bg-muted rounded-[10px] overflow-hidden">
             <Mapbox
               longitude={photo.longitude}

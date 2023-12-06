@@ -49,7 +49,8 @@ const Mapbox = ({
       })
 
       toast({
-        title: 'Coordinate Update Successful'
+        title: 'Coordinate Update Successful',
+        variant: 'successful'
       })
     } catch (error) {
       console.log(error);
@@ -62,7 +63,8 @@ const Mapbox = ({
       initialViewState={{...viewport}}
       mapboxAccessToken={token}
       mapStyle='mapbox://styles/ecarry/cldmhu6tr000001n33ujbxf7j'
-      onClick={handleMapClick}
+      onDblClick={handleMapClick}
+      doubleClickZoom={false}
     >
       <Marker latitude={newPlace[0]!} longitude={newPlace[1]!} >
         <Pin />
