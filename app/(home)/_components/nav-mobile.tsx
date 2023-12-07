@@ -11,7 +11,7 @@ const NavMobile = () => {
   const [isOpen, setOpen] = useState(false)
 
   return (
-    <header className='flex items-center px-6 justify-end md:hidden fixed top-0 left-0 z-10 h-[40px] w-full backdrop-blur-sm'>
+    <header className='flex items-center px-4 justify-end md:hidden fixed top-0 left-0 z-10 h-[40px] w-full backdrop-blur-sm'>
       <Menu className='cursor-pointer' onClick={() => setOpen(pre => !pre)} />
         <AnimatePresence>
           {isOpen && (
