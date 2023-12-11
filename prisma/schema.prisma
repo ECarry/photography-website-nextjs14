@@ -60,6 +60,7 @@ model Album {
   title String @unique
   imageUrl String @db.Text
   description  String @db.Text
+  bv  String?
 
   photos Photo[]
 
