@@ -34,7 +34,8 @@ const formSchema = z.object({
   }),
   description: z.string().min(1, {
     message: 'description is required.'
-  })
+  }),
+  bv: z.string().nullable()
 })
 
 const CreateAlbumModal = () => {
@@ -49,6 +50,7 @@ const CreateAlbumModal = () => {
       title: '',
       imageUrl: '',
       description: '',
+      bv: ''
     }
   })
 
@@ -124,6 +126,20 @@ const CreateAlbumModal = () => {
                   <FormLabel>Description</FormLabel>
                   <FormControl>
                     <Textarea {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="bv"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Bilibili BV</FormLabel>
+                  <FormControl>
+                    <Input {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
