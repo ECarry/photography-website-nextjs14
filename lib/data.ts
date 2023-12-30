@@ -46,6 +46,9 @@ export async function fetchAlbum() {
     const data = await db.album.findMany({
       orderBy: {
         createdAt: 'desc'
+      },
+      include: {
+        photos: true
       }
     })
 

@@ -12,19 +12,15 @@ interface PhotoCardProps {
   id: string;
   description: string | null;
   imageUrl: string;
-  type: 'photos' | 'albums';
 }
 
 const PhotoCard = ({
   title,
   id,
   description,
-  imageUrl,
-  type
+  imageUrl
 }: PhotoCardProps) => {
   const [isLoading, setLoading] = useState(true)
-
-  const url = type === 'photos' ? `/gallery/photos/${id}/` : `/albums/${id}/`
 
   return (
     <div className="border-muted-foreground border rounded-xl overflow-hidden">
@@ -56,7 +52,7 @@ const PhotoCard = ({
       <div className="p-4 flex justify-between gap-8">
 
         <div className="flex flex-col gap-4">
-          <Link href={url}>
+          <Link href={`/gallery/photos/${id}/`}>
             <h1 className="md:text-lg line-clamp-2 text-primary hover:underline underline-offset-4">
               {title}
             </h1>
@@ -69,7 +65,7 @@ const PhotoCard = ({
 
         <div className="flex flex-col items-end justify-between gap-10">
           <div className="flex gap-2">
-            <DeleteAction id={id} title={title} type={type} />
+            <DeleteAction id={id} title={title} />
           </div>
         </div>
         

@@ -3,21 +3,10 @@ import { fetchAlbum, fetchECarryPhotos } from "@/lib/data"
 
 import PhotoCard from "./PhotoCard"
 
-interface PhotoGalleryProps {
-  type: 'photos' | 'albums'
-}
 
-const PhotoGallery = async ({
-  type
-}: PhotoGalleryProps) => {
+const PhotoGallery = async () => {
+  const photos = await fetchECarryPhotos(1, 100)
 
-  let items: (Photo | Album)[] = [];
-
-  if (type === 'photos') {
-    items = await fetchECarryPhotos(1, 100)
-  } else if (type === 'albums') {
-    items = await fetchAlbum()
-  }
 
   return (
     <div 
@@ -30,14 +19,13 @@ const PhotoGallery = async ({
         lg:grid-cols-3
         xl:gap-x-4
       ">
-      {items.map(item => (
+      {photos.map(photo => (
         <PhotoCard 
-          key={item.id} 
-          title={item.title}
-          id={item.id}
-          description={item.description}
-          imageUrl={item.imageUrl}
-          type={type}
+          key={photo.id} 
+          title={photo.title}
+          id={photo.id}
+          description={photo.description}
+          imageUrl={photo.imageUrl}
         />
       ))}
     </div>
@@ -45,3 +33,4 @@ const PhotoGallery = async ({
 }
 
 export default PhotoGallery
+ 

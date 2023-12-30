@@ -1,14 +1,19 @@
 import { Metadata } from 'next'
 
 import PageHeader from '@/app/(dashboard)/_components/PageHeader'
-import PhotoGallery from '@/components/PhotoGallery'
+import { fetchAlbum } from '@/lib/data'
+import AlbumCard from '@/app/(dashboard)/_components/AlbumCard'
 
 export const metadata: Metadata = {
   title: 'Albums',
   description: 'Albums',
 }
 
-const AlbumsPage = () => {
+const AlbumsPage = async () => {
+  const albums = await fetchAlbum()
+
+  console.log(albums)
+
   return (
     <>
       <PageHeader
@@ -19,7 +24,7 @@ const AlbumsPage = () => {
       />
       
       <div className="mt-6 pb-6">
-        <PhotoGallery type='albums' />
+        <AlbumCard />
       </div>
     </>
 

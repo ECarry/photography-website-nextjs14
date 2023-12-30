@@ -19,7 +19,7 @@ const GalleryPage = () => {
 
       
       <div className="mt-6 pb-6">
-        <PhotoGallery type='photos' />
+        <PhotoGallery />
       </div>
     </>
   )
