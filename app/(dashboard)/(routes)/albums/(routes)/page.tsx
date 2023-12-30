@@ -3,6 +3,7 @@ import { Metadata } from 'next'
 import PageHeader from '@/app/(dashboard)/_components/PageHeader'
 import { fetchAlbum } from '@/lib/data'
 import AlbumCard from '@/app/(dashboard)/_components/AlbumCard'
+import { AlbumWithPhotos } from '@/types'
 
 export const metadata: Metadata = {
   title: 'Albums',
@@ -31,11 +32,12 @@ const AlbumsPage = async () => {
             md:grid-cols-2
             lg:grid-cols-3
             xl:grid-cols-4
-            gap-4
+            gap-x-4
+            gap-y-8
            '
         >
           {albums.map(album => (
-            <AlbumCard key={album.id} album={album} />
+            <AlbumCard key={album.id} album={album as AlbumWithPhotos} />
           ))}
         </div>
       </div>
