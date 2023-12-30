@@ -30,7 +30,7 @@
     "autoprefixer": "10.4.16",
     "bcrypt": "^5.1.1",
     "class-variance-authority": "^0.7.0",
-    "clsx": "^2.0.0",
+    "clsx": "^2.1.0",
     "eslint": "8.50.0",
     "eslint-config-next": "^14.0.2",
     "exif-js": "^2.3.0",

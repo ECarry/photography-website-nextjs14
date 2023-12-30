@@ -48,7 +48,7 @@ const PhotoCard = ({
               ? 'grayscale blur-xl scale-110'
               : 'grayscale-0 blur-0 scale-100'
             )}
-            onLoadingComplete={() => setLoading(false)}
+            onLoad={() => setLoading(false)}
           />
       </div>
 
