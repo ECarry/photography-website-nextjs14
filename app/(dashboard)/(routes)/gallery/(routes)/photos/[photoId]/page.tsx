@@ -86,7 +86,7 @@ const PhotoIdPage = async ({
             </h1>
             <div className="flex items-center">
               <div className="p-2 rounded-full cursor-pointer hover:bg-[#f5f5f5] flex justify-center items-center">
-                <DeleteAction id={photo.id} title={photo.title} type="photos" />
+                <DeleteAction id={photo.id} title={photo.title} />
               </div>
 
               <div className="p-2 rounded-full cursor-pointer hover:bg-[#f5f5f5] flex justify-center items-center">

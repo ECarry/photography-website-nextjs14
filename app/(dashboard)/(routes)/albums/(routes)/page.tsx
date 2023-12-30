@@ -24,7 +24,20 @@ const AlbumsPage = async () => {
       />
       
       <div className="mt-6 pb-6">
-        <AlbumCard />
+        <div
+           className='
+            grid
+            grid-cols-1
+            md:grid-cols-2
+            lg:grid-cols-3
+            xl:grid-cols-4
+            gap-4
+           '
+        >
+          {albums.map(album => (
+            <AlbumCard key={album.id} album={album} />
+          ))}
+        </div>
       </div>
     </>
 
