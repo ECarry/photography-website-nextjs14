@@ -52,7 +52,7 @@ const LoginForm = () => {
         return
       }
       
-      router.prefetch('/dashboard')
+      router.push('/dashboard')
     } catch (error) {
       console.log(error);
       
