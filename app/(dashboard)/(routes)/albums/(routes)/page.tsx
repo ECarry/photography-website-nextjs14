@@ -13,8 +13,6 @@ export const metadata: Metadata = {
 const AlbumsPage = async () => {
   const albums = await fetchAlbum()
 
-  console.log(albums)
-
   return (
     <>
       <PageHeader

@@ -40,7 +40,7 @@ const AlbumIdPageGallery = async ({
     >
       {photos.map(photo => (
         <div key={photo.id}>
-          <AspectRatio ratio={1} className="bg-muted rounded-xl overflow-hidden">
+          <AspectRatio ratio={1} className="bg-muted rounded-md overflow-hidden">
             <Image 
               src={photo.imageUrl} 
               alt=""
