@@ -53,3 +53,10 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 - 📝 MDX content through Contentlayer.
 - 🔔 Notifications provided by Knock.
 - 🔄 Cron jobs provided by Vercel.
+
+
+## TODO
+
+- Next-auth v5
+- Next.js 14 server action
+- Photo page
