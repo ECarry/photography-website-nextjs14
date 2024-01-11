@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { User } from "@prisma/client"
+
 import * as z from "zod"
 
 import { toast } from "@/components/ui/use-toast"
@@ -11,6 +11,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import AvatarUpload from "./AvatarUpload"
+import { User } from "next-auth"
 
 interface ProfileFormProps {
   user: User;
@@ -38,8 +39,8 @@ export function ProfileForm({
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     defaultValues: {
-      name: user.username || '',
-      imageUrl: user.imageUrl || ''
+      name: user.name || '',
+      imageUrl: user.image || ''
     }
   })
 

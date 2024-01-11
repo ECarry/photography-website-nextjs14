@@ -3,13 +3,14 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
-import { signIn } from 'next-auth/react'
 
 import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { toast } from '@/components/ui/use-toast'
-import { useRouter } from 'next/navigation'
+import { useState, useTransition } from 'react'
+import { login } from '@/actions/login'
+import FormError from '@/components/form-error'
+import FormSuccess from '@/components/form-success'
 
 const formSchema = z.object({
   email: z.string().min(1, {
@@ -21,7 +22,9 @@ const formSchema = z.object({
 })
 
 const LoginForm = () => {
-  const router = useRouter()
+  const [error, setError] = useState<string | undefined>()
+  const [success, setSuccess] = useState<string | undefined>()
+  const [isPending, startTransition] = useTransition()
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -31,33 +34,19 @@ const LoginForm = () => {
     }
   })
 
-  const isLoading = form.formState.isSubmitting
-
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    const { email, password } = values
+    setError('')
+    setSuccess('')
 
-    try {
-      const res = await signIn('credentials', {
-        email,
-        password,
-        redirect: false
+    startTransition(() => {
+      login(values)
+      .then((data) => {
+        setError(data?.error)
+        setSuccess(data?.success)
       })
-
-      if (res?.error) {
-        toast({
-          variant: "destructive",
-          title: res.error,
-          description: "Incorrect email or password.",
-        })
-        return
-      }
-      
-      router.push('/dashboard')
-    } catch (error) {
-      console.log(error);
-      
-    }
+    })
   }
+
   return (
     <div className='w-full max-w-sm'>
       <h1 className='text-3xl text-center font-semibold mb-4'>Login</h1>
@@ -75,7 +64,7 @@ const LoginForm = () => {
 
                 <FormControl>
                   <Input 
-                    disabled={isLoading}
+                    disabled={isPending}
                     placeholder='hello@ecarry.me'
                     {...field}
                     type='email'
@@ -97,7 +86,7 @@ const LoginForm = () => {
 
                 <FormControl>
                   <Input 
-                    disabled={isLoading}
+                    disabled={isPending}
                     {...field}
                     type='password'
                   />
@@ -107,7 +96,10 @@ const LoginForm = () => {
             )}
           />
 
-          <Button disabled={isLoading} variant='primary' className="w-full">
+          <FormError message={error} />
+          <FormSuccess message={success} />
+
+          <Button disabled={isPending} variant='primary' className="w-full">
             Login
           </Button>
         </form>
