@@ -26,6 +26,26 @@ export async function fetchECarryPhotos(page: number, limit: number) {
   }
 }
 
+export async function fetchAllECarryPhotos() {
+  try {
+    const data = await db.photo.findMany({
+      where: {
+        category: {
+          title: 'ecarry'
+        }
+      },
+      orderBy: {
+        createdAt: 'desc'
+      }
+    })
+
+    return data
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch ECarry data.');
+  }
+}
+
 export async function fetchPhotoInfo(id: string) {
   try {
     const data = await db.photo.findFirst({
