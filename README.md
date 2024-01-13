@@ -37,13 +37,13 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ## Features
 
-- ▲ Framework is Next.js 14 (using App Directory and React Server Components) — a React framework for production-grade apps. Designed to be deployed on Vercel, but you can take it almost anywhere.
+- ▲ Framework is Next.js 14 (using App Directory and React Server Components) — a React framework for production-grade apps. Designed to be deployed on Vercel.
 - 🤝 Full TypeScript support, including strict mode.
 - 📦 React components from shadcn/ui, built on Radix UI, Tailwind CSS and cva.
 - 👩‍⚖️ Linting from eslint-config-harmony, which provides a strict set of configuration for ESLint, Prettier and Stylelint.
 - 📀 Database uses Prisma as the ORM. Can be connected to any supported database — I recommend PlanetScale.
 - 📧 Emails templated by react.email and sent using Resend. Additionally, Loops form for a waitlist.
-- 👨‍👩‍👧‍👦 Authentication provided by Clerk, which provides a secure, scalable and customizable authentication system.
+- 👨‍👩‍👧‍👦 Authentication provided by Next-auth v5.
 - 🟢 Log Drain and Status provided by BetterStack.
 - 🐞 Error capturing provided by Sentry.
 - 💸 Payments provided by Stripe.
@@ -53,7 +53,6 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 - 📝 MDX content through Contentlayer.
 - 🔔 Notifications provided by Knock.
 - 🔄 Cron jobs provided by Vercel.
-
 
 ## TODO
 
