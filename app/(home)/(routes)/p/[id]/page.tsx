@@ -1,4 +1,7 @@
+import { AspectRatio } from "@/components/ui/aspect-ratio"
 import { fetchPhotoInfo } from "@/lib/data"
+import { cn } from "@/lib/utils"
+import Image from "next/image"
 
 interface PhotoIdPageProps {
   params: {
@@ -17,10 +20,19 @@ const PhotoIdPage = async ({
     return null
   }
 
+  console.log(data);
+  
+
   return (
-    <div className='flex items-center justify-center h-screen text-3xl'>
-      photo id: {id}
-      <h1>{data.title}</h1>
+    <div className='flex items-center justify-center text-3xl'>
+        <AspectRatio ratio={data.aspectRatio} className={cn('')}>
+          <Image 
+            src={data.imageUrl}
+            alt="image"
+            fill
+          />
+         </AspectRatio>
+
     </div>
   )
 }
