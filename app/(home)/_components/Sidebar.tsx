@@ -1,55 +1,26 @@
 import Link from "next/link"
 
-import MoblieNavToggle from "@/components/MoblieNavToggle"
-import Icon from "@/components/icons"
-import { links } from "./routes"
 
 const Navbar = () => {
 
   return (
-    <nav 
-      className="w-[60px] h-screen hidden md:grid grid-rows-3 py-4 justify-items-center fixed backdrop-blur-sm z-50"
-    >
-      <MoblieNavToggle links={links} side="left" />
-      
-      <Link href='/'>
-        <h1 
-          style={{ writingMode: 'vertical-rl' }}
-          className="
-            self-center 
-            text-xl 
-            font-bold 
-            tracking-wide 
-            uppercase 
-            rotate-180
-          ">
-            ECarry
-        </h1>
-      </Link>
+    <div className="p-[50px] fixed flex flex-col gap-8">
+      <Link href={'/'} className="text-2xl font-semibold">ECarry</Link>
 
-      <div className="self-end flex flex-col gap-4">
-        <Icon 
-          name='github'
-          animated='HOVER'
-          loop
-          size={28}
-          />
-
-          <Icon 
-            name='twitter'
-            animated='HOVER'
-            loop
-            size={28}
-          />
-
-          <Icon 
-            name='instagram'
-            animated='HOVER'
-            loop={false}
-            size={28}
-          />
-      </div>
-    </nav>
+      <nav className="flex flex-col text-[#1F1F1F] gap-8">
+        <ul>
+          <li className="group cursor-pointer"><Link href={'/'} className="group-hover:text-[#A3A3A3] transition-colors duration-150">Home</Link></li>
+          <li className="group cursor-pointer"><Link href={'/grid'} className="group-hover:text-[#A3A3A3] transition-colors duration-150">Grid</Link></li>
+          <li className="group cursor-pointer"><Link href={''} className="group-hover:text-[#A3A3A3] transition-colors duration-150">Human/Nature</Link></li>
+          <li className="group cursor-pointer"><Link href={'/map'} className="group-hover:text-[#A3A3A3] transition-colors duration-150">Map</Link></li>
+        </ul>
+        <ul className="text-[13px]">
+          <li><Link href={''}>Blog</Link></li>
+          <li><Link href={''}>Contact</Link></li>
+          <li><Link href={''}>Read Me</Link></li>
+        </ul>
+      </nav>
+    </div>
   )
 }
 

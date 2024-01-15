@@ -54,8 +54,9 @@ const PhotoAlbumWithNextJsImage = ({
   return (
     <PhotoAlbum 
       layout="columns"
+      spacing={10}
       photos={photos}
-      columns={isMobile ? 2 : 3}
+      columns={isMobile ? 2 : 4}
       renderPhoto={
         ({ photo, wrapperStyle, imageProps: { alt, title, sizes, className } }) => (
           <div style={{ ...wrapperStyle, position: "relative" }}>

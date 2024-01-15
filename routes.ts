@@ -5,6 +5,7 @@
  */
 export const publicRoutes = [
   "/",
+  '/p',
   '/grid',
   '/map',
 ];

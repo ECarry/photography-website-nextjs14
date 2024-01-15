@@ -1,5 +1,4 @@
 import Sidebar from "./_components/Sidebar"
-import NavMobile from "./_components/nav-mobile"
 
 const HomeLayout = ({
   children
@@ -7,9 +6,8 @@ const HomeLayout = ({
   children: React.ReactNode
 }) => {
   return (
-    <div>
+    <div className="">
       <Sidebar />
-      <NavMobile />
       {children}
     </div>
   )
