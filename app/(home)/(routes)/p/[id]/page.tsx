@@ -19,7 +19,7 @@ const PhotoIdPage = async ({
   }
 
   return (
-    <div className='flex items-center justify-center text-3xl h-screen ml-[280px] p-[50px] overflow-hidden'>
+    <div className='flex items-center justify-center text-3xl h-screen ml-[280px] py-[50px] pr-[50px] overflow-hidden'>
       <Image 
         src={data.imageUrl}
         alt="image"

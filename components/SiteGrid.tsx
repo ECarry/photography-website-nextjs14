@@ -18,7 +18,7 @@ export default function SiteGrid({
       className,
       'grid',
       'grid-cols-1 md:grid-cols-12 gap-x-6 gap-y-4',
-      'max-w-8xl',
+      'max-w-7xl',
     )}>
       <div className={cn(
         'col-span-1 md:col-span-9',
