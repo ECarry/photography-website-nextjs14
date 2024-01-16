@@ -4,7 +4,7 @@ import Link from "next/link"
 const Navbar = () => {
 
   return (
-    <div className="p-[50px] fixed flex flex-col gap-8">
+    <div className="p-[50px] fixed md:flex flex-col gap-8 hidden">
       <Link href={'/'} className="text-2xl font-semibold">ECarry</Link>
 
       <nav className="flex flex-col text-[#1F1F1F] gap-8">
