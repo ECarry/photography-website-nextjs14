@@ -1,5 +1,5 @@
 import PhotoLinks from "@/app/(home)/_components/photo-links"
-import { fetchAllECarryPhotos, fetchPhotoInfo } from "@/lib/data"
+import { fetchAllECarryPhotos } from "@/lib/data"
 import Image from "next/image"
 import Link from "next/link"
 import { redirect } from "next/navigation"
