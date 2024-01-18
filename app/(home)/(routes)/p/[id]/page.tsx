@@ -1,4 +1,5 @@
 import PhotoLinks from "@/app/(home)/_components/photo-links"
+import MotionDiv from "@/components/motion-div"
 import { fetchAllECarryPhotos } from "@/lib/data"
 import Image from "next/image"
 import Link from "next/link"
@@ -23,13 +24,18 @@ const PhotoIdPage = async ({
 
   return (
     <div className='flex items-center justify-center text-3xl h-screen ml-[280px] py-[40px] pr-[50px] overflow-hidden'>
-      <Image 
-        src={photo.imageUrl}
-        alt="image"
-        width={photo.width}
-        height={photo.width}
-        className="max-h-full max-w-full object-contain h-full w-full" 
-      />
+      <MotionDiv
+        className="h-full w-full"
+      >
+        <Image 
+          src={photo.imageUrl}
+          alt="image"
+          width={photo.width}
+          height={photo.width}
+          priority
+          className="max-h-full max-w-full object-contain h-full w-full" 
+        />
+      </MotionDiv>
 
       <div className="absolute left-[50px] bottom-[50px] w-[180px]">
         <div className="mb-[10px] text-sm">
