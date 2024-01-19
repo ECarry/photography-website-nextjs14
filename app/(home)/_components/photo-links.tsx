@@ -27,12 +27,6 @@ const PhotoLinks = ({
   const previousPhoto = getPreviousPhoto(photo, photos);
   const nextPhoto = getNextPhoto(photo, photos);
 
-  console.log({
-    PREV: previousPhoto,
-    NEXT: nextPhoto
-  });
-  
-
   return (
     <div className="text-xs flex gap-1">
       <PhotoLink
