@@ -1,4 +1,6 @@
 import Link from "next/link"
+import LinksItem from "./links-item"
+import { routes } from "./routes"
  
 const Navbar = () => {
 
@@ -8,10 +10,13 @@ const Navbar = () => {
 
       <nav className="flex flex-col text-[#1F1F1F] gap-8">
         <ul className="space-y-1">
-          <li className="group cursor-pointer"><Link href={'/'} className="group-hover:text-[#A3A3A3] transition-colors duration-150">Home</Link></li>
-          <li className="group cursor-pointer"><Link href={'/grid'} className="group-hover:text-[#A3A3A3] transition-colors duration-150">Grid</Link></li>
-          <li className="group cursor-pointer"><Link href={''} className="group-hover:text-[#A3A3A3] transition-colors duration-150">Human/Nature</Link></li>
-          <li className="group cursor-pointer"><Link href={'/map'} className="group-hover:text-[#A3A3A3] transition-colors duration-150">Map</Link></li>
+          {routes.map((route) => (
+            <LinksItem 
+              key={route.label}
+              label={route.label}
+              href={route.href}
+            /> 
+          ))}
         </ul>
         <ul className="text-[13px] space-y-[2px]">
           <li><Link href={''}>Blog</Link></li>
