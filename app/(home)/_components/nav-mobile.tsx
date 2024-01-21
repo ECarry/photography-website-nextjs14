@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion';
 import { Menu } from 'lucide-react'
-import { links } from './routes';
+import { routes } from './routes';
 import Link from 'next/link';
 
 
@@ -23,7 +23,7 @@ const NavMobile = () => {
               className="fixed left-0 shadow-4xl right-0 top-[3.5rem] p-5 pt-0 bg-white border-b border-b-white/20"
             >
               <ul className="grid gap-2">
-                {links.map((route, idx) => {
+                {routes.map((route, idx) => {
                   return (
                     <motion.li
                       initial={{ scale: 0, opacity: 0 }}
