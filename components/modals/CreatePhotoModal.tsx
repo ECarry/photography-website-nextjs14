@@ -24,60 +24,51 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import ImageUpload from '@/components/ImageUpload'
 import getImageExifInfo from '@/lib/getImageExifInfo'
-
-
-const formSchema = z.object({
-  title: z.string().min(1, {
-    message: 'Photo title is required.'
-  }),
-  imageUrl: z.string().min(1, {
-    message: 'Photo is required.'
-  })
-})
+import { useState, useTransition } from 'react'
+import FormError from '../form-error'
+import FormSuccess from '../form-success'
+import { createPhoto } from '@/actions/createPhoto'
+import { CreatePhotoSchema } from '@/schemas'
 
 const CreatePhotoModal = () => {
+  const [error, setError] = useState<string | undefined>()
+  const [success, setSuccess] = useState<string | undefined>()
+  const [isPending, startTransition] = useTransition()
+
   const { onClose, isOpen, type, data } = useModal()
   const router = useRouter()
 
   const isModalOpen = isOpen && type === 'createPhoto'
 
   const form = useForm({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(CreatePhotoSchema),
     defaultValues: {
       title: '',
       imageUrl: '',
     }
   })
 
-  const isLoading = form.formState.isSubmitting
-
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: z.infer<typeof CreatePhotoSchema>) => {
+    setError('')
+    setSuccess('')
     const albumId = data.id ? data.id : null
-    
-    try {
-      const exif = await getImageExifInfo(values.imageUrl).catch((error) => {
-        console.log(error);
-        return {};
-      }) as Object
 
-      const data = {
-        ...values,
-        ...exif,
-        albumId
-      }
-      
-      await fetch('/api/photos', {
-        method: 'POST',
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      })
+    const exif = await getImageExifInfo(values.imageUrl).catch((error) => {
+      setError('get exif info error')
+      return {};
+    }) as Object
 
-      form.reset()
-      router.refresh()
-      onClose()
-    } catch (error) {
-      console.log(error);
+    const v = {
+      ...values,
+      ...exif,
+      albumId
     }
+
+    createPhoto(v)
+
+    form.reset()
+    router.refresh()
+    onClose()
   }
 
   return (
@@ -98,6 +89,7 @@ const CreatePhotoModal = () => {
             <FormField
               control={form.control}
               name="imageUrl"
+              disabled={isPending}
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
@@ -114,19 +106,23 @@ const CreatePhotoModal = () => {
             <FormField
               control={form.control}
               name="title"
+              
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Title</FormLabel>
                   <FormControl>
-                    <Input {...field} disabled={isLoading} />
+                    <Input {...field} disabled={isPending} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
 
+            <FormError message={error} />
+            <FormSuccess message={success} />
+
             <DialogFooter>
-              <Button disabled={isLoading} type="submit" variant='primary'>Create</Button>
+              <Button disabled={isPending} type="submit" variant='primary'>Create</Button>
             </DialogFooter>
           </form>
     </Form>

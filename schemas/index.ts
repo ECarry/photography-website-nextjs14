@@ -8,3 +8,12 @@ export const LoginSchema = z.object({
     message: 'Password is required'
   })
 })
+
+export const CreatePhotoSchema = z.object({
+  title: z.string().min(1, {
+    message: 'Photo title is required.'
+  }),
+  imageUrl: z.string().min(1, {
+    message: 'Photo is required.'
+  })
+})
