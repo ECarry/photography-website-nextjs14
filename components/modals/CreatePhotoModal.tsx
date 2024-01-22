@@ -3,6 +3,10 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
+import { useState, useTransition } from 'react'
+import { createPhoto } from '@/actions/createPhoto'
+import { CreatePhotoSchema } from '@/schemas'
+import getImageExifInfo from '@/lib/getImageExifInfo'
 
 import { 
   Dialog, 
@@ -23,12 +27,10 @@ import {
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import ImageUpload from '@/components/ImageUpload'
-import getImageExifInfo from '@/lib/getImageExifInfo'
-import { useState, useTransition } from 'react'
-import FormError from '../form-error'
-import FormSuccess from '../form-success'
-import { createPhoto } from '@/actions/createPhoto'
-import { CreatePhotoSchema } from '@/schemas'
+import FormError from '@/components/form-error'
+import FormSuccess from '@/components/form-success'
+
+type Schema = z.infer<typeof CreatePhotoSchema>
 
 const CreatePhotoModal = () => {
   const [error, setError] = useState<string | undefined>()
@@ -40,7 +42,7 @@ const CreatePhotoModal = () => {
 
   const isModalOpen = isOpen && type === 'createPhoto'
 
-  const form = useForm({
+  const form = useForm<Schema>({
     resolver: zodResolver(CreatePhotoSchema),
     defaultValues: {
       title: '',
@@ -48,13 +50,14 @@ const CreatePhotoModal = () => {
     }
   })
 
-  const onSubmit = async (values: z.infer<typeof CreatePhotoSchema>) => {
+  const onSubmit = async (values: Schema) => {
     setError('')
     setSuccess('')
     const albumId = data.id ? data.id : null
 
     const exif = await getImageExifInfo(values.imageUrl).catch((error) => {
-      setError('get exif info error')
+      console.log(error);
+
       return {};
     }) as Object
 
@@ -64,7 +67,13 @@ const CreatePhotoModal = () => {
       albumId
     }
 
-    createPhoto(v)
+    startTransition(() => {
+      createPhoto(v)
+      .then((data) => {
+        setError(data?.error)
+        setSuccess(data?.success)
+      })
+    })
 
     form.reset()
     router.refresh()
@@ -125,7 +134,7 @@ const CreatePhotoModal = () => {
               <Button disabled={isPending} type="submit" variant='primary'>Create</Button>
             </DialogFooter>
           </form>
-    </Form>
+        </Form>
 
       </DialogContent>
     </Dialog>
