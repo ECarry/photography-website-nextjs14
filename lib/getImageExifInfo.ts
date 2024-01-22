@@ -118,10 +118,14 @@ const getImageAspectRatioFromBlob = (blob: Blob): Promise<{ aspectRatio: number,
       const height = img.height
       const aspectRatio = width / height
       resolve({aspectRatio, width, height});
+
+      URL.revokeObjectURL(img.src);
     };
 
     img.onerror = (error) => {
       reject(error);
+
+      URL.revokeObjectURL(img.src);
     };
   });
 };
