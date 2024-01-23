@@ -1,39 +1,67 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Introduction
 
-## Getting Started
+## Installation
 
-First, run the development server:
+Clone & create this repo locally with the following command:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/ECarry/photography-website-nextjs14-full-stack.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. Install dependencies using pnpm:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```sh
+npm i
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+2. Copy `.env.example` to `.env` and update the variables.
 
-## Learn More
+```sh
+cp .env.example .env.local
+```
 
-To learn more about Next.js, take a look at the following resources:
+3. Input everything you need for the env.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4. Start the development server:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Tech Stack + Features
 
-## Deploy on Vercel
+## Database
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This project uses MySQL database on PlanetScale. To setup a DB for your local dev:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. Create a free account and a [new Database](https://planetscale.com/docs/tutorials/planetscale-quick-start-guide#create-a-database)
+2. From the dashboard, create a branch and click "Connect" button.
+3. Hit `Create password` and select `Prisma` in `Connect with` dropdown
+4. Copy the url to `.env.local` file
+5. run `yarn run prisma:push` (Be mindful prisma migrate won't work because it requires more privileges for the database user).
+
+You can also use `docker-compose` to have a Mysql database locally, instead of relying on PlanetScale:
+
+1. Enter `MYSQL_ROOT_PASSWORD`, `MYSQL_DATABASE`, `MYSQL_USER` and `MYSQL_PASSWORD` values in `.env.local`.
+2. run `docker-compose --env-file .env.local up` to start the DB.
+3. run `yarn run prisma:push`.
+
+### Frameworks
+
+- ▲[Next.js](https://nextjs.org/)(using App Directory and React Server Components) – React framework for building performant apps with the best developer experience
+- 🔒[Auth.js](https://authjs.dev/) – Handle user authentication with ease with providers like Google, Twitter, GitHub, etc.
+- 📀[Prisma](https://www.prisma.io/) – Typescript-first ORM for Node.js
+
+### Platforms
+
+- ▲[Vercel](https://vercel.com/) – Easily preview & deploy changes with git
+- [PlanetScale](https://planetscale.com/) – A cutting-edge database platform for seamless, scalable data management
+- [Uploadthing](https://uploadthing.com/) - File Uploads For Next.js Developers
+
+### UI
+
+- [Tailwind CSS](https://tailwindcss.com/) – Utility-first CSS framework for rapid UI development
+- [Shadcn/ui](https://ui.shadcn.com/) – Re-usable components built using Radix UI and Tailwind CSS
+- [Framer Motion](https://framer.com/motion) – Motion library for React to animate components with ease
+- [Lucide](https://lucide.dev/) – Beautifully simple, pixel-perfect icons
+- [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) – Optimize custom fonts and remove external network requests for improved performance
+- [`ImageResponse`](https://nextjs.org/docs/app/api-reference/functions/image-response) – Generate dynamic Open Graph images at the edge
 
 ## Features
 
@@ -53,9 +81,3 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 - 📝 MDX content through Contentlayer.
 - 🔔 Notifications provided by Knock.
 - 🔄 Cron jobs provided by Vercel.
-
-## TODO
-
-- Next-auth v5
-- Next.js 14 server action
-- Photo page
