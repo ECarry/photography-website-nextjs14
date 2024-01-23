@@ -29,6 +29,11 @@ import { Input } from '@/components/ui/input'
 import ImageUpload from '@/components/ImageUpload'
 import FormError from '@/components/form-error'
 import FormSuccess from '@/components/form-success'
+import { Upload } from 'lucide-react'
+import ImageUploadUTApi from '../imageUploadUTApi'
+
+import { getExifData } from '@/lib/getExifData'
+import { getImageSize } from '@/lib/getImageSize'
 
 type Schema = z.infer<typeof CreatePhotoSchema>
 
@@ -80,15 +85,34 @@ const CreatePhotoModal = () => {
     onClose()
   }
 
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+
+    if (file) {
+
+      const ex = await getExifData(file)
+      const size = await getImageSize(file)
+
+      console.log(size);
+      
+    }
+
+    console.log({
+      FILE: file
+    });
+    
+  }
+
+
   return (
     <Dialog open={isModalOpen} onOpenChange={onClose}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle className='text-center text-3xl'>
-            Create Photo
+            Upload Photo
           </DialogTitle>
           <DialogDescription className='text-center'>
-            Upload photo
+            Upload photo to Uploadthing
           </DialogDescription>
         </DialogHeader>
 
@@ -102,10 +126,19 @@ const CreatePhotoModal = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <ImageUpload
+                    {/* <ImageUpload
                       value={field.value}
                       onChange={field.onChange}
-                    />
+                    /> */}
+
+
+              <div className="border-dashed border-2 border-gray-300 dark:border-gray-700 rounded-md p-4 transition-colors hover:border-blue-500 dark:hover:border-blue-400 cursor-pointer">
+                      <label className="flex flex-col items-center justify-center space-y-2" htmlFor="file-upload">
+                        <Upload className="h-8 w-8 text-gray-400 dark:text-gray-500" />
+                        <p className="text-sm text-gray-500 dark:text-gray-400">Click or drag & drop your image here</p>
+                        <Input className="hidden" id="file-upload" type="file" onChange={handleFileChange} accept='image/*' />
+                      </label>
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
