@@ -30,10 +30,10 @@ import ImageUpload from '@/components/ImageUpload'
 import FormError from '@/components/form-error'
 import FormSuccess from '@/components/form-success'
 import { Upload } from 'lucide-react'
-import ImageUploadUTApi from '../imageUploadUTApi'
 
 import { getExifData } from '@/lib/getExifData'
 import { getImageSize } from '@/lib/getImageSize'
+import { uploadPhoto } from '@/actions/uploadPhoto'
 
 type Schema = z.infer<typeof CreatePhotoSchema>
 
