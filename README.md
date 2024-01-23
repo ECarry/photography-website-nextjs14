@@ -36,12 +36,6 @@ This project uses MySQL database on PlanetScale. To setup a DB for your local de
 4. Copy the url to `.env.local` file
 5. run `yarn run prisma:push` (Be mindful prisma migrate won't work because it requires more privileges for the database user).
 
-You can also use `docker-compose` to have a Mysql database locally, instead of relying on PlanetScale:
-
-1. Enter `MYSQL_ROOT_PASSWORD`, `MYSQL_DATABASE`, `MYSQL_USER` and `MYSQL_PASSWORD` values in `.env.local`.
-2. run `docker-compose --env-file .env.local up` to start the DB.
-3. run `yarn run prisma:push`.
-
 ### Frameworks
 
 - ▲[Next.js](https://nextjs.org/)(using App Directory and React Server Components) – React framework for building performant apps with the best developer experience
