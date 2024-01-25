@@ -2,6 +2,7 @@ import { db } from "@/lib/db";
 
 import ShuffleGrid from "@/app/(dashboard)/_components/ShuffleGrid";
 import ShimmerButton from "@/app/(dashboard)/_components/ShimmerButton";
+import { TypewriterEffect } from "@/components/ui/typewriter-effect";
 
 const ShuffleHero = async () => {
   const squareData = await db.photo.findMany({
@@ -20,9 +21,23 @@ const ShuffleHero = async () => {
   return (
     <section className="w-full grid grid-cols-1 md:grid-cols-2 items-center gap-4">
       <div>
-        <span className="block mb-4 text-xs md:text-sm text-indigo-500 font-medium">
-          Better every day
-        </span>
+        <TypewriterEffect 
+          words={[
+            {
+              text: "Better",
+              className: 'text-xs md:text-sm text-indigo-500 dark:text-indigo-500 font-medium'
+            },
+            {
+              text: "every",
+              className: 'text-xs md:text-sm text-indigo-500 dark:text-indigo-500 font-medium'
+            },
+            {
+              text: "day",
+              className: 'text-xs md:text-sm text-indigo-500 dark:text-indigo-500 font-medium'
+            },
+          ]}
+          className="mb-8 text-start"
+        />
         <h3 className="text-2xl md:text-4xl font-semibold">
           他说这世界是不是我们的
         </h3>
