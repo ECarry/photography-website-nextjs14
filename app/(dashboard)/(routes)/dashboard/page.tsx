@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import CityOverview from '../../_components/CityOverview'
 import ShuffleHero from '../../_components/SuffleHero'
 import { fetchAllECarryPhotos } from "@/lib/data"
+import { InfiniteMovingCards } from '@/components/ui/infinite-moving-cards'
 
 interface CityData {
   name: string;
