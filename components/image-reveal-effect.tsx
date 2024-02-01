@@ -1,9 +1,9 @@
 'use client'
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image"
 import { Photo } from "@prisma/client";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 
 interface ImageRevealEffectProps {
   photo: Photo
@@ -23,17 +23,20 @@ const ImageRevealEffect = ({
   photo
 }: ImageRevealEffectProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [isInView, setIsInView] = useState(false);
+  //const [isInView, setIsInView] = useState(false);
+
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
 
   return (
     <motion.div
       className='w-full h-full'
+      ref={ref}
       initial={{ y: 10, opacity: 0 }}
       animate={isLoaded && isInView ? "visible" : "hidden"}
       variants={isLoaded ? imageVariants : loadingVariants}
-      onViewportEnter={() => setIsInView(true)}
       exit={{ y: -10, opacity: 0 }}
-      transition={{ duration: 0.75 }}
+      transition={{ duration: 1 }}
     >
       <Image 
         src={photo.imageUrl}
