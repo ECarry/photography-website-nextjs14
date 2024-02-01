@@ -15,7 +15,10 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'ECarry Photography',
+  title: {
+    template: '%s - ECarry Photography',
+    default: 'ECarry Photography',
+  },
   description: 'ECarry Photography',
 }
 

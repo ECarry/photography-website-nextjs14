@@ -1,14 +1,26 @@
+import Link from "next/link"
+import { Metadata } from "next"
+import { redirect } from "next/navigation"
+import { fetchAllECarryPhotos, fetchPhotoInfo } from "@/lib/data"
+
 import PhotoLinks from "@/app/(home)/_components/photo-links"
 import ImageRevealEffect from "@/components/image-reveal-effect"
-import MotionDiv from "@/components/motion-div"
-import { fetchAllECarryPhotos } from "@/lib/data"
-import Image from "next/image"
-import Link from "next/link"
-import { redirect } from "next/navigation"
 
 interface PhotoIdPageProps {
   params: {
     id: string
+  }
+}
+
+export async function generateMetadata(
+  { params }: PhotoIdPageProps
+): Promise<Metadata> {
+  const { id } = params
+
+  const photo = await fetchPhotoInfo(id)
+  
+  return {
+    title: `${photo?.title}`
   }
 }
 
@@ -25,18 +37,6 @@ const PhotoIdPage = async ({
 
   return (
     <div className='flex items-center justify-center text-3xl h-screen ml-[280px] py-[40px] pr-[50px] overflow-hidden'>
-      {/* <MotionDiv
-        className="h-full w-full"
-      >
-        <Image 
-          src={photo.imageUrl}
-          alt="image"
-          width={photo.width}
-          height={photo.width}
-          priority
-          className="max-h-full max-w-full object-contain h-full w-full" 
-        />
-      </MotionDiv> */}
       <ImageRevealEffect photo={photo} />
 
       <div className="absolute left-[50px] bottom-[50px] w-[180px]">

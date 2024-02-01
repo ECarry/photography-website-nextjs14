@@ -3,8 +3,8 @@ import { Metadata } from 'next';
  
 export const metadata: Metadata = {
   title: {
-    template: '%s - Dashboard - ECarry Photography',
-    default: 'Dashboard - ECarry Photography',
+    template: '%s - Dashboard',
+    default: 'Dashboard',
   },
 };
 
