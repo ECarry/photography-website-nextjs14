@@ -33,7 +33,7 @@ import { Upload } from 'lucide-react'
 
 import { getExifData } from '@/lib/getExifData'
 import { getImageSize } from '@/lib/getImageSize'
-import { uploadPhoto } from '@/actions/uploadPhoto'
+import { uploadFiles } from '@/actions/uploadPhoto'
 
 type Schema = z.infer<typeof CreatePhotoSchema>
 
@@ -50,7 +50,6 @@ const CreatePhotoModal = () => {
   const form = useForm<Schema>({
     resolver: zodResolver(CreatePhotoSchema),
     defaultValues: {
-      title: '',
       imageUrl: '',
     }
   })
@@ -85,24 +84,6 @@ const CreatePhotoModal = () => {
     onClose()
   }
 
-  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]
-
-    if (file) {
-
-      const ex = await getExifData(file)
-      const size = await getImageSize(file)
-
-      console.log(size);
-      
-    }
-
-    console.log({
-      FILE: file
-    });
-    
-  }
-
 
   return (
     <Dialog open={isModalOpen} onOpenChange={onClose}>
@@ -116,59 +97,25 @@ const CreatePhotoModal = () => {
           </DialogDescription>
         </DialogHeader>
 
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <form
+          onSubmit={async (e) => {
+            e.preventDefault();
 
-            <FormField
-              control={form.control}
-              name="imageUrl"
-              disabled={isPending}
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    {/* <ImageUpload
-                      value={field.value}
-                      onChange={field.onChange}
-                    /> */}
+            const fd = new FormData(e.target as HTMLFormElement);
+            const uploadedFiles = await uploadFiles(fd);
 
-
-              <div className="border-dashed border-2 border-gray-300 dark:border-gray-700 rounded-md p-4 transition-colors hover:border-blue-500 dark:hover:border-blue-400 cursor-pointer">
-                      <label className="flex flex-col items-center justify-center space-y-2" htmlFor="file-upload">
-                        <Upload className="h-8 w-8 text-gray-400 dark:text-gray-500" />
-                        <p className="text-sm text-gray-500 dark:text-gray-400">Click or drag & drop your image here</p>
-                        <Input className="hidden" id="file-upload" type="file" onChange={handleFileChange} accept='image/*' />
-                      </label>
-                    </div>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="title"
-              
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Title</FormLabel>
-                  <FormControl>
-                    <Input {...field} disabled={isPending} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormError message={error} />
-            <FormSuccess message={success} />
-
-            <DialogFooter>
-              <Button disabled={isPending} type="submit" variant='primary'>Create</Button>
-            </DialogFooter>
-          </form>
-        </Form>
-
+            console.log(uploadedFiles);
+          }}
+        >
+          <input 
+            name="files" 
+            type="file" 
+            multiple 
+            accept='image/*'
+          />
+          <Button type='submit'>Upload</Button>
+        </form>
+ 
       </DialogContent>
     </Dialog>
   )
