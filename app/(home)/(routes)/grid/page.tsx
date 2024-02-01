@@ -23,7 +23,7 @@ const GridPage = async () => {
   }));
 
   return (
-    <div className='py-[40px] pr-[50px] ml-[280px]'>
+    <div className='p-4 md:py-[40px] md:pr-[50px] ml-0 md:ml-[280px]'>
       <PhotoAlbumWithNextJsImage photos={photos} />
     </div>
   )

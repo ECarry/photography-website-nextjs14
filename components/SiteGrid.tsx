@@ -17,20 +17,20 @@ export default function SiteGrid({
     <div className={cn(
       className,
       'grid',
-      'grid-cols-1 md:grid-cols-12 gap-x-6 gap-y-4',
+      'grid-cols-1 lg:grid-cols-12 gap-x-6 gap-y-4',
       'max-w-7xl',
     )}>
       <div className={cn(
-        'col-span-1 md:col-span-9',
-        sideFirstOnMobile && 'order-2 md:order-none',
+        'col-span-1 lg:col-span-9',
+        sideFirstOnMobile && 'order-2 lg:order-none',
       )}>
         {contentMain}
       </div>
       {contentSide &&
         <div className={cn(
-          'col-span-1 md:col-span-3',
-          sideFirstOnMobile && 'order-1 md:order-none',
-          sideHiddenOnMobile && 'hidden md:block',
+          'col-span-1 lg:col-span-3',
+          sideFirstOnMobile && 'order-1 lg:order-none',
+          sideHiddenOnMobile && 'hidden lg:block',
         )}>
           {contentSide}
         </div>}

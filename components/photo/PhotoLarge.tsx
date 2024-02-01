@@ -20,7 +20,7 @@ const PhotoLarge =
   const renderMiniGrid = (children: JSX.Element) =>
     <div className={cn(
       'flex gap-y-4',
-      'flex-col sm:flex-row md:flex-col',
+      'flex-col sm:flex-row lg:flex-col',
       '[&>*]:sm:flex-grow',
       'pr-2',
     )}>
@@ -41,7 +41,7 @@ const PhotoLarge =
       contentSide={
         <div className={cn(
           'sticky top-4 self-start text-sm',
-          'grid grid-cols-2 md:grid-cols-1',
+          'grid grid-cols-2 lg:grid-cols-1',
           'gap-y-4',
           '-translate-y-1',
           'mb-4',
@@ -77,15 +77,15 @@ const PhotoLarge =
               <li>{photo.fNumber}</li>
               <li>{photo.iso}</li>
               <li>{photo.shutterSpeed}</li>
-              <li>{photo.latitude && photo.longitude ? convertCoordinates(photo.latitude, photo.longitude) : '-'}</li>
+              <li className='hidden lg:block'>{photo.latitude && photo.longitude ? convertCoordinates(photo.latitude, photo.longitude) : '-'}</li>
               { photo.gpsAltitude ? 
-              <li>{photo.gpsAltitude}</li>
+              <li className='hidden lg:block'>{photo.gpsAltitude}</li>
               : null
               }
             </ul>
             <div className={cn(
               'flex gap-y-4',
-              'flex-col sm:flex-row md:flex-col',
+              'flex-col sm:flex-row lg:flex-col',
             )}>
               <div className={cn(
                 'grow uppercase',
