@@ -34,13 +34,15 @@ import { Upload } from 'lucide-react'
 import { getExifData } from '@/lib/getExifData'
 import { getImageSize } from '@/lib/getImageSize'
 import { uploadFiles } from '@/actions/uploadPhoto'
+import Image from 'next/image'
 
 type Schema = z.infer<typeof CreatePhotoSchema>
 
 const CreatePhotoModal = () => {
+  const [isPending, startTransition] = useTransition()
   const [error, setError] = useState<string | undefined>()
   const [success, setSuccess] = useState<string | undefined>()
-  const [isPending, startTransition] = useTransition()
+  const [images, setImages] = useState<string | undefined>()
 
   const { onClose, isOpen, type, data } = useModal()
   const router = useRouter()
@@ -96,26 +98,51 @@ const CreatePhotoModal = () => {
             Upload photo to Uploadthing
           </DialogDescription>
         </DialogHeader>
+        <div className='border-2 border-indigo-600 border-dashed py-10 px-4'>
+          <form
+            onSubmit={async (e) => {
+              e.preventDefault();
 
-        <form
-          onSubmit={async (e) => {
-            e.preventDefault();
+              const fd = new FormData(e.target as HTMLFormElement);
+              const uploadedFiles = await uploadFiles(fd);
 
-            const fd = new FormData(e.target as HTMLFormElement);
-            const uploadedFiles = await uploadFiles(fd);
+              console.log({
+                uploadedFiles
+              });
 
-            console.log(uploadedFiles);
-          }}
-        >
-          <input 
-            name="files" 
-            type="file" 
-            multiple 
-            accept='image/*'
+              setImages(uploadedFiles[0].data?.url)
+            }}
+          >
+            <input 
+              name="files" 
+              type="file" 
+              multiple 
+              accept='image/*'
+              onChange={async (e) => {
+                const file = e.target.files?.[0];
+                if (!file) return;
+
+                const exif = await getExifData(file)
+
+                console.log({
+                  exif
+                });
+                
+              }}
+            />
+            <Button type='submit'>Upload</Button>
+          </form>
+        </div>
+
+        {images && (
+          <Image 
+            src={images}
+            alt=''
+            width={100}
+            height={100}
+            className='object-cover'
           />
-          <Button type='submit'>Upload</Button>
-        </form>
- 
+        )}
       </DialogContent>
     </Dialog>
   )
