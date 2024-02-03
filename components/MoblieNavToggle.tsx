@@ -27,7 +27,9 @@ const MoblieNavToggle = ({
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Menu className="cursor-pointer" />
+        <Button size={'icon'} variant={'ghost'}>
+          <Menu className="cursor-pointer" />
+        </Button>
       </SheetTrigger>
       <SheetContent side={side} className='p-0 flex gap-0'>
         <div className="w-full flex flex-col items-center justify-center gap-4 py-4">
