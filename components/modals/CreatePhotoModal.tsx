@@ -35,6 +35,7 @@ import { getExifData } from '@/lib/getExifData'
 import { getImageSize } from '@/lib/getImageSize'
 import { uploadFiles } from '@/actions/uploadPhoto'
 import Image from 'next/image'
+import extractExifData from '@/lib/extractExifData'
 
 type Schema = z.infer<typeof CreatePhotoSchema>
 
@@ -124,9 +125,11 @@ const CreatePhotoModal = () => {
 
                 const exif = await getExifData(file)
 
-                console.log({
-                  exif
-                });
+                const formatExif = extractExifData(exif)
+
+                console.log(exif);
+                console.log(formatExif);
+                
                 
               }}
             />
