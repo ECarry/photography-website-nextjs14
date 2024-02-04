@@ -29,13 +29,15 @@ import { Input } from '@/components/ui/input'
 import ImageUpload from '@/components/ImageUpload'
 import FormError from '@/components/form-error'
 import FormSuccess from '@/components/form-success'
-import { Upload } from 'lucide-react'
+import { Upload, X } from 'lucide-react'
 
 import { getExifData } from '@/lib/getExifData'
 import { getImageSize } from '@/lib/getImageSize'
 import { uploadFiles } from '@/actions/uploadPhoto'
 import Image from 'next/image'
 import extractExifData from '@/lib/extractExifData'
+import { UploadFileResponse } from '@/types'
+import ImagePreview from '../image-preview'
 
 type Schema = z.infer<typeof CreatePhotoSchema>
 
@@ -43,11 +45,11 @@ const CreatePhotoModal = () => {
   const [isPending, startTransition] = useTransition()
   const [error, setError] = useState<string | undefined>()
   const [success, setSuccess] = useState<string | undefined>()
-  const [images, setImages] = useState<string | undefined>()
+  const [images, setImages] = useState<UploadFileResponse[] >()
 
-  const { onClose, isOpen, type, data } = useModal()
   const router = useRouter()
 
+  const { onClose, isOpen, type, data } = useModal()
   const isModalOpen = isOpen && type === 'createPhoto'
 
   const form = useForm<Schema>({
@@ -56,6 +58,26 @@ const CreatePhotoModal = () => {
       imageUrl: '',
     }
   })
+
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const exif = await getExifData(file)
+
+    if (!exif) return 
+    const formatExif = extractExifData(exif)
+
+  }
+
+  const onUploadSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const fd = new FormData(e.target as HTMLFormElement);
+    const uploadedFiles = await uploadFiles(fd);
+
+    setImages(uploadedFiles)
+  }
 
   const onSubmit = async (values: Schema) => {
     setError('')
@@ -87,7 +109,6 @@ const CreatePhotoModal = () => {
     onClose()
   }
 
-
   return (
     <Dialog open={isModalOpen} onOpenChange={onClose}>
       <DialogContent>
@@ -99,53 +120,52 @@ const CreatePhotoModal = () => {
             Upload photo to Uploadthing
           </DialogDescription>
         </DialogHeader>
-        <div className='border-2 border-indigo-600 border-dashed py-10 px-4'>
+        <div className='border-2 rounded-sm border-dashed py-10 px-4'>
           <form
-            onSubmit={async (e) => {
-              e.preventDefault();
-
-              const fd = new FormData(e.target as HTMLFormElement);
-              const uploadedFiles = await uploadFiles(fd);
-
-              console.log({
-                uploadedFiles
-              });
-
-              setImages(uploadedFiles[0].data?.url)
-            }}
+            onSubmit={onUploadSubmit}
           >
-            <input 
+            <input
               name="files" 
               type="file" 
               multiple 
               accept='image/*'
-              onChange={async (e) => {
-                const file = e.target.files?.[0];
-                if (!file) return;
-
-                const exif = await getExifData(file)
-
-                const formatExif = extractExifData(exif)
-
-                console.log(exif);
-                console.log(formatExif);
-                
-                
-              }}
+              onChange={handleImageChange}
             />
             <Button type='submit'>Upload</Button>
           </form>
         </div>
 
-        {images && (
-          <Image 
-            src={images}
-            alt=''
-            width={100}
-            height={100}
-            className='object-cover'
-          />
-        )}
+        {images?.map((image, index) => (
+          <div key={index}  className='flex items-center justify-between relative'>
+            <div className='flex gap-4 items-center'>
+              <Image 
+                src={image.data?.url || ''}
+                alt=''
+                height={100}
+                width={100}
+                className='object-cover w-[100px] h-[100px]'
+              />
+      
+              <div className=''>
+                <h1>{image.data?.name}</h1>
+                <p>{image.data?.size}</p>
+              </div>
+            </div>
+      
+      
+            <button
+              className='bg-rose-500 text-white p-1 rounded-full absolute -top-2 -right-2 shadow-sm'
+              type='button'
+            >
+              <X className='h-4 w-4' />
+            </button>
+          </div>
+        ))}
+
+
+        <FormError message='error' />
+        <FormSuccess message='success' />
+        <Button>Create</Button>
       </DialogContent>
     </Dialog>
   )
