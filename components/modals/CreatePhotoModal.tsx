@@ -63,6 +63,11 @@ const CreatePhotoModal = () => {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    const size = await getImageSize(file)
+
+    console.log(size);
+    
+
     const exif = await getExifData(file)
 
     if (!exif) return 

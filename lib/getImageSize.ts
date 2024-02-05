@@ -1,4 +1,5 @@
-export const getImageSize = (file: File): Promise<{ width: number; height: number }> => {
+// 定义一个函数，用于获取图片的大小和比例
+export const getImageSize = (file: File): Promise<{ width: number; height: number; ratio: number }> => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
 
@@ -6,7 +7,11 @@ export const getImageSize = (file: File): Promise<{ width: number; height: numbe
       const img = new Image();
 
       img.onload = () => {
-        resolve({ width: img.width, height: img.height });
+        // 计算图片的比例，保留两位小数
+        const ratio = Number((img.width / img.height).toFixed(2));
+
+        // 返回图片的宽度、高度和比例
+        resolve({ width: img.width, height: img.height, ratio: ratio });
       };
 
       img.src = event.target?.result as string;
