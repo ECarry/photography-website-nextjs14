@@ -57,7 +57,7 @@
     "tailwindcss": "3.3.3",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "5.2.2",
-    "uploadthing": "^5.7.4",
+    "uploadthing": "6.3.3",
     "zod": "^3.22.2",
     "zustand": "^4.4.1"
   },

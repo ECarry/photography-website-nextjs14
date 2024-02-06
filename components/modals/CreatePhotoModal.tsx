@@ -47,6 +47,8 @@ const CreatePhotoModal = () => {
   const [success, setSuccess] = useState<string | undefined>()
   const [images, setImages] = useState<UploadFileResponse[] >()
 
+  const [formData, setFormData] = useState<any | undefined>({})
+
   const router = useRouter()
 
   const { onClose, isOpen, type, data } = useModal()
@@ -60,58 +62,46 @@ const CreatePhotoModal = () => {
   })
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+  const file = e.target.files?.[0];
+  if (!file) return;
 
-    const size = await getImageSize(file)
+  const size = await getImageSize(file);
+  const exif = await getExifData(file);
 
-    console.log(size);
-    
-
-    const exif = await getExifData(file)
-
-    if (!exif) return 
-    const formatExif = extractExifData(exif)
-
+  if(!exif) {
+    setError('Exif does not found.')
   }
+
+  setFormData((prevList: any) => ({ ...prevList, ...size, ...(exif && { ...extractExifData(exif) }) }));
+};
 
   const onUploadSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const fd = new FormData(e.target as HTMLFormElement);
-    const uploadedFiles = await uploadFiles(fd);
+    try {
+      const fd = new FormData(e.target as HTMLFormElement);
+      const uploadedFiles = await uploadFiles(fd);
 
-    setImages(uploadedFiles)
+      setImages(uploadedFiles);
+      setFormData((prevList: any) => ({ 
+      ...prevList,
+      title: uploadedFiles[0].data?.name,
+      imageUrl: uploadedFiles[0].data?.url,
+    }));
+      setSuccess('Files uploaded successfully');
+    } catch (error) {
+      setError('Error uploading files');
+    }
   }
 
-  const onSubmit = async (values: Schema) => {
+  const onSubmit = async () => {
     setError('')
     setSuccess('')
     const albumId = data.id ? data.id : null
 
-    const exif = await getImageExifInfo(values.imageUrl).catch((error) => {
-      console.log(error);
-
-      return {};
-    }) as Object
-
-    const v = {
-      ...values,
-      ...exif,
-      albumId
-    }
-
-    startTransition(() => {
-      createPhoto(v)
-      .then((data) => {
-        setError(data?.error)
-        setSuccess(data?.success)
-      })
-    })
-
-    form.reset()
-    router.refresh()
-    onClose()
+    // form.reset()
+    // router.refresh()
+    // onClose()
   }
 
   return (
@@ -168,9 +158,9 @@ const CreatePhotoModal = () => {
         ))}
 
 
-        <FormError message='error' />
-        <FormSuccess message='success' />
-        <Button>Create</Button>
+        <FormError message={error} />
+        <FormSuccess message={success} />
+        <Button onClick={() => onSubmit}>Create</Button>
       </DialogContent>
     </Dialog>
   )
