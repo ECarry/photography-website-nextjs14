@@ -65,8 +65,10 @@ const CreatePhotoModal = () => {
   const file = e.target.files?.[0];
   if (!file) return;
 
-  const size = await getImageSize(file);
-  const exif = await getExifData(file);
+  const [size, exif] = await Promise.all([
+      getImageSize(file),
+      getExifData(file)
+    ]);
 
   if(!exif) {
     setError('Exif does not found.')
@@ -78,20 +80,22 @@ const CreatePhotoModal = () => {
   const onUploadSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    try {
-      const fd = new FormData(e.target as HTMLFormElement);
-      const uploadedFiles = await uploadFiles(fd);
+    const fd = new FormData(e.target as HTMLFormElement);
+    const uploadedFiles = await uploadFiles(fd);
 
-      setImages(uploadedFiles);
-      setFormData((prevList: any) => ({ 
-      ...prevList,
-      title: uploadedFiles[0].data?.name,
-      imageUrl: uploadedFiles[0].data?.url,
-    }));
-      setSuccess('Files uploaded successfully');
-    } catch (error) {
-      setError('Error uploading files');
+    if (uploadedFiles[0].error !== null) {
+      return setError(uploadedFiles[0].error.message)
     }
+
+    setSuccess('Files uploaded successfully')
+
+    setImages(uploadedFiles);
+    setFormData((prevList: any) => ({ 
+    ...prevList,
+    title: uploadedFiles[0].data?.name,
+    imageUrl: uploadedFiles[0].data?.url,
+  }));
+    setSuccess('Files uploaded successfully');
   }
 
   const onSubmit = async () => {
@@ -143,7 +147,7 @@ const CreatePhotoModal = () => {
       
               <div className=''>
                 <h1>{image.data?.name}</h1>
-                <p>{image.data?.size}</p>
+                <p className='text-sm'>{image.data?.size}</p>
               </div>
             </div>
       
