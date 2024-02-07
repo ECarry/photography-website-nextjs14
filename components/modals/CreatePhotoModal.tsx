@@ -134,33 +134,12 @@ const CreatePhotoModal = () => {
           </form>
         </div>
 
-        {images?.map((image, index) => (
-          <div key={index}  className='flex items-center justify-between relative'>
-            <div className='flex gap-4 items-center'>
-              <Image 
-                src={image.data?.url || ''}
-                alt=''
-                height={100}
-                width={100}
-                className='object-cover w-[100px] h-[100px]'
-              />
-      
-              <div className=''>
-                <h1>{image.data?.name}</h1>
-                <p className='text-sm'>{image.data?.size}</p>
-              </div>
-            </div>
-      
-      
-            <button
-              className='bg-rose-500 text-white p-1 rounded-full absolute -top-2 -right-2 shadow-sm'
-              type='button'
-            >
-              <X className='h-4 w-4' />
-            </button>
-          </div>
+        {images?.map((image: UploadFileResponse, index: number) => ( 
+          <ImagePreview key={index} image={image} onChange={() => {
+            setSuccess('')
+            setImages(undefined)
+          }} />
         ))}
-
 
         <FormError message={error} />
         <FormSuccess message={success} />
