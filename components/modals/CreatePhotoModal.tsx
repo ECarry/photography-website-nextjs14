@@ -103,6 +103,15 @@ const CreatePhotoModal = () => {
     setSuccess('')
     const albumId = data.id ? data.id : null
 
+    startTransition(() => {
+      createPhoto(formData)
+      .then((data) => {
+        setError(data?.error)
+        setSuccess(data?.success)
+      })
+    })
+    
+
     // form.reset()
     // router.refresh()
     // onClose()
@@ -143,7 +152,7 @@ const CreatePhotoModal = () => {
 
         <FormError message={error} />
         <FormSuccess message={success} />
-        <Button onClick={() => onSubmit}>Create</Button>
+        <Button onClick={() => onSubmit()}>Create</Button>
       </DialogContent>
     </Dialog>
   )

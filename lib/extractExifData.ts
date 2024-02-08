@@ -62,14 +62,14 @@ export default function extractExifData(exifRawData: ExifRawData) {
   const cameraMake = exifRawData.Make ?? null;
   const cameraModel = exifRawData.Model ?? null;
   const cameraLens = exifRawData.LensModel ?? null;
-  const timestamp = exifRawData.DateTimeOriginal ?? null;
+  const timestamp = (exifRawData.DateTimeOriginal)?.toString() ?? null;
 
   const gpsAltitude = exifRawData.GPSAltitude;
-  const shutterSpeed = exifRawData.ExposureTime ?? null;
-  const fNumber = exifRawData.FNumber ?? null;
-  const focalLengthIn35mmFilm = exifRawData.FocalLengthIn35mmFormat ?? null;
-  const iso = exifRawData.ISO ?? null;
-  const focalLength = exifRawData.FocalLength ?? null;
+  const shutterSpeed = (exifRawData.ExposureTime)?.toString() ?? null;
+  const fNumber = exifRawData.FNumber ? `ƒ + exifRawData.FNumber` : null;
+  const focalLengthIn35mmFilm = exifRawData.FocalLengthIn35mmFormat ? `ƒ + exifRawData.FocalLengthIn35mmFormat` : null;
+  const iso = (exifRawData.ISO)?.toString() ?? null;
+  const focalLength = (exifRawData.FocalLength)?.toString() ?? null;
 
   // 按照给定的格式返回一个对象
   return {

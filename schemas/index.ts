@@ -15,5 +15,14 @@ export const CreatePhotoSchema = z.object({
   }),
   imageUrl: z.string().min(1, {
     message: 'Photo is required.'
-  })
+  }),
+  width: z.number().min(1, {
+    message: 'Width is required.'
+  }),
+  height: z.number().min(1, {
+    message: 'Height is required.'
+  }),
+  aspectRatio: z.number().min(1, {
+    message: 'AspectRatio is required.'
+  }),
 })
