@@ -1,12 +1,12 @@
 import { useModal } from '@/hooks/use-modal-store'
-import { z } from 'zod'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { useState, useTransition } from 'react'
 import { createPhoto } from '@/actions/createPhoto'
-import { CreatePhotoSchema } from '@/schemas'
-import getImageExifInfo from '@/lib/getImageExifInfo'
+import { getExifData } from '@/lib/getExifData'
+import { getImageSize } from '@/lib/getImageSize'
+import { uploadFiles } from '@/actions/uploadPhoto'
+import extractExifData from '@/lib/extractExifData'
+import { UploadFileResponse } from '@/types'
 
 import { 
   Dialog, 
@@ -16,30 +16,10 @@ import {
   DialogHeader, 
   DialogTitle,  
 } from "@/components/ui/dialog"
-import { 
-  Form, 
-  FormControl, 
-  FormField, 
-  FormItem,
-  FormLabel,
-  FormMessage
-} from '@/components/ui/form'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import ImageUpload from '@/components/ImageUpload'
 import FormError from '@/components/form-error'
 import FormSuccess from '@/components/form-success'
-import { Upload, X } from 'lucide-react'
-
-import { getExifData } from '@/lib/getExifData'
-import { getImageSize } from '@/lib/getImageSize'
-import { uploadFiles } from '@/actions/uploadPhoto'
-import Image from 'next/image'
-import extractExifData from '@/lib/extractExifData'
-import { UploadFileResponse } from '@/types'
-import ImagePreview from '../image-preview'
-
-type Schema = z.infer<typeof CreatePhotoSchema>
+import ImagePreview from '@/components/image-preview'
 
 const CreatePhotoModal = () => {
   const [isPending, startTransition] = useTransition()
@@ -53,13 +33,6 @@ const CreatePhotoModal = () => {
 
   const { onClose, isOpen, type, data } = useModal()
   const isModalOpen = isOpen && type === 'createPhoto'
-
-  const form = useForm<Schema>({
-    resolver: zodResolver(CreatePhotoSchema),
-    defaultValues: {
-      imageUrl: '',
-    }
-  })
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
   const file = e.target.files?.[0];
@@ -111,10 +84,8 @@ const CreatePhotoModal = () => {
       })
     })
     
-
-    // form.reset()
-    // router.refresh()
-    // onClose()
+    router.refresh()
+    onClose()
   }
 
   return (
