@@ -3,61 +3,53 @@
 import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-
 import * as z from "zod"
 
-import { toast } from "@/components/ui/use-toast"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import AvatarUpload from "./AvatarUpload"
 import { User } from "next-auth"
+import FormError from "@/components/form-error"
+import FormSuccess from "@/components/form-success"
+import { profileFormSchema } from "@/schemas"
+import { useState, useTransition } from "react"
+import { updateProfile } from "@/actions/updateProfile"
 
 interface ProfileFormProps {
   user: User;
 }
-
-const profileFormSchema = z.object({
-  name: z
-    .string()
-    .min(2, {
-      message: "Username must be at least 2 characters.",
-    })
-    .max(30, {
-      message: "Username must not be longer than 30 characters.",
-    }),
-  imageUrl: z.string()
-})
 
 type ProfileFormValues = z.infer<typeof profileFormSchema>
 
 export function ProfileForm({
   user
 }: ProfileFormProps) {
+  const [error, setError] = useState<string | undefined>()
+  const [success, setSuccess] = useState<string | undefined>()
+  const [isPending, startTransition] = useTransition()
   const router = useRouter()
 
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     defaultValues: {
-      name: user.name || '',
+      username: user.name || '',
       imageUrl: user.image || ''
     }
   })
 
   const onSubmit = async (values: ProfileFormValues) => {
-    try {
-      await fetch('/api/profile', {
-        method: 'PATCH',
-        body: JSON.stringify(values)
-      })
+    setError('')
+    setSuccess('')
 
-      toast({
-        title: "Update Successful.",
+    startTransition(() => {
+      updateProfile(values)
+      .then((data) => {
+        setError(data?.error)
+        setSuccess(data?.success)
       })
-      router.refresh()
-    } catch (error) {
-      console.log(error)
-    }
+    })
+    router.refresh()
   }
 
   return (
@@ -66,6 +58,7 @@ export function ProfileForm({
         <FormField 
           control={form.control}
           name="imageUrl"
+          disabled={isPending}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Avatar</FormLabel>
@@ -79,7 +72,8 @@ export function ProfileForm({
 
         <FormField
           control={form.control}
-          name="name"
+          name="username"
+          disabled={isPending}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Username</FormLabel>
@@ -90,7 +84,9 @@ export function ProfileForm({
             </FormItem>
           )}
         />
-        <Button type="submit">Update profile</Button>
+        <FormError message={error} />
+        <FormSuccess message={success} />
+        <Button type="submit" disabled={isPending}>Update profile</Button>
       </form>
     </Form>
   )
