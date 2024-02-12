@@ -40,7 +40,7 @@ const generateSquares = (squareData: Photo[]) => {
         alt="sq"
         width={256}
         height={75}
-        className="object-cover w-full h-full"
+        className="object-cover w-full h-full rounded-lg"
       />
     </motion.div>
   ));
