@@ -7,6 +7,7 @@ import { Toaster } from "@/components/ui/toaster"
 import { ThemeProvider } from "@/components/providers/theme-provider"
 import AuthProvider from '@/components/providers/auth-provider'
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { TailwindIndicator } from '@/components/tailwind-indicator'
 
 const ibmPlexMono = IBM_Plex_Mono({
   subsets: ['latin'],
@@ -31,13 +32,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={ibmPlexMono.className}>
         <AuthProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-          >
+          <ThemeProvider attribute="class" defaultTheme="system">
+            {children}
+            <TailwindIndicator />
             <MoadlProvider />
             <Toaster />
-            {children}
             <SpeedInsights />
           </ThemeProvider>
         </AuthProvider>

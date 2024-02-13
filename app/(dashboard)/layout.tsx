@@ -14,12 +14,12 @@ const DashboardLayout = ({
   children:React.ReactNode
 }) => {
   return (
-    <div>
+    <>
       <Navbar />
       <div className="container p-4">
         {children}
       </div>
-    </div>
+    </>
   )
 }
 
