@@ -43,9 +43,9 @@ This project uses MySQL database on PlanetScale. To setup a DB for your local de
 4. Copy the url to `.env` `DATABASE_URL` file
 5. run `npx prisma generate` & `npx prisma db push`
 
-## Init User
+## Init user
 
-1. Create user `npx prisma studio`
+1. Create user, Open terminal and input `npx prisma studio`, It will automatically open the browser and navigate to http://localhost:5555/.
 2. Enter `User` 
 3. Add record:
 `email`: your email
