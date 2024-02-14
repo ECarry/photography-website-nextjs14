@@ -17,12 +17,19 @@ npm i
 2. Copy `.env.example` to `.env` and update the variables.
 
 ```sh
-cp .env.example .env.local
+cp .env.example .env
 ```
 
 3. Input everything you need for the env.
 
-4. Start the development server:
+`NEXTAUTH_SECRET` is a random string used by the library to encrypt tokens and email verification hashes, and it's mandatory to keep things secure! 🔥 🔐 . You can use:
+
+```sh
+openssl rand -base64 32
+```
+or https://generate-secret.vercel.app/32 to generate a random value for it.
+
+4. Create database
 
 ## Tech Stack + Features
 
@@ -33,8 +40,8 @@ This project uses MySQL database on PlanetScale. To setup a DB for your local de
 1. Create a free account and a [new Database](https://planetscale.com/docs/tutorials/planetscale-quick-start-guide#create-a-database)
 2. From the dashboard, create a branch and click "Connect" button.
 3. Hit `Create password` and select `Prisma` in `Connect with` dropdown
-4. Copy the url to `.env.local` file
-5. run `yarn run prisma:push` (Be mindful prisma migrate won't work because it requires more privileges for the database user).
+4. Copy the url to `.env` `DATABASE_URL` file
+5. run `npx prisma generate`
 
 ### Frameworks
 
@@ -56,22 +63,3 @@ This project uses MySQL database on PlanetScale. To setup a DB for your local de
 - [Lucide](https://lucide.dev/) – Beautifully simple, pixel-perfect icons
 - [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) – Optimize custom fonts and remove external network requests for improved performance
 - [`ImageResponse`](https://nextjs.org/docs/app/api-reference/functions/image-response) – Generate dynamic Open Graph images at the edge
-
-## Features
-
-- ▲ Framework is Next.js 14 (using App Directory and React Server Components) — a React framework for production-grade apps. Designed to be deployed on Vercel.
-- 🤝 Full TypeScript support, including strict mode.
-- 📦 React components from shadcn/ui, built on Radix UI, Tailwind CSS and cva.
-- 👩‍⚖️ Linting from eslint-config-harmony, which provides a strict set of configuration for ESLint, Prettier and Stylelint.
-- 📀 Database uses Prisma as the ORM. Can be connected to any supported database — I recommend PlanetScale.
-- 📧 Emails templated by react.email and sent using Resend. Additionally, Loops form for a waitlist.
-- 👨‍👩‍👧‍👦 Authentication provided by Next-auth v5.
-- 🟢 Log Drain and Status provided by BetterStack.
-- 🐞 Error capturing provided by Sentry.
-- 💸 Payments provided by Stripe.
-- 📈 Analytics provided by Vercel Analytics and Google Analytics.
-- 🤖 AI provided by Vercel AI, using OpenAI by default.
-- 💬 Feedback through Canny.
-- 📝 MDX content through Contentlayer.
-- 🔔 Notifications provided by Knock.
-- 🔄 Cron jobs provided by Vercel.
