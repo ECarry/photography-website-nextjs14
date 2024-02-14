@@ -6,8 +6,7 @@ import { Photo } from '@prisma/client'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import CityOverview from '../../_components/CityOverview'
 import ShuffleHero from '../../_components/SuffleHero'
-import { fetchAllECarryPhotos } from "@/lib/data"
-import { InfiniteMovingCards } from '@/components/ui/infinite-moving-cards'
+import { fetchAllPhotos } from '@/data/photo'
 
 interface CityData {
   name: string;
@@ -15,10 +14,14 @@ interface CityData {
 }
 
 const page = async () => {
-  const photos = await fetchAllECarryPhotos()
+  const photos = await fetchAllPhotos()
 
   if (photos.length < 1) {
-    return null
+    return (
+      <div>
+        No Data
+      </div>
+    )
   }
 
   const cityPromises = photos.map(async (photo: Photo) => {

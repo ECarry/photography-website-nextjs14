@@ -1,12 +1,11 @@
 import { Album, Photo } from "@prisma/client"
-import { fetchAlbum, fetchECarryPhotos } from "@/lib/data"
 
 import PhotoCard from "./PhotoCard"
+import { fetchAllPhotos } from "@/data/photo"
 
 
 const PhotoGallery = async () => {
-  const photos = await fetchECarryPhotos(1, 100)
-
+  const photos = await fetchAllPhotos()
 
   return (
     <div 

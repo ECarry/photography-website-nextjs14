@@ -1,10 +1,10 @@
 import Link from "next/link"
 import { Metadata } from "next"
 import { redirect } from "next/navigation"
-import { fetchAllECarryPhotos, fetchPhotoInfo } from "@/lib/data"
 
 import PhotoLinks from "@/app/(home)/_components/photo-links"
 import ImageRevealEffect from "@/components/image-reveal-effect"
+import { fetchAllPhotos, fetchPhotoById } from "@/data/photo"
 
 interface PhotoIdPageProps {
   params: {
@@ -17,7 +17,7 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const { id } = params
 
-  const photo = await fetchPhotoInfo(id)
+  const photo = await fetchPhotoById(id)
   
   return {
     title: `${photo?.title}`
@@ -29,7 +29,7 @@ const PhotoIdPage = async ({
 }: PhotoIdPageProps) => {
   const { id } = params
 
-  const photos = await fetchAllECarryPhotos()
+  const photos = await fetchAllPhotos()
 
   const photo = photos.find(p => p.id === id);
 

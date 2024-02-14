@@ -9,7 +9,7 @@ import formatCustomDate from "@/lib/formatCustomDate";
 import { Heart } from "lucide-react";
 import EditPhotoForm from "@/app/(dashboard)/_components/EditPhotoForm";
 import Mapbox from "@/app/(dashboard)/_components/Mapbox";
-import { fetchPhotoInfo } from "@/lib/data";
+import { fetchPhotoById } from "@/data/photo";
 
 interface PhotoIdPageProps {
   params: {
@@ -22,7 +22,7 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const { photoId } = params
 
-  const photo = await fetchPhotoInfo(photoId)
+  const photo = await fetchPhotoById(photoId)
   
   return {
     title: `Edit ${photo?.title}`
@@ -38,7 +38,7 @@ const PhotoIdPage = async ({
     return null
   }
 
-  const photo = await fetchPhotoInfo(photoId)
+  const photo = await fetchPhotoById(photoId)
 
   if (!photo) {
     return (

@@ -18,10 +18,6 @@ const links = [
     href: '/gallery'
   },
   {
-    label: 'Albums',
-    href: '/albums'
-  },
-  {
     label: 'Settings',
     href: '/settings'
   },

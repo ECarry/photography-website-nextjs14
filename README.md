@@ -41,7 +41,17 @@ This project uses MySQL database on PlanetScale. To setup a DB for your local de
 2. From the dashboard, create a branch and click "Connect" button.
 3. Hit `Create password` and select `Prisma` in `Connect with` dropdown
 4. Copy the url to `.env` `DATABASE_URL` file
-5. run `npx prisma generate`
+5. run `npx prisma generate` & `npx prisma db push`
+
+## Init User
+
+1. Create user `npx prisma studio`
+2. Enter `User` 
+3. Add record:
+`email`: your email
+`Username`：your username
+`password`： Password use bcrypt hash, you can generate at https://bcrypt.online/
+4. Save
 
 ### Frameworks
 

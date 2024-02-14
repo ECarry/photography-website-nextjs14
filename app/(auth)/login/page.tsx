@@ -7,13 +7,7 @@ import LoginForm from '../_components/login-form'
 const LoginPage = async () => {
   noStore();
 
-  const photos = await db.photo.findMany({
-    where: {
-      category: {
-        title: 'ecarry'
-      }
-    }
-  })
+  const photos = await db.photo.findMany({})
 
   if (photos.length === 0) {
     return (

@@ -8,10 +8,6 @@ export const routes = [
     href: '/grid'
   },
   {
-    label: 'Fan',
-    href: '/fan'
-  },
-  {
     label: 'Map',
     href: '/map'
   },

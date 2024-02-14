@@ -1,12 +1,18 @@
-import { fetchECarryPhotos } from '@/lib/data'
-
 import PhotoAlbumWithNextJsImage from '@/components/PhotoAlbumWithNextJsImage';
+import { fetchAllPhotos } from '@/data/photo';
 
 const breakpoints = [1080, 640, 384, 256, 128, 96, 64, 48];
 
 const GridPage = async () => {
-  const data = await fetchECarryPhotos(1, 100)
+  const data = await fetchAllPhotos()
 
+  if (data.length < 1){
+    return (
+      <div>
+        No Data
+      </div>
+    )
+  }
   const photos = data.map((photo) => ({
     id: photo.id,
     src: photo.imageUrl,
