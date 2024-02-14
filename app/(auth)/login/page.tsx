@@ -16,7 +16,13 @@ const LoginPage = async () => {
   })
 
   if (photos.length === 0) {
-    return null
+    return (
+    <main className='w-full h-screen flex flex-col lg:flex-row'>
+      <div className='flex-1 flex items-center justify-center'>
+        <LoginForm />
+      </div>
+    </main>
+  )
   }
 
   const randomIndex = Math.floor(Math.random() * photos.length)
