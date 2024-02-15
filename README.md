@@ -4,36 +4,13 @@ Home page from https://vercel.com/templates/next.js/photo-blog
 
 ## Installation
 
-Clone & create this repo locally with the following command:
-
-```bash
-git clone https://github.com/ECarry/photography-website-nextjs14-full-stack.git
-```
-
-1. Install dependencies using pnpm:
-
-```sh
-npm i
-```
-
-2. Copy `.env.example` to `.env` and update the variables.
-
-```sh
-cp .env.example .env
-```
-
-3. Input everything you need for the env.
-
-`NEXTAUTH_SECRET` is a random string used by the library to encrypt tokens and email verification hashes, and it's mandatory to keep things secure! 🔥 🔐 . You can use:
-
-```sh
-openssl rand -base64 32
-```
-or https://generate-secret.vercel.app/32 to generate a random value for it.
-
-4. Create database
+go `dev` [branch](https://github.com/ECarry/photography-website-nextjs14-full-stack/tree/dev)
 
 ## Tech Stack + Features
+
+- Photo upload with EXIF extraction
+- Built-in auth
+- Light/dark mode
 
 ## Database
 
