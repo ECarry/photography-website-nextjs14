@@ -1,5 +1,7 @@
 ## Introduction
 
+Home page from https://vercel.com/templates/next.js/photo-blog
+
 ## Installation
 
 Clone & create this repo locally with the following command:
