@@ -1,11 +1,13 @@
 ## Introduction
 
+Home page from https://vercel.com/templates/next.js/photo-blog
+
 ## Installation
 
 Clone & create this repo locally with the following command:
 
 ```bash
-git clone https://github.com/ECarry/photography-website-nextjs14-full-stack.git
+git clone -b dev https://github.com/ECarry/photography-website-nextjs14-full-stack.git
 ```
 
 1. Install dependencies using pnpm:
@@ -32,6 +34,10 @@ or https://generate-secret.vercel.app/32 to generate a random value for it.
 4. Create database
 
 ## Tech Stack + Features
+
+- Photo upload with EXIF extraction
+- Built-in auth
+- Light/dark mode
 
 ## Database
 
