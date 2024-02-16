@@ -1,8 +1,7 @@
 ## Introduction
 
 <p align="center">
-<img src='https://github.com/ECarry/photography-website-nextjs14-full-stack/blob/main/public/images/dashboard_light.png' width='720px'>
-<img src='https://github.com/ECarry/photography-website-nextjs14-full-stack/blob/main/public/images/dashboard_night.png' width='720px'>
+<img src='https://github.com/ECarry/photography-website-nextjs14-full-stack/blob/main/public/images/dashboard%20.gif' width='720px'>
 </p>
 
 Home page from https://vercel.com/templates/next.js/photo-blog
