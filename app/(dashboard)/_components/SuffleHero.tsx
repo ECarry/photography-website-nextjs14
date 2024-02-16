@@ -39,13 +39,13 @@ const ShuffleHero = async () => {
           className="mb-8 text-start"
         />
         <h3 className="text-2xl md:text-4xl font-semibold">
-          他说这世界是不是我们的
+          Remember, photography is an art that captures moments, emotions, and stories.
         </h3>
         <h3 className="text-2xl md:text-4xl font-semibold">
-          我应该穿什么吃什么
+          Keep exploring and creating! 
         </h3>
         <p className="text-base md:text-lg text-slate-700 my-4 md:my-6">
-          如果没有人看着，我那该多快乐！
+          📸🌟
         </p>
         <ShimmerButton />
       </div>
