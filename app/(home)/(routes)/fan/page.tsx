@@ -1,4 +1,4 @@
-import { fetchAlbum } from '@/lib/data'
+import { fetchAlbum } from '@/data/photo'
 
 import { InfiniteMovingCards } from '@/components/ui/infinite-moving-cards' 
 

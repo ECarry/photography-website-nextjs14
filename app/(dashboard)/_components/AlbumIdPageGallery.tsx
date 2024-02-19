@@ -1,8 +1,7 @@
-import { db } from "@/lib/db";
+import { fetchAlbumPhotos } from "@/data/photo";
+import Image from "next/image";
 
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import Image from "next/image";
-import { fetchAlbumPhotos } from "@/lib/data";
 
 interface AlbumIdPageGalleryProps {
   albumId: string;
