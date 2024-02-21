@@ -1,8 +1,13 @@
-import { db } from '@/lib/db'
-import Image from 'next/image'
-import { unstable_noStore as noStore } from 'next/cache';
+import { db } from "@/lib/db";
+import Image from "next/image";
+import { unstable_noStore as noStore } from "next/cache";
 
-import LoginForm from '../_components/login-form'
+import LoginForm from "../_components/login-form";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Login",
+};
 
 const LoginPage = async () => {
   noStore();
@@ -10,42 +15,42 @@ const LoginPage = async () => {
   const photos = await db.photo.findMany({
     where: {
       category: {
-        title: 'ecarry'
-      }
-    }
-  })
+        title: "ecarry",
+      },
+    },
+  });
 
   if (photos.length === 0) {
     return (
-    <main className='w-full h-screen flex flex-col lg:flex-row'>
-      <div className='flex-1 flex items-center justify-center'>
-        <LoginForm />
-      </div>
-    </main>
-  )
+      <main className="w-full h-screen flex flex-col lg:flex-row">
+        <div className="flex-1 flex items-center justify-center">
+          <LoginForm />
+        </div>
+      </main>
+    );
   }
 
-  const randomIndex = Math.floor(Math.random() * photos.length)
-  const imageUrl = photos[randomIndex].imageUrl
+  const randomIndex = Math.floor(Math.random() * photos.length);
+  const imageUrl = photos[randomIndex].imageUrl;
 
   return (
-    <main className='w-full h-screen flex flex-col lg:flex-row'>
-      <div className='flex-1 overflow-hidden p-4 md:p-8'>
-        <Image 
+    <main className="w-full h-screen flex flex-col lg:flex-row">
+      <div className="flex-1 overflow-hidden p-4 md:p-8">
+        <Image
           src={imageUrl}
-          alt='login image'
+          alt="login image"
           priority
           width={1920}
           height={1080}
-          className='object-cover w-full h-full rounded-lg md:rounded-3xl'
+          className="object-cover w-full h-full rounded-lg md:rounded-3xl"
         />
       </div>
 
-      <div className='flex-1 flex items-center justify-center'>
+      <div className="flex-1 flex items-center justify-center">
         <LoginForm />
       </div>
     </main>
-  )
-}
+  );
+};
 
-export default LoginPage
+export default LoginPage;
