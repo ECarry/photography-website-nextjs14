@@ -1,4 +1,5 @@
 import { coordinateToCitys } from '@/lib/coordinateToCitys'
+import { fetchAllECarryPhotos } from '@/data/photo'
 
 import AnimatedCard from '../../_components/AnimatedCard'
 import MapboxWithMarks from '@/components/MapboxWithMarks'
@@ -6,8 +7,6 @@ import { Photo } from '@prisma/client'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import CityOverview from '../../_components/CityOverview'
 import ShuffleHero from '../../_components/SuffleHero'
-import { fetchAllECarryPhotos } from "@/lib/data"
-import { InfiniteMovingCards } from '@/components/ui/infinite-moving-cards'
 
 interface CityData {
   name: string;

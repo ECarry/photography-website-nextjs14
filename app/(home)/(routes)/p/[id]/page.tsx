@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { Metadata } from "next"
 import { redirect } from "next/navigation"
-import { fetchAllECarryPhotos, fetchPhotoInfo } from "@/lib/data"
+import { fetchAllECarryPhotos, fetchPhotoInfo } from "@/data/photo"
 
 import PhotoLinks from "@/app/(home)/_components/photo-links"
 import ImageRevealEffect from "@/components/image-reveal-effect"

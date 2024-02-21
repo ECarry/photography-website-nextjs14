@@ -1,8 +1,7 @@
 import 'server-only'
-
 import { db } from "@/lib/db";
 
-export async function fetchECarryPhotos(page: number, limit: number) {
+export const fetchECarryPhotos = async(page: number, limit: number) => {
   const skip = (page - 1) * limit
   const take = limit
   try {
@@ -26,7 +25,7 @@ export async function fetchECarryPhotos(page: number, limit: number) {
   }
 }
 
-export async function fetchAllECarryPhotos() {
+export const fetchAllECarryPhotos = async() => {
   try {
     const data = await db.photo.findMany({
       where: {
@@ -46,7 +45,7 @@ export async function fetchAllECarryPhotos() {
   }
 }
 
-export async function fetchPhotoInfo(id: string) {
+export const fetchPhotoInfo = async(id: string) => {
   try {
     const data = await db.photo.findFirst({
       where: {
@@ -61,7 +60,7 @@ export async function fetchPhotoInfo(id: string) {
   }
 }
 
-export async function fetchAlbum() {
+export const fetchAlbum= async() => {
   try {
     const data = await db.album.findMany({
       orderBy: {
@@ -79,7 +78,7 @@ export async function fetchAlbum() {
   }
 }
 
-export async function fetchAlbumPhotos(id: string) {
+export const fetchAlbumPhotos = async(id: string) => {
   try {
     const data = await db.album.findFirst({
       where: {

@@ -1,9 +1,9 @@
 import { Metadata } from 'next'
 
 import PageHeader from '@/app/(dashboard)/_components/PageHeader'
-import { fetchAlbum } from '@/lib/data'
 import AlbumCard from '@/app/(dashboard)/_components/AlbumCard'
 import { AlbumWithPhotos } from '@/types'
+import { fetchAlbum } from '@/data/photo'
 
 export const metadata: Metadata = {
   title: 'Albums',

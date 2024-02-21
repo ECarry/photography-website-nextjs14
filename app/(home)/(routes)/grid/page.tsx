@@ -1,4 +1,4 @@
-import { fetchECarryPhotos } from '@/lib/data'
+import { fetchECarryPhotos } from '@/data/photo';
 
 import PhotoAlbumWithNextJsImage from '@/components/PhotoAlbumWithNextJsImage';
 

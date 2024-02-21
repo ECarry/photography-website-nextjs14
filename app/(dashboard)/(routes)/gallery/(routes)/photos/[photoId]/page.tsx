@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { Metadata } from 'next'
+import { fetchPhotoInfo } from "@/data/photo";
 
 import DeleteAction from "@/app/(dashboard)/_components/DeleteAction";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
@@ -9,7 +10,6 @@ import formatCustomDate from "@/lib/formatCustomDate";
 import { Heart } from "lucide-react";
 import EditPhotoForm from "@/app/(dashboard)/_components/EditPhotoForm";
 import Mapbox from "@/app/(dashboard)/_components/Mapbox";
-import { fetchPhotoInfo } from "@/lib/data";
 
 interface PhotoIdPageProps {
   params: {
