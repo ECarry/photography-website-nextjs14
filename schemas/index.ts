@@ -1,31 +1,29 @@
-import * as z from 'zod'
+import * as z from "zod";
 
 export const LoginSchema = z.object({
   email: z.string().email({
-    message: 'Email is required'
+    message: "Email is required",
   }),
   password: z.string().min(1, {
-    message: 'Password is required'
-  })
-})
+    message: "Password is required",
+  }),
+});
 
 export const CreatePhotoSchema = z.object({
   title: z.string().min(1, {
-    message: 'Photo title is required.'
+    message: "Photo title is required.",
   }),
   imageUrl: z.string().min(1, {
-    message: 'Photo is required.'
+    message: "Photo is required.",
   }),
   width: z.number().min(1, {
-    message: 'Width is required.'
+    message: "Width is required.",
   }),
   height: z.number().min(1, {
-    message: 'Height is required.'
+    message: "Height is required.",
   }),
-  aspectRatio: z.number().min(1, {
-    message: 'AspectRatio is required.'
-  }),
-})
+  aspectRatio: z.number(),
+});
 
 export const profileFormSchema = z.object({
   username: z
@@ -36,5 +34,5 @@ export const profileFormSchema = z.object({
     .max(30, {
       message: "Username must not be longer than 30 characters.",
     }),
-  imageUrl: z.string()
-})
+  imageUrl: z.string(),
+});

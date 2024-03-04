@@ -1,24 +1,19 @@
-import 'server-only'
+import "server-only";
 
 import { db } from "@/lib/db";
 
 export async function fetchAllPhotos() {
   try {
     const data = await db.photo.findMany({
-      where: {
-        category: {
-          title: 'ecarry'
-        }
-      },
       orderBy: {
-        createdAt: 'desc'
-      }
-    })
+        createdAt: "desc",
+      },
+    });
 
-    return data
+    return data;
   } catch (error) {
-    console.error('Database Error:', error);
-    throw new Error('Failed to fetch ECarry data.');
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch ECarry data.");
   }
 }
 
@@ -26,13 +21,13 @@ export async function fetchPhotoById(id: string) {
   try {
     const data = await db.photo.findFirst({
       where: {
-        id
-      }
-    })
+        id,
+      },
+    });
 
-    return data
+    return data;
   } catch (error) {
-    console.error('Database Error:', error);
-    throw new Error('Failed to fetch photo data.');
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch photo data.");
   }
 }
