@@ -29,6 +29,7 @@ cp .env.example .env
 ```sh
 openssl rand -base64 32
 ```
+
 or https://generate-secret.vercel.app/32 to generate a random value for it.
 
 4. Create database
@@ -52,12 +53,16 @@ This project uses MySQL database on PlanetScale. To setup a DB for your local de
 ## Init user
 
 1. Create user, Open terminal and input `npx prisma studio`, It will automatically open the browser and navigate to http://localhost:5555/.
-2. Enter `User` 
+2. Enter `User`
 3. Add record:
-`email`: your email
-`Username`：your username
-`password`： Password use bcrypt hash, you can generate at https://bcrypt.online/
+   `email`: your email
+   `Username`：your username
+   `password`： Password use bcrypt hash, you can generate at https://bcrypt.online/
 4. Save
+
+## Upload images
+
+1. login `http://localhost:3000/dashboard`, and switch `gallery`, Upload your images
 
 ### Frameworks
 
