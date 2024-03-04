@@ -66,9 +66,9 @@ export default function extractExifData(exifRawData: ExifRawData) {
 
   const gpsAltitude = exifRawData.GPSAltitude + "m";
   const shutterSpeed = exifRawData.ExposureTime?.toString() ?? null;
-  const fNumber = exifRawData.FNumber ? `ƒ + exifRawData.FNumber` : null;
+  const fNumber = exifRawData.FNumber ? `ƒ + ${exifRawData.FNumber}` : null;
   const focalLengthIn35mmFilm = exifRawData.FocalLengthIn35mmFormat
-    ? `ƒ + exifRawData.FocalLengthIn35mmFormat`
+    ? `ƒ + ${exifRawData.FocalLengthIn35mmFormat}`
     : null;
   const iso = exifRawData.ISO?.toString() ?? null;
   const focalLength = exifRawData.FocalLength?.toString() ?? null;
