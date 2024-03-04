@@ -51,7 +51,7 @@ interface ExifRawData {
   GPSLongitudeRef?: string;
   GPSLongitude?: number[];
   GPSAltitudeRef?: object;
-  GPSAltitude?: number;
+  GPSAltitude?: string;
   latitude?: number;
   longitude?: number;
 }
@@ -62,28 +62,30 @@ export default function extractExifData(exifRawData: ExifRawData) {
   const cameraMake = exifRawData.Make ?? null;
   const cameraModel = exifRawData.Model ?? null;
   const cameraLens = exifRawData.LensModel ?? null;
-  const timestamp = (exifRawData.DateTimeOriginal)?.toString() ?? null;
+  const timestamp = exifRawData.DateTimeOriginal?.toString() ?? null;
 
-  const gpsAltitude = exifRawData.GPSAltitude;
-  const shutterSpeed = (exifRawData.ExposureTime)?.toString() ?? null;
+  const gpsAltitude = exifRawData.GPSAltitude + "m";
+  const shutterSpeed = exifRawData.ExposureTime?.toString() ?? null;
   const fNumber = exifRawData.FNumber ? `ƒ + exifRawData.FNumber` : null;
-  const focalLengthIn35mmFilm = exifRawData.FocalLengthIn35mmFormat ? `ƒ + exifRawData.FocalLengthIn35mmFormat` : null;
-  const iso = (exifRawData.ISO)?.toString() ?? null;
-  const focalLength = (exifRawData.FocalLength)?.toString() ?? null;
+  const focalLengthIn35mmFilm = exifRawData.FocalLengthIn35mmFormat
+    ? `ƒ + exifRawData.FocalLengthIn35mmFormat`
+    : null;
+  const iso = exifRawData.ISO?.toString() ?? null;
+  const focalLength = exifRawData.FocalLength?.toString() ?? null;
 
   // 按照给定的格式返回一个对象
   return {
-    'cameraMake': cameraMake,
-    'cameraModel': cameraModel,
-    'cameraLens': cameraLens,
-    'timestamp': timestamp,
-    'latitude': exifRawData.latitude,
-    'longitude': exifRawData.longitude,
-    'gpsAltitude': gpsAltitude,
-    'shutterSpeed': shutterSpeed,
-    'fNumber': fNumber,
-    'focalLengthIn35mmFilm': focalLengthIn35mmFilm,
-    'iso': iso,
-    'focalLength': focalLength
+    cameraMake: cameraMake,
+    cameraModel: cameraModel,
+    cameraLens: cameraLens,
+    timestamp: timestamp,
+    latitude: exifRawData.latitude,
+    longitude: exifRawData.longitude,
+    gpsAltitude: gpsAltitude,
+    shutterSpeed: shutterSpeed,
+    fNumber: fNumber,
+    focalLengthIn35mmFilm: focalLengthIn35mmFilm,
+    iso: iso,
+    focalLength: focalLength,
   };
 }
