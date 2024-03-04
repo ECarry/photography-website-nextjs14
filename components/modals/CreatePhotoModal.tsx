@@ -31,7 +31,7 @@ const CreatePhotoModal = () => {
 
   const router = useRouter();
 
-  const { onClose, isOpen, type, data } = useModal();
+  const { onClose, isOpen, type } = useModal();
   const isModalOpen = isOpen && type === "createPhoto";
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,30 +51,33 @@ const CreatePhotoModal = () => {
   };
 
   const onUploadSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    setSuccess("");
+    setError("");
     e.preventDefault();
 
     const fd = new FormData(e.target as HTMLFormElement);
-    const uploadedFiles = await uploadFiles(fd);
+    startTransition(() => {
+      uploadFiles(fd).then((data) => {
+        console.log(data[0]);
+        if (data[0].error !== null) {
+          return setError(data[0].error.message);
+        }
 
-    if (uploadedFiles[0].error !== null) {
-      return setError(uploadedFiles[0].error.message);
-    }
+        setSuccess("Files uploaded successfully");
 
-    setSuccess("Files uploaded successfully");
-
-    setImages(uploadedFiles);
-    setFormData((prevList: any) => ({
-      ...prevList,
-      title: uploadedFiles[0].data?.name,
-      imageUrl: uploadedFiles[0].data?.url,
-    }));
-    setSuccess("Files uploaded successfully");
+        setImages(data);
+        setFormData((prevList: any) => ({
+          ...prevList,
+          title: data[0].data?.name,
+          imageUrl: data[0].data?.url,
+        }));
+      });
+    });
   };
 
   const onSubmit = async () => {
     setError("");
     setSuccess("");
-    const albumId = data.id ? data.id : null;
 
     startTransition(() => {
       createPhoto(formData).then((data) => {
@@ -106,8 +109,11 @@ const CreatePhotoModal = () => {
               multiple
               accept="image/*"
               onChange={handleImageChange}
+              disabled={isPending}
             />
-            <Button type="submit">Upload</Button>
+            <Button type="submit" disabled={isPending}>
+              Upload
+            </Button>
           </form>
         </div>
 
@@ -124,7 +130,9 @@ const CreatePhotoModal = () => {
 
         <FormError message={error} />
         <FormSuccess message={success} />
-        <Button onClick={() => onSubmit()}>Create</Button>
+        <Button onClick={() => onSubmit()} disabled={isPending}>
+          Create
+        </Button>
       </DialogContent>
     </Dialog>
   );
