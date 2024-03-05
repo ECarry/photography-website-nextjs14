@@ -1,21 +1,17 @@
-import { Metadata } from "next"
+import { Metadata } from "next";
 
-import { SidebarNav } from "./_components/sidebar-nav"
-import PageHeader from "../../_components/PageHeader"
+import { SidebarNav } from "./_components/sidebar-nav";
+import PageHeader from "../../_components/PageHeader";
 
 const sidebarNavItems = [
   {
     title: "Profile",
     href: "/settings",
   },
-  {
-    title: "Category",
-    href: "/settings/category",
-  },
-]
+];
 
 interface SettingsLayoutProps {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 export default function SettingsLayout({ children }: SettingsLayoutProps) {
@@ -35,5 +31,5 @@ export default function SettingsLayout({ children }: SettingsLayoutProps) {
         </div>
       </div>
     </>
-  )
+  );
 }
