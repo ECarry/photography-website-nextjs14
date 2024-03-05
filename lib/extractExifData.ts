@@ -1,3 +1,5 @@
+import decimalToFractionOrInteger from "./decimalToFractionOrInteger";
+
 interface ExifRawData {
   Make?: string;
   Model?: string;
@@ -64,14 +66,22 @@ export default function extractExifData(exifRawData: ExifRawData) {
   const cameraLens = exifRawData.LensModel ?? null;
   const timestamp = exifRawData.DateTimeOriginal?.toString() ?? null;
 
-  const gpsAltitude = exifRawData.GPSAltitude + "m";
-  const shutterSpeed = exifRawData.ExposureTime?.toString() ?? null;
-  const fNumber = exifRawData.FNumber ? `ƒ${exifRawData.FNumber}` : null;
+  const gpsAltitude = exifRawData.GPSAltitude
+    ? exifRawData.GPSAltitude + "m"
+    : null;
+  const shutterSpeed = exifRawData.ExposureTime
+    ? decimalToFractionOrInteger(exifRawData.ExposureTime)
+    : null;
+  const fNumber = exifRawData.FNumber ? `ƒ/${exifRawData.FNumber}` : null;
   const focalLengthIn35mmFilm = exifRawData.FocalLengthIn35mmFormat
     ? `${exifRawData.FocalLengthIn35mmFormat}mm`
     : null;
-  const iso = exifRawData.ISO?.toString() ?? null;
-  const focalLength = exifRawData.FocalLength?.toString() + "mm" ?? null;
+  const iso = exifRawData.ISO?.toString()
+    ? "ISO" + " " + exifRawData.ISO?.toString()
+    : null;
+  const focalLength = exifRawData.FocalLength?.toString()
+    ? exifRawData.FocalLength?.toString() + "mm"
+    : null;
 
   // 按照给定的格式返回一个对象
   return {
