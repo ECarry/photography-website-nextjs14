@@ -32,8 +32,6 @@ openssl rand -base64 32
 
 or https://generate-secret.vercel.app/32 to generate a random value for it.
 
-4. Create database
-
 ## Tech Stack + Features
 
 - Photo upload with EXIF extraction
@@ -52,13 +50,17 @@ This project uses MySQL database on PlanetScale. To setup a DB for your local de
 
 ## Init user
 
-1. Create user, Open terminal and input `npx prisma studio`, It will automatically open the browser and navigate to http://localhost:5555/.
-2. Enter `User`
-3. Add record:
-   `email`: your email
-   `Username`：your username
-   `password`： Password use bcrypt hash, you can generate at https://bcrypt.online/
-4. Save
+you can set up the username, password and email in advance in the .env file.
+
+```
+# init user
+USER_EMAIL = test@test.com
+USERNAME = test
+USER_PASSWORD = test
+in the .env.example file
+```
+
+just `/login`
 
 ## Upload images
 
