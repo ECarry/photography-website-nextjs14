@@ -18,13 +18,13 @@ go `dev` [branch](https://github.com/ECarry/photography-website-nextjs14-full-st
 
 ## Database
 
-This project uses MySQL database on PlanetScale. To setup a DB for your local dev:
+This project uses Mongo database on [Mongodb cloud](https://cloud.mongodb.com/). To setup a DB for your local dev:
 
-1. Create a free account and a [new Database](https://planetscale.com/docs/tutorials/planetscale-quick-start-guide#create-a-database)
+1. Create a free account and a [new Database](https://cloud.mongodb.com/)
 2. From the dashboard, create a branch and click "Connect" button.
 3. Hit `Create password` and select `Prisma` in `Connect with` dropdown
 4. Copy the url to `.env` `DATABASE_URL` file
-5. run `npx prisma generate`
+5. run `npx prisma generate` && `npx prisma db push` to create the tables
 
 ### Frameworks
 
@@ -35,7 +35,7 @@ This project uses MySQL database on PlanetScale. To setup a DB for your local de
 ### Platforms
 
 - ▲[Vercel](https://vercel.com/) – Easily preview & deploy changes with git
-- [PlanetScale](https://planetscale.com/) – A cutting-edge database platform for seamless, scalable data management
+- 🍃[Mongodb cloud](https://cloud.mongodb.com/) – Build faster. Build smarter.​​
 - [Uploadthing](https://uploadthing.com/) - File Uploads For Next.js Developers
 
 ### UI
