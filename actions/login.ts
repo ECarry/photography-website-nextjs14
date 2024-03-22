@@ -1,7 +1,6 @@
 "use server";
 
 import { signIn } from "@/auth";
-import { getUserByEmail } from "@/data/user";
 import { db } from "@/lib/db";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import { LoginSchema } from "@/schemas";
@@ -61,7 +60,7 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
         },
       });
     } catch (error) {
-      return { error: "Create User fail" };
+      return { error: "Create User fail:" + error };
     }
   }
 

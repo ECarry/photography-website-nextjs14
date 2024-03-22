@@ -1,4 +1,5 @@
 import AnimateItems from "@/components/AnimateItems";
+import NoPhoto from "@/components/no-photo";
 import PhotoLarge from "@/components/photo/PhotoLarge";
 import { fetchAllPhotos } from "@/data/photo";
 
@@ -19,7 +20,7 @@ const HomePage = async () => {
       />
     </div>
   ) : (
-    <>No data</>
+    <NoPhoto />
   );
 };
 
