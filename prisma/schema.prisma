@@ -6,75 +6,74 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url = env("DATABASE_URL")
-  relationMode = "prisma"
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
 }
 
 model Photo {
-  id           String @id @default(uuid())
-  title        String 
-  description  String? @db.Text
-  imageUrl     String @db.Text
-  isFavorited  Boolean @default(false)
+  id          String  @id @default(uuid()) @map("_id")
+  title       String
+  description String?
+  imageUrl    String
+  isFavorited Boolean @default(false)
 
-  cameraMake   String?
-  cameraModel  String?
-  cameraLens   String?
-  timestamp    String?
-  latitude     Float?
-  longitude    Float?
-  gpsAltitude  String?
-  shutterSpeed String?
-  iso          String?
-  fNumber      String?
-  focalLength  String?
+  cameraMake            String?
+  cameraModel           String?
+  cameraLens            String?
+  timestamp             String?
+  latitude              Float?
+  longitude             Float?
+  gpsAltitude           String?
+  shutterSpeed          String?
+  iso                   String?
+  fNumber               String?
+  focalLength           String?
   focalLengthIn35mmFilm String?
 
-  width        Float
-  height       Float
-  aspectRatio  Float
+  width       Float
+  height      Float
+  aspectRatio Float
 
-  categoryId   String?
-  category     Category? @relation(fields: [categoryId], references: [id])
+  categoryId String?
+  category   Category? @relation(fields: [categoryId], references: [id])
 
-  albumId      String?
-  album        Album? @relation(fields: [albumId], references: [id])
+  albumId String?
+  album   Album?  @relation(fields: [albumId], references: [id])
 
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([categoryId])
   @@index([albumId])
 }
 
 model Category {
-  id     String @id @default(uuid())
-  title   String @unique
+  id    String @id @default(uuid()) @map("_id")
+  title String @unique
 
   photos Photo[]
 }
 
 model Album {
-  id String @id @default(uuid())
-  title String @unique
-  imageUrl String @db.Text
-  description  String @db.Text
-  bv  String?
+  id          String  @id @default(uuid()) @map("_id")
+  title       String  @unique
+  imageUrl    String
+  description String
+  bv          String?
 
   photos Photo[]
 
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model User {
-  id        String @id @default(uuid())
+  id String @id @default(uuid()) @map("_id")
 
-  email     String @unique
-  username  String?
-  password  String
-  imageUrl  String @db.Text
+  email    String  @unique
+  username String?
+  password String
+  imageUrl String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
