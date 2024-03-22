@@ -1,8 +1,12 @@
 ## Introduction
 
+This repository is a full-stack photo blog website template built with Next.js. It provides features such as photo upload with EXIF extraction, built-in authentication, and light/dark mode support.
+
 Home page from https://vercel.com/templates/next.js/photo-blog
 
 ## Installation
+
+To get started, clone this repository locally and follow these steps:
 
 Clone & create this repo locally with the following command:
 
@@ -10,27 +14,25 @@ Clone & create this repo locally with the following command:
 git clone -b dev https://github.com/ECarry/photography-website-nextjs14-full-stack.git
 ```
 
-1. Install dependencies using pnpm:
+1. Install dependencies using npm:
 
 ```sh
 npm i
 ```
 
-2. Copy `.env.example` to `.env` and update the variables.
+2. Next, copy .env.example to .env and update the variables:
 
 ```sh
 cp .env.example .env
 ```
 
-3. Input everything you need for the env.
-
-`NEXTAUTH_SECRET` is a random string used by the library to encrypt tokens and email verification hashes, and it's mandatory to keep things secure! 🔥 🔐 . You can use:
+3. Fill in the necessary environment variables, including NEXTAUTH_SECRET which is crucial for security. You can generate a random value for it using:
 
 ```sh
 openssl rand -base64 32
 ```
 
-or https://generate-secret.vercel.app/32 to generate a random value for it.
+or use a tool like https://generate-secret.vercel.app/32.
 
 ## Tech Stack + Features
 
@@ -38,19 +40,19 @@ or https://generate-secret.vercel.app/32 to generate a random value for it.
 - Built-in auth
 - Light/dark mode
 
-## Database
+## Database Setup
 
-This project uses MySQL database on PlanetScale. To setup a DB for your local dev:
+This project uses Mongo database on [Mongodb cloud](https://cloud.mongodb.com/). To setup a DB for your local dev:
 
-1. Create a free account and a [new Database](https://planetscale.com/docs/tutorials/planetscale-quick-start-guide#create-a-database)
+1. Create a free account and a [new Database](https://cloud.mongodb.com/)
 2. From the dashboard, create a branch and click "Connect" button.
 3. Hit `Create password` and select `Prisma` in `Connect with` dropdown
 4. Copy the url to `.env` `DATABASE_URL` file
-5. run `npx prisma generate` & `npx prisma db push`
+5. run `npx prisma generate` && `npx prisma db push` to create the tables
 
-## Init user
+## Initialize User
 
-you can set up the username, password and email in advance in the .env file.
+You can set up the initial user credentials in the .env file:
 
 ```
 # init user
@@ -60,21 +62,21 @@ USER_PASSWORD = test
 in the .env.example file
 ```
 
-just `/login`
+Access /login to log in with these credentials.
 
 ## Upload images
 
-1. login `http://localhost:3000/dashboard`, and switch `gallery`, Upload your images
+After logging in, navigate to http://localhost:3000/dashboard, select the gallery, and upload your images.
 
 ### Frameworks
 
-- ▲[Next.js](https://nextjs.org/)(using App Directory and React Server Components) – React framework for building performant apps with the best developer experience
+- 💪🏼[Next.js](https://nextjs.org/)(using App Directory and React Server Components) – React framework for building performant apps with the best developer experience
 - 🔒[Auth.js](https://authjs.dev/) – Handle user authentication with ease with providers like Google, Twitter, GitHub, etc.
 - 📀[Prisma](https://www.prisma.io/) – Typescript-first ORM for Node.js
 
 ### Platforms
 
-- ▲[Vercel](https://vercel.com/) – Easily preview & deploy changes with git
+- [Vercel](https://vercel.com/) – Easily preview & deploy changes with git
 - [PlanetScale](https://planetscale.com/) – A cutting-edge database platform for seamless, scalable data management
 - [Uploadthing](https://uploadthing.com/) - File Uploads For Next.js Developers
 
