@@ -1,16 +1,15 @@
+import { db } from "@/lib/db";
 
-import { db } from "@/lib/db"
-
-import MapboxWithMarks from "@/components/MapboxWithMarks"
+import MapboxWithMarks from "@/components/MapboxWithMarks";
 
 const MapPage = async () => {
-  const photos = await db.photo.findMany({})
+  const photos = await db.photo.findMany({});
 
   return (
-    <div className="ml-[280px] h-screen w-full">
+    <div className="ml-[280px] h-dvh">
       <MapboxWithMarks photos={photos} />
     </div>
-  )
-}
+  );
+};
 
-export default MapPage
+export default MapPage;
