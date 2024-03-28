@@ -1,32 +1,32 @@
-import './globals.css'
-import type { Metadata } from 'next'
-import { IBM_Plex_Mono } from 'next/font/google'
+import "./globals.css";
+import type { Metadata } from "next";
+import { IBM_Plex_Mono } from "next/font/google";
 
-import { MoadlProvider } from '@/components/providers/ModalProvider'
-import { Toaster } from "@/components/ui/toaster"
-import { ThemeProvider } from "@/components/providers/theme-provider"
-import AuthProvider from '@/components/providers/auth-provider'
-import { SpeedInsights } from "@vercel/speed-insights/next"
-import { TailwindIndicator } from '@/components/tailwind-indicator'
+import { MoadlProvider } from "@/components/providers/ModalProvider";
+import { Toaster } from "@/components/ui/toaster";
+import { ThemeProvider } from "@/components/providers/theme-provider";
+import AuthProvider from "@/components/providers/auth-provider";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { TailwindIndicator } from "@/components/tailwind-indicator";
 
 const ibmPlexMono = IBM_Plex_Mono({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-  variable: '--font-ibm-plex-mono',
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-ibm-plex-mono",
 });
 
 export const metadata: Metadata = {
   title: {
-    template: '%s - ECarry Photography',
-    default: 'ECarry Photography',
+    template: "%s - Photo Blog",
+    default: "Photo Blog",
   },
-  description: 'ECarry Photography',
-}
+  description: "Photo Blog",
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
@@ -42,5 +42,5 @@ export default function RootLayout({
         </AuthProvider>
       </body>
     </html>
-  )
+  );
 }
