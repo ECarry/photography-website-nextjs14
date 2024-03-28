@@ -1,16 +1,12 @@
-import Sidebar from "./_components/Sidebar"
+import Sidebar from "./_components/Sidebar";
 
-const HomeLayout = ({
-  children
-}: {
-  children: React.ReactNode
-}) => {
+const HomeLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="">
+    <main>
       <Sidebar />
       {children}
-    </div>
-  )
-}
+    </main>
+  );
+};
 
-export default HomeLayout
+export default HomeLayout;
