@@ -1,29 +1,20 @@
-import type { Config } from "tailwindcss"
-const { withUt } = require("uploadthing/tw");
+import { withUt } from "uploadthing/tw";
 
-const config = withUt({
+export default withUt({
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-	],
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
-    screens: {
-      "xs": "475px",
-      "sm": "640px",
-      "md": "768px",
-      "lg": "1024px",
-      "xl": "1280px",
-      "2xl": "1536px",
-    },
     container: {
       center: true,
       padding: "2rem",
       screens: {
-        "2xl": "1536px",
+        "2xl": "1400px",
       },
     },
     extend: {
@@ -76,24 +67,12 @@ const config = withUt({
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
-        scroll: {
-          to: {
-            transform: "translate(calc(-50% - 0.5rem))",
-          },
-        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        scroll:
-          "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
       },
     },
   },
-  plugins: [
-    require("tailwindcss-animate"),
-    require('@tailwindcss/aspect-ratio'),
-  ],
-}) satisfies Config
-
-export default config
+  plugins: [require("tailwindcss-animate")],
+});

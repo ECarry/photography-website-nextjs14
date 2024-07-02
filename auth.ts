@@ -1,70 +1,35 @@
-import NextAuth, { type DefaultSession } from "next-auth"
-import { PrismaAdapter } from "@auth/prisma-adapter"
-import { db } from "@/lib/db"
+import NextAuth, { DefaultSession } from "next-auth";
+import { db } from "@/db/drizzle";
+import authConfig from "./auth.config";
+import { DrizzleAdapter } from "@auth/drizzle-adapter";
 
-import authConfig from "@/auth.config"
-
-import { getUserById } from "@/data/user"
-
-// https://authjs.dev/getting-started/typescript
-declare module "@auth/core/types" {
+declare module "next-auth" {
   interface Session {
     user: {
       id: string;
-      image: string
-    } & DefaultSession["user"] 
+    } & DefaultSession["user"];
   }
 }
 
-export const { 
-  handlers: { GET, POST },
-  auth,
-  signIn,
-  signOut
-} = NextAuth({
-  pages: {
-    signIn: '/login',
-    
-  },
+export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
-    async signIn({ user }) {
-      const existingUser = await getUserById(user.id)
-
-      if (!existingUser) return false
-      
-      return true
-    },
     async session({ session, token }) {
+      if (token.sub && session.user) session.user.id = token.sub;
 
-      if (token.sub && session.user) {
-        session.user.id = token.sub
-      }
-      
-      if (token.name && session.user) {
-        session.user.name = token.name
-      }
+      if (token.email && session.user) session.user.email = token.email;
 
-      if (token.image && session.user) {
-        session.user.image = token.image as string
+      if (session) {
+        session.user.name = token.name;
+        session.user.image = token.picture;
       }
 
-      return session
+      return session;
     },
-    async jwt({ token }) {
-      if (!token.sub) return token
-
-      const existingUser = await db.user.findUnique({ where: { id: token.sub }})
-
-      if (!existingUser) return token
-
-      token.image = existingUser.imageUrl
-      token.name = existingUser.username
-
-      return token
-    }
   },
-  adapter: PrismaAdapter(db),
+  adapter: DrizzleAdapter(db),
+  pages: {
+    signIn: "/auth/login",
+  },
   session: { strategy: "jwt" },
   ...authConfig,
-})
- 
+});

@@ -1,26 +1,21 @@
-import Navbar from "./_components/Navbar"
-import { Metadata } from 'next';
- 
-export const metadata: Metadata = {
-  title: {
-    template: '%s - Dashboard',
-    default: 'Dashboard',
-  },
+import Navbar from "./_components/navbar";
+import { Toaster } from "@/components/ui/sonner";
+import ModalProvider from "@/components/providers/modal-provider";
+import FloatMenu from "./_components/float-menu";
+import { QueryProvider } from "@/providers/QueryClientProvider";
+
+const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <QueryProvider>
+      <main className="pb-20">
+        <Navbar />
+        {children}
+        <FloatMenu />
+        <Toaster />
+        <ModalProvider />
+      </main>
+    </QueryProvider>
+  );
 };
 
-const DashboardLayout = ({
-  children
-}: {
-  children:React.ReactNode
-}) => {
-  return (
-    <>
-      <Navbar />
-      <div className="container p-4">
-        {children}
-      </div>
-    </>
-  )
-}
-
-export default DashboardLayout
+export default DashboardLayout;

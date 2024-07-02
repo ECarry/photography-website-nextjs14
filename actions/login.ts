@@ -1,67 +1,44 @@
 "use server";
 
-import { signIn } from "@/auth";
-import { db } from "@/lib/db";
-import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
-import { LoginSchema } from "@/schemas";
-import { AuthError } from "next-auth";
 import * as z from "zod";
-import bcrypt from "bcryptjs";
+import { signIn } from "@/auth";
+import { eq } from "drizzle-orm";
+import { db } from "@/db/drizzle";
+import { users } from "@/db/schema";
+import { AuthError } from "next-auth";
+import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 
-const EMAIL = process.env.USER_EMAIL;
-const USERNAME = process.env.USERNAME;
-const PASSWORD = process.env.USER_PASSWORD;
+const LoginSchema = z.object({
+  email: z.string().email().min(1, {
+    message: "Email must be required.",
+  }),
+  password: z.string().min(1, {
+    message: "Password must be required.",
+  }),
+});
 
 export const login = async (values: z.infer<typeof LoginSchema>) => {
+  // Validate fields
   const validatedFields = LoginSchema.safeParse(values);
 
   if (!validatedFields.success) {
-    return { error: "Invalid fields!" };
+    return {
+      error: "Invalid fields!",
+      message: validatedFields.error.flatten().fieldErrors,
+    };
   }
 
   const { email, password } = validatedFields.data;
 
-  const existingUser = await db.user.findUnique({
-    where: {
-      email,
-    },
+  // Find existing user
+  const existingUser = await db.query.users.findFirst({
+    where: eq(users.email, email),
   });
 
   if (!existingUser) {
-    if (email !== EMAIL) {
-      return {
-        error: "Make sure that the email matches the one in the .env file.",
-      };
-    }
-
-    if (password !== PASSWORD) {
-      return {
-        error: "Make sure that the password matches the one in the .env file.",
-      };
-    }
-  }
-
-  if (
-    EMAIL &&
-    USERNAME &&
-    PASSWORD &&
-    email === EMAIL &&
-    password === PASSWORD &&
-    !existingUser
-  ) {
-    try {
-      const hashedPassword = await bcrypt.hash(PASSWORD, 10);
-      await db.user.create({
-        data: {
-          email: EMAIL,
-          username: USERNAME,
-          password: hashedPassword,
-          imageUrl: "",
-        },
-      });
-    } catch (error) {
-      return { error: "Create User fail" };
-    }
+    return {
+      error: "Email not found.",
+    };
   }
 
   try {
@@ -71,6 +48,7 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
       redirectTo: DEFAULT_LOGIN_REDIRECT,
     });
   } catch (error) {
+    console.log(error);
     if (error instanceof AuthError) {
       switch (error.type) {
         case "CredentialsSignin":
