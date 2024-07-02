@@ -5,7 +5,12 @@ import withPlaiceholder from "@plaiceholder/next";
  */
 const config = {
   images: {
-    domains: ["utfs.io"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "utfs.io",
+      },
+    ],
   },
 };
 

@@ -10,16 +10,11 @@ import { formatDate } from "@/lib/date";
 import { convertToCoordination } from "@/lib/convert-coordination";
 import { formatExposureTime } from "@/lib/format-exif";
 
-export type Photo = InferResponseType<
-  typeof client.api.photos.$get,
-  200
->["data"][0];
-
 const PhotoLarge = ({
   photo,
   priority,
 }: {
-  photo: Photo;
+  photo: any;
   priority?: boolean;
 }) => {
   const renderMiniGrid = (children: JSX.Element) => (

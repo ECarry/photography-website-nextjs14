@@ -1,14 +1,10 @@
-"use client";
-
 import AnimateItems from "@/components/AnimateItems";
 import PhotoLarge from "@/components/PhotoLarge";
-import { useGetPhotos } from "@/features/photos/api/use-get-photos";
+import { getPhotos } from "@/db/queries";
 import { Loader2 } from "lucide-react";
 
-const HomePage = () => {
-  const photosQuery = useGetPhotos();
-
-  const photos = photosQuery.data || [];
+const HomePage = async () => {
+  const photos = await getPhotos();
 
   return photos.length > 0 ? (
     <div className="space-y-4 p-8 md:ml-[280px] md:p-[50px] md:pl-0">
