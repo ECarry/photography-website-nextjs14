@@ -1,6 +1,7 @@
 "use client";
 
-import { usePathname, useRouter } from "next/navigation";
+import { Suspense } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import queryString from "query-string";
 import { Toggle } from "@/components/ui/toggle";
 import { LayoutGrid, List } from "lucide-react";
@@ -14,8 +15,8 @@ import {
 
 const Sort = () => {
   const router = useRouter();
-  //const params = useSearchParams();
-  //const sortBy = params.get("sortBy") || "tookAsc";
+  const params = useSearchParams();
+  const sortBy = params.get("sortBy") || "tookAsc";
   const pathname = usePathname();
 
   const onChange = (newValue: string) => {
@@ -37,27 +38,32 @@ const Sort = () => {
     router.push(url);
   };
   return (
-    <div className="text-sm font-light text-muted-foreground tracking-wide subpixel-antialiased flex items-center gap-x-1 ml-auto">
-      <div className="flex items-center gap-x-2 text-sm md:text-sm">
-        <h1>Sort by</h1>
-        <Select onValueChange={onChange}>
-          <SelectTrigger className="w-auto ring-0 focus:ring-0 focus:ring-offset-0 outline-none border-0 focus:border-0 focus:outline-none p-0">
-            <SelectValue placeholder="Sort by" />
-          </SelectTrigger>
-          <SelectContent align="end" className="text-sm text-muted-foreground">
-            <SelectItem value="tookAsc">Took (oldest first)</SelectItem>
-            <SelectItem value="tookDesc">Took (newest first)</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
+    <Suspense>
+      <div className="text-sm font-light text-muted-foreground tracking-wide subpixel-antialiased flex items-center gap-x-1 ml-auto">
+        <div className="flex items-center gap-x-2 text-sm md:text-sm">
+          <h1>Sort by</h1>
+          <Select onValueChange={onChange} value={sortBy}>
+            <SelectTrigger className="w-auto ring-0 focus:ring-0 focus:ring-offset-0 outline-none border-0 focus:border-0 focus:outline-none p-0">
+              <SelectValue placeholder="Sort by" />
+            </SelectTrigger>
+            <SelectContent
+              align="end"
+              className="text-sm text-muted-foreground"
+            >
+              <SelectItem value="tookAsc">Took (oldest first)</SelectItem>
+              <SelectItem value="tookDesc">Took (newest first)</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
 
-      <Toggle defaultPressed size="sm" aria-label="Toggle grid">
-        <LayoutGrid size={16} />
-      </Toggle>
-      <Toggle size="sm" aria-label="Toggle list">
-        <List size={16} />
-      </Toggle>
-    </div>
+        <Toggle defaultPressed size="sm" aria-label="Toggle grid">
+          <LayoutGrid size={16} />
+        </Toggle>
+        <Toggle size="sm" aria-label="Toggle list">
+          <List size={16} />
+        </Toggle>
+      </div>
+    </Suspense>
   );
 };
 
