@@ -1,19 +1,19 @@
 import { client } from "@/lib/hono";
 import { useQuery } from "@tanstack/react-query";
-import { useSearchParams } from "next/navigation";
+//import { useSearchParams } from "next/navigation";
 
 export const useGetPhotos = () => {
-  const params = useSearchParams();
-  const year = params.get("year") || "";
-  const sortBy = params.get("sortBy") || "";
+  //const params = useSearchParams();
+  //const year = params.get("year") || "";
+  //const sortBy = params.get("sortBy") || "";
 
   const query = useQuery({
-    queryKey: ["photos", year, sortBy],
+    queryKey: ["photos"],
     queryFn: async () => {
       const res = await client.api.photos.$get({
         query: {
-          year,
-          sortBy,
+          // year,
+          // sortBy,
         },
       });
 

@@ -7,13 +7,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import queryString from "query-string";
 
 const Filter = () => {
   const router = useRouter();
-  const params = useSearchParams();
-  const year = params.get("year") || "all";
+  //const params = useSearchParams();
+  //const year = params.get("year") || "all";
   const pathname = usePathname();
 
   const onChange = (newValue: string) => {
@@ -37,7 +37,7 @@ const Filter = () => {
 
   return (
     <div className="w-full flex items-center gap-2">
-      <Select onValueChange={onChange} value={year}>
+      <Select onValueChange={onChange}>
         <SelectTrigger className="w-[180px]">
           <SelectValue placeholder="Year" />
         </SelectTrigger>
