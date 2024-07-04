@@ -6,15 +6,17 @@ import { QueryProvider } from "@/providers/QueryClientProvider";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <QueryProvider>
-      <main className="pb-20">
+    <>
+      <QueryProvider>
         <Navbar />
-        {children}
-        <FloatMenu />
-        <Toaster />
-        <ModalProvider />
-      </main>
-    </QueryProvider>
+        <main className="pb-20">
+          {children}
+          <FloatMenu />
+          <Toaster />
+          <ModalProvider />
+        </main>
+      </QueryProvider>
+    </>
   );
 };
 
