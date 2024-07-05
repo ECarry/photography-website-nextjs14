@@ -4,6 +4,9 @@ import withPlaiceholder from "@plaiceholder/next";
  * @type {import('next').NextConfig}
  */
 const config = {
+  experimental: {
+    missingSuspenseWithCSRBailout: false,
+  },
   images: {
     remotePatterns: [
       {

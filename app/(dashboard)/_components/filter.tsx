@@ -37,22 +37,28 @@ const Filter = () => {
   };
 
   return (
+    <div className="w-full flex items-center gap-2">
+      <Select onValueChange={onChange} value={year}>
+        <SelectTrigger className="w-[180px]">
+          <SelectValue placeholder="Year" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value={"all"}>All Years</SelectItem>
+          <SelectItem value={"2022"}>2022</SelectItem>
+          <SelectItem value={"2023"}>2023</SelectItem>
+          <SelectItem value={"2024"}>2024</SelectItem>
+        </SelectContent>
+      </Select>
+    </div>
+  );
+};
+
+const FilterBar = () => {
+  return (
     <Suspense>
-      <div className="w-full flex items-center gap-2">
-        <Select onValueChange={onChange} value={year}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Year" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value={"all"}>All Years</SelectItem>
-            <SelectItem value={"2022"}>2022</SelectItem>
-            <SelectItem value={"2023"}>2023</SelectItem>
-            <SelectItem value={"2024"}>2024</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
+      <Filter />
     </Suspense>
   );
 };
 
-export default Filter;
+export default FilterBar;

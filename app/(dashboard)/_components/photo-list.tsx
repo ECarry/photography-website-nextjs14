@@ -1,7 +1,7 @@
 import PhotoCard from "../_components/photo-card";
 import { client } from "@/lib/hono";
 import { InferResponseType } from "hono";
-import Sort from "./sort";
+import SortBar from "./sort";
 
 export type Photos = InferResponseType<
   typeof client.api.photos.$get,
@@ -17,7 +17,7 @@ const PhotoList = ({ photos }: { photos: Photos }) => {
           Listing
         </h1>
 
-        <Sort />
+        <SortBar />
       </div>
 
       {/* Grid  */}
