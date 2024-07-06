@@ -1,14 +1,15 @@
+"use client";
+
+import { Loader2 } from "lucide-react";
 import PhotoCard from "../_components/photo-card";
-import { client } from "@/lib/hono";
-import { InferResponseType } from "hono";
 import SortBar from "./sort";
+import { useGetPhotos } from "@/features/photos/api/use-get-photos";
 
-export type Photos = InferResponseType<
-  typeof client.api.photos.$get,
-  200
->["data"];
+const PhotoList = () => {
+  const photosQuery = useGetPhotos();
 
-const PhotoList = ({ photos }: { photos: Photos }) => {
+  const photos = photosQuery.data || [];
+
   return (
     <div className="py-4 space-y-4 px-4">
       <div className="flex items-center">
@@ -21,11 +22,17 @@ const PhotoList = ({ photos }: { photos: Photos }) => {
       </div>
 
       {/* Grid  */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
-        {photos.map((item) => (
-          <PhotoCard key={item.id} photo={item} />
-        ))}
-      </div>
+      {photosQuery.isPending ? (
+        <div className="w-full h-full flex items-center justify-center">
+          <Loader2 className="animate-spin" />
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
+          {photos.map((item) => (
+            <PhotoCard key={item.id} photo={item} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
