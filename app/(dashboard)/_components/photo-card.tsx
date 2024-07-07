@@ -23,7 +23,7 @@ const PhotoCard = ({ photo }: { photo: Photo }) => {
 
   const handlePhotoClick = () => {
     if (photo.longitude && photo.latitude) {
-      map?.flyTo({ center: [photo.longitude, photo.latitude] });
+      map?.flyTo({ center: [photo.longitude, photo.latitude], zoom: 17 });
     }
   };
 
