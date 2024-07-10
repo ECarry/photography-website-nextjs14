@@ -4,22 +4,16 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const routes = [
-  {
-    href: "/dashboard",
-    label: "Overview",
-  },
-  {
-    href: "/photos",
-    label: "Photos",
-  },
-  {
-    href: "/settings",
-    label: "Settings",
-  },
-];
+type Route = {
+  href: string;
+  label: string;
+};
 
-const FloatMenu = () => {
+interface Props {
+  routes: Route[];
+}
+
+const FloatMenu = ({ routes }: Props) => {
   const pathname = usePathname();
 
   return (

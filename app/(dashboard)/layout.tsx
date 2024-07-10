@@ -1,9 +1,10 @@
 import { Toaster } from "@/components/ui/sonner";
 import ModalProvider from "@/components/providers/modal-provider";
-import FloatMenu from "./_components/float-menu";
+import FloatMenu from "@/components/float-menu";
 import { QueryProvider } from "@/providers/QueryClientProvider";
 import Navbar from "./_components/Navbar";
 import { Metadata } from "next";
+import { dashboardRoutes } from "@/components/routes";
 
 export const metadata: Metadata = {
   title: {
@@ -19,7 +20,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
         <Navbar />
         <main className="pb-20">
           {children}
-          <FloatMenu />
+          <FloatMenu routes={dashboardRoutes} />
           <Toaster />
           <ModalProvider />
         </main>

@@ -6,11 +6,15 @@ import { useGetPhotos } from "@/features/photos/api/use-get-photos";
 import { Loader2 } from "lucide-react";
 
 const PhotoList = () => {
-  const photoQuery = useGetPhotos();
+  const photosQuery = useGetPhotos();
 
-  const photos = photoQuery.data ?? [];
+  const photos = photosQuery.data ?? [];
 
-  return photos.length > 0 ? (
+  return photosQuery.isPending ? (
+    <div className="w-full h-dvh flex items-center justify-center">
+      <Loader2 className="animate-spin" />
+    </div>
+  ) : (
     <div className="space-y-4 p-8 md:ml-[280px] md:p-[50px] md:pl-0">
       <AnimateItems
         className="space-y-8"
@@ -22,10 +26,6 @@ const PhotoList = () => {
           <PhotoLarge key={photo.id} photo={photo} priority={index <= 1} />
         ))}
       />
-    </div>
-  ) : (
-    <div className="w-full h-dvh flex items-center justify-center">
-      <Loader2 className="animate-spin" />
     </div>
   );
 };
