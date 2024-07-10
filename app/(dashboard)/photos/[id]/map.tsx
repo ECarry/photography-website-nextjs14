@@ -1,7 +1,11 @@
 "use client";
 
 import { useEditPhoto } from "@/features/photos/api/use-edit-photo";
-import Map, { NavigationControl, Marker, MapEvent } from "react-map-gl";
+import Map, {
+  NavigationControl,
+  Marker,
+  FullscreenControl,
+} from "react-map-gl";
 
 const TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
@@ -45,6 +49,7 @@ const Mapbox = ({ id, latitude, longitude }: Props) => {
       onClick={handleClick}
     >
       <NavigationControl />
+      <FullscreenControl />
       {latitude && longitude && (
         <Marker longitude={longitude} latitude={latitude} anchor="bottom">
           <span className="relative flex h-3 w-3">

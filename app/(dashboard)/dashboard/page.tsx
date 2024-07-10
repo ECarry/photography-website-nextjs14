@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import React from "react";
 import { MyBarChart } from "./bar-chart";
+import ShuffleHero from "../_components/ShuffleHero";
 
 export const metadata: Metadata = {
   title: "Overview",
@@ -8,8 +9,9 @@ export const metadata: Metadata = {
 
 const page = () => {
   return (
-    <div>
-      <div className="grid grid-cols-4">
+    <div className="p-4">
+      <ShuffleHero />
+      <div className="grid grid-cols-1 md:grid-cols-4">
         <MyBarChart />
       </div>
     </div>
