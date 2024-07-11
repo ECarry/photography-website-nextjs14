@@ -52,7 +52,10 @@ const generateSquares = (squareData: Photo[]) => {
 const ShuffleGrid = () => {
   const photosQuery = useGetPhotos();
   const squareData = useMemo(() => {
-    return photosQuery.data || [];
+    if (!photosQuery.data || photosQuery.data.length === 0) return [];
+    return photosQuery.data?.length <= 16
+      ? photosQuery.data
+      : photosQuery.data?.slice(0, 16);
   }, [photosQuery.data]);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
