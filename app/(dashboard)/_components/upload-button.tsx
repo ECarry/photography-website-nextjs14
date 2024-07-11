@@ -16,7 +16,7 @@ const UploadButton = () => {
   return (
     <TooltipProvider>
       <Tooltip>
-        <TooltipTrigger>
+        <TooltipTrigger asChild>
           <Button
             onClick={() => onOpen()}
             variant="outline"

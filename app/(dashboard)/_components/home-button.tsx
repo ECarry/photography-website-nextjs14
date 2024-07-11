@@ -12,7 +12,7 @@ const HomeButton = () => {
   return (
     <TooltipProvider>
       <Tooltip>
-        <TooltipTrigger>
+        <TooltipTrigger asChild>
           <Button
             variant="outline"
             size="icon"
