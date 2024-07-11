@@ -49,7 +49,7 @@ const Mapbox = () => {
       mapboxAccessToken={TOKEN}
       style={{
         width: "100%",
-        height: "calc(100dvh - 61px)",
+        height: "100%",
       }}
       mapStyle="mapbox://styles/mapbox/standard"
     >
