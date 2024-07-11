@@ -2,7 +2,7 @@
 
 import { MapProvider } from "react-map-gl";
 import FilterBar from "../_components/filter";
-import Mapbox from "../_components/map";
+import Mapbox from "../../../components/map";
 import PhotoList from "../_components/photo-list";
 
 const Content = () => {

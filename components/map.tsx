@@ -6,7 +6,11 @@ import Map, { NavigationControl, Marker, useMap } from "react-map-gl";
 
 const TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
-const Mapbox = () => {
+interface Props {
+  showLocal?: boolean;
+}
+
+const Mapbox = ({ showLocal }: Props) => {
   const { map } = useMap();
   const [coords, setCoords] = useState<{
     latitude: number | null;
@@ -18,6 +22,7 @@ const Mapbox = () => {
   const photos = photosQuery.data || [];
 
   useEffect(() => {
+    if (!showLocal) return;
     // 检查浏览器是否支持 Geolocation API
     if (!navigator.geolocation) {
       console.log("Geolocation is not supported by your browser");
@@ -41,7 +46,7 @@ const Mapbox = () => {
         console.error("Error getting geolocation:", error);
       }
     );
-  }, [map]);
+  }, [map, showLocal]);
 
   return (
     <Map

@@ -1,9 +1,9 @@
-import Mapbox from "@/app/(dashboard)/_components/map";
+import Mapbox from "@/components/map";
 
 const MapPage = () => {
   return (
     <div className="ml-0 md:ml-[280px] h-dvh">
-      <Mapbox />
+      <Mapbox showLocal={false} />
     </div>
   );
 };
