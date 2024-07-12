@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Readex_Pro } from "next/font/google";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "./globals.css";
+import { Suspense } from "react";
 
 import { TailwindIndicator } from "@/components/tailwind-indicator";
 
@@ -23,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={readex.className}>
-        {children}
+        <Suspense>{children}</Suspense>
         <TailwindIndicator />
       </body>
     </html>
