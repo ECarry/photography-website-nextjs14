@@ -8,9 +8,9 @@ import PhotoList from "../_components/photo-list";
 const Content = () => {
   return (
     <MapProvider>
-      <div className="grid grid-cols-12">
-        {/* Left content  */}
-        <div className="lg:col-span-7 col-span-12">
+      <div className="flex">
+        {/* Left content */}
+        <div className="lg:w-7/12 w-full">
           {/* Filter */}
           <div className="flex items-center h-[68px] border-b px-4">
             <FilterBar />
@@ -19,8 +19,8 @@ const Content = () => {
           <PhotoList />
         </div>
 
-        {/* Right Content  */}
-        <div className="col-span-5 sticky top-[61px] w-full max-h-dvh hidden lg:block bg-muted">
+        {/* Right Content */}
+        <div className="lg:w-5/12 w-full h-[calc(100vh-61px)] hidden lg:block bg-muted sticky top-[61px]">
           <Mapbox />
         </div>
       </div>

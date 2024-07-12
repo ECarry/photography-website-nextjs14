@@ -23,7 +23,7 @@ const PhotoList = () => {
 
       {/* Grid  */}
       {photosQuery.isPending ? (
-        <div className="w-full h-dvh flex items-center justify-center">
+        <div className="w-full flex items-center justify-center">
           <Loader2 className="animate-spin" />
         </div>
       ) : (

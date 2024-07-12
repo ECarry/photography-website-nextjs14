@@ -18,7 +18,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
     <>
       <QueryProvider>
         <Navbar />
-        <main className="pb-20">
+        <main>
           {children}
           <FloatMenu routes={dashboardRoutes} />
           <Toaster />
