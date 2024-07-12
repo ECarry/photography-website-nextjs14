@@ -7,17 +7,17 @@ export const runtime = "edge";
 
 const app = new Hono().basePath("/api");
 
-app.use(
-  "/api/*",
-  cors({
-    origin: "https://test.ecarry.me",
-    allowHeaders: ["X-Custom-Header", "Upgrade-Insecure-Requests"],
-    allowMethods: ["POST", "GET", "PATCH", "DELETE"],
-    exposeHeaders: ["Content-Length", "X-Kuma-Revision"],
-    maxAge: 600,
-    credentials: true,
-  })
-);
+// app.use(
+//   "/api/*",
+//   cors({
+//     origin: "https://test.ecarry.me",
+//     allowHeaders: ["X-Custom-Header", "Upgrade-Insecure-Requests"],
+//     allowMethods: ["POST", "GET", "PATCH", "DELETE"],
+//     exposeHeaders: ["Content-Length", "X-Kuma-Revision"],
+//     maxAge: 600,
+//     credentials: true,
+//   })
+// );
 
 const routes = app.route("/photos", photos);
 
