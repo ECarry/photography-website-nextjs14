@@ -4,7 +4,7 @@ import { homeRoutes } from "@/components/routes";
 
 const Navbar = () => {
   return (
-    <div className="p-[50px] fixed md:flex flex-col gap-8 hidden">
+    <div className="p-[50px] fixed md:flex flex-col gap-8 hidden z-50">
       <Link href={"/"} className="text-2xl font-semibold">
         ECarry
       </Link>
