@@ -7,9 +7,9 @@ export const metadata: Metadata = {
 
 const PhotosPage = () => {
   return (
-    <main>
+    <section className="h-full">
       <Content />
-    </main>
+    </section>
   );
 };
 

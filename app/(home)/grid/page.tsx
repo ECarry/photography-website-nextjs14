@@ -1,7 +1,7 @@
 import React from "react";
 
 const GridPage = () => {
-  return <div>Coming soon...</div>;
+  return <section>Coming soon...</section>;
 };
 
 export default GridPage;

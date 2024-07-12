@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 const SettingsPage = () => {
   return (
-    <div className="p-4 space-y-8">
+    <section className="p-4 space-y-8">
       <div className="space-y-2">
         <h1 className="text-2xl font-bold">User account</h1>
         <p className="text-muted-foreground text-sm">
@@ -28,7 +28,7 @@ const SettingsPage = () => {
           </p>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

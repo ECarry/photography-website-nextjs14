@@ -5,7 +5,7 @@ interface PhotoPageProps {
 }
 
 const PhotoPage = ({ params }: PhotoPageProps) => {
-  return <div>{params.id}</div>;
+  return <section>{params.id}</section>;
 };
 
 export default PhotoPage;

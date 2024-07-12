@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import ModalProvider from "@/components/providers/modal-provider";
 import FloatMenu from "@/components/float-menu";
@@ -16,15 +17,17 @@ export const metadata: Metadata = {
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
-      <QueryProvider>
-        <Navbar />
-        <main className="pb-20">
-          {children}
-          <FloatMenu routes={dashboardRoutes} />
-          <Toaster />
-          <ModalProvider />
-        </main>
-      </QueryProvider>
+      <Suspense>
+        <QueryProvider>
+          <Navbar />
+          <main className="pb-20">
+            {children}
+            <FloatMenu routes={dashboardRoutes} />
+            <Toaster />
+            <ModalProvider />
+          </main>
+        </QueryProvider>
+      </Suspense>
     </>
   );
 };

@@ -11,7 +11,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Suspense } from "react";
 
 const Sort = () => {
   const router = useRouter();
@@ -63,11 +62,7 @@ const Sort = () => {
 };
 
 const SortBar = () => {
-  return (
-    <Suspense>
-      <Sort />
-    </Suspense>
-  );
+  return <Sort />;
 };
 
 export default SortBar;

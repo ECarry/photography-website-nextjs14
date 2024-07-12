@@ -1,6 +1,5 @@
 "use client";
 
-import { Suspense } from "react";
 import {
   Select,
   SelectContent,
@@ -53,12 +52,4 @@ const Filter = () => {
   );
 };
 
-const FilterBar = () => {
-  return (
-    <Suspense>
-      <Filter />
-    </Suspense>
-  );
-};
-
-export default FilterBar;
+export default Filter;
