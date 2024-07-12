@@ -10,7 +10,7 @@ interface Props {
   showLocal?: boolean;
 }
 
-const Mapbox = ({ showLocal }: Props) => {
+const Mapbox = ({ showLocal = true }: Props) => {
   const { map } = useMap();
   const [coords, setCoords] = useState<{
     latitude: number | null;
