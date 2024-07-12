@@ -56,7 +56,7 @@ const Mapbox = ({ showLocal = true }: Props) => {
         width: "100%",
         height: "100%",
       }}
-      mapStyle="mapbox://styles/mapbox/standard"
+      mapStyle="mapbox://styles/ecarry/cldmhu6tr000001n33ujbxf7j"
     >
       <NavigationControl />
       {coords.latitude && coords.longitude && (
