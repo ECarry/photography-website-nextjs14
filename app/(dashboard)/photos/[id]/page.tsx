@@ -80,58 +80,82 @@ const PhotoIdPage = ({ params }: PhotoIdPageProps) => {
             <h1 className="text-xl">Parameters</h1>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs">
               <div className="col-span-1 flex items-center gap-x-2 text-muted-foreground">
-                <FaCameraRetro size={18} />
+                <div className="size-8 p-1 flex items-center justify-center">
+                  <FaCameraRetro size={18} />
+                </div>
+
                 <span>
                   {photo.make} {photo.model}
                 </span>
               </div>
 
               <div className="col-span-1 flex items-center gap-x-2 text-muted-foreground">
-                <SiLens size={18} />
+                <div className="size-8 p-1 flex items-center justify-center">
+                  <SiLens size={18} />
+                </div>
+
                 <span>{photo.lensModel || "-"}</span>
               </div>
 
               <div className="col-span-1 flex items-center gap-x-2 text-muted-foreground">
-                <MdShutterSpeed size={22} />
+                <div className="size-8 p-1 flex items-center justify-center">
+                  <MdShutterSpeed size={22} />
+                </div>
+
                 <span>{formatExposureTime(photo.exposureTime || 0)}</span>
               </div>
 
               <div className="col-span-1 flex items-center gap-x-2 text-muted-foreground">
-                <IoApertureOutline size={22} />
+                <div className="size-8 p-1 flex items-center justify-center">
+                  <IoApertureOutline size={22} />
+                </div>
+
                 <span>{photo.fNumber ? "ƒ" + photo.fNumber : "-"}</span>
               </div>
 
               <div className="col-span-1 flex items-center gap-x-2 text-muted-foreground">
-                <span className="font-bold">ISO</span>
+                <div className="size-8 p-1 flex items-center justify-center">
+                  <span className="font-bold">ISO</span>
+                </div>
+
                 <span>{photo.iso}</span>
               </div>
 
               <div className="col-span-1 flex items-center gap-x-2 text-muted-foreground">
-                <Image
-                  src={FocalLengthIcon}
-                  width={20}
-                  height={20}
-                  alt="Focal Length Icon"
-                  placeholder="blur"
-                />
+                <div className="size-8 p-1 flex items-center justify-center">
+                  <Image
+                    src={FocalLengthIcon}
+                    width={20}
+                    height={20}
+                    alt="Focal Length Icon"
+                    placeholder="blur"
+                  />
+                </div>
+
                 <span>
                   {photo.focalLength35mm ? photo.focalLength35mm + "mm" : "-"}
                 </span>
               </div>
 
               <div className="col-span-1 flex items-center gap-x-2 text-muted-foreground">
-                <Image
-                  src={AltitudeIcon}
-                  width={18}
-                  height={18}
-                  placeholder="blur"
-                  alt="Altitude Icon"
-                />
+                <div className="size-8 p-1 flex items-center justify-center">
+                  <Image
+                    src={AltitudeIcon}
+                    width={18}
+                    height={18}
+                    placeholder="blur"
+                    alt="Altitude Icon"
+                  />
+                </div>
+
                 <span>{photo.gpsAltitude ? photo.gpsAltitude + "m" : "-"}</span>
               </div>
 
               <div className="col-span-1 flex items-center gap-x-2 text-muted-foreground">
-                <TimerIcon size={22} />
+                <div className="size-8 p-1 flex items-center justify-center">
+                  <TimerIcon size={22} />
+                </div>
+
                 <span>{formatDate(photo.takeAt)}</span>
               </div>
             </div>
