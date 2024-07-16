@@ -60,12 +60,12 @@ const PhotoPage = ({ params }: PhotoPageProps) => {
           <p></p>
         </div>
       )}
-      <div className="blur-3xl md:left-[280px] fixed inset-0">
+      <div className="md:left-[280px] fixed inset-0">
         <Image
           src={photo.blurData}
           alt={`${photo.title} blur`}
           fill
-          className="blur-2xl"
+          className="blur-3xl"
         />
       </div>
     </section>
