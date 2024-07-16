@@ -4,8 +4,6 @@ import { cn } from "@/lib/utils";
 
 import SiteGrid from "@/components/SiteGrid";
 import ImageLarge from "@/components/ImageLarge";
-import { InferResponseType } from "hono";
-import { client } from "@/lib/hono";
 import { formatDate } from "@/lib/date";
 import { convertToCoordination } from "@/lib/convert-coordination";
 import { formatExposureTime } from "@/lib/format-exif";

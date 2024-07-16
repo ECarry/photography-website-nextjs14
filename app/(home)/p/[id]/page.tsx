@@ -6,6 +6,8 @@ import { Loader2 } from "lucide-react";
 import { formatExposureTime } from "@/lib/format-exif";
 import { useState } from "react";
 import BrandLogo from "@/components/brand-logo";
+import { motion } from "framer-motion";
+import PhotoDisplay from "@/components/photo-display";
 
 interface PhotoPageProps {
   params: {
@@ -28,17 +30,24 @@ const PhotoPage = ({ params }: PhotoPageProps) => {
   }
 
   return (
-    <section className="overflow-hidden ml-0 md:ml-[280px] relative flex items-center justify-center h-dvh flex-col gap-4 p-4">
-      <Image
-        src={photo?.url}
-        alt={photo.title}
-        width={photo.width}
-        height={photo.height}
-        placeholder="blur"
-        blurDataURL={photo.blurData}
-        onLoad={() => setIsLoaded(true)}
-        className="z-10 w-auto max-h-[900px] shadow-2xl shadow-black rounded-xl"
-      />
+    <section className="overflow-hidden ml-0 md:ml-[280px] relative flex items-center justify-center h-dvh flex-col gap-4 p-10">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isLoaded ? 1 : 0 }}
+        transition={{ duration: 1 }} // 动画持续时间为1秒
+        className="z-10"
+      >
+        <Image
+          src={photo?.url}
+          alt={photo.title}
+          width={photo.width}
+          height={photo.height}
+          placeholder="blur"
+          blurDataURL={photo.blurData}
+          onLoad={() => setIsLoaded(true)}
+          className="z-10 w-auto max-h-[900px] shadow-2xl shadow-black rounded-xl"
+        />
+      </motion.div>
       {isLoaded && (
         <div className="z-50 flex flex-col items-center select-none">
           <BrandLogo brandName={photo.make} />
@@ -53,12 +62,10 @@ const PhotoPage = ({ params }: PhotoPageProps) => {
       )}
       <div className="blur-3xl md:left-[280px] fixed inset-0">
         <Image
-          src={photo?.url}
-          alt={photo.title}
-          placeholder="blur"
-          blurDataURL={photo.blurData}
+          src={photo.blurData}
+          alt={`${photo.title} blur`}
           fill
-          className="max-h-dvh w-auto object-contain"
+          className="blur-2xl"
         />
       </div>
     </section>
