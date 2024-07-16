@@ -3,6 +3,9 @@
 import Image from "next/image";
 import { useGetPhoto } from "@/features/photos/api/use-get-photo";
 import { Loader2 } from "lucide-react";
+import { formatExposureTime } from "@/lib/format-exif";
+import { useState } from "react";
+import BrandLogo from "@/components/brand-logo";
 
 interface PhotoPageProps {
   params: {
@@ -11,6 +14,7 @@ interface PhotoPageProps {
 }
 
 const PhotoPage = ({ params }: PhotoPageProps) => {
+  const [isLoaded, setIsLoaded] = useState(false);
   const photoQuery = useGetPhoto(params.id);
 
   const photo = photoQuery.data;
@@ -24,7 +28,7 @@ const PhotoPage = ({ params }: PhotoPageProps) => {
   }
 
   return (
-    <section className="max-h-dvh max-w-full overflow-hidden ml-0 md:ml-[280px] relative flex items-center justify-center h-full p-10">
+    <section className="overflow-hidden ml-0 md:ml-[280px] relative flex items-center justify-center h-dvh flex-col gap-4 p-4">
       <Image
         src={photo?.url}
         alt={photo.title}
@@ -32,17 +36,29 @@ const PhotoPage = ({ params }: PhotoPageProps) => {
         height={photo.height}
         placeholder="blur"
         blurDataURL={photo.blurData}
-        className="z-10 w-auto max-h-[800px]"
+        onLoad={() => setIsLoaded(true)}
+        className="z-10 w-auto max-h-[900px] shadow-2xl shadow-black rounded-xl"
       />
-      <div className="blur-2xl md:left-[280px] fixed inset-0">
+      {isLoaded && (
+        <div className="z-50 flex flex-col items-center select-none">
+          <BrandLogo brandName={photo.make} />
+          <div className="text-white space-x-[6px]">
+            <span>{photo.focalLength35mm + "mm"}</span>
+            <span>{"ƒ/" + photo.fNumber}</span>
+            <span>{formatExposureTime(photo.exposureTime ?? 0)}</span>
+            <span>{"ISO" + photo.iso}</span>
+          </div>
+          <p></p>
+        </div>
+      )}
+      <div className="blur-3xl md:left-[280px] fixed inset-0">
         <Image
           src={photo?.url}
           alt={photo.title}
-          width={photo.width}
-          height={photo.height}
           placeholder="blur"
           blurDataURL={photo.blurData}
-          className="max-h-dvh w-auto object-cover"
+          fill
+          className="max-h-dvh w-auto object-contain"
         />
       </div>
     </section>
