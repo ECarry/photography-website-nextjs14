@@ -104,6 +104,7 @@ const app = new Hono()
         latitude: z.number().optional(),
         longitude: z.number().optional(),
         isFavorite: z.boolean().optional(),
+        locationName: z.string().optional(),
       })
     ),
     async (c) => {

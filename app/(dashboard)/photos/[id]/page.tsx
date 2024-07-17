@@ -30,6 +30,7 @@ const PhotoIdPage = ({ params }: PhotoIdPageProps) => {
   const photo = photoQuery.data;
 
   useEffect(() => {
+    if (photo?.locationName) return;
     const fetchAddress = async () => {
       if (photo?.longitude !== null && photo?.latitude !== null) {
         try {
@@ -176,7 +177,7 @@ const PhotoIdPage = ({ params }: PhotoIdPageProps) => {
               <div className="flex items-center">
                 <MapPin size={18} className="text-sky-500 mr-2" />
                 <span className="text-muted-foreground text-sm font-light">
-                  {address}
+                  {photo.locationName ?? address}
                 </span>
               </div>
             </div>

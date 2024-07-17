@@ -1,6 +1,7 @@
 "use client";
 
 import { useEditPhoto } from "@/features/photos/api/use-edit-photo";
+import { getReverseGeocoding } from "@/lib/map";
 import Map, {
   NavigationControl,
   Marker,
@@ -24,13 +25,17 @@ const Mapbox = ({ id, latitude, longitude }: Props) => {
       longitude,
       zoom: 14,
     };
-  const handleClick = (event: any) => {
-    console.log(event.lngLat.lat);
+  const handleClick = async (event: any) => {
+    const address = await getReverseGeocoding(
+      event.lngLat.lng,
+      event.lngLat.lat
+    );
 
     editMutation.mutate(
       {
         latitude: event.lngLat.lat,
         longitude: event.lngLat.lng,
+        locationName: address,
       },
       { onSuccess: () => console.log("success") }
     );

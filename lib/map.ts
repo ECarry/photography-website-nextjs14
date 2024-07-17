@@ -20,6 +20,8 @@ export const getReverseGeocoding = async (
 
   const data = await response.json();
 
+  console.log(data);
+
   if (data.features && data.features.length > 0) {
     return data.features[0].properties.full_address;
   } else {
