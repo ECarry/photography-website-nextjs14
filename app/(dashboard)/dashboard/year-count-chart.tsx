@@ -19,14 +19,9 @@ import {
 } from "@/components/ui/chart";
 import { useGetSummary } from "@/features/summary/api/use-get-summary";
 
-const chartConfig = {
-  desktop: {
-    label: "Desktop",
-    color: "hsl(var(--chart-1))",
-  },
-} satisfies ChartConfig;
+const chartConfig = {} satisfies ChartConfig;
 
-function getYearRange(array: { year: number; count: number }[]) {
+function getYearRange(array: { year: string; count: number }[]) {
   if (array.length === 0) {
     return ""; // 或者返回其他默认值，如 'N/A'
   }
@@ -37,10 +32,22 @@ function getYearRange(array: { year: number; count: number }[]) {
   return `${firstYear}-${lastYear}`;
 }
 
+function genRandom(base: number) {
+  return Math.round((Math.random() + 0.5) * 100);
+}
+
+const fakeData = [
+  { year: 2020, count: genRandom(102) },
+  { year: 2021, count: genRandom(235) },
+  { year: 2022, count: genRandom(56) },
+  { year: 2023, count: genRandom(23) },
+  { year: 2024, count: genRandom(144) },
+];
+
 export function YearCountChart() {
   const summaryQuery = useGetSummary();
 
-  const data = summaryQuery.data ?? [];
+  const data = summaryQuery.data?.yearRes ?? [];
 
   return (
     <Card>
@@ -52,19 +59,19 @@ export function YearCountChart() {
         <ChartContainer config={chartConfig}>
           <LineChart
             accessibilityLayer
-            data={data}
+            data={fakeData}
             margin={{
               top: 20,
-              left: 15,
-              right: 15,
+              left: 20,
+              right: 20,
             }}
           >
             <CartesianGrid vertical={false} />
             <XAxis
               dataKey="year"
               tickLine={false}
+              tickMargin={10}
               axisLine={false}
-              tickMargin={8}
             />
             <ChartTooltip
               cursor={false}
@@ -88,14 +95,6 @@ export function YearCountChart() {
           </LineChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="flex gap-2 font-medium leading-none">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-        </div>
-        <div className="leading-none text-muted-foreground">
-          Showing total visitors for the last 6 months
-        </div>
-      </CardFooter>
     </Card>
   );
 }

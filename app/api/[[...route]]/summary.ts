@@ -16,10 +16,10 @@ const app = new Hono()
       return c.json({ error: "Unauthorized" }, 401);
     }
 
-    const res = await db
+    const yearRes = await db
       .select({
-        year: sql`EXTRACT(YEAR FROM TO_TIMESTAMP(${photos.takeAt}, 'YYYY-MM-DD"T"HH24:MI:SS"Z"'))`,
-        count: sql`CAST(COUNT(*) AS INTEGER)`,
+        year: sql`EXTRACT(YEAR FROM TO_TIMESTAMP(${photos.takeAt}, 'YYYY-MM-DD"T"HH24:MI:SS"Z"'))`.as<string>(),
+        count: sql`CAST(COUNT(*) AS INTEGER)`.as<number>(),
       })
       .from(photos)
       .groupBy(
@@ -30,8 +30,30 @@ const app = new Hono()
       )
       .execute();
 
+    const extractCity = () => sql`
+  CASE 
+    WHEN COALESCE(${photos.locationName}, '') LIKE '%, %, %, %, %' THEN TRIM(SPLIT_PART(COALESCE(${photos.locationName}, ''), ',', 3))
+    WHEN COALESCE(${photos.locationName}, '') LIKE '%, %, %, %' THEN TRIM(SPLIT_PART(COALESCE(${photos.locationName}, ''), ',', 3))
+    WHEN COALESCE(${photos.locationName}, '') = '' THEN 'Unknown'
+    ELSE TRIM(SPLIT_PART(COALESCE(${photos.locationName}, ''), ',', -1))
+  END
+`;
+
+    const cityRes = await db
+      .select({
+        city: extractCity().as<string>(),
+        count: sql`CAST(COUNT(*) AS INTEGER)`.as<number>(),
+      })
+      .from(photos)
+      .groupBy(extractCity())
+      .orderBy(extractCity())
+      .execute();
+
     return c.json({
-      data: res,
+      data: {
+        yearRes,
+        cityRes,
+      },
     });
   });
 
