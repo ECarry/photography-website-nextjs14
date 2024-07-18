@@ -45,7 +45,7 @@ const PhotoPage = ({ params }: PhotoPageProps) => {
           placeholder="blur"
           blurDataURL={photo.blurData}
           onLoad={() => setIsLoaded(true)}
-          className="z-10 w-auto max-h-[900px] shadow-2xl shadow-black rounded-2xl"
+          className="z-10 w-auto max-h-[80dvh] shadow-2xl shadow-black rounded-2xl"
         />
       </motion.div>
       {isLoaded && (
