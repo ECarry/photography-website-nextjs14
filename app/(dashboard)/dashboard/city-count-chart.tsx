@@ -20,39 +20,45 @@ import {
 } from "@/components/ui/chart";
 import { useGetSummary } from "@/features/summary/api/use-get-summary";
 
+function genRandom(base: number) {
+  return Math.round((Math.random() + 0.5) * 100);
+}
+
 const chartData = [
-  { city: "Hong kong", count: 275, fill: "var(--color-chrome)" },
-  { city: "Macau", count: 200, fill: "var(--color-safari)" },
-  { city: "Fuzhou Shi", count: 287, fill: "var(--color-firefox)" },
-  { city: "Xiamen Shi", count: 541, fill: "var(--color-edge)" },
-  { city: "Other", count: 12, fill: "var(--color-other)" },
+  { city: "Hongkong", count: genRandom(211), fill: "var(--color-Hongkong)" },
+  { city: "Macau", count: genRandom(123), fill: "var(--color-Macau)" },
+  { city: "FuzhouShi", count: genRandom(53), fill: "var(--color-FuzhouShi)" },
+  { city: "XiamenShi", count: genRandom(44), fill: "var(--color-XiamenShi)" },
+  { city: "Other", count: genRandom(11), fill: "var(--color-Other)" },
 ];
 
 const chartConfig = {
-  visitors: {
-    label: "Visitors",
+  photos: {
+    label: "city",
   },
-  chrome: {
-    label: "Chrome",
+  Hongkong: {
+    label: "Hongkong",
     color: "hsl(var(--chart-1))",
   },
-  safari: {
-    label: "Safari",
+  Macau: {
+    label: "Macau",
     color: "hsl(var(--chart-2))",
   },
-  firefox: {
-    label: "Firefox",
+  FuzhouShi: {
+    label: "FuzhouShi",
     color: "hsl(var(--chart-3))",
   },
-  edge: {
-    label: "Edge",
+  XiamenShi: {
+    label: "XiamenShi",
     color: "hsl(var(--chart-4))",
   },
-  other: {
+  Other: {
     label: "Other",
     color: "hsl(var(--chart-5))",
   },
 } satisfies ChartConfig;
+
+const total = chartData.reduce((acc, curr) => acc + curr.count, 0);
 
 export function CityCountChart() {
   const summaryQuery = useGetSummary();
@@ -72,7 +78,7 @@ export function CityCountChart() {
       <CardContent className="flex-1 pb-0">
         <ChartContainer
           config={chartConfig}
-          className="mx-auto aspect-square max-h-[250px]"
+          className="mx-auto aspect-square max-h-[350px]"
         >
           <PieChart>
             <ChartTooltip
@@ -101,7 +107,7 @@ export function CityCountChart() {
                           y={viewBox.cy}
                           className="fill-foreground text-3xl font-bold"
                         >
-                          {totalPhotos.toLocaleString()}
+                          {total.toLocaleString()}
                         </tspan>
                         <tspan
                           x={viewBox.cx}

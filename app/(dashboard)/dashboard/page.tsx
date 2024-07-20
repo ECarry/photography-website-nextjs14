@@ -11,7 +11,7 @@ const page = () => {
   return (
     <section className="p-4 space-y-4">
       <ShuffleHero />
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
         <YearCountChart />
         <CityCountChart />
       </div>

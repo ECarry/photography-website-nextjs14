@@ -32,7 +32,7 @@ const PhotoLarge = ({
     <SiteGrid
       contentMain={
         <ImageLarge
-          className="w-full max-h-[80vh] object-contain"
+          className="w-full max-h-[60vh] object-contain"
           alt={photo.title}
           src={photo.url}
           aspectRatio={photo.aspectRatio}
