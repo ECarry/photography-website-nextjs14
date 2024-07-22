@@ -34,6 +34,7 @@ import { getImageBlur } from "@/actions/photos";
 import { toast } from "sonner";
 import { getImageDimensionsFromFile } from "@/lib/get-image-size";
 import { useModal } from "@/hooks/use-modal";
+import { getReverseGeocoding } from "@/lib/map";
 
 type UploadData = {
   key: string;
@@ -96,6 +97,11 @@ const CreatePhotoModal = () => {
     const exifData = formatExif(exif);
     if (!exif?.imageSize && !size) return;
 
+    const address = await getReverseGeocoding(
+      exifData?.longitude,
+      exifData?.latitude
+    );
+
     const { width, height } = exif?.imageSize ||
       size || { width: 200, height: 200 };
     const aspectRatio = width / height;
@@ -114,6 +120,7 @@ const CreatePhotoModal = () => {
       blurData: blur,
       width,
       height,
+      locationName: address,
       aspectRatio,
       ...exifData,
       ...values,
