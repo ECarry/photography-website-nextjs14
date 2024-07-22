@@ -3,6 +3,7 @@ import { Readex_Pro } from "next/font/google";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "./globals.css";
 import { Suspense } from "react";
+import { Analytics } from "@vercel/analytics/react";
 
 import { TailwindIndicator } from "@/components/tailwind-indicator";
 
@@ -25,6 +26,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={readex.className}>
         <Suspense>{children}</Suspense>
+        <Analytics />
         <TailwindIndicator />
       </body>
     </html>
