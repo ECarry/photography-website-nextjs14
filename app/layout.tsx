@@ -4,6 +4,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import "./globals.css";
 import { Suspense } from "react";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import { TailwindIndicator } from "@/components/tailwind-indicator";
 
@@ -27,6 +28,7 @@ export default function RootLayout({
       <body className={readex.className}>
         <Suspense>{children}</Suspense>
         <Analytics />
+        <SpeedInsights />
         <TailwindIndicator />
       </body>
     </html>

@@ -10,12 +10,13 @@ export const getReverseGeocoding = async (
   longitude?: number,
   latitude?: number
 ): Promise<string> => {
+  if (!longitude || !latitude) return "unknown";
   const url = `https://api.mapbox.com/search/geocode/v6/reverse?longitude=${longitude}&latitude=${latitude}&access_token=${TOKEN}`;
 
   const response = await fetch(url);
 
   if (!response.ok) {
-    throw new Error("Failed to fetch address");
+    return "unknown";
   }
 
   const data = await response.json();
@@ -25,6 +26,6 @@ export const getReverseGeocoding = async (
   if (data.features && data.features.length > 0) {
     return data.features[0].properties.full_address;
   } else {
-    return "Address not found";
+    return "unknown";
   }
 };
