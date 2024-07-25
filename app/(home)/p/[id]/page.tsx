@@ -37,7 +37,7 @@ const PhotoPage = ({ params }: PhotoPageProps) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: isLoaded ? 1 : 0 }}
         transition={{ duration: 1 }} // 动画持续时间为1秒
-        className="z-10 relative"
+        className="z-10 relative shadow-2xl shadow-black"
       >
         <Image
           src={photo?.url}
@@ -47,7 +47,7 @@ const PhotoPage = ({ params }: PhotoPageProps) => {
           placeholder="blur"
           blurDataURL={photo.blurData}
           onLoad={() => setIsLoaded(true)}
-          className="z-10 w-auto max-h-[80dvh] shadow-2xl shadow-black"
+          className="z-10 w-auto max-h-[80dvh]"
         />
         {isLoaded && (
           <div className="z-50 flex justify-between px-4 items-center select-none h-20 bg-white w-full text-black">
