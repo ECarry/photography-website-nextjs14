@@ -50,13 +50,16 @@ export function YearCountChart() {
   const data = summaryQuery.data?.yearRes ?? [];
 
   return (
-    <Card>
+    <Card className="flex flex-col">
       <CardHeader>
         <CardTitle>Annual Photo</CardTitle>
         <CardDescription>{getYearRange(data)}</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig}>
+        <ChartContainer
+          config={chartConfig}
+          className="mx-auto aspect-square max-h-[350px]"
+        >
           <LineChart
             accessibilityLayer
             data={fakeData}
