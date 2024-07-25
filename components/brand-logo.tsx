@@ -35,7 +35,7 @@ const BrandLogo = ({ brandName }: Props) => {
   }
 
   return (
-    <div style={{ width: 200, height: 50, position: "relative" }}>
+    <div className="relative w-[50px] h-[25px] lg:w-[100px] lg:h-[50px]">
       <Image
         src={logoSrc}
         alt={`${normalizedBrandName} logo`}
