@@ -52,7 +52,7 @@ const PhotoPage = ({ params }: PhotoPageProps) => {
         {isLoaded && (
           <div className="z-50 flex justify-between px-4 items-center select-none h-20 bg-white w-full text-black">
             <div className="flex flex-col text-center">
-              <h1 className="font-semibold text-sm lg:text-lg">
+              <h1 className="font-semibold text-xs sm:text-sm lg:text-lg">
                 {photo.make} {photo.model}
               </h1>
               <p className="text-xs text-muted-foreground">
@@ -63,8 +63,11 @@ const PhotoPage = ({ params }: PhotoPageProps) => {
             </div>
             <div className="flex items-center gap-2">
               <BrandLogo brandName={photo.make} />
-              <Separator orientation="vertical" className="h-10" />
-              <div className="flex flex-col gap-[2px]">
+              <Separator
+                orientation="vertical"
+                className="hidden sm:block h-10"
+              />
+              <div className="hidden sm:flex flex-col gap-[2px]">
                 <div className="space-x-[6px] text-xs lg:md:text-sm">
                   <span>{photo.focalLength35mm + "mm"}</span>
                   <span>{"ƒ/" + photo.fNumber}</span>
