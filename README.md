@@ -97,3 +97,7 @@ Then add it to your `.env.local` file:
 ```.env.local
 AUTH_SECRET=secret
 ```
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=ECarry/photography-website-nextjs14&type=Date)](https://star-history.com/#ECarry/photography-website-nextjs14&Date)
