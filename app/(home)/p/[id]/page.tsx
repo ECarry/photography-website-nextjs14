@@ -89,12 +89,7 @@ const PhotoPage = ({ params }: PhotoPageProps) => {
       </motion.div>
 
       <div className="md:left-[280px] fixed inset-0 blur-lg">
-        <Image
-          src={photo.blurData}
-          alt={`${photo.title} blur`}
-          fill
-          className="blur-xl object-contain"
-        />
+        <Image src={photo.blurData} alt={`${photo.title} blur`} fill />
       </div>
     </section>
   );
