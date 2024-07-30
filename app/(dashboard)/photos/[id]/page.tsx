@@ -8,7 +8,6 @@ import { SiLens } from "react-icons/si";
 import { MdShutterSpeed } from "react-icons/md";
 import { IoApertureOutline } from "react-icons/io5";
 import { formatDate } from "@/lib/date";
-import { MapPin, TimerIcon } from "lucide-react";
 
 import FocalLengthIcon from "/public/eye.png";
 import AltitudeIcon from "/public/aerial.png";
@@ -17,6 +16,7 @@ import { useEffect, useState } from "react";
 import { getReverseGeocoding } from "@/lib/map";
 import PhotoForm from "./form";
 import { formatExposureTime } from "@/lib/format-exif";
+import { Icons } from "@/components/icons";
 
 interface PhotoIdPageProps {
   params: {
@@ -154,7 +154,7 @@ const PhotoIdPage = ({ params }: PhotoIdPageProps) => {
 
               <div className="col-span-1 flex items-center gap-x-2 text-muted-foreground">
                 <div className="size-8 p-1 flex items-center justify-center">
-                  <TimerIcon size={22} />
+                  <Icons.time size={22} />
                 </div>
 
                 <span>{formatDate(photo.takeAt)}</span>
@@ -175,7 +175,7 @@ const PhotoIdPage = ({ params }: PhotoIdPageProps) => {
                 longitude={photo.longitude}
               />
               <div className="flex items-center">
-                <MapPin size={18} className="text-sky-500 mr-2" />
+                <Icons.mapPin size={18} className="text-sky-500 mr-2" />
                 <span className="text-muted-foreground text-sm font-light">
                   {photo.locationName ?? address}
                 </span>

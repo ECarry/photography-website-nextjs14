@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import {
   Tooltip,
@@ -7,6 +6,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { Icons } from "@/components/icons";
 
 const HomeButton = () => {
   return (
@@ -20,7 +20,7 @@ const HomeButton = () => {
             asChild
           >
             <Link href="/">
-              <ArrowUpRight size={16} />
+              <Icons.arrowUpRight size={16} />
             </Link>
           </Button>
         </TooltipTrigger>

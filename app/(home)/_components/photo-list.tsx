@@ -1,9 +1,9 @@
 "use client";
 
 import AnimateItems from "@/components/AnimateItems";
+import { Icons } from "@/components/icons";
 import PhotoLarge from "@/components/PhotoLarge";
 import { useGetPhotos } from "@/features/photos/api/use-get-photos";
-import { Loader2 } from "lucide-react";
 
 const PhotoList = () => {
   const photosQuery = useGetPhotos();
@@ -12,7 +12,7 @@ const PhotoList = () => {
 
   return photosQuery.isPending ? (
     <div className="w-full h-dvh flex items-center justify-center">
-      <Loader2 className="animate-spin" />
+      <Icons.loader className="animate-spin" />
     </div>
   ) : (
     <div className="space-y-4 p-8 md:ml-[280px] md:p-[50px] md:pl-0">

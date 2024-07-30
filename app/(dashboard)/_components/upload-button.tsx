@@ -2,13 +2,13 @@
 
 import { Button } from "@/components/ui/button";
 import { useModal } from "@/hooks/use-modal";
-import { Upload } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { Icons } from "@/components/icons";
 
 const UploadButton = () => {
   const { onOpen } = useModal();
@@ -23,7 +23,7 @@ const UploadButton = () => {
             size="icon"
             className="rounded-full size-8"
           >
-            <Upload size={16} />
+            <Icons.upload size={16} />
           </Button>
         </TooltipTrigger>
         <TooltipContent>

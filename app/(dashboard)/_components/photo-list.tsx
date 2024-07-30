@@ -1,6 +1,6 @@
 "use client";
 
-import { Loader2 } from "lucide-react";
+import { Icons } from "@/components/icons";
 import PhotoCard from "../_components/photo-card";
 import SortBar from "./sort";
 import { useGetPhotos } from "@/features/photos/api/use-get-photos";
@@ -24,7 +24,7 @@ const PhotoList = () => {
       {/* Grid  */}
       {photosQuery.isPending ? (
         <div className="w-full flex items-center justify-center">
-          <Loader2 className="animate-spin" />
+          <Icons.loader className="animate-spin" />
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">

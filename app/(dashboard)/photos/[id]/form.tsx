@@ -14,11 +14,11 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useEditPhoto } from "@/features/photos/api/use-edit-photo";
-import { Save, Trash } from "lucide-react";
 import { useDeletePhoto } from "@/features/photos/api/use-delete-photo";
 import { useRouter } from "next/navigation";
 import { useConfirm } from "@/hooks/use-confirm";
 import { deleteCloudPhoto } from "@/actions/photos";
+import { Icons } from "@/components/icons";
 
 const FormSchema = z.object({
   title: z.string(),
@@ -103,7 +103,7 @@ const PhotoForm = ({ id, defaultValues, url }: Props) => {
           />
 
           <Button className="w-full" variant="primary" disabled={isPending}>
-            <Save size={16} className="mr-2" />
+            <Icons.save size={16} className="mr-2" />
             Save Changes
           </Button>
           <Button
@@ -113,7 +113,7 @@ const PhotoForm = ({ id, defaultValues, url }: Props) => {
             disabled={isPending}
             onClick={onDelete}
           >
-            <Trash size={16} className="mr-2" />
+            <Icons.trash size={16} className="mr-2" />
             Delete Photo
           </Button>
         </form>

@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useGetPhoto } from "@/features/photos/api/use-get-photo";
-import { Loader2 } from "lucide-react";
 import { formatExposureTime } from "@/lib/format-exif";
 import { useState } from "react";
 import BrandLogo from "@/components/brand-logo";
@@ -10,6 +9,7 @@ import { motion } from "framer-motion";
 import { formatDate } from "@/lib/date";
 import { Separator } from "@/components/ui/separator";
 import { convertToCoordination } from "@/lib/convert-coordination";
+import { Icons } from "@/components/icons";
 
 interface PhotoPageProps {
   params: {
@@ -26,7 +26,7 @@ const PhotoPage = ({ params }: PhotoPageProps) => {
   if (!photo) {
     return (
       <div className="w-full h-dvh flex items-center justify-center">
-        <Loader2 className="animate-spin" />
+        <Icons.loader className="animate-spin" />
       </div>
     );
   }

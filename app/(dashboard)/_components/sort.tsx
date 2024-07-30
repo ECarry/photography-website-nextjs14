@@ -3,7 +3,6 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import queryString from "query-string";
 import { Toggle } from "@/components/ui/toggle";
-import { LayoutGrid, List } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -11,6 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Icons } from "@/components/icons";
 
 const Sort = () => {
   const router = useRouter();
@@ -52,10 +52,10 @@ const Sort = () => {
       </div>
 
       <Toggle defaultPressed size="sm" aria-label="Toggle grid">
-        <LayoutGrid size={16} />
+        <Icons.layoutGrid size={16} />
       </Toggle>
       <Toggle size="sm" aria-label="Toggle list">
-        <List size={16} />
+        <Icons.list size={16} />
       </Toggle>
     </div>
   );

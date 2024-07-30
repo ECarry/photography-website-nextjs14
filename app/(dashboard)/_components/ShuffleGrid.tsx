@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useGetPhotos } from "@/features/photos/api/use-get-photos";
 import { InferResponseType } from "hono";
 import { client } from "@/lib/hono";
-import { Loader2 } from "lucide-react";
+import { Icons } from "@/components/icons";
 
 export type Photo = InferResponseType<
   typeof client.api.photos.$get,
@@ -79,7 +79,7 @@ const ShuffleGrid = () => {
 
   return photosQuery.isPending ? (
     <div className="w-full h-[450px] flex items-center justify-center">
-      <Loader2 className="animate-spin" />
+      <Icons.loader className="animate-spin" />
     </div>
   ) : (
     <div className="grid grid-cols-4 grid-rows-4 h-[450px] gap-1">

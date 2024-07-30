@@ -11,7 +11,6 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Button } from "@/components/ui/button";
-import { Check, Loader, X } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -35,6 +34,7 @@ import { toast } from "sonner";
 import { getImageDimensionsFromFile } from "@/lib/get-image-size";
 import { useModal } from "@/hooks/use-modal";
 import { getReverseGeocoding } from "@/lib/map";
+import { Icons } from "../icons";
 
 type UploadData = {
   key: string;
@@ -163,7 +163,7 @@ const CreatePhotoModal = () => {
               className="bg-rose-500 text-white p-1 rounded-full absolute -top-2 -right-2 shadow-sm"
               type="button"
             >
-              <X className="size-4" />
+              <Icons.x className="size-4" />
             </button>
           </div>
         ) : (
@@ -226,12 +226,12 @@ const CreatePhotoModal = () => {
             <div className="flex items-center">
               {!res?.url ? (
                 <p className={cn("text-xs text-muted-foreground")}>
-                  <Loader className="inline-block mr-2 animate-spin size-2" />
+                  <Icons.loader className="inline-block mr-2 animate-spin size-2" />
                   Photo upload
                 </p>
               ) : (
                 <p className={cn("text-xs text-green-500")}>
-                  <Check className="inline-block mr-2 size-2" />
+                  <Icons.check className="inline-block mr-2 size-2" />
                   Photo upload
                 </p>
               )}

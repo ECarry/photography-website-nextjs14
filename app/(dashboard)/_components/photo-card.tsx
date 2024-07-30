@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
-import { Heart, MapPin } from "lucide-react";
 import { useMap } from "react-map-gl";
 import { InferResponseType } from "hono";
 import { client } from "@/lib/hono";
@@ -11,6 +10,7 @@ import { convertToCoordination } from "@/lib/convert-coordination";
 import { formatDate } from "@/lib/date";
 import Link from "next/link";
 import { useEditPhoto } from "@/features/photos/api/use-edit-photo";
+import { Icons } from "@/components/icons";
 
 export type Photo = InferResponseType<
   typeof client.api.photos.$get,
@@ -62,12 +62,12 @@ const PhotoCard = ({ photo }: { photo: Photo }) => {
         onClick={handleHeartClick}
       >
         {photo.isFavorite ? (
-          <Heart
+          <Icons.heart
             size={18}
             className="text-muted-foreground fill-rose-500 text-rose-500"
           />
         ) : (
-          <Heart size={18} className="text-muted-foreground" />
+          <Icons.heart size={18} className="text-muted-foreground" />
         )}
       </Button>
 
@@ -81,7 +81,7 @@ const PhotoCard = ({ photo }: { photo: Photo }) => {
               {formatDate(photo.takeAt)}
             </h3>
             <p className="text-[10px] text-muted-foreground flex items-center font-light">
-              <MapPin size={12} className="text-sky-500 mr-2" />
+              <Icons.mapPin size={12} className="text-sky-500 mr-2" />
               {convertToCoordination(photo.longitude, photo.latitude)}
             </p>
           </div>
