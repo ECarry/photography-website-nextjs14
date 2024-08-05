@@ -7,17 +7,17 @@ import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
 import { and, desc, eq, gte, lt, asc, sql } from "drizzle-orm";
 
-const app = new Hono().use("*", initAuthConfig(getAuthConfig)).get(
+const app = new Hono().use("*", initAuthConfig(getAuthConfig)).patch(
   "/",
   verifyAuth(),
-  // zValidator(
-  //   "json",
-  //   z.object({
-  //     name: z.string().optional(),
-  //     image: z.string().optional(),
-  //     password: z.string().optional(),
-  //   })
-  // ),
+  zValidator(
+    "json",
+    z.object({
+      name: z.string().optional(),
+      image: z.string().optional(),
+      password: z.string().optional(),
+    })
+  ),
   async (c) => {
     const auth = c.get("authUser");
 
