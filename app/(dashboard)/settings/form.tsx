@@ -17,6 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import AvatarUpload from "./AvatarUpload";
+import { useEditUser } from "@/features/user/use-edit-user";
 
 interface UserFormProps {
   name: string | null | undefined;
@@ -30,6 +31,8 @@ const FormSchema = z.object({
 });
 
 export function UserForm({ name, image, email }: UserFormProps) {
+  const mutation = useEditUser();
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -39,7 +42,7 @@ export function UserForm({ name, image, email }: UserFormProps) {
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    toast.success("Form submitted successfully!");
+    mutation.mutate(data);
   }
 
   return (
