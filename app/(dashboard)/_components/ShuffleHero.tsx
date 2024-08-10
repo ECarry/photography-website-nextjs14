@@ -8,7 +8,7 @@ const ShuffleHero = () => {
   const { onOpen } = useModal();
 
   return (
-    <section className="w-full px-0 py-4 md:py-8 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 items-center gap-8 mx-auto">
+    <section className="w-full py-4 md:py-8 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 items-center gap-8 mx-auto overflow-x-hidden">
       <div className="xl:col-span-2">
         <span className="block mb-4 text-xs md:text-sm text-sky-500 font-medium">
           Better every day
