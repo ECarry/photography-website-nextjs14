@@ -8,6 +8,7 @@ import PANASONIC from "/public/panasonic.svg";
 import LEICA from "/public/leica.svg";
 import HASSELBLAD from "/public/hasselblad.svg";
 import OLYMPUS from "/public/olympus.svg";
+import APPLE from "/public/Apple.svg";
 
 interface Props {
   brandName: string | null;
@@ -23,6 +24,7 @@ const brandLogos: { [key: string]: any } = {
   leica: LEICA,
   hasselblad: HASSELBLAD,
   olympus: OLYMPUS,
+  apple: APPLE,
 };
 
 const BrandLogo = ({ brandName }: Props) => {
