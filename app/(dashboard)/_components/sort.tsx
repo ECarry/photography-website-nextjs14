@@ -15,7 +15,7 @@ import { Icons } from "@/components/icons";
 const Sort = () => {
   const router = useRouter();
   const params = useSearchParams();
-  const sortBy = params.get("sortBy") || "tookAsc";
+  const sortBy = params.get("sortBy") || "tookDesc";
   const pathname = usePathname();
 
   const onChange = (newValue: string) => {
@@ -45,8 +45,8 @@ const Sort = () => {
             <SelectValue placeholder="Sort by" />
           </SelectTrigger>
           <SelectContent align="end" className="text-sm text-muted-foreground">
-            <SelectItem value="tookAsc">Took (oldest first)</SelectItem>
             <SelectItem value="tookDesc">Took (newest first)</SelectItem>
+            <SelectItem value="tookAsc">Took (oldest first)</SelectItem>
           </SelectContent>
         </Select>
       </div>

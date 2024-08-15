@@ -18,7 +18,7 @@ export const useEditUser = () => {
     },
     onSuccess: () => {
       toast.success("User updated successfully");
-      queryClient.invalidateQueries({ queryKey: ["settings"] });
+      queryClient.refetchQueries({ exact: true });
     },
     onError: () => {
       toast.error("Something went wrong");
