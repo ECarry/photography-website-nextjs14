@@ -9,9 +9,11 @@ import LEICA from "/public/leica.svg";
 import HASSELBLAD from "/public/hasselblad.svg";
 import OLYMPUS from "/public/olympus.svg";
 import APPLE from "/public/Apple.svg";
+import { cn } from "@/lib/utils";
 
 interface Props {
   brandName: string | null;
+  small: boolean;
 }
 
 const brandLogos: { [key: string]: any } = {
@@ -27,7 +29,7 @@ const brandLogos: { [key: string]: any } = {
   apple: APPLE,
 };
 
-const BrandLogo = ({ brandName }: Props) => {
+const BrandLogo = ({ brandName, small }: Props) => {
   if (!brandName) return <div>-</div>;
   const normalizedBrandName = brandName.toLowerCase();
   const logoSrc = brandLogos[normalizedBrandName];
@@ -37,14 +39,16 @@ const BrandLogo = ({ brandName }: Props) => {
   }
 
   return (
-    <div className="relative w-[50px] h-[25px] lg:w-[100px] lg:h-[50px]">
-      <Image
-        src={logoSrc}
-        alt={`${normalizedBrandName} logo`}
-        layout="fill"
-        objectFit="contain"
-      />
-    </div>
+    <Image
+      src={logoSrc}
+      alt={`${normalizedBrandName} logo`}
+      width={50}
+      height={50}
+      className={cn(
+        "h-[25px] lg:h-[50px] w-auto object-contain",
+        small && "h-[20px] lg:h-[30px] w-auto"
+      )}
+    />
   );
 };
 

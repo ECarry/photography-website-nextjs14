@@ -62,7 +62,10 @@ const PhotoPage = ({ params }: PhotoPageProps) => {
               </p>
             </div>
             <div className="flex items-center gap-2">
-              <BrandLogo brandName={photo.make} />
+              <BrandLogo
+                brandName={photo.make}
+                small={photo.aspectRatio < 1 ? true : false}
+              />
               <Separator
                 orientation="vertical"
                 className="hidden sm:block h-10"
