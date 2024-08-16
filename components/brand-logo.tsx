@@ -42,10 +42,10 @@ const BrandLogo = ({ brandName, small }: Props) => {
     <Image
       src={logoSrc}
       alt={`${normalizedBrandName} logo`}
-      width={50}
-      height={50}
+      width={40}
+      height={40}
       className={cn(
-        "h-[25px] lg:h-[50px] w-auto object-contain",
+        "h-[25px] lg:h-[40px] w-auto object-contain",
         small && "h-[20px] lg:h-[30px] w-auto"
       )}
     />

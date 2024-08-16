@@ -10,6 +10,7 @@ import { formatDate } from "@/lib/date";
 import { Separator } from "@/components/ui/separator";
 import { convertToCoordination } from "@/lib/convert-coordination";
 import { Icons } from "@/components/icons";
+import { cn } from "@/lib/utils";
 
 interface PhotoPageProps {
   params: {
@@ -52,7 +53,12 @@ const PhotoPage = ({ params }: PhotoPageProps) => {
         {isLoaded && (
           <div className="z-50 flex justify-between px-4 items-center select-none h-20 bg-white w-full text-black">
             <div className="flex flex-col text-center">
-              <h1 className="font-semibold text-xs sm:text-sm lg:text-lg">
+              <h1
+                className={cn(
+                  "font-semibold text-xs sm:text-sm lg:text-lg",
+                  photo.aspectRatio < 1 ? "lg:text-sm" : "lg:text-lg"
+                )}
+              >
                 {photo.make} {photo.model}
               </h1>
               <p className="text-xs text-muted-foreground">
