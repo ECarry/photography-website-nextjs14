@@ -20,50 +20,40 @@ import {
 } from "@/components/ui/chart";
 import { useGetSummary } from "@/features/summary/api/use-get-summary";
 
-function genRandom(base: number) {
-  return Math.round((Math.random() + 0.5) * 100);
+function getYearRange(array: { year: string; count: number }[]) {
+  if (array.length === 0) {
+    return ""; // 或者返回其他默认值，如 'N/A'
+  }
+
+  const firstYear = array[0].year;
+  const lastYear = array[array.length - 1].year;
+
+  return `${firstYear}-${lastYear}`;
 }
 
-const chartData = [
-  { city: "Hongkong", count: genRandom(211), fill: "var(--color-Hongkong)" },
-  { city: "Macau", count: genRandom(123), fill: "var(--color-Macau)" },
-  { city: "FuzhouShi", count: genRandom(53), fill: "var(--color-FuzhouShi)" },
-  { city: "XiamenShi", count: genRandom(44), fill: "var(--color-XiamenShi)" },
-  { city: "Other", count: genRandom(11), fill: "var(--color-Other)" },
-];
+const chartConfig = {} satisfies ChartConfig;
 
-const chartConfig = {
-  photos: {
-    label: "city",
-  },
-  Hongkong: {
-    label: "Hongkong",
-    color: "hsl(var(--chart-1))",
-  },
-  Macau: {
-    label: "Macau",
-    color: "hsl(var(--chart-2))",
-  },
-  FuzhouShi: {
-    label: "FuzhouShi",
-    color: "hsl(var(--chart-3))",
-  },
-  XiamenShi: {
-    label: "XiamenShi",
-    color: "hsl(var(--chart-4))",
-  },
-  Other: {
-    label: "Other",
-    color: "hsl(var(--chart-5))",
-  },
-} satisfies ChartConfig;
-
-const total = chartData.reduce((acc, curr) => acc + curr.count, 0);
+const COLORS = [
+  "#8884d8",
+  "#82ca9d",
+  "#ffc658",
+  "#ff8042",
+  "#8dd1e1",
+  "#a4de6c",
+  "#d0ed57",
+]; // 可以自定义更多颜色
 
 export function CityCountChart() {
   const summaryQuery = useGetSummary();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const data = summaryQuery.data?.cityRes ?? [];
+  const yearData = summaryQuery.data?.yearRes ?? [];
+
+  // 给每个城市添加颜色
+  const coloredData = data.map((entry, index) => ({
+    ...entry,
+    fill: COLORS[index % COLORS.length],
+  }));
 
   const totalPhotos = React.useMemo(() => {
     return data.reduce((acc, curr) => acc + curr.count, 0);
@@ -73,7 +63,7 @@ export function CityCountChart() {
     <Card className="flex flex-col">
       <CardHeader>
         <CardTitle>City Photo</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
+        <CardDescription>{getYearRange(yearData)}</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
         <ChartContainer
@@ -86,7 +76,7 @@ export function CityCountChart() {
               content={<ChartTooltipContent hideLabel />}
             />
             <Pie
-              data={chartData}
+              data={coloredData}
               dataKey="count"
               nameKey="city"
               innerRadius={60}
@@ -107,7 +97,7 @@ export function CityCountChart() {
                           y={viewBox.cy}
                           className="fill-foreground text-3xl font-bold"
                         >
-                          {total.toLocaleString()}
+                          {totalPhotos.toLocaleString()}
                         </tspan>
                         <tspan
                           x={viewBox.cx}
@@ -122,10 +112,6 @@ export function CityCountChart() {
                 }}
               />
             </Pie>
-            <ChartLegend
-              content={<ChartLegendContent nameKey="city" />}
-              className="-translate-y-2 flex-wrap gap-2 [&>*]:basis-1/4 [&>*]:justify-center"
-            />
           </PieChart>
         </ChartContainer>
       </CardContent>

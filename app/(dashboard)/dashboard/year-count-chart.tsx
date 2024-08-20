@@ -6,7 +6,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -31,17 +30,17 @@ function getYearRange(array: { year: string; count: number }[]) {
   return `${firstYear}-${lastYear}`;
 }
 
-function genRandom(base: number) {
-  return Math.round((Math.random() + 0.5) * 100);
-}
+// function genRandom(base: number) {
+//   return Math.round((Math.random() + 0.5) * 100);
+// }
 
-const fakeData = [
-  { year: 2020, count: genRandom(102) },
-  { year: 2021, count: genRandom(235) },
-  { year: 2022, count: genRandom(56) },
-  { year: 2023, count: genRandom(23) },
-  { year: 2024, count: genRandom(144) },
-];
+// const fakeData = [
+//   { year: 2020, count: genRandom(102) },
+//   { year: 2021, count: genRandom(235) },
+//   { year: 2022, count: genRandom(56) },
+//   { year: 2023, count: genRandom(23) },
+//   { year: 2024, count: genRandom(144) },
+// ];
 
 export function YearCountChart() {
   const summaryQuery = useGetSummary();
@@ -61,7 +60,7 @@ export function YearCountChart() {
         >
           <LineChart
             accessibilityLayer
-            data={fakeData}
+            data={data}
             margin={{
               top: 20,
               left: 20,
