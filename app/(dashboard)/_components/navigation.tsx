@@ -14,8 +14,8 @@ const routes = [
     label: "Photos",
   },
   {
-    href: "/settings",
-    label: "Settings",
+    href: "/profile",
+    label: "Profile",
   },
 ];
 const Navigation = () => {
