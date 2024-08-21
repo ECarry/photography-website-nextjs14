@@ -2,10 +2,8 @@ import { Hono, Context } from "hono";
 import { initAuthConfig, verifyAuth, type AuthConfig } from "@hono/auth-js";
 import Credentials from "next-auth/providers/credentials";
 import { db } from "@/db/drizzle";
-import { insertPhotoSchema, photos } from "@/db/schema";
-import { zValidator } from "@hono/zod-validator";
-import { number, z } from "zod";
-import { and, desc, eq, gte, lt, asc, sql } from "drizzle-orm";
+import { photos } from "@/db/schema";
+import { sql } from "drizzle-orm";
 
 const app = new Hono()
   .use("*", initAuthConfig(getAuthConfig))
@@ -16,6 +14,7 @@ const app = new Hono()
       return c.json({ error: "Unauthorized" }, 401);
     }
 
+    // 1. 获取年份统计
     const yearRes = await db
       .select({
         year: sql`EXTRACT(YEAR FROM TO_TIMESTAMP(${photos.takeAt}, 'YYYY-MM-DD"T"HH24:MI:SS"Z"'))`.as<string>(),
@@ -30,18 +29,15 @@ const app = new Hono()
       )
       .execute();
 
-    const extractCity = () => sql`
-  CASE 
-    WHEN COALESCE(${photos.locationName}, '') LIKE '%, %, %, %, %' THEN TRIM(SPLIT_PART(COALESCE(${photos.locationName}, ''), ',', 3))
-    WHEN COALESCE(${photos.locationName}, '') LIKE '%, %, %, %' THEN TRIM(SPLIT_PART(COALESCE(${photos.locationName}, ''), ',', 3))
-    WHEN COALESCE(${photos.locationName}, '') = '' THEN 'Unknown'
-    ELSE TRIM(SPLIT_PART(COALESCE(${photos.locationName}, ''), ',', -1))
-  END
-`;
+    // 2. 提取城市并统计
+    const extractCity = () =>
+      sql<string>`
+      TRIM(SPLIT_PART(${photos.locationName}, ',', 1))
+    `.as("city");
 
     const cityRes = await db
       .select({
-        city: extractCity().as<string>(),
+        city: extractCity(),
         count: sql`CAST(COUNT(*) AS INTEGER)`.as<number>(),
       })
       .from(photos)
@@ -49,17 +45,12 @@ const app = new Hono()
       .orderBy(extractCity())
       .execute();
 
+    // 3. 提取国家并去重
     const extractCountry = () =>
       sql<string>`
-      CASE 
-        WHEN COALESCE(${photos.locationName}, '') LIKE '%, %, %, %, %' THEN TRIM(SPLIT_PART(COALESCE(${photos.locationName}, ''), ',', 5))
-        WHEN COALESCE(${photos.locationName}, '') LIKE '%, %, %, %' THEN TRIM(SPLIT_PART(COALESCE(${photos.locationName}, ''), ',', 4))
-        WHEN COALESCE(${photos.locationName}, '') LIKE '%, %, %' THEN TRIM(SPLIT_PART(COALESCE(${photos.locationName}, ''), ',', 3))
-        ELSE TRIM(SPLIT_PART(COALESCE(${photos.locationName}, ''), ',', -1))
-      END
-      `.as("country");
+      TRIM(SPLIT_PART(${photos.locationName}, ',', array_length(string_to_array(${photos.locationName}, ','), 1)))
+    `.as("country");
 
-    // 查询并去重
     const countryRes = await db
       .select({
         country: extractCountry(),
@@ -68,7 +59,7 @@ const app = new Hono()
       .groupBy(extractCountry())
       .execute();
 
-    // 显示结果
+    // 4. 返回的国家数组
     const countryArray = countryRes.map((row) => row.country);
 
     return c.json({

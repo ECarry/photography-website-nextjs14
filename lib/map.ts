@@ -11,7 +11,7 @@ export const getReverseGeocoding = async (
   latitude?: number
 ): Promise<string> => {
   if (!longitude || !latitude) return "unknown";
-  const url = `https://api.mapbox.com/search/geocode/v6/reverse?longitude=${longitude}&latitude=${latitude}&access_token=${TOKEN}&language=en`;
+  const url = `https://api.mapbox.com/search/geocode/v6/reverse?longitude=${longitude}&latitude=${latitude}&access_token=${TOKEN}&language=en&types=place`;
 
   const response = await fetch(url);
 
