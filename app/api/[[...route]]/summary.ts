@@ -49,10 +49,33 @@ const app = new Hono()
       .orderBy(extractCity())
       .execute();
 
+    const extractCountry = () =>
+      sql<string>`
+      CASE 
+        WHEN COALESCE(${photos.locationName}, '') LIKE '%, %, %, %, %' THEN TRIM(SPLIT_PART(COALESCE(${photos.locationName}, ''), ',', 5))
+        WHEN COALESCE(${photos.locationName}, '') LIKE '%, %, %, %' THEN TRIM(SPLIT_PART(COALESCE(${photos.locationName}, ''), ',', 4))
+        WHEN COALESCE(${photos.locationName}, '') LIKE '%, %, %' THEN TRIM(SPLIT_PART(COALESCE(${photos.locationName}, ''), ',', 3))
+        ELSE TRIM(SPLIT_PART(COALESCE(${photos.locationName}, ''), ',', -1))
+      END
+      `.as("country");
+
+    // 查询并去重
+    const countryRes = await db
+      .select({
+        country: extractCountry(),
+      })
+      .from(photos)
+      .groupBy(extractCountry())
+      .execute();
+
+    // 显示结果
+    const countryArray = countryRes.map((row) => row.country);
+
     return c.json({
       data: {
         yearRes,
         cityRes,
+        countryArray,
       },
     });
   });

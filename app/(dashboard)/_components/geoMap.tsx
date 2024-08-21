@@ -2,23 +2,29 @@
 
 import Map, { Layer, Source } from "react-map-gl";
 import type { FillLayer } from "react-map-gl";
-import type { FeatureCollection } from "geojson";
+import type { FeatureCollection, Feature } from "geojson";
 import geoData from "@/public/geo.json";
+import { useGetSummary } from "@/features/summary/api/use-get-summary";
 
 const TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
 const geojson: FeatureCollection = geoData as FeatureCollection;
 
-const getCountryCoordinates = (country: string) => {
-  const countryData = geojson.features.find(
-    (feature) =>
-      feature.properties?.name.toLowerCase() === country.toLowerCase()
+const getCountryCoordinates = (countries: string[]) => {
+  if (!countries || countries.length === 0) return null;
+
+  const features: Feature[] = geojson.features.filter((feature) =>
+    countries.some(
+      (country) =>
+        feature.properties?.name.toLowerCase() === country.toLowerCase()
+    )
   );
 
-  return countryData;
+  return {
+    type: "FeatureCollection",
+    features,
+  } as FeatureCollection;
 };
-
-const chinaData = getCountryCoordinates("china");
 
 const layerStyle: FillLayer = {
   id: "country-fill",
@@ -30,6 +36,12 @@ const layerStyle: FillLayer = {
 };
 
 const GeoMap = () => {
+  const query = useGetSummary();
+
+  const data = query.data?.countryArray ?? [];
+
+  const countryCoordinates = getCountryCoordinates(data);
+
   return (
     <Map
       id="map"
@@ -47,9 +59,11 @@ const GeoMap = () => {
       }}
       mapStyle="mapbox://styles/ecarry/cldmhu6tr000001n33ujbxf7j"
     >
-      <Source id="my-data" type="geojson" data={chinaData}>
-        <Layer {...layerStyle} />
-      </Source>
+      {countryCoordinates && (
+        <Source id="my-data" type="geojson" data={countryCoordinates}>
+          <Layer {...layerStyle} />
+        </Source>
+      )}
     </Map>
   );
 };
