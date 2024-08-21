@@ -14,10 +14,7 @@ const getCountryCoordinates = (countries: string[]) => {
   if (!countries || countries.length === 0) return null;
 
   const features: Feature[] = geojson.features.filter((feature) =>
-    countries.some(
-      (country) =>
-        feature.properties?.name.toLowerCase() === country.toLowerCase()
-    )
+    countries.some((country) => feature.properties?.formal_en === country)
   );
 
   return {
