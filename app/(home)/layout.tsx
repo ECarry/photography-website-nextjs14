@@ -1,6 +1,5 @@
+import { QueryProvider } from "@/components/providers/QueryClientProvider";
 import Sidebar from "./_components/Sidebar";
-import { FloatingDock } from "@/components/floating-dock";
-import { QueryProvider } from "@/providers/QueryClientProvider";
 import FloatingDockMobile from "./_components/floating-dock-mobile";
 
 const HomeLayout = ({ children }: { children: React.ReactNode }) => {

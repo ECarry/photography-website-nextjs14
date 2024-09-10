@@ -1,9 +1,9 @@
 import { Toaster } from "@/components/ui/sonner";
 import ModalProvider from "@/components/providers/modal-provider";
-import { QueryProvider } from "@/providers/QueryClientProvider";
 import Navbar from "./_components/Navbar";
 import { Metadata } from "next";
 import FloatingDockMobile from "./_components/floating-dock-mobile";
+import { QueryProvider } from "@/components/providers/QueryClientProvider";
 
 export const metadata: Metadata = {
   title: {
