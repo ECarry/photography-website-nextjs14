@@ -1,7 +1,7 @@
 import Sidebar from "./_components/Sidebar";
-import FloatMenu from "@/components/float-menu";
-import { homeRoutes } from "@/components/routes";
+import { FloatingDock } from "@/components/floating-dock";
 import { QueryProvider } from "@/providers/QueryClientProvider";
+import FloatingDockMobile from "./_components/floating-dock-mobile";
 
 const HomeLayout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -9,7 +9,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
       <QueryProvider>
         <Sidebar />
         {children}
-        <FloatMenu routes={homeRoutes} />
+        <FloatingDockMobile />
       </QueryProvider>
     </main>
   );
