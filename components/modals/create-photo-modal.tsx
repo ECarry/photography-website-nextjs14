@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -141,8 +142,8 @@ const CreatePhotoModal = () => {
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Upload photo</DialogTitle>
+          <DialogDescription></DialogDescription>
         </DialogHeader>
-
         {res ? (
           <div className="relative w-full h-[300px] bg-muted">
             <Image
