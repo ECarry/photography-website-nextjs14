@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
-import { toast } from "sonner";
+import { cn } from "@/lib/utils";
 
 export const LoginSchema = z.object({
   email: z.string().min(1, {
@@ -138,12 +138,17 @@ const LoginForm = () => {
                 <FormItem className="flex flex-row items-start space-x-3 space-y-0">
                   <FormControl>
                     <Checkbox
+                      disabled={isPending}
                       checked={field.value}
                       onCheckedChange={field.onChange}
                     />
                   </FormControl>
                   <div className="space-y-1 leading-none">
-                    <FormLabel>Remember me</FormLabel>
+                    <FormLabel
+                      className={cn(isPending && "text-muted-foreground")}
+                    >
+                      Remember me
+                    </FormLabel>
                   </div>
                 </FormItem>
               )}

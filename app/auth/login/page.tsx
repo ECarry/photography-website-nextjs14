@@ -1,5 +1,9 @@
 import SignInForm from "./login-form";
 
+export const metadata = {
+  title: "Login",
+};
+
 const LoginPage = () => {
   return (
     <main className="w-full h-dvh p-1">
