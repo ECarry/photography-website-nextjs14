@@ -1,16 +1,11 @@
-import { Metadata } from "next";
-import Content from "./content";
+import PageClient from "./page.client";
 
-export const metadata: Metadata = {
+export const metadata = {
   title: "Photos",
 };
 
 const PhotosPage = () => {
-  return (
-    <section className="h-full pb-20 md:pb-0">
-      <Content />
-    </section>
-  );
+  return <PageClient />;
 };
 
 export default PhotosPage;

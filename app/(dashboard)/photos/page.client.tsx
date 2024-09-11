@@ -5,7 +5,7 @@ import FilterBar from "../_components/filter";
 import Mapbox from "../../../components/map";
 import PhotoList from "../_components/photo-list";
 
-const Content = () => {
+const page = () => {
   return (
     <MapProvider>
       <div className="flex">
@@ -28,4 +28,4 @@ const Content = () => {
   );
 };
 
-export default Content;
+export default page;
