@@ -5,6 +5,7 @@ import "./globals.css";
 import { Suspense } from "react";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Toaster } from "@/components/ui/sonner";
 
 import { TailwindIndicator } from "@/components/tailwind-indicator";
 
@@ -27,6 +28,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={readex.className}>
         <Suspense>{children}</Suspense>
+        <Toaster />
         <Analytics />
         <SpeedInsights />
         <TailwindIndicator />

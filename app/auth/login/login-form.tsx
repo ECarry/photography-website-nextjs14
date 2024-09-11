@@ -3,7 +3,7 @@
 import * as z from "zod";
 import { login } from "@/actions/login";
 import { useForm } from "react-hook-form";
-import { useActionState, useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Button } from "@/components/ui/button";
@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
+import { toast } from "sonner";
 
 export const LoginSchema = z.object({
   email: z.string().min(1, {
@@ -25,19 +26,32 @@ export const LoginSchema = z.object({
   password: z.string().min(1, {
     message: "Password must be required.",
   }),
+  rememberMe: z.boolean().optional(),
 });
 
 const LoginForm = () => {
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
   const [isPending, startTransition] = useTransition();
-  //const [state, action, pending] = useActionState(login, null);
+
+  useEffect(() => {
+    const storedEmail = localStorage.getItem("email");
+    const storedPassword = localStorage.getItem("password");
+
+    if (storedEmail && storedPassword) {
+      form.setValue("email", storedEmail);
+      form.setValue("password", storedPassword);
+      form.setValue("rememberMe", true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const form = useForm({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
       email: "",
       password: "",
+      rememberMe: false,
     },
   });
 
@@ -45,10 +59,20 @@ const LoginForm = () => {
     setError("");
     setSuccess("");
 
+    if (values.rememberMe) {
+      localStorage.setItem("email", values.email);
+      localStorage.setItem("password", values.password);
+      localStorage.setItem("rememberMe", "true");
+    } else {
+      localStorage.removeItem("email");
+      localStorage.removeItem("password");
+      localStorage.removeItem("rememberMe");
+    }
+
     startTransition(() => {
       login(values).then((data) => {
-        setError(data?.error);
         setSuccess(data?.success);
+        setError(data?.error);
       });
     });
   };
@@ -107,13 +131,23 @@ const LoginForm = () => {
           />
 
           <div className="flex items-center space-x-2">
-            <Checkbox id="terms" disabled={isPending} />
-            <label
-              htmlFor="terms"
-              className="text-sm text-muted-foreground font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-            >
-              Remember me
-            </label>
+            <FormField
+              control={form.control}
+              name="rememberMe"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                  <div className="space-y-1 leading-none">
+                    <FormLabel>Remember me</FormLabel>
+                  </div>
+                </FormItem>
+              )}
+            />
           </div>
 
           {error && <div className="text-red-500 text-center">{error}</div>}
