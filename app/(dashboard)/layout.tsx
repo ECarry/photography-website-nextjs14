@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <>
+    <div>
       <QueryProvider>
         <Navbar />
         <main>
@@ -24,7 +24,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
           <ModalProvider />
         </main>
       </QueryProvider>
-    </>
+    </div>
   );
 };
 
