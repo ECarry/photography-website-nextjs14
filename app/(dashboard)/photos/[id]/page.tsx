@@ -18,16 +18,12 @@ import PhotoForm from "./form";
 import { formatExposureTime } from "@/lib/format-exif";
 import { Icons } from "@/components/icons";
 import Thumbnail from "./thumbnail";
+import { usePhotoId } from "@/hooks/use-photo-id";
 
-interface PhotoIdPageProps {
-  params: {
-    id: string;
-  };
-}
-
-const PhotoIdPage = ({ params }: PhotoIdPageProps) => {
+const PhotoIdPage = () => {
+  const photoId = usePhotoId();
   const [address, setAddress] = useState<string>("");
-  const photoQuery = useGetPhoto(params.id);
+  const photoQuery = useGetPhoto(photoId);
   const photo = photoQuery.data;
 
   useEffect(() => {

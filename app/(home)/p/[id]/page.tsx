@@ -11,16 +11,12 @@ import { Separator } from "@/components/ui/separator";
 import { convertToCoordination } from "@/lib/convert-coordination";
 import { Icons } from "@/components/icons";
 import { cn } from "@/lib/utils";
+import { usePhotoId } from "@/hooks/use-photo-id";
 
-interface PhotoPageProps {
-  params: {
-    id: string;
-  };
-}
-
-const PhotoPage = ({ params }: PhotoPageProps) => {
+const PhotoPage = () => {
+  const photoId = usePhotoId();
   const [isLoaded, setIsLoaded] = useState(false);
-  const photoQuery = useGetPhoto(params.id);
+  const photoQuery = useGetPhoto(photoId);
 
   const photo = photoQuery.data;
 
