@@ -1,4 +1,3 @@
-import { Toaster } from "@/components/ui/sonner";
 import ModalProvider from "@/components/providers/modal-provider";
 import Navbar from "./_components/Navbar";
 import { Metadata } from "next";
@@ -14,17 +13,16 @@ export const metadata: Metadata = {
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <>
+    <div>
       <QueryProvider>
         <Navbar />
         <main>
           {children}
           <FloatingDockMobile />
-          <Toaster />
           <ModalProvider />
         </main>
       </QueryProvider>
-    </>
+    </div>
   );
 };
 

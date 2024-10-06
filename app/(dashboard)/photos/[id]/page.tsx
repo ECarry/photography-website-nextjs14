@@ -17,16 +17,13 @@ import { getReverseGeocoding } from "@/lib/map";
 import PhotoForm from "./form";
 import { formatExposureTime } from "@/lib/format-exif";
 import { Icons } from "@/components/icons";
+import Thumbnail from "./thumbnail";
+import { usePhotoId } from "@/hooks/use-photo-id";
 
-interface PhotoIdPageProps {
-  params: {
-    id: string;
-  };
-}
-
-const PhotoIdPage = ({ params }: PhotoIdPageProps) => {
+const PhotoIdPage = () => {
+  const photoId = usePhotoId();
   const [address, setAddress] = useState<string>("");
-  const photoQuery = useGetPhoto(params.id);
+  const photoQuery = useGetPhoto(photoId);
   const photo = photoQuery.data;
 
   useEffect(() => {
@@ -54,17 +51,15 @@ const PhotoIdPage = ({ params }: PhotoIdPageProps) => {
 
   return (
     <main>
-      <div className="w-full max-h-[500px] overflow-hidden">
-        <Image
-          src={photo.url}
-          alt={photo.title}
-          placeholder="blur"
-          blurDataURL={photo.blurData}
-          width={photo.width}
-          height={photo.height}
-          className=""
-        />
-      </div>
+      <Thumbnail
+        title={photo.title}
+        url={photo.url}
+        description={photo.description}
+        width={photo.width}
+        height={photo.height}
+        blurDataURL={photo.blurData}
+        aspectRatio={photo.aspectRatio}
+      />
 
       <div className="grid lg:grid-cols-12 p-4 gap-4">
         <div className="space-y-8 col-span-1 lg:col-span-8 2xl:col-span-9">
