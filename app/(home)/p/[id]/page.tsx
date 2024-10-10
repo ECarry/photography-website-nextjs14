@@ -34,7 +34,7 @@ const PhotoPage = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: isLoaded ? 1 : 0 }}
         transition={{ duration: 1 }} // 动画持续时间为1秒
-        className="z-10 relative shadow-2xl shadow-black"
+        className="z-10 relative shadow-2xl shadow-black p-4 md:p-6 pb-0 md:pb-0 bg-white"
       >
         <Image
           src={photo?.url}
@@ -47,7 +47,7 @@ const PhotoPage = () => {
           className="z-10 w-auto max-h-[80dvh]"
         />
         {isLoaded && (
-          <div className="z-50 flex justify-between px-4 items-center select-none h-20 bg-white w-full text-black">
+          <div className="z-50 flex justify-between items-center select-none h-14 md:h-20 bg-white w-full">
             <div className="flex flex-col text-center">
               <h1
                 className={cn(
@@ -80,9 +80,6 @@ const PhotoPage = () => {
                   <span>{"ISO" + photo.iso}</span>
                 </div>
                 <div>
-                  {/* <p className="text-xs text-muted-foreground">
-                    {convertToCoordination(photo.longitude, photo.latitude)}
-                  </p> */}
                   <p className="text-xs text-muted-foreground">
                     {formatDate(photo.takeAt)}
                   </p>
