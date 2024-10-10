@@ -51,7 +51,7 @@ const LoginForm = () => {
     defaultValues: {
       email: "",
       password: "",
-      rememberMe: false,
+      rememberMe: localStorage.getItem("email") ? true : false,
     },
   });
 
