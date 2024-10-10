@@ -28,6 +28,7 @@ export default function PhotoGallery() {
       photos={photos}
       render={{ image: renderNextImage }}
       defaultContainerWidth={1200}
+      spacing={6}
       sizes={{
         size: "1168px",
         sizes: [
