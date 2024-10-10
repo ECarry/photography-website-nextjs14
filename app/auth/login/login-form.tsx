@@ -34,26 +34,27 @@ const LoginForm = () => {
   const [success, setSuccess] = useState<string | undefined>();
   const [isPending, startTransition] = useTransition();
 
-  useEffect(() => {
-    const storedEmail = localStorage.getItem("email");
-    const storedPassword = localStorage.getItem("password");
-
-    if (storedEmail && storedPassword) {
-      form.setValue("email", storedEmail);
-      form.setValue("password", storedPassword);
-      form.setValue("rememberMe", true);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   const form = useForm({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
       email: "",
       password: "",
-      rememberMe: localStorage.getItem("email") ? true : false,
+      rememberMe: false,
     },
   });
+
+  useEffect(() => {
+    const storedEmail = localStorage.getItem("email");
+    const storedPassword = localStorage.getItem("password");
+    const storedRememberMe = localStorage.getItem("rememberMe") === "true";
+
+    if (storedEmail && storedPassword) {
+      form.setValue("email", storedEmail);
+      form.setValue("password", storedPassword);
+      form.setValue("rememberMe", storedRememberMe);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [form]);
 
   const onSubmit = async (values: z.infer<typeof LoginSchema>) => {
     setError("");
