@@ -7,7 +7,15 @@ import { Separator } from "@/components/ui/separator";
 
 const Navbar = () => {
   return (
-    <header className="border-b sticky top-0 bg-white z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header
+      style={{
+        backgroundColor: "transparent",
+        backgroundImage: "radial-gradient(transparent 1px, #ffffff 1px)",
+        backgroundSize: "4px 4px",
+        backdropFilter: "saturate(50%) blur(4px);",
+      }}
+      className="border-b sticky top-0 z-50"
+    >
       <div className="px-4 flex items-center h-[60px] ">
         <div className="flex items-center gap-x-8">
           <h1 className="font-bold text-xl">ECarry</h1>
