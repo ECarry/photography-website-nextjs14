@@ -33,7 +33,7 @@
     "@radix-ui/react-tooltip": "^1.1.2",
     "@tanstack/react-query": "^5.48.0",
     "@types/mapbox-gl": "^3.1.0",
-    "@uploadthing/react": "^6.6.0",
+    "@uploadthing/react": "^7.0.3",
     "@vercel/analytics": "^1.3.1",
     "@vercel/postgres": "^0.8.0",
     "@vercel/speed-insights": "^1.0.12",
@@ -65,7 +65,7 @@
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "ts-exif-parser": "^0.2.2",
-    "uploadthing": "^6.12.0",
+    "uploadthing": "^7.1.0",
     "zod": "^3.23.8",
     "zustand": "^4.5.4"
   },
