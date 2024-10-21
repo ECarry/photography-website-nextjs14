@@ -12,7 +12,7 @@ const Navbar = () => {
         backgroundColor: "transparent",
         backgroundImage: "radial-gradient(transparent 1px, #ffffff 1px)",
         backgroundSize: "4px 4px",
-        backdropFilter: "saturate(50%) blur(4px);",
+        backdropFilter: "saturate(50%) blur(4px)",
       }}
       className="border-b sticky top-0 z-50"
     >
