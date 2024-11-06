@@ -110,7 +110,7 @@ const CreatePhotoModal = () => {
     const blur = await getImageBlur(res?.url);
 
     if (!blur) {
-      toast.error("Something went wrong with the photo upload");
+      toast.error("Generated blur data fail");
       return;
     }
 

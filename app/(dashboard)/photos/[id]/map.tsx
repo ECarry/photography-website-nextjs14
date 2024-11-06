@@ -8,6 +8,8 @@ import Map, {
   FullscreenControl,
 } from "react-map-gl";
 
+import GeocoderControl from "./geocoder-control";
+
 const TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
 interface Props {
@@ -25,6 +27,7 @@ const Mapbox = ({ id, latitude, longitude }: Props) => {
       longitude,
       zoom: 14,
     };
+
   const handleClick = async (event: any) => {
     const address = await getReverseGeocoding(
       event.lngLat.lng,
@@ -50,9 +53,12 @@ const Mapbox = ({ id, latitude, longitude }: Props) => {
         height: "100%",
       }}
       initialViewState={{ ...viewState }}
-      mapStyle="mapbox://styles/mapbox/standard"
+      mapStyle="mapbox://styles/mapbox/streets-v12"
       onClick={handleClick}
     >
+      {TOKEN && (
+        <GeocoderControl mapboxAccessToken={TOKEN} position="top-left" />
+      )}
       <NavigationControl />
       <FullscreenControl />
       {latitude && longitude && (

@@ -86,3 +86,103 @@ body,
     @apply bg-background text-foreground;
   }
 }
+
+/* 覆盖 Mapbox Geocoder 输入框的样式 */
+.mapboxgl-ctrl-geocoder input {
+  background-color: #f5f5f5; /* 浅色背景 */
+  border: 2px solid #e0e0e0; /* 边框颜色 */
+  border-radius: 12px; /* 圆角 */
+  padding: 10px 12px; /* 内边距 */
+  font-size: 16px; /* 字体大小 */
+  font-family: "Inter", sans-serif; /* 使用 ShadCN 推荐的字体 */
+  color: #333; /* 字体颜色 */
+  transition: all 0.3s ease; /* 平滑的过渡效果 */
+}
+
+/* 聚焦时的样式 */
+.mapboxgl-ctrl-geocoder input:focus {
+  border-color: #3b82f6; /* 聚焦时的边框颜色（蓝色） */
+  outline: none; /* 去掉聚焦时的默认轮廓 */
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2); /* 聚焦时的阴影效果 */
+}
+
+/* 覆盖 Mapbox Geocoder 下拉框样式 */
+.mapboxgl-ctrl-geocoder .mapboxgl-ctrl-geocoder-dropdown {
+  background-color: white; /* 背景颜色 */
+  border: 1px solid #e0e0e0; /* 边框颜色 */
+  border-radius: 8px; /* 圆角 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+  padding: 8px; /* 内边距 */
+}
+
+/* 设置结果项的样式 */
+.mapboxgl-ctrl-geocoder .mapboxgl-ctrl-geocoder-dropdown li {
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.mapboxgl-ctrl-geocoder .mapboxgl-ctrl-geocoder-dropdown li:hover {
+  background-color: #f1f1f1; /* 鼠标悬浮时的背景色 */
+}
+
+/* 设置 Geocoder 按钮的样式 */
+.mapboxgl-ctrl-geocoder .mapboxgl-ctrl-geocoder-icon {
+  background-color: #4caf50; /* 按钮背景色 */
+  border-radius: 50%; /* 圆形按钮 */
+  padding: 10px; /* 内边距 */
+  color: white; /* 按钮文字颜色 */
+  transition: background-color 0.2s ease; /* 按钮颜色过渡 */
+}
+
+.mapboxgl-ctrl-geocoder .mapboxgl-ctrl-geocoder-icon:hover {
+  background-color: #388e3c; /* 悬浮时的按钮颜色 */
+}
+
+/* 自定义 Mapbox Geocoder 输入框的样式 */
+.mapboxgl-ctrl-geocoder input {
+  background-color: #f5f5f5; /* 输入框背景色 */
+  border: 2px solid #e0e0e0; /* 输入框边框 */
+  border-radius: 12px; /* 输入框圆角 */
+  padding: 10px 12px 10px 40px; /* 输入框内边距，留出空间给图标 */
+  font-size: 16px; /* 字体大小 */
+  font-family: "Inter", sans-serif; /* 字体 */
+  color: #333; /* 字体颜色 */
+  transition: all 0.3s ease; /* 平滑过渡 */
+}
+
+/* 聚焦时输入框的样式 */
+.mapboxgl-ctrl-geocoder input:focus {
+  border-color: #3b82f6; /* 聚焦时边框颜色 */
+  outline: none; /* 去掉聚焦时的默认轮廓 */
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2); /* 聚焦时的阴影效果 */
+}
+
+/* 放大镜图标样式 */
+.mapboxgl-ctrl-geocoder .mapboxgl-ctrl-geocoder-icon {
+  position: absolute; /* 绝对定位 */
+  left: 12px; /* 左侧距离 */
+  top: 50%; /* 垂直居中 */
+  transform: translateY(-50%); /* 垂直居中对齐 */
+  font-size: 18px; /* 放大镜图标大小 */
+  color: #333; /* 图标颜色 */
+  pointer-events: none; /* 禁用图标的鼠标事件 */
+}
+
+/* 清除 (X) 图标样式 */
+.mapboxgl-ctrl-geocoder .mapboxgl-ctrl-geocoder-clear {
+  position: absolute; /* 绝对定位 */
+  right: 12px; /* 右侧距离 */
+  top: 50%; /* 垂直居中 */
+  transform: translateY(-50%); /* 垂直居中对齐 */
+  font-size: 16px; /* 清除图标大小 */
+  color: #333; /* 图标颜色 */
+  cursor: pointer; /* 设置鼠标指针为点击状态 */
+  transition: color 0.3s ease; /* 悬停效果 */
+}
+
+/* 清除图标悬浮时的样式 */
+.mapboxgl-ctrl-geocoder .mapboxgl-ctrl-geocoder-clear:hover {
+  color: #f44336; /* 鼠标悬浮时的颜色 */
+}
