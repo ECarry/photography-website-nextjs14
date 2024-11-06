@@ -37,7 +37,7 @@ const PhotoPage = () => {
         className="z-10 relative shadow-2xl shadow-black p-4 md:p-6 pb-0 md:pb-0 bg-white"
       >
         <Image
-          src={photo?.url}
+          src={photo.url}
           alt={photo.title}
           width={photo.width}
           height={photo.height}
@@ -47,7 +47,7 @@ const PhotoPage = () => {
           className="z-10 w-auto max-h-[80dvh]"
         />
         {isLoaded && (
-          <div className="z-50 flex justify-between items-center select-none h-14 md:h-20 bg-white w-full">
+          <div className="z-50 flex justify-between items-center select-none h-14 md:h-20 bg-white w-full px-2 lg:px-4">
             <div className="flex flex-col text-center">
               <h1
                 className={cn(
