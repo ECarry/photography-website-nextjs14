@@ -55,7 +55,7 @@ const CreatePhotoModal = () => {
   const [size, setSize] = useState<{ width: number; height: number }>();
   const [isReady, setIsReady] = useState(false);
   const [status, setStatus] = useState<
-    "Waiting for update photo" | "Generate blur data" | "Creating"
+    "Waiting for update photo" | "Generate blur data" | "Creating" | "Retry"
   >("Waiting for update photo");
 
   const { isOpen, onClose } = useModal();
@@ -111,6 +111,9 @@ const CreatePhotoModal = () => {
 
     if (!blur) {
       toast.error("Generated blur data fail");
+      console.log("Generated blur data fail");
+      setStatus("Retry");
+      setIsReady(false);
       return;
     }
 
