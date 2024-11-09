@@ -1,9 +1,9 @@
 import { Hono, Context } from "hono";
 import { initAuthConfig, verifyAuth, type AuthConfig } from "@hono/auth-js";
-import Credentials from "next-auth/providers/credentials";
 import { db } from "@/db/drizzle";
 import { photos } from "@/db/schema";
 import { sql } from "drizzle-orm";
+import authConfig from "@/auth.config";
 
 const app = new Hono()
   .use("*", initAuthConfig(getAuthConfig))
@@ -72,10 +72,7 @@ const app = new Hono()
   });
 
 function getAuthConfig(c: Context): AuthConfig {
-  return {
-    secret: c.env.AUTH_SECRET,
-    providers: [Credentials],
-  };
+  return { ...authConfig };
 }
 
 export default app;

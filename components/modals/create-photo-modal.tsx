@@ -113,7 +113,7 @@ const CreatePhotoModal = () => {
       toast.error("Generated blur data fail");
       console.log("Generated blur data fail");
       setStatus("Retry");
-      setIsReady(false);
+      setIsReady(true);
       return;
     }
 
