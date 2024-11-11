@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import Image from "next/image";
@@ -12,13 +13,37 @@ import { convertToCoordination } from "@/lib/convert-coordination";
 import { Icons } from "@/components/icons";
 import { cn } from "@/lib/utils";
 import { usePhotoId } from "@/hooks/use-photo-id";
+import html2canvas from "html2canvas"; // 引入 html2canvas
+import { useRef } from "react"; // 引入 useRef 来获取 div 引用
 
 const PhotoPage = () => {
   const photoId = usePhotoId();
   const [isLoaded, setIsLoaded] = useState(false);
   const photoQuery = useGetPhoto(photoId);
-
+  const [screenshot, setScreenshot] = useState<string | null>(null); // 保存截图的状态
+  const [isModalOpen, setIsModalOpen] = useState(false); // 控制 Modal 是否打开
   const photo = photoQuery.data;
+
+  const captureRef = useRef<HTMLDivElement>(null); // 获取 motion.div 的引用
+
+  const handleCapture = () => {
+    if (captureRef.current) {
+      html2canvas(captureRef.current, { useCORS: true })
+        .then((canvas) => {
+          const base64Image = canvas.toDataURL(); // 获取截图的 base64 格式数据
+          setScreenshot(base64Image); // 设置截图
+          setIsModalOpen(true); // 打开 Modal
+        })
+        .catch((error) => {
+          console.error("截图失败：", error);
+        });
+    }
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false); // 关闭 Modal
+    setScreenshot(null); // 清空截图
+  };
 
   if (!photo) {
     return (
@@ -31,6 +56,7 @@ const PhotoPage = () => {
   return (
     <section className="overflow-hidden ml-0 md:ml-[280px] relative flex items-center justify-center h-dvh flex-col p-10">
       <motion.div
+        ref={captureRef} // 将 motion.div 与 useRef 关联
         initial={{ opacity: 0 }}
         animate={{ opacity: isLoaded ? 1 : 0 }}
         transition={{ duration: 1 }} // 动画持续时间为1秒
@@ -88,10 +114,37 @@ const PhotoPage = () => {
             </div>
           </div>
         )}
+
+        {/* 显示截图 */}
+        {screenshot && isModalOpen && (
+          <div className="fixed inset-0 bg-black bg-opacity-85 flex justify-center items-center z-50">
+            <div className="bg-white p-6 rounded-lg relative max-w-7xl">
+              <button
+                onClick={closeModal}
+                className="absolute top-2 right-2 text-white bg-gray-800 rounded-full p-2 hover:bg-gray-600"
+              >
+                <Icons.close className="w-5 h-5" />
+              </button>
+
+              <img
+                src={screenshot}
+                alt="screenshot"
+                className="max-w-full max-h-full"
+              />
+            </div>
+          </div>
+        )}
       </motion.div>
 
       <div className="md:left-[280px] fixed inset-0 blur-lg">
         <Image src={photo.blurData} alt={`${photo.title} blur`} fill />
+        {/* 添加右上角的分享按钮 */}
+        <button
+          onClick={handleCapture}
+          className="absolute top-4 right-4 p-2 rounded-full bg-white shadow-md hover:bg-gray-100"
+        >
+          <Icons.share className="w-6 h-6 text-blue-500 z-50" />
+        </button>
       </div>
     </section>
   );

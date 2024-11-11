@@ -48,6 +48,7 @@
     "drizzle-zod": "^0.5.1",
     "framer-motion": "^11.2.12",
     "hono": "^4.4.8",
+    "html2canvas": "^1.4.1",
     "lucide-react": "^0.407.0",
     "mapbox-gl": "^3.4.0",
     "next": "14.2.4",
