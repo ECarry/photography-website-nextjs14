@@ -4,7 +4,8 @@ import photos from "./photos";
 import summary from "./summary";
 import user from "./user";
 
-export const runtime = "edge";
+// Revert to "edge" if planning on running on the edge
+export const runtime = "nodejs";
 
 const app = new Hono().basePath("/api");
 
