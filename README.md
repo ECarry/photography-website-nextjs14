@@ -72,8 +72,7 @@ Because Mapbox tokens are required for the client application to make requests t
 ### Add env variables
 
 ```.env.local
-UPLOADTHING_SECRET=
-UPLOADTHING_APP_ID=
+UPLOADTHING_TOKEN=
 ```
 
 If you don't already have a uploadthing secret key, [sign up](https://uploadthing.com/sign-in) and create one from the [dashboard](https://uploadthing.com/dashboard)!
