@@ -24,6 +24,7 @@ import {
   ChevronRight,
   Circle,
   Share,
+  ImageUp,
 } from "lucide-react";
 import { BiPhotoAlbum } from "react-icons/bi";
 
@@ -54,6 +55,6 @@ export const Icons = {
   chevronUp: ChevronUp,
   circle: Circle,
   chevronRight: ChevronRight,
-  share: Share,
+  share: ImageUp,
   close: X,
 };

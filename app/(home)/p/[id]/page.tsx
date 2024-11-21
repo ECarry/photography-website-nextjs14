@@ -15,6 +15,7 @@ import { cn } from "@/lib/utils";
 import { usePhotoId } from "@/hooks/use-photo-id";
 import html2canvas from "html2canvas"; // 引入 html2canvas
 import { useRef } from "react"; // 引入 useRef 来获取 div 引用
+import ShareButton from "../../_components/share-button";
 
 const PhotoPage = () => {
   const photoId = usePhotoId();
@@ -129,7 +130,7 @@ const PhotoPage = () => {
               <img
                 src={screenshot}
                 alt="screenshot"
-                className="max-w-full max-h-full"
+                className="w-auto max-h-[80dvh]"
               />
             </div>
           </div>
@@ -138,14 +139,9 @@ const PhotoPage = () => {
 
       <div className="md:left-[280px] fixed inset-0 blur-lg">
         <Image src={photo.blurData} alt={`${photo.title} blur`} fill />
-        {/* 添加右上角的分享按钮 */}
-        <button
-          onClick={handleCapture}
-          className="absolute top-4 right-4 p-2 rounded-full bg-white shadow-md hover:bg-gray-100"
-        >
-          <Icons.share className="w-6 h-6 text-blue-500 z-50" />
-        </button>
       </div>
+
+      <ShareButton onClick={handleCapture} />
     </section>
   );
 };
