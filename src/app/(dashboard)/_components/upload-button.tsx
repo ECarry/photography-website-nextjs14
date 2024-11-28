@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+// Internal UI Components
 import {
   Tooltip,
   TooltipContent,
@@ -8,14 +8,21 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Icons } from "@/components/icons";
+import { Button } from "@/components/ui/button";
+
+// Hooks
+import useNewPhoto from "@/features/photos/store/use-new-photo-sheet";
 
 const UploadButton = () => {
+  // Get new photo sheet state and handlers
+  const { onOpen } = useNewPhoto();
+
   return (
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>
           <Button
-            onClick={() => {}}
+            onClick={() => onOpen()}
             variant="outline"
             size="icon"
             className="rounded-full size-8"

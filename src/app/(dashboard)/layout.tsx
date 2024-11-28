@@ -1,3 +1,4 @@
+import ModalProvider from "@/components/providers/modal-provider";
 import Navbar from "./_components/navbar";
 import { Metadata } from "next";
 
@@ -12,7 +13,10 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div>
       <Navbar />
-      <main>{children}</main>
+      <main>
+        {children}
+        <ModalProvider />
+      </main>
     </div>
   );
 };
