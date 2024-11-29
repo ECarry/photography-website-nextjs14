@@ -1,7 +1,6 @@
 "use client";
 
 // External dependencies
-import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 // Internal dependencies - UI Components
@@ -23,47 +22,21 @@ import { PhotoFormData, photoSchema } from "../schema/new-photo-schema";
 // Internal dependencies - Hooks & Store
 import { useForm } from "react-hook-form";
 import useNewPhotoSheet from "../store/use-new-photo-sheet";
-import { FileUpload } from "@/components/ui/file-upload";
-import { type ExifData, ImageInfo } from "../utils";
+import { ImageUpload } from "./image-upload";
 
 const NewPhotoForm = () => {
   const { onClose } = useNewPhotoSheet();
-  const [exifData, setExifData] = useState<ExifData | null>(null);
 
   // Initialize form with default values
   const form = useForm<PhotoFormData>({
     resolver: zodResolver(photoSchema),
     defaultValues: {
       url: "",
+      title: "",
+      description: "",
+      isFavorite: false,
     },
   });
-
-  /**
-   * Handles file url from FileUpload component
-   */
-  const handleFileUrl = (data: {
-    url: string;
-    imageInfo?: ImageInfo;
-    exif?: ExifData;
-  }) => {
-    setExifData(null);
-    if (data.url) {
-      form.setValue("url", data.url);
-    }
-
-    if (data.imageInfo) {
-      console.log({
-        imageInfo: data.imageInfo,
-      });
-    }
-
-    if (data.exif) {
-      setExifData(data.exif);
-      console.log({
-        exif: data.exif,
-      });
-    }
-  };
 
   /**
    * Handles form submission
@@ -96,7 +69,7 @@ const NewPhotoForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <FileUpload value={field.value} onChange={handleFileUrl} />
+                <ImageUpload value={field.value} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -110,7 +83,7 @@ const NewPhotoForm = () => {
             <FormItem>
               <FormLabel>Title</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input placeholder="Enter photo title" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -124,18 +97,24 @@ const NewPhotoForm = () => {
             <FormItem>
               <FormLabel>Description</FormLabel>
               <FormControl>
-                <Textarea {...field} />
+                <Textarea
+                  placeholder="Enter photo description"
+                  className="resize-none"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
 
-        <Button type="submit" className="text-white w-full">
-          Submit
-        </Button>
+        <div className="flex justify-end space-x-2">
+          <Button type="button" variant="outline" onClick={onCloseSheet}>
+            Cancel
+          </Button>
+          <Button type="submit">Save</Button>
+        </div>
       </form>
-      {exifData && <pre>{JSON.stringify(exifData, null, 2)}</pre>}
     </Form>
   );
 };
