@@ -168,8 +168,13 @@ export function ImageUpload({ onChange, value, className }: ImageUploadProps) {
               src={url}
               alt="Preview"
               fill
-              sizes="(max-width: 640px) 50vw"
-              loading="lazy"
+              sizes="(max-width: 640px) 100vw, 
+                     (max-width: 1080px) 75vw,
+                     (max-width: 1200px) 50vw,
+                     33vw"
+              quality={85}
+              priority={true}
+              loading="eager"
               className={cn(
                 "object-contain",
                 isLoaded ? "opacity-100" : "opacity-0"
