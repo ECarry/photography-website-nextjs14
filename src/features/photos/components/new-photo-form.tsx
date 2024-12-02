@@ -83,7 +83,7 @@ const NewPhotoForm = () => {
             <FormItem>
               <FormLabel>Title</FormLabel>
               <FormControl>
-                <Input placeholder="Enter photo title" {...field} />
+                <Input placeholder="Enter photo title" autoFocus {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
