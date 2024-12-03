@@ -17,6 +17,7 @@ import { X } from "lucide-react";
 import { Blurhash } from "react-blurhash";
 import { useDropzone } from "react-dropzone";
 import { MdPhotoCamera, MdCenterFocusStrong } from "react-icons/md";
+import { Progress } from "@/components/ui/progress";
 import {
   PiBatteryHigh,
   PiPlusMinusFill,
@@ -41,6 +42,7 @@ export function ImageUpload({ onChange, value, className }: ImageUploadProps) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [exifData, setExifData] = useState<ExifData | null>(null);
   const [imageInfo, setImageInfo] = useState<ImageInfo | null>(null);
+  const [uploadProgress, setUploadProgress] = useState(0);
   const uploadPhoto = useUploadPhoto();
 
   // 重置组件状态
@@ -75,6 +77,9 @@ export function ImageUpload({ onChange, value, className }: ImageUploadProps) {
         // Upload file
         uploadPhoto.mutate({
           file,
+          onProgress: (progress) => {
+            setUploadProgress(progress);
+          },
           onSuccess: ({ publicUrl }) => {
             setUrl(publicUrl);
             onChange?.({ url: publicUrl, exif, imageInfo });
@@ -140,6 +145,18 @@ export function ImageUpload({ onChange, value, className }: ImageUploadProps) {
     return (
       <div className="relative aspect-video w-full bg-black group">
         <div className="relative h-full w-full">
+          {/* PROCESS BAR  */}
+          {uploadProgress > 0 && uploadProgress < 100 && (
+            <div className="absolute inset-0 flex items-center justify-center z-10">
+              <div className="w-20">
+                <Progress value={uploadProgress} className="h-2 bg-white" />
+                <div className="text-center text-sm text-white mt-1">
+                  {Math.round(uploadProgress)}%
+                </div>
+              </div>
+            </div>
+          )}
+
           {!isLoaded && (
             <Blurhash
               hash={imageInfo.blurhash}
