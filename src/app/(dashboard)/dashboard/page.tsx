@@ -1,9 +1,14 @@
-import React from 'react'
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
-const DashboardPage = () => {
-  return (
-    <div>DashboardPage</div>
-  )
-}
+const DashboardPage = async () => {
+  const session = await auth();
 
-export default DashboardPage
+  if (!session) {
+    return redirect("/sign-in");
+  }
+
+  return <div>DashboardPage</div>;
+};
+
+export default DashboardPage;
