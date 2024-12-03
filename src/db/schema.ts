@@ -8,6 +8,7 @@ import {
   integer,
 } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
+import { z } from "zod";
 
 export const users = pgTable("user", {
   id: text("id")
@@ -52,4 +53,14 @@ export const photos = pgTable("photos", {
   updateAt: timestamp("update_at").$onUpdate(() => new Date()),
 });
 
-export const insertPhotoSchema = createInsertSchema(photos);
+export const insertPhotoSchema = createInsertSchema(photos)
+  .extend({
+    dateTimeOriginal: z
+      .string()
+      .nullable()
+      .transform((val) => (val ? new Date(val) : null)),
+  })
+  .omit({
+    createAt: true,
+    updateAt: true,
+  });

@@ -24,10 +24,10 @@ const handleApiError = (error: unknown): never => {
  * Hook to create a new photo to the database
  * @returns {UseMutationResult} - The mutation result for creating a photo
  */
-export const useNewPhoto = () => {
+export const useCreatePhoto = () => {
   const queryClient = useQueryClient();
 
-  const mutation = useMutation<ResponseType, unknown, RequestType>({
+  const mutation = useMutation<ResponseType, Error, RequestType>({
     mutationFn: async (json) => {
       const formattedValues = {
         ...json,
@@ -54,38 +54,4 @@ export const useNewPhoto = () => {
   });
 
   return mutation;
-
-  //   mutationFn: async (values: z.infer<typeof insertPhotoSchema>) => {
-  //     const formattedValues = {
-  //       ...values,
-  //       dateTimeOriginal: values.dateTimeOriginal?.toISOString() ?? null,
-  //     };
-
-  //     try {
-  //       const response = await client.api.photos.$post({
-  //         json: formattedValues,
-  //       });
-
-  //       if (!response.ok) {
-  //         throw new Error("Failed to create photo");
-  //       }
-
-  //       const data = await response.json();
-
-  //       return data;
-  //     } catch (error) {
-  //       handleApiError(error);
-  //     }
-  //   },
-  //   onSuccess: () => {
-  //     queryClient.invalidateQueries({ queryKey: ["photos"] });
-  //     toast.success("Photo created successfully");
-  //   },
-  //   onError: (error) => {
-  //     console.error("Mutation error:", error);
-  //     toast.error(
-  //       error instanceof Error ? error.message : "Something went wrong"
-  //     );
-  //   },
-  // });
 };

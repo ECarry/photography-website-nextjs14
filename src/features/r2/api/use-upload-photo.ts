@@ -1,23 +1,36 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { client } from "@/lib/hono";
+import { InferResponseType } from "hono";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-interface UploadPhotoParams {
+type ResponseType = InferResponseType<(typeof client.api.r2)["$post"], 200>;
+type RequestType = {
   file: File;
   onSuccess?: (data: { publicUrl: string; filename: string }) => void;
   onProgress?: (progress: number) => void;
-}
+};
 
-interface UploadResponse {
-  publicUrl: string;
-  filename: string;
-}
+/**
+ * Helper function to handle API errors
+ * @param error - The error object caught in the try-catch block
+ * @throws {Error} - Throws an error with a descriptive message
+ */
+const handleApiError = (error: unknown): never => {
+  if (error instanceof Error) {
+    throw new Error(`API Error: ${error.message}`);
+  }
+  throw new Error("An unknown error occurred");
+};
 
+/**
+ * Hook to upload a photo to R2
+ * @returns {UseMutationResult} - The mutation result for uploading a photo
+ */
 export const useUploadPhoto = () => {
   const queryClient = useQueryClient();
 
-  return useMutation({
-    mutationFn: async ({ file, onProgress }: UploadPhotoParams) => {
+  const mutation = useMutation<ResponseType["data"], Error, RequestType>({
+    mutationFn: async ({ file, onProgress }) => {
       try {
         console.log("Starting upload process...");
         // 1. 获取预签名 URL
@@ -38,7 +51,7 @@ export const useUploadPhoto = () => {
         console.log("Got presigned URL:", data.uploadUrl);
 
         // 2. 使用预签名 URL 上传到 R2，使用 XMLHttpRequest 来获取进度
-        return new Promise<UploadResponse>((resolve, reject) => {
+        return new Promise((resolve, reject) => {
           const xhr = new XMLHttpRequest();
 
           xhr.upload.addEventListener("progress", (event) => {
@@ -54,6 +67,7 @@ export const useUploadPhoto = () => {
               resolve({
                 publicUrl: data.publicUrl,
                 filename: data.filename,
+                uploadUrl: data.uploadUrl,
               });
             } else {
               reject(new Error("Failed to upload file to R2"));
@@ -79,10 +93,12 @@ export const useUploadPhoto = () => {
       onSuccess?.(data);
     },
     onError: (error) => {
-      console.error("Mutation error:", error);
+      handleApiError(error);
       toast.error(
         error instanceof Error ? error.message : "Something went wrong"
       );
     },
   });
+
+  return mutation;
 };

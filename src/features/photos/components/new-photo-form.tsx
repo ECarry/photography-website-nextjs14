@@ -25,13 +25,13 @@ import useNewPhotoSheet from "../store/use-new-photo-sheet";
 import { ImageUpload } from "../../r2/components/image-upload";
 import { useState } from "react";
 import type { ExifData, ImageInfo } from "../utils";
-import { useNewPhoto } from "../api/use-new-photo";
+import { useCreatePhoto } from "../api/use-create-photo";
 
 const NewPhotoForm = () => {
   const { onClose } = useNewPhotoSheet();
   const [exif, setExif] = useState<ExifData | null>(null);
   const [imageInfo, setImageInfo] = useState<ImageInfo>();
-  const newPhoto = useNewPhoto();
+  const createPhoto = useCreatePhoto();
 
   // Initialize form with default values
   const form = useForm<PhotoFormData>({
@@ -75,7 +75,7 @@ const NewPhotoForm = () => {
     };
 
     try {
-      newPhoto.mutate(data, {
+      createPhoto.mutate(data, {
         onSuccess: () => {
           onCloseSheet();
         },

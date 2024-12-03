@@ -1,11 +1,15 @@
 import { Hono } from "hono";
-import { zValidator } from "@hono/zod-validator";
-import { verifyAuth } from "@hono/auth-js";
 import { db } from "@/db/drizzle";
-import { insertPhotoSchema, photos } from "@/db/schema";
 import { desc } from "drizzle-orm";
+import { verifyAuth } from "@hono/auth-js";
+import { zValidator } from "@hono/zod-validator";
+import { insertPhotoSchema, photos } from "@/db/schema";
 
 const app = new Hono()
+  /**
+   * GET /photos
+   * Get all photos from the database
+   */
   .get("/", async (c) => {
     const data = await db
       .select()

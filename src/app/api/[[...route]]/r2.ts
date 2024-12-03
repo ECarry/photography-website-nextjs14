@@ -43,6 +43,12 @@ const getPublicUrl = cache((filename: string) => {
   return `${publicUrl}/photos/${filename}`;
 });
 
+/**
+ * TODO:
+ *  DELETE: Delete photo cloudflare r2
+ *
+ */
+
 // Create a new Hono app instance and define the upload route
 const app = new Hono().post(
   "/",

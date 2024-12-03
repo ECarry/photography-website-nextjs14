@@ -17,14 +17,10 @@ export interface ExifData {
   dateTimeOriginal?: Date;
 }
 
-export interface ImageMetadata {
+export interface ImageInfo {
   width: number;
   height: number;
   aspectRatio: number;
-}
-
-export interface ImageInfo {
-  metadata: ImageMetadata;
   blurhash: string;
 }
 
@@ -105,24 +101,26 @@ export const getPhotoExif = async (file: File): Promise<ExifData | null> => {
  * @param file Photo file
  * @returns Image metadata and blurhash
  */
-export const getImageInfo = async (file: File): Promise<ImageInfo | null> => {
+export const getImageInfo = async (file: File): Promise<ImageInfo> => {
+  if (!file) {
+    throw new Error("No file provided");
+  }
+
+  if (!file.type.startsWith("image/")) {
+    throw new Error("Invalid file type. Only images are allowed");
+  }
+
   try {
     const img = await loadImage(file);
-
-    // generate metadata
-    const metadata: ImageMetadata = {
-      width: img.width,
-      height: img.height,
-      aspectRatio: Number((img.width / img.height).toFixed(2)),
-    };
-
     // generate blurhash
     const canvas = document.createElement("canvas");
     canvas.width = 32;
     canvas.height = 32;
 
     const ctx = canvas.getContext("2d");
-    if (!ctx) throw new Error("Could not get canvas context");
+    if (!ctx) {
+      throw new Error("Failed to get canvas context");
+    }
 
     ctx.drawImage(img, 0, 0, 32, 32);
     const imageData = ctx.getImageData(0, 0, 32, 32);
@@ -135,15 +133,25 @@ export const getImageInfo = async (file: File): Promise<ImageInfo | null> => {
       4
     );
 
+    if (!blurhash) {
+      throw new Error("Failed to generate blurhash");
+    }
+
+    const imageInfo: ImageInfo = {
+      width: img.width,
+      height: img.height,
+      aspectRatio: Number((img.width / img.height).toFixed(2)),
+      blurhash,
+    };
+
     // cleanup
     URL.revokeObjectURL(img.src);
 
-    return {
-      metadata,
-      blurhash,
-    };
+    return imageInfo;
   } catch (error) {
-    console.error("Error processing image:", error);
-    return null;
+    if (error instanceof Error) {
+      throw error;
+    }
+    throw new Error("Failed to process image: " + String(error));
   }
 };
