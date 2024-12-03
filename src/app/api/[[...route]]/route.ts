@@ -4,6 +4,7 @@ import { AuthConfig, authHandler, initAuthConfig } from "@hono/auth-js";
 import authConfig from "@/auth.config";
 import users from "./users";
 import photos from "./photos";
+import r2 from "./r2";
 
 function getAuthConfig(): AuthConfig {
   return {
@@ -20,7 +21,10 @@ app.use("*", initAuthConfig(getAuthConfig));
 app.use("/auth/*", authHandler());
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const routes = app.route("/users", users).route("/photos", photos);
+const routes = app
+  .route("/users", users)
+  .route("/photos", photos)
+  .route("/r2", r2);
 
 export const GET = handle(app);
 export const POST = handle(app);

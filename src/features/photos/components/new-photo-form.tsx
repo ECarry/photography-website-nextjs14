@@ -22,10 +22,14 @@ import { PhotoFormData, photoSchema } from "../schema/new-photo-schema";
 // Internal dependencies - Hooks & Store
 import { useForm } from "react-hook-form";
 import useNewPhotoSheet from "../store/use-new-photo-sheet";
-import { ImageUpload } from "./image-upload";
+import { ImageUpload } from "../../r2/components/image-upload";
+import { useState } from "react";
+import type { ExifData, ImageInfo } from "../utils";
 
 const NewPhotoForm = () => {
   const { onClose } = useNewPhotoSheet();
+  const [exif, setExif] = useState<ExifData | null>(null);
+  const [imageInfo, setImageInfo] = useState<ImageInfo | null>(null);
 
   // Initialize form with default values
   const form = useForm<PhotoFormData>({
@@ -34,7 +38,6 @@ const NewPhotoForm = () => {
       url: "",
       title: "",
       description: "",
-      isFavorite: false,
     },
   });
 
@@ -43,12 +46,13 @@ const NewPhotoForm = () => {
    * @param {PhotoFormData} values - Form data to be submitted
    */
   const onSubmit = (values: PhotoFormData) => {
-    console.log(values);
-    try {
-      onCloseSheet();
-    } catch (error) {
-      console.log(error);
-    }
+    console.log(values, exif, imageInfo);
+
+    // try {
+    //   onCloseSheet();
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   /**
@@ -69,7 +73,14 @@ const NewPhotoForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <ImageUpload value={field.value} />
+                <ImageUpload
+                  value={field.value}
+                  onChange={({ url, exif, imageInfo }) => {
+                    form.setValue("url", url);
+                    setExif(exif);
+                    setImageInfo(imageInfo);
+                  }}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

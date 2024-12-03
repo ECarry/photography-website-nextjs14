@@ -1,30 +1,37 @@
 "use client";
 
-import React, { useCallback, useState } from "react";
-import { useDropzone } from "react-dropzone";
+// External dependencies
 import Image from "next/image";
-import { useUploadPhoto } from "../api/use-upload-photo";
+import { useCallback, useState } from "react";
 import { cn, formatExposureTime } from "@/lib/utils";
 import {
   getPhotoExif,
   type ExifData,
   getImageInfo,
   type ImageInfo,
-} from "../utils";
-import { X } from "lucide-react";
-import { PhotoFormData } from "../schema/new-photo-schema";
+} from "../../photos/utils";
+
+// Internal dependencies - UI Components
 import { toast } from "sonner";
+import { X } from "lucide-react";
+import { Blurhash } from "react-blurhash";
+import { useDropzone } from "react-dropzone";
 import { MdPhotoCamera, MdCenterFocusStrong } from "react-icons/md";
 import {
   PiBatteryHigh,
   PiPlusMinusFill,
   PiUserFocusDuotone,
 } from "react-icons/pi";
-import { Blurhash } from "react-blurhash";
+
+// Internal dependencies - Hooks & Store
+import { useUploadPhoto } from "../api/use-upload-photo";
 
 interface ImageUploadProps {
-  onUploadComplete?: (url: string) => void;
-  onChange?: (value: Partial<PhotoFormData>) => void;
+  onChange?: (data: {
+    url: string;
+    exif: ExifData | null;
+    imageInfo: ImageInfo | null;
+  }) => void;
   value?: string;
   className?: string;
 }
@@ -42,28 +49,7 @@ export function ImageUpload({ onChange, value, className }: ImageUploadProps) {
     setIsLoaded(false);
     setExifData(null);
     setImageInfo(null);
-    if (onChange) {
-      onChange({
-        url: "",
-        width: undefined,
-        height: undefined,
-        aspectRatio: undefined,
-        blurData: undefined,
-        make: undefined,
-        model: undefined,
-        lensModel: undefined,
-        focalLength: undefined,
-        focalLength35mm: undefined,
-        fNumber: undefined,
-        iso: undefined,
-        exposureTime: undefined,
-        exposureCompensation: undefined,
-        gapLatitude: undefined,
-        gapLongitude: undefined,
-        gpsAltitude: undefined,
-        dateTimeOriginal: undefined,
-      });
-    }
+    onChange?.({ url: "", exif: null, imageInfo: null });
   }, [onChange]);
 
   const onDrop = useCallback(
@@ -77,13 +63,13 @@ export function ImageUpload({ onChange, value, className }: ImageUploadProps) {
       if (!file) return;
 
       try {
-        // Extract EXIF data
-        const exif = await getPhotoExif(file);
-        setExifData(exif);
+        const [exif, imageInfo] = await Promise.all([
+          getPhotoExif(file),
+          getImageInfo(file),
+        ]);
 
-        // Get image info including blurhash
-        const info = await getImageInfo(file);
-        setImageInfo(info);
+        setExifData(exif);
+        setImageInfo(imageInfo);
         setIsLoaded(false);
 
         // Upload file
@@ -91,6 +77,7 @@ export function ImageUpload({ onChange, value, className }: ImageUploadProps) {
           file,
           onSuccess: ({ publicUrl }) => {
             setUrl(publicUrl);
+            onChange?.({ url: publicUrl, exif, imageInfo });
           },
         });
       } catch (error) {
@@ -98,7 +85,7 @@ export function ImageUpload({ onChange, value, className }: ImageUploadProps) {
         resetState();
       }
     },
-    [uploadPhoto, resetState]
+    [uploadPhoto, onChange, resetState]
   );
 
   const { getRootProps, getInputProps, isDragActive, isDragReject } =

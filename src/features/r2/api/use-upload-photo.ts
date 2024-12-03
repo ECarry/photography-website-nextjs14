@@ -27,7 +27,7 @@ export const useUploadPhoto = () => {
         });
 
         // 1. 获取预签名 URL
-        const response = await client.api.photos.upload.$post({
+        const response = await client.api.r2.$post({
           json: {
             filename: file.name,
             contentType: file.type,
