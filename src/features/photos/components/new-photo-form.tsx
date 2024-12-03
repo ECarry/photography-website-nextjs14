@@ -25,11 +25,13 @@ import useNewPhotoSheet from "../store/use-new-photo-sheet";
 import { ImageUpload } from "../../r2/components/image-upload";
 import { useState } from "react";
 import type { ExifData, ImageInfo } from "../utils";
+import { useNewPhoto } from "../api/use-new-photo";
 
 const NewPhotoForm = () => {
   const { onClose } = useNewPhotoSheet();
   const [exif, setExif] = useState<ExifData | null>(null);
-  const [imageInfo, setImageInfo] = useState<ImageInfo | null>(null);
+  const [imageInfo, setImageInfo] = useState<ImageInfo>();
+  const newPhoto = useNewPhoto();
 
   // Initialize form with default values
   const form = useForm<PhotoFormData>({
@@ -46,13 +48,41 @@ const NewPhotoForm = () => {
    * @param {PhotoFormData} values - Form data to be submitted
    */
   const onSubmit = (values: PhotoFormData) => {
-    console.log(values, exif, imageInfo);
+    if (!exif || !imageInfo) {
+      return;
+    }
+    const data = {
+      url: values.url,
+      title: values.title,
+      description: values.description,
+      aspectRatio: imageInfo.aspectRatio,
+      width: imageInfo.width,
+      height: imageInfo.height,
+      blurData: imageInfo.blurhash,
+      make: exif?.make,
+      model: exif?.model,
+      lensModel: exif?.lensModel,
+      focalLength: exif?.focalLength,
+      focalLength35mm: exif?.focalLength35mm,
+      fNumber: exif?.fNumber,
+      iso: exif?.iso,
+      exposureTime: exif?.exposureTime,
+      exposureCompensation: exif?.exposureCompensation,
+      gapLatitude: exif?.gapLatitude,
+      gapLongitude: exif?.gapLongitude,
+      gpsAltitude: exif?.gpsAltitude,
+      dateTimeOriginal: exif?.dateTimeOriginal?.toString() ?? null,
+    };
 
-    // try {
-    //   onCloseSheet();
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    try {
+      newPhoto.mutate(data, {
+        onSuccess: () => {
+          onCloseSheet();
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   /**

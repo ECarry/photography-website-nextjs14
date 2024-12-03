@@ -11,7 +11,7 @@ import {
 import NewPhotoForm from "./new-photo-form";
 
 // Hooks
-import { useNewPhoto } from "../store/use-new-photo-sheet";
+import { useNewPhotoSheet } from "../store/use-new-photo-sheet";
 
 /**
  * NewPhotoSheet Component
@@ -22,7 +22,7 @@ import { useNewPhoto } from "../store/use-new-photo-sheet";
  */
 const NewPhotoSheet = () => {
   // Get new photo sheet state and handlers
-  const { isOpen, onClose } = useNewPhoto();
+  const { isOpen, onClose } = useNewPhotoSheet();
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>

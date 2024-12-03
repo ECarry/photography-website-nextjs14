@@ -31,7 +31,7 @@ interface ImageUploadProps {
   onChange?: (data: {
     url: string;
     exif: ExifData | null;
-    imageInfo: ImageInfo | null;
+    imageInfo: ImageInfo;
   }) => void;
   value?: string;
   className?: string;
@@ -41,7 +41,7 @@ export function ImageUpload({ onChange, value, className }: ImageUploadProps) {
   const [url, setUrl] = useState(value || "");
   const [isLoaded, setIsLoaded] = useState(false);
   const [exifData, setExifData] = useState<ExifData | null>(null);
-  const [imageInfo, setImageInfo] = useState<ImageInfo | null>(null);
+  const [imageInfo, setImageInfo] = useState<ImageInfo>();
   const [uploadProgress, setUploadProgress] = useState(0);
   const uploadPhoto = useUploadPhoto();
 
@@ -50,9 +50,8 @@ export function ImageUpload({ onChange, value, className }: ImageUploadProps) {
     setUrl("");
     setIsLoaded(false);
     setExifData(null);
-    setImageInfo(null);
-    onChange?.({ url: "", exif: null, imageInfo: null });
-  }, [onChange]);
+    setImageInfo(undefined);
+  }, []);
 
   const onDrop = useCallback(
     async (acceptedFiles: File[], rejectedFiles: unknown[]) => {

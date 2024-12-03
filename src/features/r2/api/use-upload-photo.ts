@@ -20,12 +20,6 @@ export const useUploadPhoto = () => {
     mutationFn: async ({ file, onProgress }: UploadPhotoParams) => {
       try {
         console.log("Starting upload process...");
-        console.log("File:", {
-          name: file.name,
-          type: file.type,
-          size: file.size,
-        });
-
         // 1. 获取预签名 URL
         const response = await client.api.r2.$post({
           json: {

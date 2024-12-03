@@ -37,7 +37,7 @@ const initialState: Omit<NewPhotoState, "onOpen" | "onClose"> = {
  * onClose();
  * ```
  */
-export const useNewPhoto = create<NewPhotoState>((set) => ({
+export const useNewPhotoSheet = create<NewPhotoState>((set) => ({
   ...initialState,
 
   /**
@@ -51,4 +51,4 @@ export const useNewPhoto = create<NewPhotoState>((set) => ({
   onClose: () => set({ ...initialState }),
 }));
 
-export default useNewPhoto;
+export default useNewPhotoSheet;
