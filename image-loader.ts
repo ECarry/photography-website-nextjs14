@@ -11,13 +11,16 @@ export default function cloudflareLoader({
   width: number;
   quality?: number;
 }) {
-  if (process.env.NODE_ENV === "development") {
-    return src;
-  }
   const params = [`width=${width}`];
   if (quality) {
     params.push(`quality=${quality}`);
   }
   const paramsString = params.join(",");
-  return `/cdn-cgi/image/${paramsString}/${normalizeSrc(src)}`;
+
+  const baseUrl =
+    process.env.NODE_ENV === "development"
+      ? ""
+      : "https://photograph.ecarry.uk";
+
+  return `${baseUrl}/cdn-cgi/image/${paramsString}/${normalizeSrc(src)}`;
 }
