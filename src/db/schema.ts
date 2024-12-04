@@ -44,8 +44,8 @@ export const photos = pgTable("photos", {
   iso: integer("iso"),
   exposureTime: real("exposure_time"),
   exposureCompensation: real("exposure_compensation"),
-  gapLatitude: real("gps_latitude"),
-  gapLongitude: real("gps_longitude"),
+  gpsLatitude: real("gps_latitude"),
+  gpsLongitude: real("gps_longitude"),
   gpsAltitude: real("gps_altitude"),
   dateTimeOriginal: timestamp("datetime_original"),
 

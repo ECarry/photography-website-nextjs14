@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SessionProvider } from "next-auth/react";
 import { Toaster } from "@/components/ui/sonner";
+
 import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 
@@ -37,6 +38,7 @@ export default async function RootLayout({
             disableTransitionOnChange
           >
             <QueryProvider>{children}</QueryProvider>
+
             <Toaster />
             <TailwindIndicator />
           </ThemeProvider>
