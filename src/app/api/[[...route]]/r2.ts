@@ -5,7 +5,11 @@
  */
 
 import { Hono } from "hono";
-import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import {
+  S3Client,
+  PutObjectCommand,
+  DeleteObjectCommand,
+} from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
@@ -26,6 +30,11 @@ const s3Client = new S3Client({
 const uploadSchema = z.object({
   filename: z.string(),
   contentType: z.string(),
+});
+
+// Define the schema for delete request validation
+const deleteSchema = z.object({
+  filename: z.string(),
 });
 
 /**
@@ -50,72 +59,103 @@ const getPublicUrl = cache((filename: string) => {
  */
 
 // Create a new Hono app instance and define the upload route
-const app = new Hono().post(
-  "/",
-  verifyAuth(), // Ensure request is authenticated
-  zValidator("json", uploadSchema), // Validate request body
-  async (c) => {
-    // Get authentication token from request
-    const auth = c.get("authUser");
+const app = new Hono()
+  .post(
+    "/",
+    verifyAuth(), // Ensure request is authenticated
+    zValidator("json", uploadSchema), // Validate request body
+    async (c) => {
+      // Get authentication token from request
+      const auth = c.get("authUser");
 
-    // Check if user is authenticated
-    if (!auth.token?.id) {
-      return c.json({ success: false, error: "Unauthorized" }, 401);
-    }
+      // Check if user is authenticated
+      if (!auth.token?.id) {
+        return c.json({ success: false, error: "Unauthorized" }, 401);
+      }
 
-    try {
-      // Extract and validate file information from request
-      const { filename, contentType } = c.req.valid("json");
+      try {
+        // Extract and validate file information from request
+        const { filename, contentType } = c.req.valid("json");
 
-      // Define allowed file types (JPEG and PNG only)
-      const allowedMimeTypes = ["image/jpeg", "image/png"];
-      if (!allowedMimeTypes.includes(contentType)) {
+        // Define allowed file types (JPEG and PNG only)
+        const allowedMimeTypes = ["image/jpeg", "image/png"];
+        if (!allowedMimeTypes.includes(contentType)) {
+          return c.json(
+            {
+              success: false,
+              error:
+                "Invalid content type, only image/jpeg, image/png are allowed",
+            },
+            400
+          );
+        }
+
+        // Create S3 command for generating pre-signed URL
+        const command = new PutObjectCommand({
+          Bucket: process.env.CLOUDFLARE_R2_BUCKET_NAME,
+          Key: `photos/${filename}`,
+          ContentType: contentType,
+        });
+
+        // Generate pre-signed URL for direct upload (valid for 1 hour)
+        const url = await getSignedUrl(s3Client, command, {
+          expiresIn: 3600,
+        });
+
+        // Generate public URL for accessing the file after upload
+        const publicUrl = getPublicUrl(filename);
+
+        // Return successful response with upload and access URLs
+        return c.json({
+          success: true,
+          data: {
+            uploadUrl: url, // Temporary URL for uploading the file
+            publicUrl, // Permanent URL for accessing the file
+            filename, // Original filename
+          },
+        });
+      } catch (error) {
+        // Log and handle any errors during the process
+        console.error("Error generating presigned URL:", error);
         return c.json(
           {
             success: false,
-            error:
-              "Invalid content type, only image/jpeg, image/png are allowed",
+            error: "Failed to generate upload URL",
           },
-          400
+          500
         );
       }
-
-      // Create S3 command for generating pre-signed URL
-      const command = new PutObjectCommand({
-        Bucket: process.env.CLOUDFLARE_R2_BUCKET_NAME,
-        Key: `photos/${filename}`,
-        ContentType: contentType,
-      });
-
-      // Generate pre-signed URL for direct upload (valid for 1 hour)
-      const url = await getSignedUrl(s3Client, command, {
-        expiresIn: 3600,
-      });
-
-      // Generate public URL for accessing the file after upload
-      const publicUrl = getPublicUrl(filename);
-
-      // Return successful response with upload and access URLs
-      return c.json({
-        success: true,
-        data: {
-          uploadUrl: url, // Temporary URL for uploading the file
-          publicUrl, // Permanent URL for accessing the file
-          filename, // Original filename
-        },
-      });
-    } catch (error) {
-      // Log and handle any errors during the process
-      console.error("Error generating presigned URL:", error);
-      return c.json(
-        {
-          success: false,
-          error: "Failed to generate upload URL",
-        },
-        500
-      );
     }
-  }
-);
+  )
+  .delete(
+    "/delete",
+    verifyAuth(),
+    zValidator("json", deleteSchema),
+    async (c) => {
+      const auth = c.get("authUser");
+      const { filename } = c.req.valid("json");
+
+      if (!auth.token?.id) {
+        return c.json({ success: false, error: "Unauthorized" }, 401);
+      }
+
+      try {
+        const command = new DeleteObjectCommand({
+          Bucket: process.env.CLOUDFLARE_R2_BUCKET_NAME,
+          Key: `photos/${filename}`,
+        });
+
+        await s3Client.send(command);
+
+        return c.json({
+          success: true,
+          data: { filename },
+        });
+      } catch (error) {
+        console.error("Error deleting file:", error);
+        return c.json({ success: false, error: "Failed to delete file" }, 500);
+      }
+    }
+  );
 
 export default app;

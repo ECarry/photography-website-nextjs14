@@ -1,21 +1,23 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import * as mapboxgl from "mapbox-gl";
 import Map, {
   GeolocateControl,
   Layer,
+  LayerProps,
   MapRef,
   Marker,
   NavigationControl,
   Popup,
   Source,
 } from "react-map-gl";
-import type { LayerProps } from "react-map-gl";
+import MapboxGeocoder, {
+  type GeocoderOptions,
+} from "@mapbox/mapbox-gl-geocoder";
+// style css file
 import "mapbox-gl/dist/mapbox-gl.css";
-import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
-import type { GeocoderOptions } from "@mapbox/mapbox-gl-geocoder";
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
-import * as mapboxgl from "mapbox-gl";
 
 interface MapboxProps {
   id?: string;

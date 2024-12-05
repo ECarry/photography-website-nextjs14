@@ -26,6 +26,7 @@ import {
 
 // Internal dependencies - Hooks & Store
 import { useUploadPhoto } from "../api/use-upload-photo";
+import { useDeletePhoto } from "../api/use-delete-photo";
 
 interface ImageUploadProps {
   onChange?: (data: {
@@ -44,6 +45,7 @@ export function ImageUpload({ onChange, value, className }: ImageUploadProps) {
   const [imageInfo, setImageInfo] = useState<ImageInfo>();
   const [uploadProgress, setUploadProgress] = useState(0);
   const uploadPhoto = useUploadPhoto();
+  const removePhoto = useDeletePhoto();
 
   // 重置组件状态
   const resetState = useCallback(() => {
@@ -51,7 +53,17 @@ export function ImageUpload({ onChange, value, className }: ImageUploadProps) {
     setIsLoaded(false);
     setExifData(null);
     setImageInfo(undefined);
-  }, []);
+    const filename = url.split("/").pop();
+
+    if (!filename) {
+      toast.error("Filename not uploaded.");
+      return;
+    }
+
+    removePhoto.mutate({
+      filename,
+    });
+  }, [removePhoto, url]);
 
   const onDrop = useCallback(
     async (acceptedFiles: File[], rejectedFiles: unknown[]) => {

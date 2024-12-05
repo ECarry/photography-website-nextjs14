@@ -12,18 +12,32 @@ import { useState } from "react";
 import { Blurhash } from "react-blurhash";
 import { cn } from "@/lib/utils";
 
+// hooks
+import { useConfirm } from "@/hooks/use-confirm";
+import { useDeletePhoto } from "@/features/photos/api/use-delete-photo";
+import { useDeletePhoto as useDeleteR2File } from "@/features/r2/api/use-delete-photo";
+import { toast } from "sonner";
+
 export type Photo = InferResponseType<
   typeof client.api.photos.$get,
   200
 >["data"][0];
 
 const PhotoCard = ({ photo }: { photo: Photo }) => {
-  const [isLoaded, setIsLoaded] = useState(false);
   const router = useRouter();
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  const [ConfirmDialog, confirm] = useConfirm(
+    "Are you sure?",
+    "You are about to delete this photo. This action cannot be undone."
+  );
+
+  const removeMutation = useDeletePhoto();
+  const removeR2Mutation = useDeleteR2File();
+
   const { photosMap } = useMap();
 
   const handlePhotoClick = () => {
-    console.log("handlePhotoClick", photo);
     if (photo.gpsLongitude && photo.gpsLatitude) {
       photosMap?.flyTo({
         center: [photo.gpsLongitude, photo.gpsLatitude],
@@ -32,8 +46,24 @@ const PhotoCard = ({ photo }: { photo: Photo }) => {
     }
   };
 
+  const onDelete = async () => {
+    const filename = photo.url.split("/").pop();
+    if (!filename) {
+      toast.error("Filename not found");
+      return;
+    }
+
+    const ok = await confirm();
+
+    if (ok) {
+      removeMutation.mutate({ id: photo.id });
+      removeR2Mutation.mutate({ filename });
+    }
+  };
+
   return (
     <div className="relative">
+      <ConfirmDialog />
       <AspectRatio
         ratio={4 / 5}
         className="bg-muted rounded-xl overflow-hidden"
@@ -106,7 +136,7 @@ const PhotoCard = ({ photo }: { photo: Photo }) => {
             </Button>
 
             <Button
-              onClick={() => {}}
+              onClick={onDelete}
               size="sm"
               className="w-full backdrop-blur bg-white/10 hover:bg-white/15"
             >
