@@ -19,8 +19,8 @@ export const photoSchema = z.object({
   // iso: z.number().optional(),
   // exposureTime: z.number().optional(),
   // exposureCompensation: z.number().optional(),
-  // gapLatitude: z.number().optional(),
-  // gapLongitude: z.number().optional(),
+  gpsLatitude: z.number().optional(),
+  gpsLongitude: z.number().optional(),
   // gpsAltitude: z.number().optional(),
   // dateTimeOriginal: z.string().optional(),
 });

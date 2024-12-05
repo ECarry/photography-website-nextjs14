@@ -11,8 +11,8 @@ export interface ExifData {
   iso?: number;
   exposureTime?: number;
   exposureCompensation?: number;
-  gapLatitude?: number;
-  gapLongitude?: number;
+  gpsLatitude?: number;
+  gpsLongitude?: number;
   gpsAltitude?: number;
   dateTimeOriginal?: Date;
 }
@@ -81,8 +81,8 @@ export const getPhotoExif = async (file: File): Promise<ExifData | null> => {
         typeof ExposureCompensation === "number"
           ? ExposureCompensation
           : undefined,
-      gapLatitude: typeof GPSLatitude === "number" ? GPSLatitude : undefined,
-      gapLongitude: typeof GPSLongitude === "number" ? GPSLongitude : undefined,
+      gpsLatitude: typeof GPSLatitude === "number" ? GPSLatitude : undefined,
+      gpsLongitude: typeof GPSLongitude === "number" ? GPSLongitude : undefined,
       gpsAltitude: typeof GPSAltitude === "number" ? GPSAltitude : undefined,
       dateTimeOriginal: DateTimeOriginal
         ? new Date(DateTimeOriginal * 1000)

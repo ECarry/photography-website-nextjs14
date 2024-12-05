@@ -1,10 +1,21 @@
 "use client";
 
-import Mapbox from "@/components/map";
+import dynamic from "next/dynamic";
 import { MapProvider } from "react-map-gl";
 import PhotoList from "../_components/photo-list";
+import { Suspense } from "react";
 
-const page = () => {
+// Lazy load Mapbox component
+const MapboxComponent = dynamic(() => import("@/components/map"), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-full flex items-center justify-center bg-muted">
+      <div className="text-muted-foreground">Loading map...</div>
+    </div>
+  ),
+});
+
+const Page = () => {
   return (
     <MapProvider>
       <div className="flex">
@@ -20,19 +31,27 @@ const page = () => {
 
         {/* Right Content */}
         <div className="lg:w-5/12 w-full h-[calc(100vh-61px)] hidden lg:block bg-muted sticky top-[61px]">
-          <Mapbox
-            id="photosMap"
-            initialViewState={{
-              longitude: 116.4074,
-              latitude: 39.9042,
-              zoom: 10,
-            }}
-            showGeocoder
-          />
+          <Suspense
+            fallback={
+              <div className="w-full h-full flex items-center justify-center">
+                <div className="text-muted-foreground">Loading map...</div>
+              </div>
+            }
+          >
+            <MapboxComponent
+              id="photosMap"
+              initialViewState={{
+                longitude: 116.4074,
+                latitude: 39.9042,
+                zoom: 10,
+              }}
+              showGeocoder
+            />
+          </Suspense>
         </div>
       </div>
     </MapProvider>
   );
 };
 
-export default page;
+export default Page;
