@@ -79,23 +79,34 @@ const NewPhotoForm = () => {
     // Don't get current location if we already have EXIF data with coordinates
     if ("geolocation" in navigator && !exif?.latitude && !exif?.longitude) {
       const timeoutId = setTimeout(() => {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            const newLocation = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude,
-            };
-            setCurrentLocation(newLocation);
+        try {
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              const newLocation = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+              };
+              setCurrentLocation(newLocation);
 
-            // Only update form if no EXIF data
-            form.setValue("latitude", newLocation.lat);
-            form.setValue("longitude", newLocation.lng);
-          },
-          (error) => {
-            console.error("Error getting location:", error);
-          }
-        );
-      }, 500); // Delay geolocation request
+              // Only update form if no EXIF data
+              form.setValue("latitude", newLocation.lat);
+              form.setValue("longitude", newLocation.lng);
+            },
+            (error) => {
+              console.warn("Unable to get location:", error.message);
+              // Keep using default location (Beijing coordinates)
+            },
+            {
+              timeout: 5000,
+              maximumAge: 0,
+              enableHighAccuracy: false,
+            }
+          );
+        } catch (error) {
+          console.warn("Geolocation error:", error);
+          // Keep using default location (Beijing coordinates)
+        }
+      }, 500);
 
       return () => clearTimeout(timeoutId);
     }
