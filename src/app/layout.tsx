@@ -30,6 +30,14 @@ export default async function RootLayout({
   return (
     <SessionProvider session={session}>
       <html lang="en" suppressHydrationWarning>
+        {/* REACT SCAN  */}
+        <head>
+          <script
+            src="https://unpkg.com/react-scan/dist/auto.global.js"
+            async
+          />
+          {/* rest of your scripts go under */}
+        </head>
         <body className={`${readex.className} antialiased`}>
           <ThemeProvider
             attribute="class"

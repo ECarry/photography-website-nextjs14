@@ -2,9 +2,12 @@ import { Hono } from "hono";
 import { handle } from "hono/vercel";
 import { AuthConfig, authHandler, initAuthConfig } from "@hono/auth-js";
 import authConfig from "@/auth.config";
+
+// routes
+import r2 from "./r2";
+import map from "./map";
 import users from "./users";
 import photos from "./photos";
-import r2 from "./r2";
 
 function getAuthConfig(): AuthConfig {
   return {
@@ -24,7 +27,8 @@ app.use("/auth/*", authHandler());
 const routes = app
   .route("/users", users)
   .route("/photos", photos)
-  .route("/r2", r2);
+  .route("/r2", r2)
+  .route("/map", map);
 
 export const GET = handle(app);
 export const POST = handle(app);

@@ -29,6 +29,7 @@ import { useForm, useWatch } from "react-hook-form";
 import { useEffect, useState, useMemo } from "react";
 import useNewPhotoSheet from "../store/use-new-photo-sheet";
 import { useCreatePhoto } from "../api/use-create-photo";
+import { useGetLocation } from "@/features/map/api/use-get-location";
 
 const MapboxComponent = dynamic(() => import("@/components/map"), {
   ssr: false,
@@ -52,7 +53,13 @@ const NewPhotoForm = () => {
     lng: 116.4074,
   });
 
-  const createPhoto = useCreatePhoto();
+  const { mutate: createPhoto, isPending: isCreating } = useCreatePhoto();
+  const { data: location, isPending: isLocationPending } = useGetLocation({
+    lat: String(currentLocation.lat),
+    lng: String(currentLocation.lng),
+  });
+
+  const isDisabled = isCreating || isLocationPending;
 
   // Initialize form with default values
   const form = useForm<PhotoFormData>({
@@ -61,14 +68,16 @@ const NewPhotoForm = () => {
       url: "",
       title: "",
       description: "",
-      gpsLatitude: exif?.gpsLatitude ?? currentLocation.lat,
-      gpsLongitude: exif?.gpsLongitude ?? currentLocation.lng,
+      fullAddress: "",
+      latitude: currentLocation.lat,
+      longitude: currentLocation.lng,
     },
   });
 
   // Get current location in background
   useEffect(() => {
-    if ("geolocation" in navigator) {
+    // Don't get current location if we already have EXIF data with coordinates
+    if ("geolocation" in navigator && !exif?.latitude && !exif?.longitude) {
       const timeoutId = setTimeout(() => {
         navigator.geolocation.getCurrentPosition(
           (position) => {
@@ -79,10 +88,8 @@ const NewPhotoForm = () => {
             setCurrentLocation(newLocation);
 
             // Only update form if no EXIF data
-            if (!exif?.gpsLatitude && !exif?.gpsLongitude) {
-              form.setValue("gpsLatitude", newLocation.lat);
-              form.setValue("gpsLongitude", newLocation.lng);
-            }
+            form.setValue("latitude", newLocation.lat);
+            form.setValue("longitude", newLocation.lng);
           },
           (error) => {
             console.error("Error getting location:", error);
@@ -95,13 +102,38 @@ const NewPhotoForm = () => {
   }, [exif, form]);
 
   // Watch form values
-  const { gpsLatitude, gpsLongitude } = useWatch({
+  const { latitude, longitude } = useWatch({
     control: form.control,
     defaultValue: {
-      gpsLatitude: currentLocation.lat,
-      gpsLongitude: currentLocation.lng,
+      latitude: currentLocation.lat,
+      longitude: currentLocation.lng,
     },
   });
+
+  // Update location data when coordinates change
+  useEffect(() => {
+    if (latitude && longitude) {
+      // Reset the address while loading
+      form.setValue("fullAddress", "Loading address...");
+      setCurrentLocation({
+        lat: latitude,
+        lng: longitude,
+      });
+    }
+  }, [latitude, longitude, form]);
+
+  // Update form when location data is available
+  useEffect(() => {
+    if (location?.features[0]?.properties.full_address) {
+      form.setValue(
+        "fullAddress",
+        location.features[0].properties.full_address
+      );
+      console.log({
+        location: location.features[0].properties.context.country.country_code,
+      });
+    }
+  }, [location, form]);
 
   // Memoize map values to reduce re-renders
   const mapValues = useMemo(() => {
@@ -109,17 +141,17 @@ const NewPhotoForm = () => {
       markers: [
         {
           id: "location",
-          longitude: gpsLongitude || currentLocation.lng,
-          latitude: gpsLatitude || currentLocation.lat,
+          longitude: longitude || currentLocation.lng,
+          latitude: latitude || currentLocation.lat,
         },
       ],
       initialViewState: {
-        longitude: gpsLongitude || currentLocation.lng,
-        latitude: gpsLatitude || currentLocation.lat,
-        zoom: 10,
+        longitude: longitude || currentLocation.lng,
+        latitude: latitude || currentLocation.lat,
+        zoom: 2,
       },
     };
-  }, [gpsLatitude, gpsLongitude, currentLocation.lat, currentLocation.lng]);
+  }, [latitude, longitude, currentLocation.lat, currentLocation.lng]);
 
   /**
    * Handles form submission
@@ -129,6 +161,7 @@ const NewPhotoForm = () => {
     if (!exif || !imageInfo) {
       return;
     }
+
     const data = {
       url: values.url,
       title: values.title,
@@ -146,14 +179,23 @@ const NewPhotoForm = () => {
       iso: exif?.iso,
       exposureTime: exif?.exposureTime,
       exposureCompensation: exif?.exposureCompensation,
-      gpsLatitude: exif?.gpsLatitude ?? values.gpsLatitude,
-      gpsLongitude: exif?.gpsLongitude ?? values.gpsLongitude,
+      latitude: exif?.latitude ?? values.latitude,
+      longitude: exif?.longitude ?? values.longitude,
       gpsAltitude: exif?.gpsAltitude,
       dateTimeOriginal: exif?.dateTimeOriginal?.toString() ?? null,
+      country: location?.features[0].properties.context.country?.name,
+      countryCode:
+        location?.features[0].properties.context.country?.country_code,
+      region: location?.features[0].properties.context.region?.name,
+      city: location?.features[0].properties.context.place?.name,
+      district: location?.features[0].properties.context.locality?.name,
+
+      fullAddress: location?.features[0].properties.full_address,
+      placeFormatted: location?.features[0].properties.place_formatted,
     };
 
     try {
-      createPhoto.mutate(data, {
+      createPhoto(data, {
         onSuccess: () => {
           onCloseSheet();
         },
@@ -185,6 +227,11 @@ const NewPhotoForm = () => {
                   value={field.value}
                   onChange={({ url, exif, imageInfo }) => {
                     form.setValue("url", url);
+                    if (exif) {
+                      form.setValue("latitude", exif.latitude);
+                      form.setValue("longitude", exif.longitude);
+                    }
+
                     setExif(exif);
                     setImageInfo(imageInfo);
                   }}
@@ -202,7 +249,12 @@ const NewPhotoForm = () => {
             <FormItem>
               <FormLabel>Title</FormLabel>
               <FormControl>
-                <Input placeholder="Enter photo title" autoFocus {...field} />
+                <Input
+                  disabled={isDisabled}
+                  placeholder="Enter photo title"
+                  autoFocus
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -217,6 +269,7 @@ const NewPhotoForm = () => {
               <FormLabel>Description</FormLabel>
               <FormControl>
                 <Textarea
+                  disabled={isDisabled}
                   placeholder="Enter photo description"
                   className="resize-none"
                   {...field}
@@ -232,12 +285,13 @@ const NewPhotoForm = () => {
           <div className="grid grid-cols-2 gap-4">
             <FormField
               control={form.control}
-              name="gpsLatitude"
+              name="latitude"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Latitude</FormLabel>
                   <FormControl>
                     <Input
+                      disabled={isDisabled}
                       type="number"
                       step="any"
                       placeholder="Latitude"
@@ -253,12 +307,13 @@ const NewPhotoForm = () => {
             />
             <FormField
               control={form.control}
-              name="gpsLongitude"
+              name="longitude"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Longitude</FormLabel>
                   <FormControl>
                     <Input
+                      disabled={isDisabled}
                       type="number"
                       step="any"
                       placeholder="Longitude"
@@ -293,8 +348,8 @@ const NewPhotoForm = () => {
                     markers={mapValues.markers}
                     initialViewState={mapValues.initialViewState}
                     onMarkerDragEnd={(data) => {
-                      form.setValue("gpsLatitude", data.lat);
-                      form.setValue("gpsLongitude", data.lng);
+                      form.setValue("latitude", data.lat);
+                      form.setValue("longitude", data.lng);
                     }}
                   />
                 </Suspense>
@@ -306,11 +361,32 @@ const NewPhotoForm = () => {
           </FormItem>
         </div>
 
+        <FormField
+          control={form.control}
+          name="fullAddress"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Full Address</FormLabel>
+              <FormControl>
+                <Input disabled {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         <div className="flex justify-end space-x-2">
-          <Button type="button" variant="outline" onClick={onCloseSheet}>
+          <Button
+            disabled={isDisabled}
+            type="button"
+            variant="outline"
+            onClick={onCloseSheet}
+          >
             Cancel
           </Button>
-          <Button type="submit">Save</Button>
+          <Button disabled={isDisabled} type="submit">
+            Save
+          </Button>
         </div>
       </form>
     </Form>

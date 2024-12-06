@@ -38,9 +38,9 @@ const PhotoCard = ({ photo }: { photo: Photo }) => {
   const { photosMap } = useMap();
 
   const handlePhotoClick = () => {
-    if (photo.gpsLongitude && photo.gpsLatitude) {
+    if (photo.longitude && photo.latitude) {
       photosMap?.flyTo({
-        center: [photo.gpsLongitude, photo.gpsLatitude],
+        center: [photo.longitude, photo.latitude],
         zoom: 17,
       });
     }
