@@ -135,14 +135,11 @@ const NewPhotoForm = () => {
 
   // Update form when location data is available
   useEffect(() => {
-    if (location?.features[0]?.properties.full_address) {
+    if (location?.features?.[0]?.properties?.full_address) {
       form.setValue(
         "fullAddress",
         location.features[0].properties.full_address
       );
-      console.log({
-        location: location.features[0].properties.context.country.country_code,
-      });
     }
   }, [location, form]);
 
