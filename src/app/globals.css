@@ -35,10 +35,18 @@ body,
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
 
-    /* CUSTOM */
+    /* FRAMER HSL LIGHT COLORS */
     --text-default: 200 10% 6%;
     --text-inverse: 0 0% 100%;
     --text-muted: 200 10% 6% / 60%;
+    --text-inverse-muted: 0 0% 100% / 60%;
+    --background-default: 0 0% 100%;
+    --background-default-hover: 0 0% 96%;
+    --background-muted: 0 0% 96%;
+    --background-muted-hover: 0 0% 93%;
+    --background-primary: 200 9% 6%;
+    --background-primary-hover: 195 8% 10%;
+    --border-default: 180 12% 92%;
   }
 
   .dark {
@@ -67,10 +75,18 @@ body,
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
 
-    /* CUSTOM */
-    --text-default: 0 0 100%;
+    /* FRAMER HSL DARK COLORS */
+    --text-default: 0 0% 100%;
     --text-inverse: 200 10% 6%;
-    --text-muted: 0 0 100% / 60%;
+    --text-muted: 0 0% 100% / 60%;
+    --text-inverse-muted: 200 10% 6% / 60%;
+    --background-default: 200 10% 6%;
+    --background-default-hover: 0 0% 0%;
+    --background-muted: 0 0% 100% / 7%;
+    --background-muted-hover: 0 0% 100% / 11%;
+    --background-primary: 0 0% 100%;
+    --background-primary-hover: 0 0% 96%;
+    --border-default: 200 4% 15%;
   }
 }
 
