@@ -4,8 +4,8 @@ import FooterNav from "./footer-nav";
 
 const Footer = () => {
   return (
-    <div className="flex flex-col p-16 pb-12 gap-16 rounded-xl font-light relative flex-1 bg-primary text-white dark:text-black">
-      <div className="flex gap-4 items-center">
+    <div className="flex flex-col items-center lg:items-start p-16 pb-12 gap-8 lg:gap-16 rounded-xl font-light relative flex-1 bg-primary text-white dark:text-black">
+      <div className="flex flex-col lg:flex-row gap-4 items-center">
         {/* AVATAR  */}
         <Avatar className="size-[60px]">
           <AvatarImage src="https://avatars.githubusercontent.com/u/16572906?s=400&u=a304af70d12572524d540553425d78ff4d1a101a&v=4" />
@@ -13,12 +13,12 @@ const Footer = () => {
         </Avatar>
 
         {/* NAME  */}
-        <div className="flex flex-col gap-[2px]">
-          <h1 className="text-lg">ECarry</h1>
+        <div className="flex flex-col items-center gap-[2px]">
+          <h1 className="text-2xl">ECarry</h1>
           <p className="text-sm opacity-60">Photographer</p>
         </div>
       </div>
-      <div className="grid grid-cols-3 gap-14">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-7 lg:gap-14">
         <FooterNav
           title="Pages"
           links={[
@@ -27,7 +27,13 @@ const Footer = () => {
             { title: "Contact", href: "/contact" },
           ]}
         />
-        <FooterNav title="CMS" links={[{ title: "Blog", href: "/blog" }]} />
+        <FooterNav
+          title="CMS"
+          links={[
+            { title: "Blog", href: "/blog" },
+            { title: "Dashboard", href: "/dashboard" },
+          ]}
+        />
         <FooterNav title="Utility" links={[{ title: "404", href: "/404" }]} />
       </div>
 

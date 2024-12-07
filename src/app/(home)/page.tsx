@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <div className="flex flex-col lg:flex-row min-h-screen w-full">
       {/* LEFT CONTENT - Fixed */}
-      <div className="w-full lg:w-1/2 lg:fixed lg:top-0 lg:left-0 h-screen p-0 lg:p-3 rounded-xl">
+      <div className="w-full lg:w-1/2 h-[70vh] lg:fixed lg:top-0 lg:left-0 lg:h-screen p-0 lg:p-3 rounded-xl">
         <div className="w-full h-full relative">
           <ImageSlider />
 
@@ -24,14 +24,14 @@ export default function Home() {
       <div className="hidden lg:block lg:w-1/2" />
 
       {/* RIGHT CONTENT - Scrollable */}
-      <div className="w-full lg:w-1/2 space-y-3 pb-3">
+      <div className="w-full mt-3 lg:mt-0 lg:w-1/2 space-y-3 pb-3">
         {/* PROFILE CARD  */}
-        <div className="flex gap-4 items-stretch">
+        <div className="flex flex-col lg:flex-row gap-4 items-stretch">
           <div className="flex-1">
             <ProfileCard />
           </div>
 
-          <div className="flex-1 max-w-[300px] flex flex-col gap-3">
+          <div className="flex-1 w-full lg:max-w-[300px] flex flex-col gap-3">
             <ContactCard title="Instagram" />
             <ContactCard title="GitHub" />
             <ContactCard title="X" />
@@ -48,7 +48,7 @@ export default function Home() {
         </div>
 
         {/* CITY CARD  */}
-        <div className="mt-3 w-full grid grid-cols-2 gap-3">
+        <div className="mt-3 w-full grid grid-cols-1 lg:grid-cols-2 gap-3">
           <CityList />
         </div>
 

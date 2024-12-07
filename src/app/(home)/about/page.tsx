@@ -17,7 +17,7 @@ const AboutPage = () => {
   return (
     <div className="flex flex-col gap-3 lg:gap-0 lg:flex-row w-full">
       {/* LEFT CONTENT - Fixed */}
-      <div className="w-full h-[50vh] lg:w-1/2 lg:fixed lg:top-0 lg:left-0 lg:h-screen p-0 lg:p-3">
+      <div className="w-full h-[70vh] lg:w-1/2 lg:fixed lg:top-0 lg:left-0 lg:h-screen p-0 lg:p-3">
         <div className="w-full h-full relative bg-[url(/bg.webp)] bg-top bg-cover rounded-xl">
           <div className="absolute right-0 bottom-0">
             <Vector title="Photography" />

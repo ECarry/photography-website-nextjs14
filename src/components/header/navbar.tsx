@@ -7,10 +7,12 @@ const Navbar = () => {
     <nav>
       <div className="flex items-center gap-5 pb-3 px-4 relative">
         <Logo />
-        <AnimatedLink link="/" label="Grid" />
-        <AnimatedLink link="/" label="Map" />
-        <AnimatedLink link="/" label="Blog" />
-        <AnimatedLink link="/about" label="About" />
+        <div className="hidden lg:flex gap-5">
+          <AnimatedLink link="/" label="Grid" />
+          <AnimatedLink link="/" label="Map" />
+          <AnimatedLink link="/" label="Blog" />
+          <AnimatedLink link="/about" label="About" />
+        </div>
         <ThemeSwitch />
       </div>
     </nav>

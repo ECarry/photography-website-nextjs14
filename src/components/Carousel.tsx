@@ -58,7 +58,7 @@ const Carousel = ({
       <div className={`flex ${containerClassName}`}>{children}</div>
 
       {/* Navigation Buttons */}
-      <div className="absolute inset-y-0 left-0 right-0 flex items-center justify-between px-8 pointer-events-none">
+      <div className="hidden lg:flex absolute inset-y-0 left-0 right-0 items-center justify-between px-8 pointer-events-none">
         <button
           className="w-10 h-10 bg-black/15 backdrop-blur flex items-center justify-center pointer-events-auto text-white rounded-md"
           onClick={() => emblaApi?.scrollPrev()}
