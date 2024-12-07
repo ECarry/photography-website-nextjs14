@@ -7,15 +7,6 @@ import { zValidator } from "@hono/zod-validator";
 import { insertPhotoSchema, photos, citySets } from "@/db/schema";
 
 const app = new Hono()
-  .get("/city", async (c) => {
-    const data = await db.query.citySets.findMany({
-      with: {
-        photos: true,
-      },
-    });
-
-    return c.json({ data });
-  })
   /**
    * GET /photos
    * Get all photos from the database

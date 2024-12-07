@@ -1,30 +1,23 @@
 import Image from "next/image";
-import osaka from "./osaka.webp";
-import kyoto from "./kyoto.webp";
-import nara from "./nara.webp";
-import kobe from "./kobe.webp";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import VectorTopLeftAnimation from "@/components/vector-top-left-animation";
-
-type CityName = "Osaka" | "Kyoto" | "Nara" | "Kobe";
+import { useGetPhoto } from "@/features/photos/api/use-get-photo";
 
 interface Props {
-  title: CityName;
+  title: string;
+  coverId: string | null;
 }
 
-const PhotosMap = {
-  Osaka: osaka,
-  Kyoto: kyoto,
-  Nara: nara,
-  Kobe: kobe,
-} as const;
+const CityCard = ({ title, coverId }: Props) => {
+  const { data } = useGetPhoto(coverId!);
 
-const CityCard = ({ title }: Props) => {
+  if (!data) return null;
+
   return (
     <div className="w-full relative group cursor-pointer">
       <AspectRatio ratio={0.75 / 1} className="overflow-hidden rounded-lg">
         <Image
-          src={PhotosMap[title]}
+          src={data.url}
           alt="Image"
           fill
           className="

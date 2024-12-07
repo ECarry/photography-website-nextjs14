@@ -2,9 +2,9 @@ import Vector from "@/components/vector-bottom-right";
 import ProfileCard from "./_components/profile-card";
 import ContactCard from "./_components/contact-card";
 import LatestWorkCard from "./_components/latest-work-card";
-import CityCard from "./_components/city-card";
 import Footer from "./_components/footer";
 import { ImageSlider } from "@/components/image-slider";
+import CityList from "./_components/city-list";
 
 export default function Home() {
   return (
@@ -49,10 +49,7 @@ export default function Home() {
 
         {/* CITY CARD  */}
         <div className="mt-3 w-full grid grid-cols-2 gap-3">
-          <CityCard title="Osaka" />
-          <CityCard title="Nara" />
-          <CityCard title="Kyoto" />
-          <CityCard title="Kobe" />
+          <CityList />
         </div>
 
         {/* FOOTER  */}
