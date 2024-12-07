@@ -195,9 +195,13 @@ const NewPhotoForm = () => {
       countryCode:
         location?.features[0].properties.context.country?.country_code,
       region: location?.features[0].properties.context.region?.name,
-      city: location?.features[0].properties.context.place?.name,
+      city:
+        location?.features[0].properties.context.country.country_code ===
+          "JP" ||
+        location?.features[0].properties.context.country.country_code === "TW"
+          ? location?.features[0].properties.context.region?.name
+          : location?.features[0].properties.context.place?.name,
       district: location?.features[0].properties.context.locality?.name,
-
       fullAddress: location?.features[0].properties.full_address,
       placeFormatted: location?.features[0].properties.place_formatted,
     };

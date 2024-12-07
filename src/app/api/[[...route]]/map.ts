@@ -49,7 +49,7 @@ const app = new Hono().get(
 
     try {
       const response = await fetch(
-        `https://api.mapbox.com/search/geocode/v6/reverse?longitude=${lng}&latitude=${lat}&access_token=${NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}`
+        `https://api.mapbox.com/search/geocode/v6/reverse?longitude=${lng}&latitude=${lat}&language=en&access_token=${NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}`
       );
 
       const data: MapboxReverseGeocodingResponse = await response.json();

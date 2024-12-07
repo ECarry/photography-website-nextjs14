@@ -8,6 +8,20 @@
       "when": 1733494018872,
       "tag": "0000_cultured_maelstrom",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1733543818562,
+      "tag": "0001_exotic_pestilence",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1733544358423,
+      "tag": "0002_sparkling_zaran",
+      "breakpoints": true
     }
   ]
 }

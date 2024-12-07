@@ -75,17 +75,16 @@ export const photos = pgTable(
   }
 );
 
-// 城市集合表
 export const citySets = pgTable(
   "city_sets",
   {
     id: uuid("id").primaryKey().defaultRandom(),
+    description: text("description"),
 
     // GEO DATA
     country: text("country").notNull(),
     countryCode: text("country_code"),
     city: text("city").notNull(),
-    district: text("district"),
 
     // COVER PHOTO
     coverPhotoId: uuid("cover_photo_id").references(() => photos.id),
@@ -100,21 +99,24 @@ export const citySets = pgTable(
     return {
       uniqueCitySet: uniqueIndex("unique_city_set").on(
         table.country,
-        table.countryCode,
-        table.city,
-        table.district
+        table.city
       ),
     };
   }
 );
 
-export const citySetRelations = relations(citySets, ({ one }) => ({
-  coverPhoto: one(photos, {
-    fields: [citySets.coverPhotoId],
-    references: [photos.id],
+export const citySetRelations = relations(citySets, ({ many }) => ({
+  photos: many(photos),
+}));
+
+export const photoRelations = relations(photos, ({ one }) => ({
+  citySet: one(citySets, {
+    fields: [photos.country, photos.city],
+    references: [citySets.country, citySets.city],
   }),
 }));
 
+// Schema
 export const insertPhotoSchema = createInsertSchema(photos)
   .extend({
     dateTimeOriginal: z
