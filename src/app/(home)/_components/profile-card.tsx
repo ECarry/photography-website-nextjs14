@@ -5,7 +5,7 @@ import { PiArrowUpRight } from "react-icons/pi";
 const ProfileCard = () => {
   return (
     <Link href="/about">
-      <div className="flex flex-col p-10 gap-24 bg-muted hover:bg-muted-foreground transition-all duration-150 ease-[cubic-bezier(0.22, 1, 0.36, 1)] rounded-xl font-light relative group flex-1">
+      <div className="flex flex-col p-10 gap-24 bg-muted hover:bg-muted-hover transition-all duration-150 ease-[cubic-bezier(0.22, 1, 0.36, 1)] rounded-xl font-light relative group flex-1">
         <div className="flex gap-4 items-center">
           {/* AVATAR  */}
           <Avatar className="size-[60px]">

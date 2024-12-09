@@ -18,7 +18,7 @@ const Footer = () => {
           <p className="text-sm opacity-60">Photographer</p>
         </div>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-7 lg:gap-14">
+      <div className="grid lg:w-full grid-cols-1 lg:grid-cols-3 gap-7 lg:gap-14">
         <FooterNav
           title="Pages"
           links={[

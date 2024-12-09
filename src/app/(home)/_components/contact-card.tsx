@@ -24,7 +24,7 @@ const contactCard = ({ title, className }: Props) => {
   return (
     <div
       className={cn(
-        "w-full p-5 bg-muted hover:bg-muted-foreground rounded-xl flex justify-between items-center cursor-pointer group transition-all duration-150 ease-[cubic-bezier(0.22, 1, 0.36, 1)] flex-1",
+        "w-full p-5 bg-muted hover:bg-muted-hover rounded-xl flex justify-between items-center cursor-pointer group transition-all duration-150 ease-[cubic-bezier(0.22, 1, 0.36, 1)] flex-1",
         className
       )}
     >

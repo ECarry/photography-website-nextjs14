@@ -5,7 +5,7 @@ const LatestWorkCard = () => {
   return (
     <div className="p-6 bg-muted rounded-xl w-full flex justify-between items-center">
       <div className="flex items-center gap-2">
-        <p className="text-sm font-light">Latest Work</p>
+        <p className="text-sm font-light">Latest Travel</p>
         <PiArrowDown size={14} />
       </div>
 

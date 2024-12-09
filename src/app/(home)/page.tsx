@@ -37,12 +37,12 @@ export default function Home() {
             <ContactCard title="X" />
             <ContactCard
               title="Contact me"
-              className="bg-primary hover:bg-primary-foreground text-white dark:text-black"
+              className="bg-primary hover:bg-primary-hover text-white dark:text-black"
             />
           </div>
         </div>
 
-        {/* LAST WORK CARD  */}
+        {/* LAST TRAVEL CARD  */}
         <div className="mt-3">
           <LatestWorkCard />
         </div>

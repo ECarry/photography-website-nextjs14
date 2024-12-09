@@ -24,6 +24,7 @@ const config: Config = {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          hover: "hsl(-var(--background-primary-hover))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -32,6 +33,7 @@ const config: Config = {
         muted: {
           DEFAULT: "hsl(var(--muted))",
           foreground: "hsl(var(--muted-foreground))",
+          hover: "hsl(var(--background-muted-hover))",
         },
         accent: {
           DEFAULT: "hsl(var(--accent))",
