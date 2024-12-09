@@ -1,5 +1,5 @@
 import React from "react";
-import Graphic from "../graphic";
+import Graphic from "../../../../components/graphic";
 
 const MobileMenuButton = () => {
   return (

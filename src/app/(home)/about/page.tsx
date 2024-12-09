@@ -42,7 +42,7 @@ const AboutPage = () => {
             <ContactCard title="X" />
             <ContactCard
               title="Contact me"
-              className="bg-primary hover:bg-primary-foreground text-white dark:text-black"
+              className="bg-primary hover:bg-primary-hover text-white dark:text-black"
             />
           </div>
         </div>

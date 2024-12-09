@@ -1,5 +1,5 @@
 import { Camera } from "lucide-react";
-import AnimatedText from "../animated-text";
+import AnimatedText from "../../../../components/animated-text";
 import Link from "next/link";
 
 const Logo = () => {

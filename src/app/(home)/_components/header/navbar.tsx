@@ -1,5 +1,5 @@
 import Logo from "./logo";
-import AnimatedLink from "../animated-link";
+import AnimatedLink from "../../../../components/animated-link";
 import { ThemeSwitch } from "@/components/theme/theme-switch";
 
 const Navbar = () => {
@@ -11,7 +11,7 @@ const Navbar = () => {
           <AnimatedLink link="/travel" label="Travel" />
           <AnimatedLink link="/" label="Grid" />
           <AnimatedLink link="/" label="Map" />
-          <AnimatedLink link="/" label="Blog" />
+          <AnimatedLink link="/blog" label="Blog" />
           <AnimatedLink link="/about" label="About" />
         </div>
         <ThemeSwitch />
