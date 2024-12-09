@@ -8,6 +8,7 @@ const Navbar = () => {
       <div className="flex items-center gap-5 pb-3 px-4 relative">
         <Logo />
         <div className="hidden lg:flex gap-5">
+          <AnimatedLink link="/travel" label="Travel" />
           <AnimatedLink link="/" label="Grid" />
           <AnimatedLink link="/" label="Map" />
           <AnimatedLink link="/" label="Blog" />

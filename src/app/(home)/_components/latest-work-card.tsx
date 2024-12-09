@@ -10,7 +10,7 @@ const LatestWorkCard = () => {
       </div>
 
       <div>
-        <Link href="/" className="relative text-sm font-light group">
+        <Link href="/travel" className="relative text-sm font-light group">
           View All
           <span className="absolute -bottom-[2px] left-0 w-full h-[1px] bg-black dark:bg-white transition-all duration-300 transform ease-in-out group-hover:w-1/3" />
         </Link>
