@@ -75,11 +75,7 @@ export default function TravelPage() {
             <h1 className="text-3xl">Travel</h1>
             <div className="flex flex-col gap-4 font-light">
               <p>
-                With a focus on both candid moments and stunning landscapes, I
-                strive to evoke emotion and tell stories through my work. My
-                photography blends the rawness of everyday life with the
-                artistry of fine art, allowing viewers to connect with each
-                image on a deeper level.
+                Exploring the world one step at a time, capturing life through street photography and city walks. From bustling urban corners to hidden alleyways, every journey tells a unique story through the lens.
               </p>
             </div>
           </div>
