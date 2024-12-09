@@ -18,13 +18,18 @@ interface CitySetsWithCoverPhoto extends CitySets {
   coverPhoto: Photo | null;
 }
 
+interface CoverPhotoProps {
+  url: string | undefined;
+  city: string | undefined;
+}
+
 // Components
-const CoverPhoto = ({ url }: { url: string | undefined }) => (
+const CoverPhoto = ({ url, city }: CoverPhotoProps) => (
   <div className="w-full h-[70vh] lg:w-1/2 lg:fixed lg:top-0 lg:left-0 lg:h-screen p-0 lg:p-3">
     <div className="w-full h-full relative rounded-xl overflow-hidden">
       {url && <Image src={url} alt="Cover" fill className="object-cover" />}
       <div className="absolute right-0 bottom-0">
-        <Vector title="Travel" />
+        <Vector title={city || ""} />
       </div>
     </div>
   </div>
@@ -94,7 +99,7 @@ export default function TravelPage() {
 
   return (
     <main className="flex flex-col gap-3 lg:gap-0 lg:flex-row w-full">
-      <CoverPhoto url={activeCity?.coverPhoto?.url} />
+      <CoverPhoto url={activeCity?.coverPhoto?.url} city={activeCity?.city} />
 
       {/* Spacer for fixed left content */}
       <div className="hidden lg:block lg:w-1/2" />
