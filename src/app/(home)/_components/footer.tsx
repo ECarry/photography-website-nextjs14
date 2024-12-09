@@ -1,6 +1,5 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import React from "react";
 import FooterNav from "./footer-nav";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const Footer = () => {
   return (
