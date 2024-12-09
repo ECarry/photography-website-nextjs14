@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { InferResponseType } from "hono";
 
 export type ResponseType = InferResponseType<
-  (typeof client.api.photos)["$get"],
+  (typeof client.api.photos)[":id"]["$get"],
   200
 >;
 

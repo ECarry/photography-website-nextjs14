@@ -109,6 +109,13 @@ export const citySetRelations = relations(citySets, ({ many }) => ({
   photos: many(photos),
 }));
 
+export const citySetsRelations = relations(citySets, ({ one }) => ({
+  coverPhoto: one(photos, {
+    fields: [citySets.coverPhotoId],
+    references: [photos.id],
+  }),
+}));
+
 export const photoRelations = relations(photos, ({ one }) => ({
   citySet: one(citySets, {
     fields: [photos.country, photos.city],

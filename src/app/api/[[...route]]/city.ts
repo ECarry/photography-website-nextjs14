@@ -4,7 +4,7 @@ import { Hono } from "hono";
 const app = new Hono().get("/", async (c) => {
   const data = await db.query.citySets.findMany({
     with: {
-      photos: true,
+      coverPhoto: true,
     },
   });
 
