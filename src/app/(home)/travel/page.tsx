@@ -7,6 +7,8 @@ import { useGetPhoto } from "@/features/photos/api/use-get-photo";
 import Vector from "@/components/vector-bottom-right";
 import CardContainer from "@/components/card-container";
 import { PiArrowRight } from "react-icons/pi";
+import ContactCard from "../_components/contact-card";
+import Footer from "../_components/footer";
 
 interface TravelCity {
   id: string;
@@ -104,6 +106,13 @@ export default function TravelPage() {
             </div>
           ))}
         </div>
+        <ContactCard
+          title="Contact me"
+          className="bg-primary hover:bg-primary-hover text-white dark:text-black"
+        />
+
+        {/* FOOTER  */}
+        <Footer />
       </div>
     </main>
   );
