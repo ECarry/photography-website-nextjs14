@@ -65,7 +65,7 @@ export default function Home() {
           <CityList />
         </div>
 
-        <MotionFadeIn delay={1}>
+        <MotionFadeIn delay={0.3}>
           <Footer />
         </MotionFadeIn>
       </div>
