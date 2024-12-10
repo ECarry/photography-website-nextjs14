@@ -14,6 +14,10 @@ const routes = [
     label: "Photos",
   },
   {
+    href: "/documents",
+    label: "Documnets",
+  },
+  {
     href: "/profile",
     label: "Profile",
   },

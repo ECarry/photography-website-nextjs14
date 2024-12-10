@@ -2,6 +2,7 @@
 
 import React from "react";
 import NewPhotoSheet from "@/features/photos/components/new-photo-sheet";
+import NewPostSheet from "@/features/posts/components/new-post-sheet";
 
 const ModalProvider = () => {
   const [isMounted, setIsMounted] = React.useState(false);
@@ -16,6 +17,7 @@ const ModalProvider = () => {
 
   return (
     <>
+      <NewPostSheet />
       <NewPhotoSheet />
     </>
   );

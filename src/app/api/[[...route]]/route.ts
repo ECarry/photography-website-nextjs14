@@ -7,6 +7,7 @@ import authConfig from "@/auth.config";
 import r2 from "./r2";
 import map from "./map";
 import city from "./city";
+import posts from "./posts";
 import users from "./users";
 import photos from "./photos";
 
@@ -30,7 +31,8 @@ const routes = app
   .route("/photos", photos)
   .route("/r2", r2)
   .route("/map", map)
-  .route("/city", city);
+  .route("/city", city)
+  .route("/posts", posts);
 
 export const GET = handle(app);
 export const POST = handle(app);

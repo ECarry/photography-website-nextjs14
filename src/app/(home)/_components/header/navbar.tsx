@@ -9,7 +9,7 @@ const Navbar = () => {
         <Logo />
         <div className="hidden lg:flex gap-5">
           <AnimatedLink link="/travel" label="Travel" />
-          <AnimatedLink link="/map" label="Map" />
+          <AnimatedLink link="/discover" label="Discover" />
           <AnimatedLink link="/blog" label="Blog" />
           <AnimatedLink link="/about" label="About" />
         </div>

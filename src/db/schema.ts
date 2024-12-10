@@ -2,7 +2,7 @@ import { relations, sql } from "drizzle-orm";
 import {
   boolean,
   timestamp,
-  pgTable,
+  pgTable as table,
   text,
   real,
   varchar,
@@ -14,7 +14,7 @@ import {
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
-export const users = pgTable("user", {
+export const users = table("user", {
   id: text("id")
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
@@ -24,7 +24,7 @@ export const users = pgTable("user", {
   password: text("password"),
 });
 
-export const photos = pgTable(
+export const photos = table(
   "photos",
   {
     id: uuid("id").primaryKey().defaultRandom(),
@@ -65,17 +65,15 @@ export const photos = pgTable(
     createAt: timestamp("create_at").notNull().defaultNow(),
     updateAt: timestamp("update_at").$onUpdate(() => new Date()),
   },
-  (table) => {
-    return {
-      yearIdx: index("year_idx").on(
-        sql`DATE_TRUNC('year', ${table.dateTimeOriginal})`
-      ),
-      cityIdx: index("city_idx").on(table.city),
-    };
-  }
+  (table) => ({
+    yearIdx: index("year_idx").on(
+      sql`DATE_TRUNC('year', ${table.dateTimeOriginal})`
+    ),
+    cityIdx: index("city_idx").on(table.city),
+  })
 );
 
-export const citySets = pgTable(
+export const citySets = table(
   "city_sets",
   {
     id: uuid("id").primaryKey().defaultRandom(),
@@ -95,14 +93,37 @@ export const citySets = pgTable(
     createAt: timestamp("create_at").defaultNow(),
     updateAt: timestamp("update_at").defaultNow(),
   },
-  (table) => {
-    return {
-      uniqueCitySet: uniqueIndex("unique_city_set").on(
-        table.country,
-        table.city
-      ),
-    };
-  }
+  (table) => ({
+    uniqueCitySet: uniqueIndex("unique_city_set").on(table.country, table.city),
+  })
+);
+
+export const categorys = table("categories", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  name: text("name").notNull(),
+});
+
+export const posts = table(
+  "posts",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    title: text("title").notNull(),
+    slug: text("slug").notNull().unique(),
+    categoryId: uuid("category_id").references(() => categorys.id),
+    tags: text("tags").array(),
+    coverImage: text("cover_image"),
+    description: text("description"),
+    content: text("content"),
+    readingTimeMinutes: integer("reading_time_minutes"),
+
+    createAt: timestamp("create_at").notNull().defaultNow(),
+    updateAt: timestamp("update_at").notNull().defaultNow(),
+  },
+  (table) => ({
+    categoryIdx: index("category_idx").on(table.categoryId),
+    tagsIdx: index("tags_idx").on(table.tags),
+    slugIdx: index("slug_idx").on(table.slug),
+  })
 );
 
 export const citySetRelations = relations(citySets, ({ many }) => ({
@@ -135,3 +156,8 @@ export const insertPhotoSchema = createInsertSchema(photos)
     createAt: true,
     updateAt: true,
   });
+
+export const insertPostSchema = createInsertSchema(posts).omit({
+  createAt: true,
+  updateAt: true,
+});
