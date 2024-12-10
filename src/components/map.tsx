@@ -153,9 +153,11 @@ const Mapbox = ({
           longitude={marker.longitude}
           latitude={marker.latitude}
           draggable={draggableMarker}
-          style={{ cursor: 'pointer' }}
-          onClick={(e) => {
-            e.originalEvent.stopPropagation();
+          style={{ cursor: draggableMarker ? "grab" : "pointer" }}
+          onDragEnd={
+            onMarkerDragEnd ? (e) => onMarkerDragEnd(e.lngLat) : undefined
+          }
+          onClick={() => {
             if (marker.popupContent) {
               setPopupInfo({
                 id: marker.id,
@@ -165,13 +167,8 @@ const Mapbox = ({
               });
             }
           }}
-          onDragEnd={
-            onMarkerDragEnd ? (e) => onMarkerDragEnd(e.lngLat) : undefined
-          }
         >
-          <div onClick={(e) => e.stopPropagation()}>
-            {marker.element}
-          </div>
+          {marker.element}
         </Marker>
       ))}
 
@@ -182,12 +179,12 @@ const Mapbox = ({
           latitude={popupInfo.latitude}
           anchor="bottom"
           offset={15}
-          onClose={() => setPopupInfo(null)}
           className="!p-0 !rounded-xl overflow-hidden max-w-none"
           closeButton={false}
           closeOnClick={false}
+          onClose={() => setPopupInfo(null)}
         >
-          <div className="relative group">
+          <div className="relative">
             <button
               onClick={() => setPopupInfo(null)}
               className="absolute top-2 right-2 z-10 w-8 h-8 rounded-full bg-black/50 hover:bg-black/70 flex items-center justify-center transition-colors"
