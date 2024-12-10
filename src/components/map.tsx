@@ -15,11 +15,12 @@ import Map, {
 import MapboxGeocoder, {
   type GeocoderOptions,
 } from "@mapbox/mapbox-gl-geocoder";
+import { useTheme } from "next-themes";
 // style css file
 import "mapbox-gl/dist/mapbox-gl.css";
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 
-interface MapboxProps {
+export interface MapboxProps {
   id?: string;
   initialViewState?: {
     longitude: number;
@@ -31,6 +32,7 @@ interface MapboxProps {
     longitude: number;
     latitude: number;
     popupContent?: React.ReactNode;
+    element?: React.ReactNode;
   }>;
   geoJsonData?: GeoJSON.FeatureCollection;
   onMarkerDragEnd?: (lngLat: { lng: number; lat: number }) => void;
@@ -38,6 +40,11 @@ interface MapboxProps {
   draggableMarker?: boolean;
   showGeocoder?: boolean;
 }
+
+const MAP_STYLES = {
+  light: "mapbox://styles/mapbox/light-v11",
+  dark: "mapbox://styles/mapbox/dark-v11",
+} as const;
 
 const Mapbox = ({
   id,
@@ -54,6 +61,7 @@ const Mapbox = ({
   showGeocoder = false,
 }: MapboxProps) => {
   const mapRef = useRef<MapRef>(null);
+  const { theme } = useTheme();
   const [popupInfo, setPopupInfo] = useState<{
     id: string;
     longitude: number;
@@ -124,7 +132,7 @@ const Mapbox = ({
       mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
       initialViewState={initialViewState}
       style={{ width: "100%", height: "100%" }}
-      mapStyle="mapbox://styles/mapbox/streets-v12"
+      mapStyle={MAP_STYLES[theme === "dark" ? "dark" : "light"]}
       interactiveLayerIds={geoJsonData ? ["data"] : undefined}
       onClick={onClick}
     >
@@ -145,10 +153,9 @@ const Mapbox = ({
           longitude={marker.longitude}
           latitude={marker.latitude}
           draggable={draggableMarker}
-          onDragEnd={
-            onMarkerDragEnd ? (e) => onMarkerDragEnd(e.lngLat) : undefined
-          }
-          onClick={() => {
+          style={{ cursor: 'pointer' }}
+          onClick={(e) => {
+            e.originalEvent.stopPropagation();
             if (marker.popupContent) {
               setPopupInfo({
                 id: marker.id,
@@ -158,7 +165,14 @@ const Mapbox = ({
               });
             }
           }}
-        />
+          onDragEnd={
+            onMarkerDragEnd ? (e) => onMarkerDragEnd(e.lngLat) : undefined
+          }
+        >
+          <div onClick={(e) => e.stopPropagation()}>
+            {marker.element}
+          </div>
+        </Marker>
       ))}
 
       {/* Popup */}
@@ -167,9 +181,33 @@ const Mapbox = ({
           longitude={popupInfo.longitude}
           latitude={popupInfo.latitude}
           anchor="bottom"
+          offset={15}
           onClose={() => setPopupInfo(null)}
+          className="!p-0 !rounded-xl overflow-hidden max-w-none"
+          closeButton={false}
+          closeOnClick={false}
         >
-          {popupInfo.content}
+          <div className="relative group">
+            <button
+              onClick={() => setPopupInfo(null)}
+              className="absolute top-2 right-2 z-10 w-8 h-8 rounded-full bg-black/50 hover:bg-black/70 flex items-center justify-center transition-colors"
+            >
+              <span className="sr-only">Close</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="w-5 h-5 text-white"
+              >
+                <path d="M18 6L6 18M6 6l12 12" />
+              </svg>
+            </button>
+            {popupInfo.content}
+          </div>
         </Popup>
       )}
 
