@@ -1,3 +1,5 @@
+"use client";
+
 import { Separator } from "@/components/ui/separator";
 import { useEditorStore } from "@/hooks/use-editor-store";
 import { cn } from "@/lib/utils";
