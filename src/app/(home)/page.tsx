@@ -33,7 +33,7 @@ export default function Home() {
               <ProfileCard />
             </div>
 
-            <div className="flex-1 w-full lg:max-w-[300px] flex flex-col gap-3">
+            <div className="flex-1 w-full lg:max-w-[300px] flex flex-col justify-between gap-3">
               <MotionFadeIn delay={0.1}>
                 <ContactCard title="Instagram" />
               </MotionFadeIn>
