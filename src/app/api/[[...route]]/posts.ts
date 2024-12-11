@@ -21,6 +21,20 @@ const app = new Hono()
 
     return c.json({ exists: existingPost.length > 0 });
   })
+  .get(
+    "/:slug",
+    zValidator("param", z.object({ slug: z.string() })),
+    async (c) => {
+      const { slug } = c.req.valid("param");
+      const data = await db.select().from(posts).where(eq(posts.slug, slug));
+
+      if (data.length === 0) {
+        return c.json({ success: false, error: "Post not found" }, 404);
+      }
+
+      return c.json({ data: data[0] });
+    }
+  )
   .post(
     "/",
     verifyAuth(),
