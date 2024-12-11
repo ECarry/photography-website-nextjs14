@@ -88,6 +88,7 @@ export function ImageUpload({ onChange, value, className }: ImageUploadProps) {
         // Upload file
         uploadPhoto.mutate({
           file,
+          folder: "photos",
           onProgress: (progress) => {
             setUploadProgress(progress);
           },

@@ -18,6 +18,7 @@ export const postSchema = z.object({
     .max(50, {
       message: "Slug must be less than 50 characters",
     }),
+  coverImage: z.string().optional(),
 });
 
 export type PostFormData = z.infer<typeof postSchema>;

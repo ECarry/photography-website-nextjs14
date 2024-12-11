@@ -6,6 +6,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 type ResponseType = InferResponseType<(typeof client.api.r2)["$post"], 200>;
 type RequestType = {
   file: File;
+  folder: string;
   onSuccess?: (data: { publicUrl: string; filename: string }) => void;
   onProgress?: (progress: number) => void;
 };
@@ -30,7 +31,7 @@ export const useUploadPhoto = () => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation<ResponseType["data"], Error, RequestType>({
-    mutationFn: async ({ file, onProgress }) => {
+    mutationFn: async ({ file, folder, onProgress }) => {
       try {
         console.log("Starting upload process...");
         // 1. 获取预签名 URL
@@ -38,6 +39,7 @@ export const useUploadPhoto = () => {
           json: {
             filename: file.name,
             contentType: file.type,
+            folder,
           },
         });
 

@@ -27,6 +27,7 @@ import { useCreatePost } from "../api/use-create-post";
 import { useEffect } from "react";
 import { useCheckSlug } from "../api/use-check-slug";
 import { cn } from "@/lib/utils";
+import PostCoverUpload from "@/features/r2/components/post-cover-upload";
 
 const NewPostForm = () => {
   const { onClose } = useNewPostSheet();
@@ -40,6 +41,7 @@ const NewPostForm = () => {
       title: "",
       description: "",
       slug: "",
+      coverImage: "",
     },
   });
 
@@ -70,6 +72,8 @@ const NewPostForm = () => {
    * @param {PostFormData} values - Form data to be submitted
    */
   const onSubmit = (values: PostFormData) => {
+    console.log(values);
+
     try {
       createPost(values, {
         onSuccess: () => {
@@ -154,6 +158,20 @@ const NewPostForm = () => {
                   placeholder="Enter post description"
                   {...field}
                 />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="coverImage"
+          render={({ field: { onChange, value } }) => (
+            <FormItem>
+              <FormLabel>Cover</FormLabel>
+              <FormControl>
+                <PostCoverUpload value={value} onChange={onChange} />
               </FormControl>
               <FormMessage />
             </FormItem>

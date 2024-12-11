@@ -30,26 +30,29 @@ const s3Client = new S3Client({
 const uploadSchema = z.object({
   filename: z.string(),
   contentType: z.string(),
+  folder: z.string().default("photos"), // Add folder parameter with default value
 });
 
 // Define the schema for delete request validation
 const deleteSchema = z.object({
   filename: z.string(),
+  folder: z.string().default("photos"), // Add folder parameter with default value
 });
 
 /**
  * Generate a public URL for accessing uploaded photos
  * Uses React cache to memoize results and improve performance
  * @param filename - The name of the uploaded file
+ * @param folder - The folder where the file is stored
  * @returns The complete public URL for accessing the file
  * @throws Error if CLOUDFLARE_R2_PUBLIC_URL is not configured
  */
-const getPublicUrl = cache((filename: string) => {
+const getPublicUrl = cache((filename: string, folder: string) => {
   const publicUrl = process.env.CLOUDFLARE_R2_PUBLIC_URL;
   if (!publicUrl) {
     throw new Error("CLOUDFLARE_R2_PUBLIC_URL is not configured");
   }
-  return `${publicUrl}/photos/${filename}`;
+  return `${publicUrl}/${folder}/${filename}`;
 });
 
 /**
@@ -75,7 +78,7 @@ const app = new Hono()
 
       try {
         // Extract and validate file information from request
-        const { filename, contentType } = c.req.valid("json");
+        const { filename, contentType, folder } = c.req.valid("json");
 
         // Define allowed file types (JPEG and PNG only)
         const allowedMimeTypes = ["image/jpeg", "image/png"];
@@ -93,7 +96,7 @@ const app = new Hono()
         // Create S3 command for generating pre-signed URL
         const command = new PutObjectCommand({
           Bucket: process.env.CLOUDFLARE_R2_BUCKET_NAME,
-          Key: `photos/${filename}`,
+          Key: `${folder}/${filename}`,
           ContentType: contentType,
         });
 
@@ -103,7 +106,7 @@ const app = new Hono()
         });
 
         // Generate public URL for accessing the file after upload
-        const publicUrl = getPublicUrl(filename);
+        const publicUrl = getPublicUrl(filename, folder);
 
         // Return successful response with upload and access URLs
         return c.json({
@@ -133,7 +136,7 @@ const app = new Hono()
     zValidator("json", deleteSchema),
     async (c) => {
       const auth = c.get("authUser");
-      const { filename } = c.req.valid("json");
+      const { filename, folder } = c.req.valid("json");
 
       if (!auth.token?.id) {
         return c.json({ success: false, error: "Unauthorized" }, 401);
@@ -142,7 +145,7 @@ const app = new Hono()
       try {
         const command = new DeleteObjectCommand({
           Bucket: process.env.CLOUDFLARE_R2_BUCKET_NAME,
-          Key: `photos/${filename}`,
+          Key: `${folder}/${filename}`,
         });
 
         await s3Client.send(command);
