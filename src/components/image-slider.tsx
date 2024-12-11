@@ -53,11 +53,7 @@ export function ImageSlider() {
               src={photo.url}
               alt={photo.title}
               fill
-              sizes="(max-width: 640px) 100vw, 
-                     (max-width: 1080px) 75vw,
-                     (max-width: 1200px) 50vw,
-                     33vw"
-              quality={85}
+              quality={100}
               priority={true}
               loading="eager"
               className={cn(
