@@ -4,10 +4,11 @@ import { Separator } from "@/components/ui/separator";
 import { useEditorStore } from "@/hooks/use-editor-store";
 import { cn } from "@/lib/utils";
 import { type Level } from "@tiptap/extension-heading";
-
+import { CirclePicker, type ColorResult } from "react-color";
 import {
   BoldIcon,
   ChevronDownIcon,
+  HighlighterIcon,
   ItalicIcon,
   ListTodoIcon,
   LucideIcon,
@@ -197,6 +198,55 @@ const ToolbarButton = ({
   );
 };
 
+const TextColorButton = () => {
+  const { editor } = useEditorStore();
+
+  const value = editor?.getAttributes("textStyle").color || "#000000";
+
+  const onChange = (color: ColorResult) => {
+    editor?.chain().focus().setColor(color.hex).run();
+  };
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-muted-hover px-1.5 overflow-hidden">
+          <span className="text-xs" style={{ color: value }}>
+            A
+          </span>
+          <div className="h-0.5 w-full" style={{ backgroundColor: value }} />
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="p-2.5">
+        <CirclePicker color={value} onChange={onChange} />
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
+
+const HeightColorButton = () => {
+  const { editor } = useEditorStore();
+
+  const value = editor?.getAttributes("highlight").color || "#000";
+
+  const onChange = (color: ColorResult) => {
+    editor?.chain().focus().setHighlight({ color: color.hex }).run();
+  };
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-muted-hover px-1.5 overflow-hidden">
+          <HighlighterIcon className="size-4" style={{ color: value }} />
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="p-2.5">
+        <CirclePicker color={value} onChange={onChange} />
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
+
 const Toolbar = () => {
   const { editor } = useEditorStore();
 
@@ -281,9 +331,9 @@ const Toolbar = () => {
         <ToolbarButton key={item.label} {...item} />
       ))}
       <Separator orientation="vertical" className="h-6 bg-muted-hover" />
-      {/* TODO: Text color  */}
+      <TextColorButton />
       <Separator orientation="vertical" className="h-6 bg-muted-hover" />
-      {/* TODO: Highlight color  */}
+      <HeightColorButton />
       <Separator orientation="vertical" className="h-6 bg-muted-hover" />
       {/* TODO: Link  */}
       <Separator orientation="vertical" className="h-6 bg-muted-hover" />

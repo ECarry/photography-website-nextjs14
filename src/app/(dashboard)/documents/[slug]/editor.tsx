@@ -14,6 +14,8 @@ import { useEditorStore } from "@/hooks/use-editor-store";
 import Underline from "@tiptap/extension-underline";
 import FontFamily from "@tiptap/extension-font-family";
 import TextStyle from "@tiptap/extension-text-style";
+import Highlight from "@tiptap/extension-highlight";
+import { Color } from "@tiptap/extension-color";
 
 const Editor = () => {
   const { setEditor } = useEditorStore();
@@ -55,6 +57,8 @@ const Editor = () => {
       StarterKit,
       Underline,
       FontFamily,
+      Highlight.configure({ multicolor: true }),
+      Color,
       TextStyle,
       Image,
       ImageResize,
