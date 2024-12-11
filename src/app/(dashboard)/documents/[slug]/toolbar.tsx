@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Separator } from "@/components/ui/separator";
 import { useEditorStore } from "@/hooks/use-editor-store";
 import { cn } from "@/lib/utils";
@@ -10,6 +11,7 @@ import {
   ChevronDownIcon,
   HighlighterIcon,
   ItalicIcon,
+  Link2Icon,
   ListTodoIcon,
   LucideIcon,
   Redo2Icon,
@@ -25,6 +27,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 interface ToolbarButtonProps {
   onClick?: () => void;
@@ -247,6 +251,41 @@ const HeightColorButton = () => {
   );
 };
 
+const LinkButton = () => {
+  const { editor } = useEditorStore();
+
+  const [value, setValue] = useState("");
+
+  const onChange = (href: string) => {
+    editor?.chain().focus().extendMarkRange("link").setLink({ href }).run();
+    setValue("");
+  };
+
+  return (
+    <DropdownMenu
+      onOpenChange={(open) => {
+        if (!open) {
+          setValue(editor?.getAttributes("link").href || "");
+        }
+      }}
+    >
+      <DropdownMenuTrigger asChild>
+        <button className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-muted-hover px-1.5 overflow-hidden">
+          <Link2Icon className="size-4" />
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="p-2.5 flex items-center gap-x-2">
+        <Input
+          placeholder="https://"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+        />
+        <Button onClick={() => onChange(value)}>Apply</Button>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
+
 const Toolbar = () => {
   const { editor } = useEditorStore();
 
@@ -335,7 +374,7 @@ const Toolbar = () => {
       <Separator orientation="vertical" className="h-6 bg-muted-hover" />
       <HeightColorButton />
       <Separator orientation="vertical" className="h-6 bg-muted-hover" />
-      {/* TODO: Link  */}
+      <LinkButton />
       <Separator orientation="vertical" className="h-6 bg-muted-hover" />
       {/* TODO: Image  */}
       <Separator orientation="vertical" className="h-6 bg-muted-hover" />
