@@ -34,16 +34,16 @@ export default function Home() {
             </div>
 
             <div className="flex-1 w-full lg:max-w-[300px] flex flex-col justify-between gap-3">
-              <MotionFadeIn delay={0.1}>
+              <MotionFadeIn delay={0.1} className="h-full">
                 <ContactCard title="Instagram" />
               </MotionFadeIn>
-              <MotionFadeIn delay={0.2}>
+              <MotionFadeIn delay={0.2} className="h-full">
                 <ContactCard title="GitHub" />
               </MotionFadeIn>
-              <MotionFadeIn delay={0.3}>
+              <MotionFadeIn delay={0.3} className="h-full">
                 <ContactCard title="X" />
               </MotionFadeIn>
-              <MotionFadeIn delay={0.4}>
+              <MotionFadeIn delay={0.4} className="h-full">
                 <ContactCard
                   title="Contact me"
                   className="bg-primary hover:bg-primary-hover text-white dark:text-black"
