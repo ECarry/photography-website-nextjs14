@@ -18,6 +18,7 @@ import Highlight from "@tiptap/extension-highlight";
 import { Color } from "@tiptap/extension-color";
 import Link from "@tiptap/extension-link";
 import TextAlign from "@tiptap/extension-text-align";
+import { FontSizeExtension } from "@/extensions/font-size";
 
 interface Props {
   content: string;
@@ -64,6 +65,7 @@ const Editor = ({ content }: Props) => {
       StarterKit,
       Underline,
       FontFamily,
+      FontSizeExtension,
       Highlight.configure({ multicolor: true }),
       TextAlign.configure({
         types: ["heading", "paragraph"],
