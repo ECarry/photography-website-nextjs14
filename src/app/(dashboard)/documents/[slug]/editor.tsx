@@ -19,6 +19,7 @@ import { Color } from "@tiptap/extension-color";
 import Link from "@tiptap/extension-link";
 import TextAlign from "@tiptap/extension-text-align";
 import { FontSizeExtension } from "@/extensions/font-size";
+import { LineHeightExtension } from "@/extensions/line-height";
 
 interface Props {
   content: string;
@@ -71,6 +72,7 @@ const Editor = ({ content }: Props) => {
         types: ["heading", "paragraph"],
       }),
       Color,
+      LineHeightExtension,
       Link.configure({
         openOnClick: true,
         autolink: true,
