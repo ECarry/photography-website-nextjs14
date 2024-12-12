@@ -53,9 +53,9 @@ export function ImageSlider() {
               src={photo.url}
               alt={photo.title}
               fill
-              quality={100}
-              priority={true}
-              loading="eager"
+              quality={90}
+              priority={photos[0].id === photo.id}
+              loading={photos[0].id === photo.id ? "eager" : "lazy"}
               className={cn(
                 "object-cover z-20",
                 loadedImages[photo.id] ? "opacity-100" : "opacity-0"

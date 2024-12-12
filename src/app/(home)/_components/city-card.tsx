@@ -27,6 +27,7 @@ const CityCard = ({ title, coverId }: Props) => {
           src={data.url}
           alt="Image"
           fill
+          quality={50}
           className="
             object-cover
             transition-[filter] duration-300 ease-out

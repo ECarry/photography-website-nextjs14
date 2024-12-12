@@ -12,7 +12,7 @@ const Footer = () => {
         </Avatar>
 
         {/* NAME  */}
-        <div className="flex flex-col items-center gap-[2px]">
+        <div className="flex flex-col items-center lg:items-start gap-[2px]">
           <h1 className="text-2xl">ECarry</h1>
           <p className="text-sm opacity-60">Photographer</p>
         </div>
