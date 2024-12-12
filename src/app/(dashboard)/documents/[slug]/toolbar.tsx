@@ -7,6 +7,10 @@ import { cn } from "@/lib/utils";
 import { type Level } from "@tiptap/extension-heading";
 import { CirclePicker, type ColorResult } from "react-color";
 import {
+  AlignCenterIcon,
+  AlignJustifyIcon,
+  AlignLeftIcon,
+  AlignRightIcon,
   BoldIcon,
   ChevronDownIcon,
   HighlighterIcon,
@@ -286,6 +290,62 @@ const LinkButton = () => {
   );
 };
 
+const AlignButton = () => {
+  const { editor } = useEditorStore();
+
+  const alignments = [
+    {
+      label: "Align Left",
+      value: "left",
+      icon: AlignLeftIcon,
+    },
+    {
+      label: "Align Center",
+      value: "center",
+      icon: AlignCenterIcon,
+    },
+    {
+      label: "Align Right",
+      value: "right",
+      icon: AlignRightIcon,
+    },
+    {
+      label: "Align Justify",
+      value: "justify",
+      icon: AlignJustifyIcon,
+    },
+  ];
+
+  const onChange = (align: string) => {
+    editor?.chain().focus().setTextAlign(align).run();
+  };
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-muted-hover px-1.5 overflow-hidden">
+          <AlignLeftIcon className="size-4" />
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="p-1 flex flex-col gap-y-1">
+        {alignments.map(({ label, value, icon: Icon }) => (
+          <DropdownMenuItem
+            key={value}
+            onClick={() => onChange(value)}
+            className={cn(
+              "flex items-center gap-x-2 px-2 py-1 rounded-sm text-sm font-light",
+              editor?.isActive({ textAlign: value }) && "bg-muted-hover"
+            )}
+          >
+            <Icon className="size-4 mr-2" />
+            {label}
+          </DropdownMenuItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
+
 const Toolbar = () => {
   const { editor } = useEditorStore();
 
@@ -359,29 +419,29 @@ const Toolbar = () => {
       {sections[0].map((item) => (
         <ToolbarButton key={item.label} {...item} />
       ))}
-      <Separator orientation="vertical" className="h-6 bg-muted-hover" />
+      <Separator orientation="vertical" className="h-6 bg-gray-300/80" />
       <FontFamilyButton />
-      <Separator orientation="vertical" className="h-6 bg-muted-hover" />
+      <Separator orientation="vertical" className="h-6 bg-gray-300/80" />
       <HeadingLevelButton />
-      <Separator orientation="vertical" className="h-6 bg-muted-hover" />
+      <Separator orientation="vertical" className="h-6 bg-gray-300/80" />
       {/* TODO: Font size */}
-      <Separator orientation="vertical" className="h-6 bg-muted-hover" />
+      <Separator orientation="vertical" className="h-6 bg-gray-300/80" />
       {sections[1].map((item) => (
         <ToolbarButton key={item.label} {...item} />
       ))}
-      <Separator orientation="vertical" className="h-6 bg-muted-hover" />
+      <Separator orientation="vertical" className="h-6 bg-gray-300/80" />
       <TextColorButton />
-      <Separator orientation="vertical" className="h-6 bg-muted-hover" />
+      <Separator orientation="vertical" className="h-6 bg-gray-300/80" />
       <HeightColorButton />
-      <Separator orientation="vertical" className="h-6 bg-muted-hover" />
+      <Separator orientation="vertical" className="h-6 bg-gray-300/80" />
       <LinkButton />
-      <Separator orientation="vertical" className="h-6 bg-muted-hover" />
+      <Separator orientation="vertical" className="h-6 bg-gray-300/80" />
       {/* TODO: Image  */}
-      <Separator orientation="vertical" className="h-6 bg-muted-hover" />
-      {/* TODO: Align  */}
-      <Separator orientation="vertical" className="h-6 bg-muted-hover" />
+      <Separator orientation="vertical" className="h-6 bg-gray-300/80" />
+      <AlignButton />
+      <Separator orientation="vertical" className="h-6 bg-gray-300/80" />
       {/* TODO: Line height  */}
-      <Separator orientation="vertical" className="h-6 bg-muted-hover" />
+      <Separator orientation="vertical" className="h-6 bg-gray-300/80" />
       {/* TODO: List  */}
       {sections[2].map((item) => (
         <ToolbarButton key={item.label} {...item} />

@@ -17,8 +17,14 @@ import TextStyle from "@tiptap/extension-text-style";
 import Highlight from "@tiptap/extension-highlight";
 import { Color } from "@tiptap/extension-color";
 import Link from "@tiptap/extension-link";
+import TextAlign from "@tiptap/extension-text-align";
 
-const Editor = () => {
+interface Props {
+  content: string;
+  onChange?: (content: string) => void;
+}
+
+const Editor = ({ content }: Props) => {
   const { setEditor } = useEditorStore();
 
   const editor = useEditor({
@@ -59,6 +65,7 @@ const Editor = () => {
       Underline,
       FontFamily,
       Highlight.configure({ multicolor: true }),
+      TextAlign,
       Color,
       Link.configure({
         openOnClick: true,
@@ -79,11 +86,7 @@ const Editor = () => {
       TableHeader,
       TableCell,
     ],
-    content: `
-        <p>This is a basic example of implementing images. Drag to re-order.</p>
-        <img src="https://placehold.co/800x400" />
-        <img src="https://placehold.co/800x400/6A00F5/white" />
-      `,
+    content,
   });
 
   return (
