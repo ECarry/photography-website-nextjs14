@@ -73,6 +73,33 @@ const app = new Hono()
       return c.json({ data: data[0] });
     }
   )
+  .patch(
+    "/:slug",
+    verifyAuth(),
+    zValidator("param", z.object({ slug: z.string() })),
+    zValidator("json", insertPostSchema.pick({ content: true })),
+    async (c) => {
+      const auth = c.get("authUser");
+      const { slug } = c.req.valid("param");
+      const values = c.req.valid("json");
+
+      if (!auth.token?.id) {
+        return c.json({ success: false, error: "Unauthorized" }, 401);
+      }
+
+      const data = await db
+        .update(posts)
+        .set(values)
+        .where(eq(posts.slug, slug))
+        .returning();
+
+      if (data.length === 0) {
+        return c.json({ success: false, error: "Not found" }, 404);
+      }
+
+      return c.json({ success: true, data: data[0] });
+    }
+  )
   .delete(
     "/:id",
     verifyAuth(),
