@@ -94,7 +94,7 @@ const AboutPage = () => {
         <CardContainer>
           <div className="flex items-center justify-between p-6">
             <h1 className="text-lg">Viltrox</h1>
-            <p className="text-sm">AF 85mm F/1.8 FE Ⅱ</p>
+            <p className="text-sm">AF 85mm F/1.8 FE</p>
           </div>
         </CardContainer>
 

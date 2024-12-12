@@ -120,7 +120,7 @@ export default function TravelPage() {
 
         <ContactCard
           title="Contact me"
-          className="bg-primary hover:bg-primary-hover text-white dark:text-black"
+          className="bg-primary hover:bg-primary-hover text-white dark:text-black max-h-14"
         />
         <Footer />
       </div>
