@@ -42,8 +42,8 @@ export interface MapboxProps {
 }
 
 const MAP_STYLES = {
-  light: "mapbox://styles/mapbox/light-v11",
-  dark: "mapbox://styles/mapbox/dark-v11",
+  light: "mapbox://styles/ecarry/cldmhu6tr000001n33ujbxf7j",
+  dark: "mapbox://styles/ecarry/clp8hcmd300km01qx78rt0xaw",
 } as const;
 
 const Mapbox = ({
