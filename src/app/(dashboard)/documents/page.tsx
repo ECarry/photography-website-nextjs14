@@ -3,24 +3,35 @@
 import { Button } from "@/components/ui/button";
 import { useGetPosts } from "@/features/posts/api/use-get-posts";
 import useNewPostSheet from "@/features/posts/store/use-new-post-sheet";
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
 import Image from "next/image";
-import { useDeletePost } from "@/features/posts/api/use-delete-post";
 import Link from "next/link";
+
+import { AspectRatio } from "@/components/ui/aspect-ratio";
+
+// Hooks
+import { useDeletePost } from "@/features/posts/api/use-delete-post";
+import { Heart } from "lucide-react";
+import { useConfirm } from "@/hooks/use-confirm";
 
 const DocumentsPage = () => {
   const { onOpen } = useNewPostSheet();
   const { data, isLoading } = useGetPosts();
   const deletePost = useDeletePost();
 
+  const [ConfirmationDialog, confirm] = useConfirm(
+    "Are you sure?",
+    "You are about to delete this post. This action cannot be undone."
+  );
+
   const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this post?")) return;
+    const ok = await confirm();
+    if (!ok) return;
     deletePost.mutate({ id });
   };
 
   return (
     <div className="h-full flex-1 flex-col space-y-8 p-8 md:flex">
+      <ConfirmationDialog />
       <div className="flex items-center justify-between space-y-2">
         <div>
           <h2 className="text-2xl font-bold tracking-tight">Posts</h2>
@@ -32,92 +43,67 @@ const DocumentsPage = () => {
           <Button onClick={() => onOpen()}>Create Post</Button>
         </div>
       </div>
-
       {isLoading ? (
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {[...Array(6)].map((_, i) => (
-            <Card key={i} className="overflow-hidden">
-              <div className="relative aspect-[3/2]">
-                <Skeleton className="absolute inset-0" />
-              </div>
-              <CardHeader className="space-y-2">
-                <Skeleton className="h-4 w-1/2" />
-                <Skeleton className="h-4 w-3/4" />
-              </CardHeader>
-            </Card>
-          ))}
+        <div className="flex-1 flex items-center justify-center">
+          <div className="w-8 h-8 border-t-2 border-t-primary animate-spin rounded-full" />
         </div>
       ) : (
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-3 gap-y-6">
           {data?.map((post) => (
-            <Card key={post.id} className="group overflow-hidden">
-              <div className="relative aspect-[3/2]">
-                {post.coverImage ? (
-                  <Image
-                    src={post.coverImage}
-                    alt={post.title}
-                    className="object-cover transition-transform group-hover:scale-105"
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  />
-                ) : (
-                  <div className="absolute inset-0 bg-gradient-to-br from-zinc-500 to-zinc-800" />
-                )}
-                <div className="absolute right-2 top-2 flex items-center gap-2">
-                  <Button
-                    asChild
-                    variant="secondary"
-                    size="icon"
-                    className="h-8 w-8 rounded-full opacity-0 transition-opacity group-hover:opacity-100"
-                  >
-                    <Link href={`/documents/${post.slug}`}>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="h-4 w-4"
-                      >
-                        <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
-                        <path d="m15 5 4 4" />
-                      </svg>
-                    </Link>
-                  </Button>
-                  <Button
-                    variant="secondary"
-                    size="icon"
-                    className="h-8 w-8 rounded-full opacity-0 transition-opacity group-hover:opacity-100"
-                    onClick={() => handleDelete(post.id)}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="h-4 w-4"
+            <div key={post.id} className="relative rounded-xl overflow-hidden">
+              <AspectRatio ratio={3 / 4}>
+                <Image
+                  src={post.coverImage || "/public/404.png"}
+                  alt={post.title}
+                  width={300}
+                  height={400}
+                  className="w-full h-full object-cover"
+                />
+              </AspectRatio>
+              {/* Filter */}
+              <div className="absolute w-full h-2/3 bottom-0 backdrop-blur-xl [mask-image:linear-gradient(to_top,white_30%,transparent_100%)]" />
+
+              <div className="absolute bottom-2 z-10 w-full ">
+                <div className="p-3 flex flex-col gap-y-3">
+                  <h1 className="text-white">{post.title}</h1>
+                  <span className="text-sm text-white/80">
+                    {new Date(post.createAt).toLocaleString("en-US", {
+                      month: "long",
+                      day: "numeric",
+                      year: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </span>
+                  <div className="flex w-full items-center gap-x-3">
+                    <Button
+                      className="w-full rounded-lg"
+                      size="lg"
+                      variant="secondary"
+                      asChild
                     >
-                      <path d="M3 6h18" />
-                      <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-                      <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-                    </svg>
-                  </Button>
+                      <Link href={`/documents/${post.slug}`}>
+                        <span className="">Edit</span>
+                      </Link>
+                    </Button>
+
+                    <Button
+                      onClick={() => handleDelete(post.id)}
+                      size="lg"
+                      className="w-full rounded-lg bg-transparent backdrop-blur-sm backdrop-saturate-50 hover:bg-white/5 transition-all duration-150"
+                    >
+                      Delete
+                    </Button>
+                  </div>
                 </div>
               </div>
-              <CardHeader>
-                <CardTitle className="line-clamp-1">{post.title}</CardTitle>
-                {post.description && (
-                  <p className="line-clamp-2 text-sm text-muted-foreground">
-                    {post.description}
-                  </p>
-                )}
-              </CardHeader>
-            </Card>
+
+              <div className="absolute top-3 right-3">
+                <div className="bg-transparent backdrop-blur-sm backdrop-saturate-50 rounded-full overflow-hidden hover:bg-transparent hover:backdrop-blur-lg p-2 cursor-pointer transition-all duration-300">
+                  <Heart size={22} className="text-white/80" />
+                </div>
+              </div>
+            </div>
           ))}
         </div>
       )}

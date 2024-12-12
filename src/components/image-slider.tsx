@@ -35,7 +35,7 @@ export function ImageSlider() {
       className="absolute top-0 left-0 w-full h-full rounded-xl"
       containerClassName="h-full"
     >
-      {photos.map((photo) => {
+      {photos.slice(0, 5).map((photo) => {
         return (
           <div key={photo.id} className="flex-[0_0_100%] h-full relative">
             {!loadedImages[photo.id] && (

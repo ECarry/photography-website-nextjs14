@@ -4,6 +4,7 @@ import { use } from "react";
 import Editor from "./editor";
 import ToolBar from "./toolbar";
 import { useGetPost } from "@/features/posts/api/use-get-post";
+import Cover from "./cover";
 //import { useUpdatePost } from "@/features/posts/api/use-update-post";
 
 type Params = Promise<{ slug: string }>;
@@ -19,6 +20,7 @@ const DocumentSlugPage = ({ params }: { params: Params }) => {
 
   return (
     <div className="min-h-screen">
+      <Cover cover={data?.coverImage || ""} />
       <ToolBar />
       <Editor content={data?.content || ""} />
     </div>
