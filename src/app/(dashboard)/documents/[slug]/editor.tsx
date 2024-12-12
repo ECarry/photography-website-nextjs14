@@ -65,7 +65,9 @@ const Editor = ({ content }: Props) => {
       Underline,
       FontFamily,
       Highlight.configure({ multicolor: true }),
-      TextAlign,
+      TextAlign.configure({
+        types: ["heading", "paragraph"],
+      }),
       Color,
       Link.configure({
         openOnClick: true,
