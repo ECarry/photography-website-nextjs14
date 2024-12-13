@@ -19,8 +19,14 @@ const DocumentSlugPage = ({ params }: { params: Params }) => {
   }
 
   return (
-    <div className="min-h-screen">
-      <Cover cover={data?.coverImage || ""} />
+    <div className="min-h-screen space-y-6 py-3 px-6">
+      <Cover cover={data?.coverImage || undefined} />
+      <div className="space-y-2">
+        <h1 className="text-3xl font-bold">{data?.title}</h1>
+        <p className="text-sm">
+          {new Date(data?.createAt || "").toDateString()}
+        </p>
+      </div>
       <ToolBar />
       <Editor content={data?.content || ""} />
     </div>

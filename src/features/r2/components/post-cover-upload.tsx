@@ -10,10 +10,12 @@ import Image from "next/image";
 interface PostCoverUploadProps {
   value?: string;
   onChange: (value: string) => void;
+  className?: string;
 }
 
 const PostCoverUpload = ({ value, onChange }: PostCoverUploadProps) => {
   const [uploadProgress, setUploadProgress] = useState(0);
+  const [url, setUrl] = useState(value);
   const uploadPhoto = useUploadPhoto();
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,6 +31,7 @@ const PostCoverUpload = ({ value, onChange }: PostCoverUploadProps) => {
         },
         onSuccess: ({ publicUrl }) => {
           onChange(publicUrl);
+          setUrl(publicUrl);
           setUploadProgress(0);
         },
       },
@@ -42,18 +45,18 @@ const PostCoverUpload = ({ value, onChange }: PostCoverUploadProps) => {
   };
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="relative w-full">
       <div
         className={cn(
-          "relative aspect-video w-full overflow-hidden rounded-lg border bg-muted",
+          "relative h-[500px] w-full bg-muted",
           value && "bg-transparent"
         )}
       >
-        {value ? (
+        {url ? (
           <Image
-            src={value}
+            src={url}
             alt="Cover"
-            className="object-cover"
+            className="object-cover rounded-lg"
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
@@ -62,30 +65,32 @@ const PostCoverUpload = ({ value, onChange }: PostCoverUploadProps) => {
             <p className="text-sm text-muted-foreground">No cover image</p>
           </div>
         )}
+
+        <Button
+          variant="outline"
+          size="lg"
+          className="w-fit absolute -bottom-4 left-8 z-10"
+          disabled={uploadProgress > 0}
+          asChild
+        >
+          <label>
+            {url ? "Change cover" : "Add cover"}
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={handleFileChange}
+            />
+          </label>
+        </Button>
       </div>
 
       {uploadProgress > 0 && (
-        <Progress value={uploadProgress} className="h-1 w-full" />
+        <Progress
+          value={uploadProgress}
+          className="h-1 w-full absolute top-0"
+        />
       )}
-
-      <Button
-        type="button"
-        variant="outline"
-        size="sm"
-        className="w-fit"
-        disabled={uploadProgress > 0}
-        asChild
-      >
-        <label>
-          {value ? "Change cover" : "Add cover"}
-          <input
-            type="file"
-            accept="image/*"
-            className="hidden"
-            onChange={handleFileChange}
-          />
-        </label>
-      </Button>
     </div>
   );
 };

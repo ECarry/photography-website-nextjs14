@@ -1,34 +1,12 @@
-import Image from "next/image";
+import PostCoverUpload from "@/features/r2/components/post-cover-upload";
 
 interface Props {
-  cover: string;
+  cover?: string;
 }
 
 const Cover = ({ cover }: Props) => {
-  if (!cover)
-    return (
-      <div>
-        <Image
-          src="/placeholder.png"
-          alt="Cover"
-          width={1000}
-          height={1000}
-          className="object-cover w-full h-[40vh]"
-        />
-      </div>
-    );
-
-  return (
-    <div>
-      <Image
-        src={cover}
-        alt="Cover"
-        width={1000}
-        height={1000}
-        className="object-cover w-full h-[40vh]"
-      />
-    </div>
-  );
+  const onChange = () => {};
+  return <PostCoverUpload onChange={onChange} value={cover} />;
 };
 
 export default Cover;

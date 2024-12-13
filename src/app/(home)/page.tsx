@@ -61,11 +61,11 @@ export default function Home() {
         </MotionFadeIn>
 
         {/* CITY CARD  */}
-        <div className="mt-3 w-full grid grid-cols-1 lg:grid-cols-2 gap-3">
-          <CityList />
-        </div>
-
         <MotionFadeIn delay={0.3}>
+          <CityList />
+        </MotionFadeIn>
+
+        <MotionFadeIn delay={0.4}>
           <Footer />
         </MotionFadeIn>
       </div>
