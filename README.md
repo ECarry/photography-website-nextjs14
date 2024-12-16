@@ -68,8 +68,8 @@ R2_BUCKET_NAME=your_bucket_name
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/photography-website-nextjs14.git
-cd photography-website-nextjs14
+git clone https://github.com/your-username/photography-website.git
+cd photography-website
 ```
 
 2. Install dependencies:

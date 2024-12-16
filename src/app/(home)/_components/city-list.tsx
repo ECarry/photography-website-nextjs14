@@ -1,11 +1,11 @@
 "use client";
 
-import { useGetCity } from "@/features/city/api/use-get-city";
+import { useGetCitySets } from "@/features/city/api/use-get-city-sets";
 import CityCard from "./city-card";
 import CameraLoader from "@/components/camera-loader";
 
 const CityList = () => {
-  const { data: cityList, isLoading } = useGetCity();
+  const { data: cityList, isLoading } = useGetCitySets();
 
   if (isLoading) {
     return (
