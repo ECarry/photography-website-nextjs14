@@ -6,6 +6,7 @@ const app = new Hono().get("/", async (c) => {
     with: {
       coverPhoto: true,
     },
+    orderBy: (citySets, { desc }) => [desc(citySets.updateAt)],
   });
 
   return c.json({ data });

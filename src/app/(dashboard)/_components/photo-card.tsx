@@ -10,13 +10,15 @@ import { Icons } from "@/components/icons";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Blurhash } from "react-blurhash";
-import { cn } from "@/lib/utils";
+import { cn, formatGPSCoordinates } from "@/lib/utils";
+import { HeartIcon } from "lucide-react";
+import { toast } from "sonner";
 
 // hooks
 import { useConfirm } from "@/hooks/use-confirm";
 import { useDeletePhoto } from "@/features/photos/api/use-delete-photo";
+import { useUpdatePhoto } from "@/features/photos/api/use-update-photo";
 import { useDeletePhoto as useDeleteR2File } from "@/features/r2/api/use-delete-photo";
-import { toast } from "sonner";
 
 export type Photo = InferResponseType<
   typeof client.api.photos.$get,
@@ -32,6 +34,7 @@ const PhotoCard = ({ photo }: { photo: Photo }) => {
     "You are about to delete this photo. This action cannot be undone."
   );
 
+  const updateMutation = useUpdatePhoto(photo.id);
   const removeMutation = useDeletePhoto();
   const removeR2Mutation = useDeleteR2File();
 
@@ -59,6 +62,13 @@ const PhotoCard = ({ photo }: { photo: Photo }) => {
       removeMutation.mutate({ id: photo.id });
       removeR2Mutation.mutate({ filename });
     }
+  };
+
+  const onFavorite = async () => {
+    console.log(photo.id);
+    updateMutation.mutate({
+      isFavorite: !photo.isFavorite,
+    });
   };
 
   return (
@@ -117,11 +127,18 @@ const PhotoCard = ({ photo }: { photo: Photo }) => {
             <h1 className="line-clamp-1 text-white text-lg">{photo.title}</h1>
             <div className="flex justify-between">
               <h3 className="text-xs text-white/70">
-                {photo.dateTimeOriginal}
+                {photo.dateTimeOriginal &&
+                  new Date(photo.dateTimeOriginal).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
               </h3>
               <p className="text-[10px] text-white/70 flex items-center font-light">
                 <Icons.mapPin size={12} className="text-sky-500 mr-2" />
-                {/* {formatGPSCoordinates(photo.gpsLongitude, photo.gpsLatitude)} */}
+                {photo.longitude && photo.latitude
+                  ? formatGPSCoordinates(photo.longitude, photo.latitude)
+                  : "- -"}
               </p>
             </div>
           </div>
@@ -145,6 +162,18 @@ const PhotoCard = ({ photo }: { photo: Photo }) => {
           </div>
         </div>
       </div>
+
+      {/* Love buton  */}
+      <button
+        onClick={onFavorite}
+        className="absolute top-4 right-4 z-30 rounded-full p-2 bg-transparent backdrop-blur backdrop-saturate-50 hover:backdrop-blur-lg transition-all duration-300 group"
+      >
+        {photo.isFavorite ? (
+          <HeartIcon className="fill-rose-500 text-rose-500 transition-all duration-300" />
+        ) : (
+          <HeartIcon className="text-white size-5 group-hover:fill-rose-500 group-hover:text-rose-500 transition-all duration-300" />
+        )}
+      </button>
     </div>
   );
 };

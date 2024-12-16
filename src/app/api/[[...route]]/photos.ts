@@ -4,12 +4,18 @@ import { db } from "@/db/drizzle";
 import { and, desc, eq, sql } from "drizzle-orm";
 import { verifyAuth } from "@hono/auth-js";
 import { zValidator } from "@hono/zod-validator";
-import { insertPhotoSchema, photos, citySets } from "@/db/schema";
+import {
+  insertPhotoSchema,
+  photos,
+  citySets,
+  updatePhotoSchema,
+} from "@/db/schema";
 
 const app = new Hono()
   /**
    * GET /photos
    * Get all photos from the database
+   * @returns {Array.<Object>} An array of photos
    */
   .get("/", async (c) => {
     const data = await db
@@ -22,6 +28,8 @@ const app = new Hono()
   /**
    * POST /photos
    * Create a new photo to the database
+   * @param {Object} values - The values to insert into the database
+   * @returns {Object} The inserted photo
    */
   // src/app/api/[[...route]]/photos.ts
   .post("/", verifyAuth(), zValidator("json", insertPhotoSchema), async (c) => {
@@ -98,6 +106,8 @@ const app = new Hono()
   /**
    * DELETE /photos/:id
    * Delete a photo from the database
+   * @param {string} id - The ID of the photo to delete
+   * @returns {Object} The deleted photo
    */
   .delete(
     "/:id",
@@ -208,6 +218,8 @@ const app = new Hono()
   /**
    * GET /photos/:id
    * Get a single photo from the database
+   * @param {string} id - The ID of the photo to retrieve
+   * @returns {Object} The photo object
    */
   .get("/:id", zValidator("param", z.object({ id: z.string() })), async (c) => {
     const { id } = c.req.valid("param");
@@ -218,6 +230,40 @@ const app = new Hono()
     }
 
     return c.json({ data: data[0] });
-  });
+  })
+  /**
+   * PATCH /photos/:id
+   * Update a photo in the database
+   * @param {string} id - The ID of the photo to update
+   * @param {Object} values - The values to update the photo with
+   * @returns {Object} The updated photo object
+   */
+  .patch(
+    "/:id",
+    verifyAuth(),
+    zValidator("param", z.object({ id: z.string() })),
+    zValidator("json", updatePhotoSchema),
+    async (c) => {
+      const auth = c.get("authUser");
+      const { id } = c.req.valid("param");
+      const values = c.req.valid("json");
+
+      if (!auth.token?.id) {
+        return c.json({ success: false, error: "Unauthorized" }, 401);
+      }
+
+      const data = await db
+        .update(photos)
+        .set(values)
+        .where(eq(photos.id, id))
+        .returning();
+
+      if (data.length === 0) {
+        return c.json({ success: false, error: "Photo not found" }, 404);
+      }
+
+      return c.json({ success: true, data: data[0] });
+    }
+  );
 
 export default app;

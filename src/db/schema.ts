@@ -157,6 +157,17 @@ export const insertPhotoSchema = createInsertSchema(photos)
     updateAt: true,
   });
 
+// all options
+export const updatePhotoSchema = createInsertSchema(photos)
+  .pick({
+    title: true,
+    description: true,
+    isFavorite: true,
+    latitude: true,
+    longitude: true,
+  })
+  .partial();
+
 export const insertPostSchema = createInsertSchema(posts).omit({
   createAt: true,
   updateAt: true,
