@@ -71,10 +71,7 @@ const CityPhotos = ({ cityName }: { cityName: string }) => {
 
               <div>
                 <p className="text-text-muted text-[15px]">
-                  Osaka (Japanese: 大阪市, Hepburn: Ōsaka-shi, pronounced
-                  [oːsakaɕi]; commonly just 大阪, Ōsaka [oːsaka] ⓘ) is a
-                  designated city in the Kansai region of Honshu in Japan, and
-                  one of the three major cities of Japan (Tokyo-Osaka-Nagoya).
+                  {cityData.description}
                 </p>
               </div>
             </div>
