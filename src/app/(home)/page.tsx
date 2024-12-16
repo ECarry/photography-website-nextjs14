@@ -40,10 +40,10 @@ export default function Home() {
                   href="https://instagram.com/ekkooooooooooo0o0"
                 />
               </MotionFadeIn>
-              <MotionFadeIn delay={0.3} className="h-full">
+              <MotionFadeIn delay={0.2} className="h-full">
                 <ContactCard title="X" href="https://x.com" />
               </MotionFadeIn>
-              <MotionFadeIn delay={0.2} className="h-full">
+              <MotionFadeIn delay={0.3} className="h-full">
                 <ContactCard title="GitHub" href="https://github.com/ecarry" />
               </MotionFadeIn>
               <MotionFadeIn delay={0.4} className="h-full">
