@@ -22,18 +22,27 @@ const Footer = () => {
           title="Pages"
           links={[
             { title: "Home", href: "/" },
+            { title: "Travel", href: "/travel" },
+            { title: "Discover", href: "/discover" },
+            { title: "Blog", href: "/blog" },
             { title: "About", href: "/about" },
-            { title: "Contact", href: "/contact" },
           ]}
         />
         <FooterNav
           title="CMS"
           links={[
-            { title: "Blog", href: "/blog" },
             { title: "Dashboard", href: "/dashboard" },
+            { title: "Photos", href: "/photos" },
+            { title: "Documents", href: "/documents" },
           ]}
         />
-        <FooterNav title="Utility" links={[{ title: "404", href: "/404" }]} />
+        <FooterNav
+          title="Utility"
+          links={[
+            { title: "404", href: "/404" },
+            { title: "Login", href: "/sign-in" },
+          ]}
+        />
       </div>
 
       {/* Attribution */}

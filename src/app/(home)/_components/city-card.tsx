@@ -7,6 +7,7 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import VectorTopLeftAnimation from "@/components/vector-top-left-animation";
 import { useGetPhoto } from "@/features/photos/api/use-get-photo";
 import { Blurhash } from "react-blurhash";
+import { useRouter } from "next/navigation";
 
 interface Props {
   title: string;
@@ -14,6 +15,7 @@ interface Props {
 }
 
 const CityCard = ({ title, coverId }: Props) => {
+  const router = useRouter();
   const { data } = useGetPhoto(coverId!);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -22,6 +24,7 @@ const CityCard = ({ title, coverId }: Props) => {
   return (
     <motion.div
       className="w-full relative group cursor-pointer"
+      onClick={() => router.push(`/travel/${title}`)}
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}

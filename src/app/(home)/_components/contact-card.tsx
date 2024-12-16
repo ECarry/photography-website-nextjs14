@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 import {
   PiArrowUpRight,
   PiInstagramLogo,
@@ -17,12 +18,15 @@ const iconMap = {
 
 interface Props {
   title: keyof typeof iconMap;
+  href?: string;
   className?: string;
 }
 
-const contactCard = ({ title, className }: Props) => {
+const contactCard = ({ title, href, className }: Props) => {
   return (
-    <div
+    <Link
+      href={href || " "}
+      target="_blank"
       className={cn(
         "w-full h-full p-3 lg:p-5 bg-muted hover:bg-muted-hover rounded-xl flex justify-between items-center cursor-pointer group transition-all duration-150 ease-[cubic-bezier(0.22, 1, 0.36, 1)]",
         className
@@ -43,7 +47,7 @@ const contactCard = ({ title, className }: Props) => {
           </span>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

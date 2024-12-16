@@ -35,13 +35,16 @@ export default function Home() {
 
             <div className="flex-1 w-full lg:max-w-[300px] flex flex-col justify-between gap-3">
               <MotionFadeIn delay={0.1} className="h-full">
-                <ContactCard title="Instagram" />
-              </MotionFadeIn>
-              <MotionFadeIn delay={0.2} className="h-full">
-                <ContactCard title="GitHub" />
+                <ContactCard
+                  title="Instagram"
+                  href="https://instagram.com/ekkooooooooooo0o0"
+                />
               </MotionFadeIn>
               <MotionFadeIn delay={0.3} className="h-full">
-                <ContactCard title="X" />
+                <ContactCard title="X" href="https://x.com" />
+              </MotionFadeIn>
+              <MotionFadeIn delay={0.2} className="h-full">
+                <ContactCard title="GitHub" href="https://github.com/ecarry" />
               </MotionFadeIn>
               <MotionFadeIn delay={0.4} className="h-full">
                 <ContactCard
