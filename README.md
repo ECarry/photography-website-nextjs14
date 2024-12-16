@@ -1,131 +1,109 @@
-Old Version
+# Photography Blog 📸
 
-[Website](https://photograph.ecarry.me)
-[Github](https://github.com/ECarry/photography-website-old)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/ECarry/photography-website)
 
-# Photography Website Project Plan
+A modern, open-source photography blog platform built with the latest web technologies. Share your photography journey with style and efficiency.
 
-This document outlines the project plan for developing a **Photography Website** using the following tech stack:  
-**Next.js 15, Auth.js v5, Hono.js, React Query, Tailwind CSS, and ShadCN UI**.
+## ✨ Features
 
----
+- 📱 Responsive design for all devices
+- 🖼️ Automatic EXIF data extraction from photos
+- 🔐 Secure authentication with Auth.js
+- ☁️ Cloud storage with Cloudflare R2
+- 🎨 Beautiful UI with Shadcn/ui components
+- 🚀 Lightning-fast performance
+- 📍 Location-based photo organization
+- 🌐 SEO optimized
+- 🎯 API powered by Hono.js
 
-## Project Objectives
+## 📸 Screenshots
 
-1. Build a responsive and modern photography website.
-2. Implement user authentication with credentials.
-3. Integrate features like photo management and photo exif data.
-4. Deploy the project for public access.
+<img src="https://github.com/ECarry/photography-website/blob/main/screen/home.png?raw=true" alt="page">
+<img src="https://github.com/ECarry/photography-website/blob/main/screen/travel.png?raw=true" alt="page">
+<img src="https://github.com/ECarry/photography-website/blob/main/screen/discover.png?raw=true" alt="page">
+<img src="https://github.com/ECarry/photography-website/blob/main/screen/about.png?raw=true" alt="page">
 
----
+## 🛠️ Tech Stack
 
-## Milestones and Tasks
+- **Framework:** [Next.js 14](https://nextjs.org/)
+- **Database:** [Neon](https://neon.tech/) (Serverless Postgres)
+- **ORM:** [Drizzle](https://orm.drizzle.team/)
+- **Authentication:** [Auth.js](https://authjs.dev/)
+- **UI Components:** [Shadcn/ui](https://ui.shadcn.com/)
+- **API Layer:** [Hono.js](https://hono.dev/)
+- **Storage:** [Cloudflare R2](https://www.cloudflare.com/products/r2/)
+- **Deployment:** [Vercel](https://vercel.com)
 
-### **1. Project Setup**
+## 🚀 Getting Started
 
-- [x] Create the project repository.
-- [x] Set up Next.js 15 environment.
-- [x] Install necessary dependencies (Auth.js, React Query, Hono.js, etc.).
+### Prerequisites
 
-### **2. Initialize ShadCN and Tailwind CSS**
+- Node.js 20+
+- bun (recommended) or npm
+- Neon Database
+- Cloudflare R2 Account
 
-- [x] Install and configure Tailwind CSS.
-- [x] Initialize ShadCN components.
+### Environment Variables
 
-### **3. Set up Hono API**
+Create a `.env.local` file in the root directory:
 
-- [x] Initialize Hono API.
+```bash
+# Database
+DATABASE_URL=your_neon_database_url
 
-### **4. User Authentication**
+# Auth
+GITHUB_CLIENT_ID=your_github_client_id
+GITHUB_CLIENT_SECRET=your_github_client_secret
+AUTH_SECRET=your_auth_secret
 
-- [x] Integrate Auth.js for user authentication.
-- [x] Initialize Auth.js with Hono API.
-- [x] Set up Hono.js server for API routes.
-- [x] Create endpoints for user authentication (login).
-
-### **5. Create user screens**
-
-- [x] Login page.
-
-### **5. Photo Management System**
-
-- [ ] Build a photo upload feature with preview.
-- [ ] Add photo metadata handling (e.g., EXIF data).
-- [ ] Implement filters and sorting options for photo galleries.
-
-### **6. Frontend Development**
-
-- [ ] Create responsive layouts with ShadCN components.
-- [ ] Design a stunning photo gallery page.
-- [ ] Implement user profile and settings pages.
-- [ ] Add "favorite photos" functionality.
-
-### **7. State Management**
-
-- [ ] Integrate React Query for data fetching and caching.
-- [ ] Optimize state management for seamless user interactions.
-
-### **8. Performance Optimization**
-
-- [ ] Optimize images with Next.js `next/image`.
-- [ ] Add lazy loading for images and components.
-- [ ] Implement SEO best practices and accessibility improvements.
-
-### **9. Testing**
-
-- [ ] Write unit tests for key components.
-- [ ] Test API endpoints using automated testing tools.
-- [ ] Perform usability and cross-browser testing.
-
-### **10. Deployment**
-
-- [ ] Set up a production environment (e.g., Vercel).
-- [ ] Deploy the application.
-- [ ] Configure CI/CD for automatic deployments.
-
----
-
-## Deliverables
-
-1. A fully functional photography website with authentication.
-2. A user-friendly photo management system.
-3. A visually appealing and accessible UI.
-4. Comprehensive documentation for developers and users.
-
----
-
-## Timeline
-
-| Milestone                  | Estimated Completion |
-| -------------------------- | -------------------- |
-| Project Setup              | Week 1               |
-| ShadCN & Tailwind Setup    | Week 2               |
-| Backend Integration        | Week 3               |
-| User Authentication        | Week 4               |
-| Photo Management System    | Week 5               |
-| Frontend Development       | Week 6               |
-| State Management & Testing | Week 7               |
-| Deployment                 | Week 8               |
-
----
-
-## Tech Stack
-
-- **Framework:** Next.js 15
-- **Authentication:** Auth.js v5
-- **Backend:** Hono.js
-- **State Management:** React Query
-- **Styling:** Tailwind CSS, ShadCN
-- **Deployment:** Vercel
-
----
-
-## Init user
-
-```.env
-USERNAME=YourUserName
-USER_EMAIL=YourEmail@example.com
-USER_PASSWORD=YourSecurePassword
+# Cloudflare R2
+R2_ACCOUNT_ID=your_cloudflare_account_id
+R2_ACCESS_KEY_ID=your_r2_access_key
+R2_SECRET_ACCESS_KEY=your_r2_secret_key
+R2_BUCKET_NAME=your_bucket_name
 ```
 
-`bun run db:seed`
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/your-username/photography-website-nextjs14.git
+cd photography-website-nextjs14
+```
+
+2. Install dependencies:
+
+```bash
+bun install
+```
+
+3. Set up the database:
+
+```bash
+bun db:push
+```
+
+4. Start the development server:
+
+```bash
+bun run dev
+```
+
+Visit `http://localhost:3000` to see your application.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🤝 Contributing
+
+Contributions are welcome! Feel free to open issues and pull requests.
+
+## 💖 Support
+
+If you find this project helpful, please give it a ⭐️ on GitHub!
+
+## ⭐️ Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=ECarry/photography-website-nextjs14&type=Date)](https://star-history.com/#ECarry/photography-website-nextjs14&Date)
