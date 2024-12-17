@@ -23,6 +23,13 @@ A modern, open-source photography blog platform built with the latest web techno
 <img src="https://github.com/ECarry/photography-website/blob/main/screen/discover.png?raw=true" alt="page">
 <img src="https://github.com/ECarry/photography-website/blob/main/screen/about.png?raw=true" alt="page">
 
+## 🌈 Support Theme
+
+- 🌈 Dark
+- 🌈 Light
+
+<img src="https://github.com/ECarry/photography-website/blob/main/screen/theme.jpg?raw=true" alt="page">
+
 ## 🛠️ Tech Stack
 
 - **Framework:** [Next.js 14](https://nextjs.org/)
