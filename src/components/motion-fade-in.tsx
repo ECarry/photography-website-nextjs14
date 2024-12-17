@@ -1,7 +1,12 @@
-'use client';
+"use client";
 
 import { useRef } from "react";
-import { AnimatePresence, motion, useInView, UseInViewOptions } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  useInView,
+  UseInViewOptions,
+} from "framer-motion";
 
 type MarginType = UseInViewOptions["margin"];
 
@@ -15,14 +20,14 @@ interface MotionFadeInProps {
   margin?: MarginType;
 }
 
-const MotionFadeIn = ({ 
-  children, 
-  className, 
+const MotionFadeIn = ({
+  children,
+  className,
   delay = 0,
   duration = 0.6,
   yOffset = 20,
   blur = "6px",
-  margin = "-50px" as MarginType
+  margin = "-50px" as MarginType,
 }: MotionFadeInProps) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin });
@@ -32,21 +37,25 @@ const MotionFadeIn = ({
       <motion.div
         ref={ref}
         className={className}
-        initial={{ 
-          opacity: 0, 
-          y: yOffset,
-          filter: `blur(${blur})`
-        }}
-        animate={isInView ? {
-          opacity: 1,
-          y: 0,
-          filter: "blur(0px)"
-        } : {
+        initial={{
           opacity: 0,
           y: yOffset,
-          filter: `blur(${blur})`
+          filter: `blur(${blur})`,
         }}
-        transition={{ 
+        animate={
+          isInView
+            ? {
+                opacity: 1,
+                y: 0,
+                filter: "blur(0px)",
+              }
+            : {
+                opacity: 0,
+                y: yOffset,
+                filter: `blur(${blur})`,
+              }
+        }
+        transition={{
           duration,
           ease: [0.22, 1, 0.36, 1],
           delay: delay + 0.04,

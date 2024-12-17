@@ -13,6 +13,7 @@ import { type CitySetWithRelations } from "@/app/api/[[...route]]/city";
 import CameraLoader from "@/components/camera-loader";
 import { cn } from "@/lib/utils";
 import { Blurhash } from "react-blurhash";
+import MotionFadeIn from "@/components/motion-fade-in";
 
 // Types
 interface CoverPhotoProps {
@@ -159,15 +160,21 @@ export default function TravelPage() {
 
       {/* RIGHT CONTENT - Scrollable */}
       <div className="w-full mt-3 lg:mt-0 lg:w-1/2 space-y-3 pb-3">
-        <Introduction />
+        <MotionFadeIn delay={0.1}>
+          <Introduction />
+        </MotionFadeIn>
 
         <div className="space-y-3">
-          {citySetsData?.map((city) => (
-            <CityItem key={city.id} city={city} onMouseEnter={setActiveCity} />
+          {citySetsData?.map((city, index) => (
+            <MotionFadeIn key={city.id} delay={0.2 + index * 0.1}>
+              <CityItem city={city} onMouseEnter={setActiveCity} />
+            </MotionFadeIn>
           ))}
         </div>
 
-        <Footer />
+        <MotionFadeIn>
+          <Footer />
+        </MotionFadeIn>
       </div>
     </div>
   );
