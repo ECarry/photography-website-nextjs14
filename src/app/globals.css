@@ -69,12 +69,12 @@ body,
     /* FRAMER HSL DARK COLORS */
     --text-default: 0 0% 100%;
     --text-inverse: 200 10% 6%;
-    --text-muted: 0 0% 100% / 60%;
-    --text-inverse-muted: 200 10% 6% / 60%;
+    --text-muted: 0 0% 100%;
+    --text-inverse-muted: 200 10% 6%;
     --background-default: 200 10% 6%;
     --background-default-hover: 0 0% 0%;
-    --background-muted: 0 0% 100% / 7%;
-    --background-muted-hover: 0 0% 100% / 11%;
+    --background-muted: 0 0% 12%;
+    --background-muted-hover: 0 0% 16%;
     --background-primary: 0 0% 100%;
     --background-primary-hover: 0 0% 96%;
     --border-default: 200 4% 15%;
