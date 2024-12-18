@@ -28,12 +28,12 @@ export default function Home() {
       <div className="w-full mt-3 lg:mt-0 lg:w-1/2 space-y-3 pb-3">
         {/* PROFILE CARD  */}
         <MotionFadeIn>
-          <div className="flex flex-col lg:flex-row gap-4 items-stretch">
-            <div className="flex-1">
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3 gap-4 items-stretch">
+            <div className="col-span-1 md:col-span-2 lg:col-span-1 xl:col-span-2">
               <ProfileCard />
             </div>
 
-            <div className="flex-1 w-full lg:max-w-[300px] flex flex-col justify-between gap-3">
+            <div className="col-span-1 md:col-span-1 lg:col-span-1 xl:col-span-1 flex flex-col justify-between gap-3">
               <MotionFadeIn delay={0.1} className="h-full">
                 <ContactCard
                   title="Instagram"
