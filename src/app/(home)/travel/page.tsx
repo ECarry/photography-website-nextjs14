@@ -1,8 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
-
 import Vector from "@/components/vector-bottom-right";
 import CardContainer from "@/components/card-container";
 import { PiArrowRight } from "react-icons/pi";
@@ -12,9 +10,9 @@ import { useRouter } from "next/navigation";
 import { type CitySetWithRelations } from "@/app/api/[[...route]]/city";
 import CameraLoader from "@/components/camera-loader";
 import { cn } from "@/lib/utils";
-import { Blurhash } from "react-blurhash";
 import MotionFadeIn from "@/components/motion-fade-in";
 import TextScroll from "@/components/text-scroll";
+import BlurImage from "@/components/blur-image";
 
 // Types
 interface CoverPhotoProps {
@@ -27,12 +25,10 @@ interface CoverPhotoProps {
 const CoverPhoto = ({ url, city, blurData }: CoverPhotoProps) => {
   const [currentUrl, setCurrentUrl] = useState(url);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     if (url !== currentUrl) {
       setIsTransitioning(true);
-      setIsLoaded(false);
       const timer = setTimeout(() => {
         setCurrentUrl(url);
         setIsTransitioning(false);
@@ -44,34 +40,17 @@ const CoverPhoto = ({ url, city, blurData }: CoverPhotoProps) => {
   return (
     <div className="w-full h-[70vh] lg:w-1/2 lg:fixed lg:top-0 lg:left-0 lg:h-screen p-0 lg:p-3">
       <div className="w-full h-full relative rounded-xl overflow-hidden">
-        {blurData && (
-          <div className="absolute inset-0 z-10">
-            <Blurhash
-              hash={blurData}
-              width="100%"
-              height="100%"
-              resolutionX={32}
-              resolutionY={32}
-              punch={1}
-              className={cn(
-                "w-full h-full transition-opacity duration-300",
-                isLoaded ? "opacity-0" : "opacity-100"
-              )}
-            />
-          </div>
-        )}
-        {currentUrl && (
-          <Image
+        {currentUrl && blurData && (
+          <BlurImage
             src={currentUrl}
-            alt="Cover"
+            alt={city || ""}
             fill
-            quality={85}
+            quality={75}
+            blurhash={blurData}
             className={cn(
-              "object-cover transition-opacity duration-300",
-              isLoaded && !isTransitioning ? "opacity-100" : "opacity-0"
+              "object-cover transition-all duration-300 ease-in-out",
+              isTransitioning ? "opacity-0" : "opacity-100"
             )}
-            priority
-            onLoadingComplete={() => setIsLoaded(true)}
           />
         )}
         <div className="absolute right-0 bottom-0">

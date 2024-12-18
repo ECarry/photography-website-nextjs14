@@ -3,9 +3,9 @@
 import Mapbox from "@/components/map";
 import { useGetPhotos } from "@/features/photos/api/use-get-photos";
 import type { MapboxProps } from "@/components/map";
-import Image from "next/image";
 import { Blurhash } from "react-blurhash";
 import CameraLoader from "@/components/camera-loader";
+import BlurImage from "@/components/blur-image";
 
 const MapWithPhotos = () => {
   const { data: photos, isLoading } = useGetPhotos();
@@ -47,13 +47,14 @@ const MapWithPhotos = () => {
         popupContent: (
           <div className="group/popup">
             <div className="relative">
-              <Image
+              <BlurImage
                 src={photo.url}
-                alt={photo.title || "Photo"}
+                alt={photo.title}
                 width={500}
                 height={500}
-                className="w-full h-full object-contain"
+                quality={75}
                 priority
+                blurhash={photo.blurData}
               />
             </div>
           </div>

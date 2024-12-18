@@ -1,17 +1,14 @@
 "use client";
 
-import { useState } from "react";
-import Image from "next/image";
 import { useGetCitySets } from "@/features/city/api/use-get-city-sets";
 import Footer from "../../_components/footer";
 import Vector from "@/components/vector-bottom-right";
 import { notFound } from "next/navigation";
 import CameraLoader from "@/components/camera-loader";
-import { Blurhash } from "react-blurhash";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import BlurImage from "@/components/blur-image";
 
 const CityPhotos = ({ cityName }: { cityName: string }) => {
-  const [isLoading, setIsLoading] = useState(true);
   const { data, isLoading: isCitySetsLoading } = useGetCitySets();
   const decodedCityName = decodeURIComponent(cityName);
 
@@ -26,7 +23,6 @@ const CityPhotos = ({ cityName }: { cityName: string }) => {
       </div>
     );
   }
-
   if (!cityData) {
     return notFound();
   }
@@ -40,12 +36,13 @@ const CityPhotos = ({ cityName }: { cityName: string }) => {
       {/* LEFT CONTENT - Fixed */}
       <div className="w-full h-[70vh] lg:w-1/2 lg:fixed lg:top-0 lg:left-0 lg:h-screen p-0 lg:p-3">
         <div className="w-full h-full relative">
-          <Image
+          <BlurImage
             src={cityData.coverPhoto.url}
-            alt="Cover"
+            alt={cityData.city}
             fill
-            quality={85}
-            className="object-cover rounded-bl-lg rounded-tr-lg overflow-hidden"
+            quality={75}
+            blurhash={cityData.coverPhoto.blurData}
+            className="object-cover rounded-xl"
           />
           <div className="absolute right-0 bottom-0">
             <Vector title={decodedCityName} />
@@ -111,22 +108,12 @@ const CityPhotos = ({ cityName }: { cityName: string }) => {
             key={photo.id}
             className="overflow-hidden rounded-lg"
           >
-            {isLoading && (
-              <Blurhash
-                hash={photo.blurData}
-                width="100%"
-                height="100%"
-                className="object-cover z-10"
-                punch={1}
-              />
-            )}
-            <Image
+            <BlurImage
               src={photo.url}
-              alt="Image"
+              alt={photo.title}
               fill
-              quality={85}
-              className="object-cover"
-              onLoad={() => setIsLoading(false)}
+              blurhash={photo.blurData}
+              className="w-full h-full object-cover"
             />
           </AspectRatio>
         ))}

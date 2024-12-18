@@ -1,13 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import Image from "next/image";
 import { motion } from "framer-motion";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
-import VectorTopLeftAnimation from "@/components/vector-top-left-animation";
-import { useGetPhoto } from "@/features/photos/api/use-get-photo";
-import { Blurhash } from "react-blurhash";
 import { useRouter } from "next/navigation";
+import BlurImage from "@/components/blur-image";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { useGetPhoto } from "@/features/photos/api/use-get-photo";
+import VectorTopLeftAnimation from "@/components/vector-top-left-animation";
 
 interface Props {
   title: string;
@@ -17,7 +15,6 @@ interface Props {
 const CityCard = ({ title, coverId }: Props) => {
   const router = useRouter();
   const { data } = useGetPhoto(coverId!);
-  const [isLoading, setIsLoading] = useState(true);
 
   if (!data) return null;
 
@@ -30,30 +27,18 @@ const CityCard = ({ title, coverId }: Props) => {
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.3, ease: "easeOut" }}
     >
-      <AspectRatio ratio={0.75 / 1} className="overflow-hidden rounded-lg">
-        {isLoading && (
-          <Blurhash
-            hash={data.blurData}
-            width="100%"
-            height="100%"
-            resolutionX={32}
-            resolutionY={32}
-            punch={1}
-            className="absolute inset-0 z-10"
-          />
-        )}
-
-        <Image
+      <AspectRatio
+        ratio={0.75 / 1}
+        className="overflow-hidden rounded-lg relative"
+      >
+        <BlurImage
           src={data.url}
-          alt="Image"
+          alt={data.title}
           fill
-          quality={50}
-          onLoad={() => setIsLoading(false)}
-          className="
-            object-cover
-            transition-[filter] duration-300 ease-out
-            group-hover:blur-sm
-          "
+          quality={75}
+          priority
+          className="object-cover group-hover:blur-sm transition-[filter] duration-300 ease-out"
+          blurhash={data.blurData}
         />
       </AspectRatio>
 
