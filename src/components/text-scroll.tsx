@@ -25,17 +25,17 @@ const TextScroll = ({
       const container = containerRef.current;
       const content = contentRef.current;
       if (!container || !content) return;
-      
+
       const contentWidth = content.scrollWidth;
       const containerWidth = container.clientWidth;
       setShouldAnimate(contentWidth > containerWidth);
     };
 
     updateShouldAnimate();
-    window.addEventListener('resize', updateShouldAnimate);
+    window.addEventListener("resize", updateShouldAnimate);
 
     return () => {
-      window.removeEventListener('resize', updateShouldAnimate);
+      window.removeEventListener("resize", updateShouldAnimate);
     };
   }, [children]);
 
@@ -56,7 +56,10 @@ const TextScroll = ({
         className
       )}
     >
-      <div ref={contentRef} className="flex min-w-full shrink-0 justify-end gap-4 animate-marquee">
+      <div
+        ref={contentRef}
+        className="flex min-w-full shrink-0 justify-end gap-4 animate-marquee"
+      >
         {children}
       </div>
       <div
@@ -65,6 +68,9 @@ const TextScroll = ({
       >
         {children}
       </div>
+
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-muted"></div>
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-muted"></div>
     </div>
   );
 };
