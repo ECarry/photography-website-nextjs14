@@ -56,8 +56,8 @@ const CityPhotos = ({ cityName }: { cityName: string }) => {
       {/* RIGHT CONTENT - Scrollable */}
       <div className="w-full lg:w-1/2 space-y-3 pb-3">
         {/* CITY INFO CARD  */}
-        <div className="flex flex-col lg:flex-row gap-4 items-stretch">
-          <div className="flex-1">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-1 2xl:grid-cols-3 gap-4 items-stretch">
+          <div className="col-span-1 md:col-span-2 lg:col-span-1 2xl:col-span-2">
             <div className="flex flex-col p-10 gap-24 bg-muted rounded-xl font-light relative h-full">
               <div className="flex gap-4 items-center">
                 {/* NAME  */}
@@ -74,7 +74,7 @@ const CityPhotos = ({ cityName }: { cityName: string }) => {
             </div>
           </div>
 
-          <div className="flex-1 w-full lg:max-w-[300px] flex flex-col gap-3">
+          <div className="col-span-1 md:col-span-1 lg:col-span-1 2xl:col-span-1 flex flex-col gap-3">
             <div className="w-full h-full p-3 lg:p-5 bg-muted rounded-xl flex justify-between items-center">
               <p className="text-xs text-text-muted">Country</p>
               <p className="text-xs">{cityData.country}</p>
