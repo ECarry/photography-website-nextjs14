@@ -9,14 +9,14 @@ const CityList = () => {
 
   if (isLoading) {
     return (
-      <div className="w-full min-h-[800px] flex items-center justify-center">
+      <div className="w-full min-h-[70vh] flex items-start justify-center">
         <CameraLoader />
       </div>
     );
   }
 
   return (
-    <div className="mt-3 w-full grid grid-cols-1 lg:grid-cols-2 gap-3 min-h-[800px]">
+    <div className="mt-3 w-full grid grid-cols-1 lg:grid-cols-2 gap-3 min-h-[70vh]">
       {cityList?.map((city) => (
         <CityCard key={city.id} title={city.city} coverId={city.coverPhotoId} />
       ))}
