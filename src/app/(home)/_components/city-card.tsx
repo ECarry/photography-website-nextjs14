@@ -35,7 +35,7 @@ const CityCard = ({ title, coverId }: Props) => {
           src={data.url}
           alt={data.title}
           fill
-          quality={75}
+          quality={20}
           priority
           className="object-cover group-hover:blur-sm transition-[filter] duration-300 ease-out"
           blurhash={data.blurData}

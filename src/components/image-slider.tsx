@@ -3,11 +3,12 @@
 // UI Components
 import Carousel from "./Carousel";
 import BlurImage from "./blur-image";
+import { memo } from "react";
 
 // HOOKS
 import { useGetPhotos } from "@/features/photos/api/use-get-photos";
 
-export function ImageSlider() {
+const ImageSlider = memo(function ImageSlider() {
   const { data: photos } = useGetPhotos();
 
   if (!photos) {
@@ -22,13 +23,17 @@ export function ImageSlider() {
       className="absolute top-0 left-0 w-full h-full rounded-xl"
       containerClassName="h-full"
     >
-      {favoritePhoto.map((photo) => {
+      {favoritePhoto.map((photo, index) => {
+        const shouldPreload = index < 1; // 预加载前两张图片
+
         return (
           <div key={photo.id} className="flex-[0_0_100%] h-full relative">
             <BlurImage
               src={photo.url}
               alt={photo.title}
               fill
+              priority={shouldPreload}
+              loading={shouldPreload ? "eager" : "lazy"}
               blurhash={photo.blurData}
               className="w-full h-full object-cover"
             />
@@ -37,4 +42,6 @@ export function ImageSlider() {
       })}
     </Carousel>
   );
-}
+});
+
+export { ImageSlider };

@@ -1,14 +1,14 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import Image, { ImageProps } from 'next/image'
-import { Blurhash } from 'react-blurhash'
+import { useState, memo } from "react";
+import Image, { ImageProps } from "next/image";
+import { Blurhash } from "react-blurhash";
 
-interface BlurImageProps extends Omit<ImageProps, 'onLoadingComplete'> {
-  blurhash: string
+interface BlurImageProps extends Omit<ImageProps, "onLoadingComplete"> {
+  blurhash: string;
 }
 
-export default function BlurImage({
+const BlurImage = memo(function BlurImage({
   src,
   alt,
   width,
@@ -18,11 +18,9 @@ export default function BlurImage({
   blurhash,
   ...props
 }: BlurImageProps) {
-  const [imageLoaded, setImageLoaded] = useState(false)
+  const [imageLoaded, setImageLoaded] = useState(false);
 
-  const containerStyle = fill
-    ? 'absolute inset-0'
-    : 'relative w-full h-full'
+  const containerStyle = fill ? "absolute inset-0" : "relative w-full h-full";
 
   return (
     <div className={containerStyle}>
@@ -45,11 +43,13 @@ export default function BlurImage({
         height={height}
         fill={fill}
         className={`${className} transition-opacity duration-500 ease-in-out ${
-          imageLoaded ? 'opacity-100' : 'opacity-0'
+          imageLoaded ? "opacity-100" : "opacity-0"
         }`}
         onLoadingComplete={() => setImageLoaded(true)}
         {...props}
       />
     </div>
-  )
-}
+  );
+});
+
+export default BlurImage;
