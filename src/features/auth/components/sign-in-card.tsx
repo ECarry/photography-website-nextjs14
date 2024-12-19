@@ -1,12 +1,13 @@
 "use client";
 
+// External dependencies
 import { useState } from "react";
 import { signIn } from "next-auth/react";
-import { Loader2, TriangleAlert } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-
+// Internal dependencies - UI Components
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Loader2, TriangleAlert } from "lucide-react";
 
 export const SignInCard = () => {
   const [loading, setLoading] = useState(false);

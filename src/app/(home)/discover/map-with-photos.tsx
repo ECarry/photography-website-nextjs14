@@ -1,11 +1,13 @@
 "use client";
 
+// Internal dependencies - UI Components
 import Mapbox from "@/components/map";
-import { useGetPhotos } from "@/features/photos/api/use-get-photos";
-import type { MapboxProps } from "@/components/map";
 import { Blurhash } from "react-blurhash";
-import CameraLoader from "@/components/camera-loader";
 import BlurImage from "@/components/blur-image";
+import CameraLoader from "@/components/camera-loader";
+// Hooks & Types
+import type { MapboxProps } from "@/components/map";
+import { useGetPhotos } from "@/features/photos/api/use-get-photos";
 
 const MapWithPhotos = () => {
   const { data: photos, isLoading } = useGetPhotos();

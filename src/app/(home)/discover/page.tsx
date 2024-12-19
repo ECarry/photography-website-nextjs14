@@ -1,9 +1,10 @@
-import Vector from "@/components/vector-bottom-right";
 import MapWithPhotos from "./map-with-photos";
+import Vector from "@/components/vector-bottom-right";
 
 export const metadata = {
   title: "Discover",
-  description: "Capturing memories across the globe - A visual journey through time and space",
+  description:
+    "Capturing memories across the globe - A visual journey through time and space",
 };
 
 const MapPage = () => {

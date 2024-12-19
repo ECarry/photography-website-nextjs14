@@ -1,13 +1,15 @@
+// External dependencies
+import { type Metadata } from "next";
+
+// Internal dependencies - UI Components
+import Footer from "../_components/footer";
+import AboutCard from "../_components/about-card";
+import TechMarquee from "@/components/tech-marquee";
+import CameraCard from "../_components/camera-card";
 import Vector from "@/components/vector-bottom-right";
 import ProfileCard from "../_components/profile-card";
-import ContactCard from "../_components/contact-card";
-import Footer from "../_components/footer";
-import { type Metadata } from "next";
-import TechMarquee from "@/components/tech-marquee";
-import AboutCard from "../_components/about-card";
-import CameraCard from "../_components/camera-card";
-import CardContainer from "@/components/card-container";
 import MotionFadeIn from "@/components/motion-fade-in";
+import CardContainer from "@/components/card-container";
 
 export const metadata: Metadata = {
   title: "About",
@@ -21,7 +23,7 @@ const AboutPage = () => {
       <div className="w-full h-[70vh] lg:w-1/2 lg:fixed lg:top-0 lg:left-0 lg:h-screen p-0 lg:p-3">
         <div className="w-full h-full relative bg-[url(/bg.webp)] bg-top bg-cover rounded-xl">
           <div className="absolute right-0 bottom-0">
-            <Vector title="Photography" />
+            <Vector title="About" />
           </div>
         </div>
       </div>
@@ -33,32 +35,7 @@ const AboutPage = () => {
       <div className="w-full lg:w-1/2 space-y-3 pb-3">
         {/* PROFILE CARD  */}
         <MotionFadeIn>
-          <div className="flex flex-col lg:flex-row gap-4 items-stretch">
-            <div className="flex-1">
-              <ProfileCard />
-            </div>
-
-            <div className="flex-1 w-full lg:max-w-[300px] flex flex-col justify-between gap-3">
-              <MotionFadeIn delay={0.1} className="h-full">
-                <ContactCard
-                  title="Instagram"
-                  href="https://instagram.com/ekkooooooooooo0o0"
-                />
-              </MotionFadeIn>
-              <MotionFadeIn delay={0.2} className="h-full">
-                <ContactCard title="X" href="https://x.com" />
-              </MotionFadeIn>
-              <MotionFadeIn delay={0.3} className="h-full">
-                <ContactCard title="GitHub" href="https://github.com/ecarry" />
-              </MotionFadeIn>
-              <MotionFadeIn delay={0.4} className="h-full">
-                <ContactCard
-                  title="Contact me"
-                  className="bg-primary hover:bg-primary-hover text-white dark:text-black"
-                />
-              </MotionFadeIn>
-            </div>
-          </div>
+          <ProfileCard />
         </MotionFadeIn>
 
         {/* ABOUT CARD  */}

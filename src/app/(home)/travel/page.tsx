@@ -1,18 +1,23 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Vector from "@/components/vector-bottom-right";
-import CardContainer from "@/components/card-container";
-import { PiArrowRight } from "react-icons/pi";
-import Footer from "../_components/footer";
-import { useGetCitySets } from "@/features/city/api/use-get-city-sets";
-import { useRouter } from "next/navigation";
-import { type CitySetWithRelations } from "@/app/api/[[...route]]/city";
-import CameraLoader from "@/components/camera-loader";
+// External dependencies
 import { cn } from "@/lib/utils";
-import MotionFadeIn from "@/components/motion-fade-in";
-import TextScroll from "@/components/text-scroll";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+
+// Internal dependencies - UI Components
+import Footer from "../_components/footer";
+import { PiArrowRight } from "react-icons/pi";
 import BlurImage from "@/components/blur-image";
+import TextScroll from "@/components/text-scroll";
+import Vector from "@/components/vector-bottom-right";
+import CameraLoader from "@/components/camera-loader";
+import MotionFadeIn from "@/components/motion-fade-in";
+import CardContainer from "@/components/card-container";
+
+// Hooks & Types
+import { useGetCitySets } from "@/features/city/api/use-get-city-sets";
+import { type CitySetWithRelations } from "@/app/api/[[...route]]/city";
 
 // Types
 interface CoverPhotoProps {

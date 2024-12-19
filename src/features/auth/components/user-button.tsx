@@ -1,8 +1,8 @@
 "use client";
-
+// External dependencies
 import { useSession, signOut } from "next-auth/react";
+// Internal dependencies - UI Components
 import { Loader, LogOut } from "lucide-react";
-
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
