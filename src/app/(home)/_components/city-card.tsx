@@ -4,19 +4,16 @@ import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import BlurImage from "@/components/blur-image";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import { useGetPhoto } from "@/features/photos/api/use-get-photo";
+import { type Photo } from "@/app/api/[[...route]]/city";
 import VectorTopLeftAnimation from "@/components/vector-top-left-animation";
 
 interface Props {
   title: string;
-  coverId: string | null;
+  coverPhoto: Photo;
 }
 
-const CityCard = ({ title, coverId }: Props) => {
+const CityCard = ({ title, coverPhoto }: Props) => {
   const router = useRouter();
-  const { data } = useGetPhoto(coverId!);
-
-  if (!data) return null;
 
   return (
     <motion.div
@@ -32,13 +29,13 @@ const CityCard = ({ title, coverId }: Props) => {
         className="overflow-hidden rounded-lg relative"
       >
         <BlurImage
-          src={data.url}
-          alt={data.title}
+          src={coverPhoto.url}
+          alt={coverPhoto.title}
           fill
           quality={20}
           priority
           className="object-cover group-hover:blur-sm transition-[filter] duration-300 ease-out"
-          blurhash={data.blurData}
+          blurhash={coverPhoto.blurData}
         />
       </AspectRatio>
 

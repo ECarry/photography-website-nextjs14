@@ -4,8 +4,8 @@ import { type InferSelectModel } from "drizzle-orm";
 import { type photos, type citySets } from "@/db/schema";
 
 // 定义基础类型
-type CitySet = InferSelectModel<typeof citySets>;
-type Photo = InferSelectModel<typeof photos>;
+export type CitySet = InferSelectModel<typeof citySets>;
+export type Photo = InferSelectModel<typeof photos>;
 
 // 定义包含关联数据的类型
 export interface CitySetWithRelations extends CitySet {
