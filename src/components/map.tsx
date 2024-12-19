@@ -1,7 +1,8 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+// External dependencies
 import * as mapboxgl from "mapbox-gl";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Map, {
   GeolocateControl,
   Layer,
@@ -12,11 +13,12 @@ import Map, {
   Popup,
   Source,
 } from "react-map-gl";
+// Hooks & Types
 import MapboxGeocoder, {
   type GeocoderOptions,
 } from "@mapbox/mapbox-gl-geocoder";
 import { useTheme } from "next-themes";
-// style css file
+// Styles
 import "mapbox-gl/dist/mapbox-gl.css";
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 
@@ -103,7 +105,7 @@ const Mapbox = ({
   const onClick = useCallback(
     (
       event: mapboxgl.MapMouseEvent & {
-        features?: mapboxgl.MapboxGeoJSONFeature[];
+        features?: mapboxgl.GeoJSONFeature[];
       }
     ) => {
       if (!onGeoJsonClick) return;
@@ -137,9 +139,9 @@ const Mapbox = ({
       onClick={onClick}
     >
       {/* Navigation Controls */}
-      <NavigationControl position="top-right" />
+      <NavigationControl position="bottom-left" />
       <GeolocateControl
-        position="top-right"
+        position="bottom-left"
         trackUserLocation
         onGeolocate={(e) => {
           flyToLocation(e.coords.longitude, e.coords.latitude);
