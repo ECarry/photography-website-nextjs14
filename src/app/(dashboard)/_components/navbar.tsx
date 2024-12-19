@@ -4,6 +4,7 @@ import Navigation from "./navigation";
 import SearchBar from "./search-bar";
 import UploadButton from "./upload-button";
 import { Separator } from "@/components/ui/separator";
+import { ThemeSwitch } from "@/components/theme/theme-switch";
 
 const Navbar = () => {
   return (
@@ -26,6 +27,7 @@ const Navbar = () => {
             <SearchBar />
           </div>
 
+          <ThemeSwitch />
           <HomeButton />
           <UploadButton />
           <Separator orientation="vertical" className="h-5" />

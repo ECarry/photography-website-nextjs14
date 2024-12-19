@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+// Internal UI Components
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
 import { useMap } from "react-map-gl";
@@ -8,9 +8,7 @@ import { InferResponseType } from "hono";
 import { client } from "@/lib/hono";
 import { Icons } from "@/components/icons";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { Blurhash } from "react-blurhash";
-import { cn, formatGPSCoordinates } from "@/lib/utils";
+import { formatGPSCoordinates } from "@/lib/utils";
 import { HeartIcon } from "lucide-react";
 import { toast } from "sonner";
 
@@ -19,6 +17,7 @@ import { useConfirm } from "@/hooks/use-confirm";
 import { useDeletePhoto } from "@/features/photos/api/use-delete-photo";
 import { useUpdatePhoto } from "@/features/photos/api/use-update-photo";
 import { useDeletePhoto as useDeleteR2File } from "@/features/r2/api/use-delete-photo";
+import BlurImage from "@/components/blur-image";
 
 export type Photo = InferResponseType<
   typeof client.api.photos.$get,
@@ -27,7 +26,6 @@ export type Photo = InferResponseType<
 
 const PhotoCard = ({ photo }: { photo: Photo }) => {
   const router = useRouter();
-  const [isLoaded, setIsLoaded] = useState(false);
 
   const [ConfirmDialog, confirm] = useConfirm(
     "Are you sure?",
@@ -74,53 +72,24 @@ const PhotoCard = ({ photo }: { photo: Photo }) => {
   return (
     <div className="relative">
       <ConfirmDialog />
+      {/* Image  */}
       <AspectRatio
         ratio={4 / 5}
-        className="bg-muted rounded-xl overflow-hidden"
+        onClick={handlePhotoClick}
+        className="bg-muted rounded-xl overflow-hidden cursor-pointer"
       >
-        <div className="absolute inset-0 z-10">
-          <Blurhash
-            hash={photo.blurData}
-            width="100%"
-            height="100%"
-            resolutionX={32}
-            resolutionY={32}
-            punch={1}
-            className={cn(
-              "w-full h-full transition-opacity duration-300",
-              isLoaded ? "opacity-0" : "opacity-100"
-            )}
-          />
-        </div>
-        <Image
+        <BlurImage
           src={photo.url}
+          alt={photo.title}
           fill
-          alt="Image"
-          className={cn(
-            "object-cover brightness-100 hover:brightness-110 transition-all duration-300 cursor-pointer z-20",
-            isLoaded ? "opacity-100" : "opacity-0"
-          )}
-          onClick={handlePhotoClick}
-          onLoadingComplete={() => setIsLoaded(true)}
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          quality={20}
+          priority
+          className="object-cover group-hover:blur-sm transition-[filter] duration-300 ease-out"
+          blurhash={photo.blurData}
         />
       </AspectRatio>
-      <Button
-        variant="outline"
-        size="icon"
-        className="backdrop-blur-sm bg-black/10 hover:bg-black/40 transition-all duration-150 border-0 rounded-full absolute top-4 right-4 size-12"
-        onClick={() => {}}
-      >
-        {photo.isFavorite ? (
-          <Icons.heart
-            size={22}
-            className="text-muted-foreground fill-rose-500 text-rose-500"
-          />
-        ) : (
-          <Icons.heart size={22} className="text-muted-foreground text-white" />
-        )}
-      </Button>
 
+      {/* Info & Buttons  */}
       <div className="absolute bottom-0 left-0 w-full h-1/2 z-20">
         <div className="w-full space-y-6 overflow-hidden p-4 transition duration-300 inset-x-0 bottom-0 h-full bg-gradient-to-t from-black to-black/0 flex flex-col justify-end">
           <div className="space-y-2">
