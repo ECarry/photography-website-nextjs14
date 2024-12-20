@@ -113,4 +113,4 @@ If you find this project helpful, please give it a ⭐️ on GitHub!
 
 ## ⭐️ Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=ECarry/photography-website-nextjs14&type=Date)](https://star-history.com/#ECarry/photography-website-nextjs14&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=ECarry/photography-website&type=Date)](https://star-history.com/#ECarry/photography-website&Date)
