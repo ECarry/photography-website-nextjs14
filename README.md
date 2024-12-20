@@ -32,7 +32,7 @@ A modern, open-source photography blog platform built with the latest web techno
 
 ## 🛠️ Tech Stack
 
-- **Framework:** [Next.js 14](https://nextjs.org/)
+- **Framework:** [Next.js 15](https://nextjs.org/)
 - **Database:** [Neon](https://neon.tech/) (Serverless Postgres)
 - **ORM:** [Drizzle](https://orm.drizzle.team/)
 - **Authentication:** [Auth.js](https://authjs.dev/)
