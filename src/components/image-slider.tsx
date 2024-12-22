@@ -9,10 +9,18 @@ import { memo } from "react";
 import { useGetPhotos } from "@/features/photos/api/use-get-photos";
 
 const ImageSlider = memo(function ImageSlider() {
-  const { data: photos } = useGetPhotos();
+  const { data: photos, isLoading } = useGetPhotos();
 
   if (!photos) {
-    return null;
+    return (
+      <div className="size-full bg-muted-hover rounded-xl">
+        <p>No Photos</p>
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return <div className="size-full bg-muted-hover rounded-xl" />;
   }
 
   const favoritePhoto =
@@ -24,7 +32,7 @@ const ImageSlider = memo(function ImageSlider() {
       containerClassName="h-full"
     >
       {favoritePhoto.map((photo, index) => {
-        const shouldPreload = index < 1; // 预加载前两张图片
+        const shouldPreload = index < 1;
 
         return (
           <div key={photo.id} className="flex-[0_0_100%] h-full relative">

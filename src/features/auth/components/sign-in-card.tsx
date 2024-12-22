@@ -33,13 +33,13 @@ export const SignInCard = () => {
   };
 
   return (
-    <div className="w-full flex flex-col justify-between p-16 bg-muted rounded-xl flex-1">
+    <div className="w-full flex flex-col justify-between gap-10 p-10 lg:p-16 bg-muted rounded-xl flex-1">
       <div className="px-0 pt-0">
-        <h1 className="text-[40px]">Login to continue</h1>
+        <h1 className="text-[32px] lg:text-[40px]">Login to continue</h1>
       </div>
 
       <form onSubmit={onCredentialSignIn} className="space-y-3">
-        <div className="flex gap-3 items-center">
+        <div className="flex flex-col lg:flex-row gap-3 items-center">
           <Input
             value={email}
             onChange={(e) => setEmail(e.target.value)}
