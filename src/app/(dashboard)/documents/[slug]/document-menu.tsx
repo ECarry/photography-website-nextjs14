@@ -1,55 +1,69 @@
 "use client";
 
-import { useEditor } from "@tiptap/react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
+import { Editor } from "@tiptap/react";
+import { cn } from "@/lib/utils";
+import { Node } from "@tiptap/pm/model";
+import { usePathname } from "next/navigation";
 
-interface HeadingItem {
+interface HeadingNode {
   level: number;
   text: string;
+  pos: number;
   id: string;
 }
 
-export const DocumentMenu = ({
-  editor,
-}: {
-  editor: ReturnType<typeof useEditor>;
-}) => {
-  const [headings, setHeadings] = useState<HeadingItem[]>([]);
+interface Props {
+  editor: Editor | null;
+}
+
+const generateSlug = (text: string): string => {
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9\u4e00-\u9fa5]+/g, "-") // Support Chinese characters
+    .replace(/^-+|-+$/g, ""); // Remove leading/trailing hyphens
+};
+
+export const DocumentMenu = ({ editor }: Props) => {
+  const pathname = usePathname();
+  const [headings, setHeadings] = useState<HeadingNode[]>([]);
+  const [activeId, setActiveId] = useState<string>("");
 
   useEffect(() => {
     if (!editor) return;
 
     const updateHeadings = () => {
-      const items: HeadingItem[] = [];
-      editor.state.doc.descendants((node, pos) => {
-        if (node.type.name === "heading") {
-          // Get the ID from the node's attrs or generate one
-          const id = node.attrs.id || `heading-${items.length + 1}`;
+      const items: HeadingNode[] = [];
+      const usedSlugs = new Set<string>();
 
-          // If the heading doesn't have an ID, add it
-          if (!node.attrs.id) {
-            editor
-              .chain()
-              .setNodeSelection(pos)
-              .updateAttributes("heading", { id })
-              .setTextSelection(pos)
-              .run();
+      editor.state.doc.forEach((node: Node, pos: number) => {
+        if (node.type.name === "heading") {
+          let slug = generateSlug(node.textContent);
+          
+          // Handle duplicate slugs
+          if (usedSlugs.has(slug)) {
+            let counter = 1;
+            while (usedSlugs.has(`${slug}-${counter}`)) {
+              counter++;
+            }
+            slug = `${slug}-${counter}`;
           }
+          
+          usedSlugs.add(slug);
 
           items.push({
-            level: node.attrs.level,
+            level: node.attrs.level as number,
             text: node.textContent,
-            id,
+            pos,
+            id: slug,
           });
         }
       });
+
       setHeadings(items);
     };
 
-    // Initial update
     updateHeadings();
-
-    // Update on content change
     editor.on("update", updateHeadings);
 
     return () => {
@@ -57,46 +71,54 @@ export const DocumentMenu = ({
     };
   }, [editor]);
 
-  const scrollToHeading = (id: string) => {
+  const scrollToHeading = useCallback((heading: HeadingNode) => {
     if (!editor) return;
-
-    // Find the heading position in the editor
-    let headingPos: number | null = null;
-    editor.state.doc.descendants((node, pos) => {
-      if (node.type.name === "heading" && node.attrs.id === id) {
-        headingPos = pos;
-        return false;
-      }
-    });
-
-    if (headingPos !== null) {
-      // Set editor selection to the heading
-      editor.commands.setTextSelection(headingPos);
-      editor.commands.scrollIntoView();
+    
+    const pos = heading.pos;
+    const top = editor.view.coordsAtPos(pos).top;
+    if (typeof top === "number") {
+      window.scrollTo({
+        top: top + window.scrollY - 80,
+        behavior: "smooth",
+      });
     }
-  };
+    setActiveId(heading.id);
+    window.history.pushState(null, "", `${pathname}#${heading.id}`);
+  }, [editor, pathname]);
+
+  // Handle initial URL hash
+  useEffect(() => {
+    const hash = window.location.hash.slice(1);
+    if (hash && editor) {
+      const heading = headings.find((h) => h.id === hash);
+      if (heading) {
+        scrollToHeading(heading);
+      }
+    }
+  }, [editor, headings, scrollToHeading]);
+
+  if (!editor || headings.length === 0) {
+    return null;
+  }
 
   return (
-    <div className="h-full">
-      <div className="p-4">
-        <h3 className="text-sm font-medium text-zinc-500 mb-4">Contents</h3>
-        <div className="space-y-1">
-          {headings.map((heading, index) => (
-            <button
-              key={index}
-              onClick={() => scrollToHeading(heading.id)}
-              className={`w-full text-left px-2 py-1.5 rounded-md hover:bg-zinc-100 text-sm transition-colors
-                ${heading.level === 1 ? 'font-semibold text-zinc-900' : 'text-zinc-600'}
-                ${heading.level === 2 ? 'pl-4' : ''}
-                ${heading.level === 3 ? 'pl-6' : ''}
-                ${heading.level > 3 ? 'pl-8' : ''}
-              `}
-            >
-              {heading.text}
-            </button>
-          ))}
-        </div>
-      </div>
-    </div>
+    <nav className="space-y-1 py-4 px-4">
+      {headings.map((heading) => (
+        <button
+          key={heading.id}
+          onClick={() => scrollToHeading(heading)}
+          className={cn(
+            "block w-full text-left text-sm hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors",
+            heading.level === 1 &&
+              "font-semibold text-zinc-900 dark:text-zinc-100",
+            heading.level === 2 && "pl-4 text-zinc-700 dark:text-zinc-300",
+            heading.level === 3 && "pl-8 text-zinc-600 dark:text-zinc-400",
+            activeId === heading.id && "text-blue-600 dark:text-blue-400"
+          )}
+        >
+          {heading.text}
+        </button>
+      ))}
+    </nav>
   );
 };
