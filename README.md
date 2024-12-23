@@ -117,9 +117,11 @@ If you find this project helpful, please give it a ⭐️ on GitHub!
 
 ## 🪱 REST API
 
+```
 // 🏞️ Photo Management
 GET /api/photos // 📑 Retrieve all photos
 GET /api/photos/{id} // 🔍 Retrieve a single photo
 POST /api/photos // 📸 Add a new photo
 PATCH /api/photos/{id} // 🖊️ Update a photo
 DELETE /api/photos/{id} // 🗑️ Delete a photo
+```
