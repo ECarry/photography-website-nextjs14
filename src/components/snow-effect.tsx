@@ -13,35 +13,48 @@ interface Snowflake {
 
 export const SnowEffect = () => {
   const { theme } = useTheme()
+  const [mounted, setMounted] = useState(false)
   const [snowflakes, setSnowflakes] = useState<Snowflake[]>([])
 
+  // Handle mounting state
   useEffect(() => {
-    if (theme !== 'dark') {
+    setMounted(true)
+  }, [])
+
+  useEffect(() => {
+    if (!mounted || theme !== 'dark') {
       setSnowflakes([])
       return
     }
 
-    // Create initial snowflakes
-    const initialSnowflakes: Snowflake[] = Array.from({ length: 50 }, (_, i) => ({
-      id: i,
-      x: Math.random() * window.innerWidth,
-      y: Math.random() * window.innerHeight,
-      size: Math.random() * 3 + 2,
-      speed: Math.random() * 2 + 1,
-    }))
+    const createSnowflakes = () => {
+      const width = window.innerWidth
+      const height = window.innerHeight
 
-    setSnowflakes(initialSnowflakes)
+      return Array.from({ length: 50 }, (_, i) => ({
+        id: i,
+        x: Math.random() * width,
+        y: Math.random() * height,
+        size: Math.random() * 3 + 2,
+        speed: Math.random() * 2 + 1,
+      }))
+    }
+
+    // Create initial snowflakes
+    setSnowflakes(createSnowflakes())
 
     const animateSnow = () => {
+      const width = window.innerWidth
+      const height = window.innerHeight
+
       setSnowflakes(prevSnowflakes =>
         prevSnowflakes.map(flake => ({
           ...flake,
           y: flake.y + flake.speed,
           x: flake.x + Math.sin(flake.y / 30) * 0.5,
-          // Reset position when snowflake reaches bottom
-          ...(flake.y > window.innerHeight && {
+          ...(flake.y > height && {
             y: -10,
-            x: Math.random() * window.innerWidth,
+            x: Math.random() * width,
           }),
         }))
       )
@@ -49,12 +62,20 @@ export const SnowEffect = () => {
 
     const animationInterval = setInterval(animateSnow, 50)
 
+    const handleResize = () => {
+      setSnowflakes(createSnowflakes())
+    }
+
+    window.addEventListener('resize', handleResize)
+
     return () => {
       clearInterval(animationInterval)
+      window.removeEventListener('resize', handleResize)
     }
-  }, [theme])
+  }, [mounted, theme])
 
-  if (theme !== 'dark') return null
+  // Don't render anything until mounted to prevent hydration mismatch
+  if (!mounted || theme !== 'dark') return null
 
   return (
     <div
@@ -80,6 +101,7 @@ export const SnowEffect = () => {
             background: 'white',
             borderRadius: '50%',
             opacity: 0.8,
+            filter: 'blur(0.5px)',
             transition: 'transform 0.1s ease',
           }}
         />
