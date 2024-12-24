@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { Editor } from "@tiptap/react";
 import { cn } from "@/lib/utils";
 import { Node } from "@tiptap/pm/model";
@@ -20,7 +20,7 @@ interface Props {
 const generateSlug = (text: string): string => {
   return text
     .toLowerCase()
-    .replace(/[^a-z0-9\u4e00-\u9fa5]+/g, "-") // Support Chinese characters
+    .replace(/[^a-z0-9\u4e01-\u9fa5]+/g, "-") // Support Chinese characters
     .replace(/^-+|-+$/g, ""); // Remove leading/trailing hyphens
 };
 
@@ -28,6 +28,7 @@ export const DocumentMenu = ({ editor }: Props) => {
   const pathname = usePathname();
   const [headings, setHeadings] = useState<HeadingNode[]>([]);
   const [activeId, setActiveId] = useState<string>("");
+  const initialNavigationDone = useRef(false);
 
   useEffect(() => {
     if (!editor) return;
@@ -89,10 +90,11 @@ export const DocumentMenu = ({ editor }: Props) => {
   // Handle initial URL hash
   useEffect(() => {
     const hash = window.location.hash.slice(1);
-    if (hash && editor) {
+    if (hash && editor && !initialNavigationDone.current) {
       const heading = headings.find((h) => h.id === hash);
       if (heading) {
         scrollToHeading(heading);
+        initialNavigationDone.current = true;
       }
     }
   }, [editor, headings, scrollToHeading]);
