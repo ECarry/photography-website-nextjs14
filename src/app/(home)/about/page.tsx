@@ -6,10 +6,10 @@ import Footer from "../_components/footer";
 import AboutCard from "../_components/about-card";
 import TechMarquee from "@/components/tech-marquee";
 import CameraCard from "../_components/camera-card";
-import Vector from "@/components/vector-bottom-right";
 import ProfileCard from "../_components/profile-card";
 import MotionFadeIn from "@/components/motion-fade-in";
 import CardContainer from "@/components/card-container";
+import VectorCombined from "@/components/vector-combined";
 
 export const metadata: Metadata = {
   title: "About",
@@ -23,7 +23,7 @@ const AboutPage = () => {
       <div className="w-full h-[70vh] lg:w-1/2 lg:fixed lg:top-0 lg:left-0 lg:h-screen p-0 lg:p-3">
         <div className="w-full h-full relative bg-[url(/bg.webp)] bg-top bg-cover rounded-xl">
           <div className="absolute right-0 bottom-0">
-            <Vector title="About" />
+            <VectorCombined title="About" position="bottom-right" />
           </div>
         </div>
       </div>

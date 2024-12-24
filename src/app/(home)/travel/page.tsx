@@ -10,7 +10,7 @@ import Footer from "../_components/footer";
 import { PiArrowRight } from "react-icons/pi";
 import BlurImage from "@/components/blur-image";
 import TextScroll from "@/components/text-scroll";
-import Vector from "@/components/vector-bottom-right";
+import VectorCombined from "@/components/vector-combined";
 import CameraLoader from "@/components/camera-loader";
 import MotionFadeIn from "@/components/motion-fade-in";
 import CardContainer from "@/components/card-container";
@@ -59,7 +59,7 @@ const CoverPhoto = ({ url, city, blurData }: CoverPhotoProps) => {
           />
         )}
         <div className="absolute right-0 bottom-0">
-          <Vector title={city || ""} />
+          <VectorCombined title={city || ""} position="bottom-right" />
         </div>
       </div>
     </div>

@@ -2,10 +2,10 @@
 import Footer from "./_components/footer";
 import CityList from "./_components/city-list";
 import ProfileCard from "./_components/profile-card";
-import Vector from "@/components/vector-bottom-right";
 import MotionFadeIn from "@/components/motion-fade-in";
 import { ImageSlider } from "@/components/image-slider";
 import LatestWorkCard from "./_components/latest-work-card";
+import VectorCombined from "@/components/vector-combined";
 
 export default function Home() {
   return (
@@ -16,7 +16,7 @@ export default function Home() {
           <ImageSlider />
 
           <div className="absolute right-0 bottom-0">
-            <Vector title="Photography" />
+            <VectorCombined title="Photography" position="bottom-right" />
           </div>
         </div>
       </div>

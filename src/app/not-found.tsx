@@ -1,5 +1,4 @@
-import VectorBottomRight from "@/components/vector-bottom-right";
-import VectorTopLeft from "@/components/vector-top-left";
+import VectorCombined from "@/components/vector-combined";
 
 export default function NotFound() {
   return (
@@ -7,11 +6,11 @@ export default function NotFound() {
       <div className="bg-[url(/404.webp)] bg-bottom bg-cover h-full rounded-lg brightness-75 grayscale"></div>
 
       <div className="absolute top-3 left-3">
-        <VectorTopLeft title="Back to Homepage" />
+        <VectorCombined title="Back to Homepage" position="top-left" link="/" />
       </div>
 
       <div className="absolute bottom-3 right-3">
-        <VectorBottomRight title="404 - Page Not Found" />
+        <VectorCombined title="404 - Page Not Found" position="bottom-right" />
       </div>
     </div>
   );

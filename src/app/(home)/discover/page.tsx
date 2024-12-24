@@ -1,5 +1,5 @@
+import VectorCombined from "@/components/vector-combined";
 import MapWithPhotos from "./map-with-photos";
-import Vector from "@/components/vector-bottom-right";
 
 export const metadata = {
   title: "Discover",
@@ -12,7 +12,7 @@ const MapPage = () => {
     <div className="w-full h-full rounded-[18px] overflow-hidden relative">
       <MapWithPhotos />
       <div className="absolute right-0 bottom-0 z-50">
-        <Vector title="Discover" />
+        <VectorCombined title="Discover" position="bottom-right" />
       </div>
     </div>
   );

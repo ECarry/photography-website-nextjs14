@@ -2,7 +2,7 @@
 
 import { useGetCitySets } from "@/features/city/api/use-get-city-sets";
 import Footer from "../../_components/footer";
-import Vector from "@/components/vector-bottom-right";
+import VectorCombined from "@/components/vector-combined";
 import { notFound } from "next/navigation";
 import CameraLoader from "@/components/camera-loader";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
@@ -45,7 +45,7 @@ const CityPhotos = ({ cityName }: { cityName: string }) => {
             className="object-cover rounded-xl"
           />
           <div className="absolute right-0 bottom-0">
-            <Vector title={decodedCityName} />
+            <VectorCombined title={decodedCityName} position="bottom-right" />
           </div>
         </div>
       </div>

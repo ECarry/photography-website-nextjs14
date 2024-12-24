@@ -1,6 +1,5 @@
-import VectorBottomRight from "@/components/vector-bottom-right";
-import VectorTopLeft from "@/components/vector-top-left";
 import Footer from "../(home)/_components/footer";
+import VectorCombined from "@/components/vector-combined";
 
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -9,11 +8,15 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
         <div className="bg-[url(/bg.webp)] bg-top bg-cover h-full rounded-lg brightness-50"></div>
 
         <div className="absolute top-3 left-3">
-          <VectorTopLeft title="Back to Homepage" />
+          <VectorCombined
+            title="Back to Homepage"
+            position="top-left"
+            link="/"
+          />
         </div>
 
         <div className="absolute bottom-3 right-3">
-          <VectorBottomRight title="Sign in" />
+          <VectorCombined title="Login in" position="bottom-right" />
         </div>
       </div>
 
