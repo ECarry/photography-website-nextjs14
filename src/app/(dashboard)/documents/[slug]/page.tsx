@@ -5,6 +5,7 @@ import Editor from "./editor";
 import ToolBar from "./toolbar";
 import { useGetPost } from "@/features/posts/api/use-get-post";
 import Cover from "./cover";
+import { DocumentMenu } from "./document-menu";
 //import { useUpdatePost } from "@/features/posts/api/use-update-post";
 
 type Params = Promise<{ slug: string }>;
@@ -19,16 +20,25 @@ const DocumentSlugPage = ({ params }: { params: Params }) => {
   }
 
   return (
-    <div className="min-h-screen space-y-6 py-3 px-6">
-      <Cover cover={data?.coverImage || undefined} />
-      <div className="space-y-2">
-        <h1 className="text-3xl font-bold">{data?.title}</h1>
-        <p className="text-sm">
-          {new Date(data?.createAt || "").toDateString()}
-        </p>
+    <div className="h-full flex flex-col">
+      <div className="flex flex-col gap-8 px-6 py-3">
+        <Cover cover={data?.coverImage || undefined} />
+        <div className="space-y-2">
+          <h1 className="text-3xl font-bold">{data?.title}</h1>
+          <p className="text-sm">
+            {new Date(data?.createAt || "").toDateString()}
+          </p>
+        </div>
       </div>
       <ToolBar />
-      <Editor content={data?.content || ""} />
+      <div className="flex gap-8 flex-1 px-6 py-4">
+        <div className="w-64 shrink-0">
+          <DocumentMenu />
+        </div>
+        <div className="flex-1 min-w-0">
+          <Editor content={data?.content || ""} />
+        </div>
+      </div>
     </div>
   );
 };

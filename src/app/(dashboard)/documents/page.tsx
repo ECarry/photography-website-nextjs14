@@ -1,17 +1,19 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { useGetPosts } from "@/features/posts/api/use-get-posts";
-import useNewPostSheet from "@/features/posts/store/use-new-post-sheet";
+// External dependencies
 import Image from "next/image";
 import Link from "next/link";
 
+// UI Components
+import { Trash } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 // Hooks
-import { useDeletePost } from "@/features/posts/api/use-delete-post";
-import { Heart } from "lucide-react";
 import { useConfirm } from "@/hooks/use-confirm";
+import { useGetPosts } from "@/features/posts/api/use-get-posts";
+import { useDeletePost } from "@/features/posts/api/use-delete-post";
+import useNewPostSheet from "@/features/posts/store/use-new-post-sheet";
 
 const DocumentsPage = () => {
   const { onOpen } = useNewPostSheet();
@@ -50,58 +52,49 @@ const DocumentsPage = () => {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-3 gap-y-6">
           {data?.map((post) => (
-            <div key={post.id} className="relative rounded-xl overflow-hidden">
-              <AspectRatio ratio={3 / 4}>
-                <Image
-                  src={post.coverImage || "/public/404.png"}
-                  alt={post.title}
-                  width={300}
-                  height={400}
-                  className="w-full h-full object-cover"
-                />
-              </AspectRatio>
-              {/* Filter */}
-              <div className="absolute w-full h-2/3 bottom-0 backdrop-blur-xl [mask-image:linear-gradient(to_top,white_30%,transparent_100%)]" />
+            <div key={post.id} className="relative">
+              <Link
+                href={`/documents/${post.slug}`}
+                className="space-y-4 block group"
+              >
+                <AspectRatio
+                  ratio={16 / 10}
+                  className="overflow-hidden rounded-xl"
+                >
+                  <Image
+                    src={post.coverImage || "/public/404.png"}
+                    alt={post.title}
+                    width={400}
+                    height={400}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-all duration-300"
+                  />
+                </AspectRatio>
 
-              <div className="absolute bottom-2 z-10 w-full ">
-                <div className="p-3 flex flex-col gap-y-3">
-                  <h1 className="text-white">{post.title}</h1>
-                  <span className="text-sm text-white/80">
-                    {new Date(post.createAt).toLocaleString("en-US", {
-                      month: "long",
-                      day: "numeric",
-                      year: "numeric",
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
-                  </span>
-                  <div className="flex w-full items-center gap-x-3">
-                    <Button
-                      className="w-full rounded-lg"
-                      size="lg"
-                      variant="secondary"
-                      asChild
-                    >
-                      <Link href={`/documents/${post.slug}`}>
-                        <span className="">Edit</span>
-                      </Link>
-                    </Button>
-
-                    <Button
-                      onClick={() => handleDelete(post.id)}
-                      size="lg"
-                      className="w-full rounded-lg bg-transparent backdrop-blur-sm backdrop-saturate-50 hover:bg-white/5 transition-all duration-150"
-                    >
-                      Delete
-                    </Button>
+                <div className="w-full">
+                  <div className="flex flex-col gap-y-1">
+                    <h1 className="text-lg line-clamp-1">{post.title}</h1>
+                    <span className="text-text-muted text-sm">
+                      {new Date(post.createAt).toLocaleString("en-US", {
+                        month: "long",
+                        day: "numeric",
+                        year: "numeric",
+                      })}
+                    </span>
                   </div>
                 </div>
-              </div>
+              </Link>
 
               <div className="absolute top-3 right-3">
-                <div className="bg-transparent backdrop-blur-sm backdrop-saturate-50 rounded-full overflow-hidden hover:bg-transparent hover:backdrop-blur-lg p-2 cursor-pointer transition-all duration-300">
-                  <Heart size={22} className="text-white/80" />
-                </div>
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handleDelete(post.id);
+                  }}
+                  className="bg-transparent backdrop-blur-sm backdrop-saturate-50 rounded-full overflow-hidden hover:bg-transparent hover:backdrop-blur-lg p-2 cursor-pointer transition-all duration-300"
+                >
+                  <Trash size={20} className="text-white/80" />
+                </button>
               </div>
             </div>
           ))}

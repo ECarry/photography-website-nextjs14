@@ -1,20 +1,16 @@
 "use client";
 
 import { useEffect, useState, useCallback, useRef } from "react";
-import { Editor } from "@tiptap/react";
 import { cn } from "@/lib/utils";
 import { Node } from "@tiptap/pm/model";
 import { usePathname } from "next/navigation";
+import { useEditorStore } from "@/hooks/use-editor-store";
 
 interface HeadingNode {
   level: number;
   text: string;
   pos: number;
   id: string;
-}
-
-interface Props {
-  editor: Editor | null;
 }
 
 const generateSlug = (text: string): string => {
@@ -24,7 +20,8 @@ const generateSlug = (text: string): string => {
     .replace(/^-+|-+$/g, ""); // Remove leading/trailing hyphens
 };
 
-export const DocumentMenu = ({ editor }: Props) => {
+export const DocumentMenu = () => {
+  const { editor } = useEditorStore();
   const pathname = usePathname();
   const [headings, setHeadings] = useState<HeadingNode[]>([]);
   const [activeId, setActiveId] = useState<string>("");
@@ -40,7 +37,7 @@ export const DocumentMenu = ({ editor }: Props) => {
       editor.state.doc.forEach((node: Node, pos: number) => {
         if (node.type.name === "heading") {
           let slug = generateSlug(node.textContent);
-          
+
           // Handle duplicate slugs
           if (usedSlugs.has(slug)) {
             let counter = 1;
@@ -49,7 +46,7 @@ export const DocumentMenu = ({ editor }: Props) => {
             }
             slug = `${slug}-${counter}`;
           }
-          
+
           usedSlugs.add(slug);
 
           items.push({
@@ -72,20 +69,23 @@ export const DocumentMenu = ({ editor }: Props) => {
     };
   }, [editor]);
 
-  const scrollToHeading = useCallback((heading: HeadingNode) => {
-    if (!editor) return;
-    
-    const pos = heading.pos;
-    const top = editor.view.coordsAtPos(pos).top;
-    if (typeof top === "number") {
-      window.scrollTo({
-        top: top + window.scrollY - 80,
-        behavior: "smooth",
-      });
-    }
-    setActiveId(heading.id);
-    window.history.pushState(null, "", `${pathname}#${heading.id}`);
-  }, [editor, pathname]);
+  const scrollToHeading = useCallback(
+    (heading: HeadingNode) => {
+      if (!editor) return;
+
+      const pos = heading.pos;
+      const top = editor.view.coordsAtPos(pos).top;
+      if (typeof top === "number") {
+        window.scrollTo({
+          top: top + window.scrollY - 130,
+          behavior: "smooth",
+        });
+      }
+      setActiveId(heading.id);
+      window.history.pushState(null, "", `${pathname}#${heading.id}`);
+    },
+    [editor, pathname]
+  );
 
   // Handle initial URL hash
   useEffect(() => {
@@ -104,7 +104,7 @@ export const DocumentMenu = ({ editor }: Props) => {
   }
 
   return (
-    <nav className="space-y-1 py-4 px-4">
+    <nav className="sticky top-32 space-y-1 py-4 px-4 max-h-[calc(100vh-8rem)] overflow-y-auto bg-white rounded-lg border">
       {headings.map((heading) => (
         <button
           key={heading.id}

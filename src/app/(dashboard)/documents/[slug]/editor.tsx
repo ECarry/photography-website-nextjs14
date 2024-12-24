@@ -20,7 +20,6 @@ import Link from "@tiptap/extension-link";
 import TextAlign from "@tiptap/extension-text-align";
 import { FontSizeExtension } from "@/extensions/font-size";
 import { LineHeightExtension } from "@/extensions/line-height";
-import { DocumentMenu } from "./document-menu";
 
 interface Props {
   content: string;
@@ -170,15 +169,10 @@ const Editor = ({ content }: Props) => {
   }
 
   return (
-    <div className="flex h-screen relative">
-      <div className="w-64 border-r border-zinc-200 bg-white overflow-y-auto fixed bottom-4 left-4">
-        <DocumentMenu editor={editor} />
-      </div>
-      <div className="flex-1">
-        <div className="max-w-[900px] mx-auto">
-          <div className="bg-white min-h-full shadow-sm">
-            <EditorContent editor={editor} />
-          </div>
+    <div className="flex-1">
+      <div className="max-w-[900px] mx-auto">
+        <div className="bg-white min-h-full shadow-sm">
+          <EditorContent editor={editor} />
         </div>
       </div>
     </div>

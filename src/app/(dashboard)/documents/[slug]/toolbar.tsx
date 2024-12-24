@@ -601,7 +601,7 @@ const Toolbar = () => {
   ];
 
   return (
-    <div className="min-h-10 rounded-3xl flex items-center gap-x-0.5 bg-muted px-2.5">
+    <div className="sticky top-20 z-50  min-h-10 rounded-3xl flex items-center gap-x-0.5 bg-muted px-2.5">
       {sections[0].map((item) => (
         <ToolbarButton key={item.label} {...item} />
       ))}

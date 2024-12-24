@@ -195,7 +195,7 @@ body,
   h4,
   h5,
   h6 {
-    line-height: 1.1;
+    line-height: 2.25rem;
     margin-top: 2.5rem;
     text-wrap: pretty;
   }
@@ -207,15 +207,15 @@ body,
   }
 
   h1 {
-    font-size: 1.4rem;
+    font-size: 1.875rem;
   }
 
   h2 {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
   }
 
   h3 {
-    font-size: 1.1rem;
+    font-size: 1.25rem;
   }
 
   h4,
